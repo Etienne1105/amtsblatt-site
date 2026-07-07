@@ -8,6 +8,13 @@
 <meta property="og:description" content="11 paragraphes réglementaires + Prüfung de 12 mises en situation. GENEHMIGT ou ABGELEHNT ?">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#3A3833">
+<nav class="navbar" aria-label="Navigation du dossier">
+  <button type="button" id="nav-prev">&lsaquo; ZUR&Uuml;CK</button>
+  <button type="button" id="nav-hub" class="centre">INHALT</button>
+  <button type="button" id="nav-next">WEITER &rsaquo;</button>
+</nav>
+
+<script>document.documentElement.classList.add('js')</script>
 <title>AMTSBLATT — Guide des usages allemands · Édition voyageur</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');
@@ -201,7 +208,7 @@ section.par:nth-of-type(even) .corps-sec h3{color:#8A2318}
 .tablo .pron{font-family:var(--mono);font-size:.8rem;color:var(--sourd)}
 
 /* ============ REVEALS — l'impression des sections ============ */
-.imprimable{opacity:0;transform:translateY(8px)}
+html.js .imprimable{opacity:0;transform:translateY(8px)}
 .est-imprime{opacity:1;transform:none;transition:opacity 240ms steps(3,end),transform 240ms steps(3,end)}
 @media (prefers-reduced-motion:reduce){
   .imprimable{opacity:1;transform:none}
@@ -285,6 +292,25 @@ button.weiter:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--encre)}
   outline-offset:3.5px;mix-blend-mode:multiply;
 }
 .bilan .verdict-texte{font-size:.98rem;max-width:30rem;margin:0 auto 1rem}
+
+
+/* ============ NAVIGATION DOSSIER — fiches paginées ============ */
+html.js section.par,html.js header.fronton,html.js nav.inhalt,html.js footer.impressum{display:none}
+html.js section.par.actif,html.js header.fronton.actif,html.js footer.impressum.actif{display:block}
+html.js nav.inhalt.actif{display:block}
+.navbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:var(--bandeau);border-top:4px solid var(--encre);
+  gap:.55rem;justify-content:space-between;
+  padding:.55rem .7rem calc(.55rem + env(safe-area-inset-bottom))}
+html.js .navbar.actif{display:flex}
+.navbar button{font-family:var(--mono);font-weight:700;font-size:.7rem;letter-spacing:.12em;
+  background:var(--fond);color:var(--encre);border:2.5px solid var(--encre);
+  padding:.62em .5em;cursor:pointer;flex:1;white-space:nowrap;
+  transition:transform 60ms steps(2,end)}
+.navbar button:active{transform:translate(2px,2px)}
+.navbar button.centre{background:var(--autobahn);flex:1.35}
+.navbar button[disabled]{opacity:.35;cursor:default}
+html.js main{padding-bottom:6.2rem}
 
 /* ============ FOOTER IMPRESSUM ============ */
 footer.impressum{
@@ -673,14 +699,37 @@ footer.impressum b{color:var(--encre)}
 </main>
 
 <script>
-/* ============ Reveals — l'impression des sections ============ */
+/* ============ Navigation dossier — routeur à fiches ============ */
 (function(){
-  const els=document.querySelectorAll('.imprimable');
-  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('est-imprime'));return;}
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('est-imprime');io.unobserve(en.target);}});
-  },{rootMargin:'0px 0px -8% 0px',threshold:0.05});
-  els.forEach(e=>io.observe(e));
+  const PAGES=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','pruefung'];
+  const acc=['header.fronton','nav.inhalt','footer.impressum'].map(sel=>document.querySelector(sel));
+  const bar=document.querySelector('.navbar');
+  const bPrev=document.getElementById('nav-prev'),bHub=document.getElementById('nav-hub'),bNext=document.getElementById('nav-next');
+  const secs={};PAGES.forEach(id=>secs[id]=document.getElementById(id));
+  function imprimer(el){if(!el)return;el.classList.add('imprimable');el.classList.remove('est-imprime');void el.offsetWidth;el.classList.add('est-imprime');}
+  function courant(){const h=location.hash.replace('#','');return PAGES.includes(h)?h:null;}
+  function afficher(id){
+    Object.values(secs).forEach(x=>x.classList.remove('actif'));
+    acc.forEach(e=>e&&e.classList.remove('actif'));
+    if(id){
+      secs[id].classList.add('actif');bar.classList.add('actif');
+      const i=PAGES.indexOf(id);
+      bPrev.textContent=(i===0)?'\u2039 INHALT':'\u2039 ZUR\u00dcCK';
+      bNext.disabled=(i===PAGES.length-1);
+      bHub.textContent='INHALT \u00b7 '+(i+1)+'/'+PAGES.length;
+      imprimer(secs[id]);
+    }else{
+      acc.forEach(e=>e&&e.classList.add('actif'));bar.classList.remove('actif');
+      imprimer(document.querySelector('nav.inhalt'));
+    }
+    window.scrollTo(0,0);
+  }
+  function aller(id){if(id){location.hash='#'+id;}else{history.pushState('','',location.pathname+'#inhalt');afficher(null);}}
+  bPrev.addEventListener('click',()=>{const i=PAGES.indexOf(courant());(i<=0)?aller(null):aller(PAGES[i-1]);});
+  bNext.addEventListener('click',()=>{const i=PAGES.indexOf(courant());if(i>-1&&i<PAGES.length-1)aller(PAGES[i+1]);});
+  bHub.addEventListener('click',()=>aller(null));
+  window.addEventListener('hashchange',()=>afficher(courant()));
+  afficher(courant());
 })();
 
 /* ============ Moteur sonore ENIGMA — synthèse pure ============ */

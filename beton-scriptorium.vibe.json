@@ -3,10 +3,16 @@
   "name": "BETON-SCRIPTORIUM",
   "created": "2026-07-06",
   "parent_id": null,
-  "iteration": 1,
+  "iteration": 2,
   "identity": {
     "era": "Rathaus ouest-allemand 1972 rencontre un scriptorium rhénan du XVe",
-    "mood": ["sévère", "réglementaire", "monumental", "encre-sur-béton", "humour administratif sec"],
+    "mood": [
+      "sévère",
+      "réglementaire",
+      "monumental",
+      "encre-sur-béton",
+      "humour administratif sec"
+    ],
     "references": [
       "Béton brut à coffrage apparent (Rathaus Bensberg, Gottfried Böhm)",
       "Amtsblatt / Bundesanzeiger (journal officiel, paragraphes §)",
@@ -68,7 +74,12 @@
     "synthesis_style": "Électromécanique Enigma : transitoires Web Audio custom — bursts de bruit bandpass (frappes de touches), trains de clics décroissants (rotors), triangle grave étouffé (relais/lampe), battement de squares (court-circuit)",
     "space": "claustrophobic (decay < 0.2s) — un bureau du Rathaus en béton ne réverbère pas ; zéro reverb plate",
     "instruments": null,
-    "textures": ["clic de relais", "ratchet de rotor", "thock de levier", "hum 50 Hz implicite"]
+    "textures": [
+      "clic de relais",
+      "ratchet de rotor",
+      "thock de levier",
+      "hum 50 Hz implicite"
+    ]
   },
   "sfx": {
     "hover": "silencieux (élément fréquent — framework Kowalski)",
@@ -84,7 +95,7 @@
     "typography_intentional": true,
     "typography_justification": "Grenze Gotisch = fusion littérale du brief (gothique×brutalisme) ; IBM Plex = voix administrative documentée, pas un défaut",
     "layout_content_driven": true,
-    "layout_justification": "Mur monolithique § numérotés : la forme Amtsblatt EST le contenu (un règlement) ; la numérotation encode une vraie séquence réglementaire",
+    "layout_justification": "Itération 2 (retour d'usage réel, 2026-07-07) : le mur monolithique § est devenu un dossier à fiches paginées — hub Inhaltsverzeichnis + barre ZURÜCK/INHALT/WEITER sticky (zone du pouce, safe-area iOS), hash-routing avec back/forward et deep-links. La métaphore Amtsblatt demeure : on feuillette le classeur du Rathaus au lieu de dérouler le mur.",
     "imagery_tactile": true,
     "imagery_justification": "Textures procédurales béton/papier, pictos signalétiques — zéro AI-glossy, zéro blob",
     "motion_explicit": true,
@@ -102,14 +113,21 @@
     "Tampon GENEHMIGT/ABGELEHNT qui claque en steps() avec SFX de relais Enigma",
     "Jaune RAL 1023 réservé aux encadrés ACHTUNG",
     "Verdict final du quiz : BESTANDEN / NICHT BESTANDEN, humour d'examen administratif",
-    "Aktenzeichen fictif Az. 2026/07-EM en métadonnée d'en-tête"
+    "Aktenzeichen fictif Az. 2026/07-EM en métadonnée d'en-tête",
+    "Barre de dossier sticky ZURÜCK · INHALT n/11 · WEITER — navigation au pouce, hash-routing"
   ],
   "slop_risk": false,
   "refs": {
     "ve_aesthetic": "brutalism",
-    "ve_related": ["industrial", "modernism"],
+    "ve_related": [
+      "industrial",
+      "modernism"
+    ],
     "sl_space": "claustrophobic",
-    "sonic_codex_tables": ["texture_to_synthesis:metallic", "space_to_reverb:claustrophobic"]
+    "sonic_codex_tables": [
+      "texture_to_synthesis:metallic",
+      "space_to_reverb:claustrophobic"
+    ]
   },
   "source_project": {
     "file": "amtsblatt-guide-allemand.html",
