@@ -22,6 +22,9 @@ Site statique pur : Netlify (Drop ou import Git), GitHub Pages, ou n'importe que
 
 ## Journal des itérations
 
+### v2.1 — 2026-07-07 · Correctif d'affichage
+La règle de masquage `html.js .imprimable` (spécificité 0,2,1) écrasait la révélation `.est-imprime` (0,1,0) : contenu chargé mais bloqué à `opacity:0` — seuls le fronton et l'impressum s'affichaient. Corrigé par le sélecteur `html.js .imprimable.est-imprime` (0,3,1), plus un filet de sécurité : si le routeur échoue, la classe `js` est retirée et le document redevient un mur intégralement lisible.
+
 ### v2 — 2026-07-07 · Navigation dossier à fiches
 Le mur monolithique (tous les § déroulés sur une seule page) devient un **dossier navigable** :
 - **Hub d'accueil** : le sommaire (*Inhaltsverzeichnis*) est l'écran d'entrée ; un tap ouvre la fiche § voulue en plein écran.

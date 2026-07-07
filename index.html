@@ -209,7 +209,7 @@ section.par:nth-of-type(even) .corps-sec h3{color:#8A2318}
 
 /* ============ REVEALS — l'impression des sections ============ */
 html.js .imprimable{opacity:0;transform:translateY(8px)}
-.est-imprime{opacity:1;transform:none;transition:opacity 240ms steps(3,end),transform 240ms steps(3,end)}
+html.js .imprimable.est-imprime,.est-imprime{opacity:1;transform:none;transition:opacity 240ms steps(3,end),transform 240ms steps(3,end)}
 @media (prefers-reduced-motion:reduce){
   .imprimable{opacity:1;transform:none}
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
@@ -700,7 +700,7 @@ footer.impressum b{color:var(--encre)}
 
 <script>
 /* ============ Navigation dossier — routeur à fiches ============ */
-(function(){
+(function(){try{
   const PAGES=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','pruefung'];
   const acc=['header.fronton','nav.inhalt','footer.impressum'].map(sel=>document.querySelector(sel));
   const bar=document.querySelector('.navbar');
@@ -730,6 +730,7 @@ footer.impressum b{color:var(--encre)}
   bHub.addEventListener('click',()=>aller(null));
   window.addEventListener('hashchange',()=>afficher(courant()));
   afficher(courant());
+  }catch(e){document.documentElement.classList.remove('js');console.error('[routeur]',e);}
 })();
 
 /* ============ Moteur sonore ENIGMA — synthèse pure ============ */
