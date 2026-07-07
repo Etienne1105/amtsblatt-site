@@ -14,13 +14,22 @@ Guide culturel de voyage (Rhénanie) en un seul fichier HTML autonome, forgé da
 | Fichier | Rôle |
 |---|---|
 | `index.html` | Le guide complet — HTML/CSS/JS autonome, mobile-first |
-| `beton-scriptorium.vibe.json` | La vibe forgée (Conseil de Recette, 2026-07-06) — palette, typo, SFX, gate anti-slop |
+| `beton-scriptorium.vibe.json` | La vibe forgée (itération 3 — Conseils des 6 & 7 juillet 2026) — palette 4 pigments, deck, typo, SFX, gate anti-slop |
 
 ## Déploiement
 
 Site statique pur : Netlify (Drop ou import Git), GitHub Pages, ou n'importe quel hébergeur. Seule dépendance externe : Google Fonts (`Grenze Gotisch`, `IBM Plex Sans/Mono`).
 
 ## Journal des itérations
+
+### v3 — 2026-07-07 · Le deck mécanique
+Conseil de Recette v3 (trois décisions d'Étienne) : le défilement cesse d'être le mode principal de navigation.
+- **Deck de Karteikarten** : 29 fiches de contenu plein écran (découpe aux frontières `h3`, lexique scindé en Blocs A/B/C), plus couverture, hub et colophon. Navigation par boutons, balayage tactile et liens profonds (`#p6-2`).
+- **Enigma omniprésente** : compteur à rotors dans la barre de navigation (chiffres roulants, tic sonore par fiche) + machine complète au § 11 — trois rotors crantés, Lampenfeld QWERTZUIOP, câblage de Steckerbrett. Bonne réponse : lampe jaune Autobahn + rotor qui avance ; mauvaise : court-circuit sur un câble.
+- **11 pictogrammes Plakatstil** animés en `steps()`, un par § : le tampon frappe, les traits du Deckel se comptent, la Rettungsgasse s'ouvre, l'Ampelmännchen passe au vert, le Kranz tourne…
+- **Enluminures 4 pigments** : lettrines bichromes à rehaut d'or, pilcrows ¶ cyclant bleu tampon / rouge oxyde / **Patinagrün** (`#3E7A63`, vert-de-gris des toits de cuivre rhénans).
+- Contenu §1–§11 déplacé programmatiquement (asserts d'intégrité texte) — zéro régénération.
+- `beton-scriptorium.vibe.json` → `iteration: 3`.
 
 ### v2.1 — 2026-07-07 · Correctif d'affichage
 La règle de masquage `html.js .imprimable` (spécificité 0,2,1) écrasait la révélation `.est-imprime` (0,1,0) : contenu chargé mais bloqué à `opacity:0` — seuls le fronton et l'impressum s'affichaient. Corrigé par le sélecteur `html.js .imprimable.est-imprime` (0,3,1), plus un filet de sécurité : si le routeur échoue, la classe `js` est retirée et le document redevient un mur intégralement lisible.

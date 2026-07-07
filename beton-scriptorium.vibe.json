@@ -3,7 +3,7 @@
   "name": "BETON-SCRIPTORIUM",
   "created": "2026-07-06",
   "parent_id": null,
-  "iteration": 2,
+  "iteration": 3,
   "identity": {
     "era": "Rathaus ouest-allemand 1972 rencontre un scriptorium rhénan du XVe",
     "mood": [
@@ -17,13 +17,15 @@
       "Béton brut à coffrage apparent (Rathaus Bensberg, Gottfried Böhm)",
       "Amtsblatt / Bundesanzeiger (journal officiel, paragraphes §)",
       "Fraktur des enseignes de Brauhaus et une du FAZ",
-      "Rubrication alternée rouge/bleu des manuscrits médiévaux",
-      "Machine Enigma — électromécanique de bureau",
+      "Rubrication alternée et enluminure polychrome des manuscrits médiévaux (or byzantin, bleu, rouge, vert)",
+      "Machine Enigma — électromécanique de bureau, rotors et Lampenfeld",
+      "Plakatstil (Lucian Bernhard) — objets isolés, aplats, lettrage massif",
+      "Vert-de-gris des toits de cuivre rhénans (patine de Cologne)",
       "Signalétique RAL (jaune 1023, rouge signalisation)"
     ],
-    "one_liner": "Un règlement municipal coulé dans le béton en 1972, enluminé la nuit par un moine copiste."
+    "one_liner": "Un règlement municipal coulé dans le béton en 1972, enluminé la nuit par un moine copiste — et tamponné fiche par fiche sur une Enigma reconvertie."
   },
-  "mood_board": "Guide culturel de voyage Allemagne (Rhénanie) — brutalisme demandé, forgé en béton monochrome sévère × enluminures gothiques, palette béton+papier journal+jaune Autobahn+bleu tampon, SFX quiz Enigma.",
+  "mood_board": "Guide culturel de voyage Allemagne (Rhénanie) — deck de fiches cartonnées plein écran (Karteikarten du Bureau), navigation mécanique par rotors, pictogrammes Plakatstil animés par §, enluminures 4 pigments, SFX Enigma étendus à la navigation.",
   "visual": {
     "palette": {
       "background": "#D8D4C6",
@@ -34,11 +36,13 @@
       "primary": "#1C1B16",
       "primary_note": "encre noire chaude",
       "accent_1": "#F7C600",
-      "accent_1_note": "jaune Autobahn RAL 1023 — encadrés ACHTUNG uniquement",
+      "accent_1_note": "jaune Autobahn RAL 1023 — ACHTUNG, lampes Enigma, rehauts d'or des lettrines (l'or du scriptorium)",
       "accent_2": "#1D4E89",
-      "accent_2_note": "bleu encre de tampon — §, liens, lettrines paires, GENEHMIGT",
+      "accent_2_note": "bleu encre de tampon — §, liens, GENEHMIGT, pigment de lettrine",
       "accent_3": "#B02418",
-      "accent_3_note": "rouge oxyde/rubrication — lettrines impaires, ABGELEHNT, jamais décoratif",
+      "accent_3_note": "rouge oxyde/rubrication — ABGELEHNT, court-circuits, pigment de lettrine, jamais décoratif",
+      "accent_4": "#3E7A63",
+      "accent_4_note": "Patinagrün — vert-de-gris des toits de cuivre rhénans ; 4e pigment d'enluminure (justification : polychromie byzantine + patine de Cologne), pilcrows et pigment de lettrine",
       "text": "#1C1B16",
       "text_muted": "#5C594F"
     },
@@ -48,89 +52,75 @@
       "body": "'IBM Plex Sans', sans-serif",
       "body_note": "voix administrative moderne, lisibilité mobile — choix intentionnel (decision tree institutionnel)",
       "utility": "'IBM Plex Mono', monospace",
-      "utility_note": "numéros §, tampons, métadonnées de dossier",
+      "utility_note": "numéros §, tampons, rotors, métadonnées de dossier",
       "google_font_import": "@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');",
       "scale_note": "sauts >2.5x entre corps et display, jamais l'échelle 1.5x uniforme"
+    },
+    "layout": {
+      "mode": "deck de fiches plein écran (Karteikarten) — le défilement n'est jamais le mode principal de navigation",
+      "structure": "grid 100dvh rows 1fr/auto : scène de fiches + barre de navigation mécanique ; body overflow hidden",
+      "fiches": "position absolute inset 0, une seule .actif ; découpe du contenu aux frontières h3, ~1400 caractères max par fiche ; filet overflow-y:auto interne toléré sur les rares fiches denses (quiz, tableaux)",
+      "navigation": "boutons ‹/›, balayage tactile ±60px, tuiles du hub INHALT, hash routing #pX-Y conservé pour les liens profonds",
+      "couverture": "fiche deckblatt plein écran, bouton EINTRETEN = user gesture d'initialisation audio"
     },
     "effects": {
       "border_radius": "0px — absolu, aucune exception",
       "borders": "3px solid encre sur tout composant interactif",
-      "signature_effect": "béton coffrage apparent : grain feTurbulence overlay + repeating-linear-gradient vertical (traces de planches) + rangées de trous de banche (Schalungsanker) sur les bandeaux de section",
-      "lettrines": "::first-letter Grenze Gotisch 3.4em flottée, rubrication alternée bleu tampon / rouge oxyde par section",
-      "stamps": "tampons GEPRÜFT / GENEHMIGT / ABGELEHNT — IBM Plex Mono, double cadre, rotation -4° à -7°, mix-blend-mode multiply (encre sur papier)",
-      "transitions": "jamais 'transition: all' — propriétés explicites, 60-240ms, steps() ou cubic-bezier raide"
+      "signature_effect": "béton coffrage apparent : grain feTurbulence overlay + repeating-linear-gradient vertical (traces de planches) + rangées de trous de banche (Schalungsanker)",
+      "lettrines": "span .lettrine Grenze Gotisch 3.6em flottée sur la fiche d'ouverture de chaque § — pigment principal cyclant bleu/rouge/vert, rehaut d'or constant en ombre décalée (bichromie d'impression) ; pilcrows ¶ pigmentés sur les h3 des sous-fiches, cycle 3 pigments",
+      "pictogrammes": "11 pictos SVG Plakatstil (un par §), traits papier sur bandeau graphite, aplats de pigments — animés en steps() à chaque activation de fiche : tampon qui frappe (§1), chopes qui trinquent (§2), Deckel dont les traits se dessinent (§3), pièces qui s'empilent (§4), flèche Pfand qui tourne (§5), Rettungsgasse qui s'ouvre (§6), Ampelmännchen rouge→vert (§7), Kranz qui tourne (§8), file qui avance (§9), touche qui frappe Ä (§10), mini-rotors (§11)",
+      "stamps": "tampons GEPRÜFT / GENEHMIGT / ABGELEHNT — IBM Plex Mono, double cadre, rotation -4° à -7°, mix-blend-mode multiply (encre sur papier)"
     },
-    "background_effects": [
-      "grain béton : SVG feTurbulence data-URI, pseudo fixed pointer-events:none, opacité 0.05",
-      "coffrage : repeating-linear-gradient 90°, bandes 110-150px, delta d'opacité 0.03",
-      "reveals : IntersectionObserver → opacity+translateY(8px) en steps(3) 240ms, désactivé sous prefers-reduced-motion"
-    ]
+    "enigma_incarnation": {
+      "principe": "décision du Conseil v3 : l'Enigma est OMNIPRÉSENTE — référencée et sonorisée depuis v1, elle est désormais dessinée",
+      "navbar": "compteur à rotors dans la barre de navigation : deux fenêtres métalliques à chiffres roulants (translateY steps), total gravé, tic mécanique à chaque changement de fiche ; hors des fiches de contenu, les fenêtres affichent le cran neutre ·",
+      "quiz": "machine complète en tête du cadre d'examen : 3 rotors crantés à fenêtres (n° de question / bonnes réponses / lettre déco), Lampenfeld de 10 lampes QWERTZUIOP, câblage de Steckerbrett — bonne réponse : lampe jaune Autobahn 900ms + rotor avance ; mauvaise : flash rouge sur câble + court-circuit"
+    }
   },
-  "audio": {
-    "scope": "sfx_only — aucune musique (décision explicite du porteur)",
-    "tempo_range": null,
-    "key": null,
-    "scale": null,
-    "synthesis_style": "Électromécanique Enigma : transitoires Web Audio custom — bursts de bruit bandpass (frappes de touches), trains de clics décroissants (rotors), triangle grave étouffé (relais/lampe), battement de squares (court-circuit)",
-    "space": "claustrophobic (decay < 0.2s) — un bureau du Rathaus en béton ne réverbère pas ; zéro reverb plate",
-    "instruments": null,
-    "textures": [
-      "clic de relais",
-      "ratchet de rotor",
-      "thock de levier",
-      "hum 50 Hz implicite"
-    ]
+  "motion": {
+    "signature": "steps() partout — le monde est électromécanique, rien ne glisse, tout crante",
+    "fiche_in": "entrée de fiche : 260ms steps(3), translation directionnelle 26px selon le sens de navigation (data-dir), déclenchée nativement par display none→block",
+    "rotors": "chiffres roulants translateY 180ms steps(2)",
+    "pictos": "600–1000ms steps(N), fill both, rejouent à chaque activation de fiche",
+    "compositor_only": "transform + opacity uniquement, jamais transition:all",
+    "reduced_motion": "prefers-reduced-motion : toutes animations à .01ms"
   },
-  "sfx": {
-    "hover": "silencieux (élément fréquent — framework Kowalski)",
-    "click": "frappe Enigma : noise burst bandpass 2.4 kHz 12 ms + triangle 170 Hz decay 35 ms",
-    "select": "rotor : 4 clics décroissants espacés 26 ms",
-    "correct": "GENEHMIGT — clic relais + triangle 523 Hz (do5) 140 ms lowpass 1.2 kHz : la lampe s'allume, chaleur étouffée, pas de fanfare",
-    "wrong": "ABGELEHNT — battement squares 110/113 Hz 180 ms lowpass 600 Hz : court-circuit sec, jamais humiliant",
-    "gain_master": "≤ 0.15, init au premier geste (contrainte iOS), toggle mute visible"
+  "sound": {
+    "moteur": "Enigma — synthèse Web Audio pure, zéro sample, conforme doctrine SL Vol.16",
+    "frappe": "burst de bruit bandpass 2400Hz Q8 + thock triangle 170Hz",
+    "tick": "v3 : frappe simple force 0.5 à chaque changement de fiche — la machine compte les Karteikarten",
+    "rotor": "4 clics décroissants — WEITER du quiz",
+    "lampe": "clic relais + triangle 523Hz lowpass — GENEHMIGT",
+    "kurzschluss": "battement squares 110/113Hz lowpass 600 — ABGELEHNT",
+    "gesture": "AudioContext initialisé au tap EINTRETEN de la couverture ; boutons mute synchronisés (hub + quiz)"
   },
   "antislop_checklist": {
-    "color_no_default_indigo": true,
-    "color_justification": "Palette dérivée RAL signalétique + rubrication manuscrite ; neutres teintés chauds, jamais slate/zinc",
-    "typography_intentional": true,
-    "typography_justification": "Grenze Gotisch = fusion littérale du brief (gothique×brutalisme) ; IBM Plex = voix administrative documentée, pas un défaut",
-    "layout_content_driven": true,
-    "layout_justification": "Itération 2 (retour d'usage réel, 2026-07-07) : le mur monolithique § est devenu un dossier à fiches paginées — hub Inhaltsverzeichnis + barre ZURÜCK/INHALT/WEITER sticky (zone du pouce, safe-area iOS), hash-routing avec back/forward et deep-links. La métaphore Amtsblatt demeure : on feuillette le classeur du Rathaus au lieu de dérouler le mur.",
-    "imagery_tactile": true,
-    "imagery_justification": "Textures procédurales béton/papier, pictos signalétiques — zéro AI-glossy, zéro blob",
-    "motion_explicit": true,
-    "motion_justification": "steps() et beziers raides nommés, propriétés listées, reveals orchestrés uniques, reduced-motion respecté",
-    "copy_specific": true,
-    "copy_justification": "Vocabulaire administratif allemand réel (Az., GEPRÜFT, BESTANDEN), mises en situation concrètes du voyage",
-    "components_custom": true,
-    "components_justification": "Zéro bibliothèque, tokens 100% forgés, radius 0 doctrinal",
-    "audio_inversion_test": true,
-    "audio_justification": "Synthèse custom de transitoires électromécaniques ; espace claustrophobic justifié ; pas de preset, pas de reverb stock, pas de jingle majeur"
+    "pas_de_border_radius_partout": true,
+    "pas_de_gradient_violet_generique": true,
+    "pas_de_glassmorphism_hors_sujet": true,
+    "pas_de_transition_all": true,
+    "pas_d_echelle_typo_uniforme": true,
+    "pas_d_emoji_en_deco": true,
+    "pas_de_sons_stock": true,
+    "palette_justifiee_par_le_monde": "chaque pigment a une source : RAL 1023, encre de tampon, rubrication, patine de cuivre rhénane",
+    "motion_justifiee_par_le_monde": "steps() = mécanique de bureau ; rien n'ease, tout crante"
   },
   "specificity_anchors": [
-    "Trous de banche (Schalungsanker) alignés sur les bandeaux de section",
-    "Lettrines Grenze Gotisch à rubrication alternée bleu/rouge",
-    "Tampon GENEHMIGT/ABGELEHNT qui claque en steps() avec SFX de relais Enigma",
-    "Jaune RAL 1023 réservé aux encadrés ACHTUNG",
-    "Verdict final du quiz : BESTANDEN / NICHT BESTANDEN, humour d'examen administratif",
-    "Aktenzeichen fictif Az. 2026/07-EM en métadonnée d'en-tête",
-    "Barre de dossier sticky ZURÜCK · INHALT n/11 · WEITER — navigation au pouce, hash-routing"
+    "trous de banche (Schalungsanker) en radial-gradient répété",
+    "Deckel posé sur le verre comme mécanique de quiz",
+    "compteur de fiches = rotors d'Enigma, tic sonore par carte",
+    "lettrines bichromes à rehaut d'or — hiérarchie d'enluminure réelle (or aux incipits)",
+    "pilcrows ¶ de rubrication cyclant 3 pigments sur les h3",
+    "Rettungsgasse animée — les deux files s'écartent, le couloir jaune s'ouvre",
+    "Ampelmännchen à chapeau, rouge puis vert marcheur",
+    "Kranz de Kölsch qui tourne cran par cran",
+    "vert Patinagrün #3E7A63 — toits de cuivre de Cologne",
+    "GEPRÜFT / GENEHMIGT / ABGELEHNT — double cadre, multiply, claquer 170ms steps(4)"
   ],
-  "slop_risk": false,
-  "refs": {
-    "ve_aesthetic": "brutalism",
-    "ve_related": [
-      "industrial",
-      "modernism"
-    ],
-    "sl_space": "claustrophobic",
-    "sonic_codex_tables": [
-      "texture_to_synthesis:metallic",
-      "space_to_reverb:claustrophobic"
-    ]
-  },
-  "source_project": {
-    "file": "amtsblatt-guide-allemand.html",
-    "path": "livré avec cette vibe — guide culturel Allemagne, juillet 2026"
+  "changelog": {
+    "v1": "fonte initiale — palette, typo, grain béton, tampons, quiz Enigma sonore",
+    "v2": "navigation dossier à fiches paginées (hash routing), reveals imprimables",
+    "v2.1": "correctif spécificité CSS des reveals + routeur sous try/catch",
+    "v3": "Conseil du 7 juillet 2026 — deck plein écran sans défilement principal, redécoupage h3 (~30 fiches), 11 pictogrammes Plakatstil animés, Enigma omniprésente (rotors navbar + machine complète au quiz), enluminures 4 pigments avec Patinagrün, tick sonore de navigation"
   }
 }

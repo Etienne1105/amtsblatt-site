@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -14,156 +14,192 @@
   <button type="button" id="nav-next">WEITER &rsaquo;</button>
 </nav>
 
-<script>document.documentElement.classList.add('js')</script>
 <title>AMTSBLATT — Guide des usages allemands · Édition voyageur</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* ============ BETON-SCRIPTORIUM — tokens forgés ============ */
+/* ============ BETON-SCRIPTORIUM v3 — tokens forgés ============ */
 :root{
   --fond:#D8D4C6;          /* papier journal grisé / béton clair */
   --papier:#E6E2D3;        /* encadrés, cartes */
   --beton-sombre:#B8B5A8;  /* surfaces creusées */
-  --bandeau:#3A3833;       /* graphite des bandeaux de section */
+  --bandeau:#3A3833;       /* graphite des bandeaux */
   --encre:#1C1B16;         /* noir encre chaude */
   --sourd:#5C594F;         /* texte secondaire */
-  --autobahn:#F7C600;      /* jaune RAL 1023 — ACHTUNG seulement */
+  --autobahn:#F7C600;      /* jaune RAL 1023 — ACHTUNG, lampes, or des lettrines */
   --tampon:#1D4E89;        /* bleu encre de tampon */
   --oxyde:#B02418;         /* rouge rubrication / ABGELEHNT */
+  --patina:#3E7A63;        /* Patinagrün — vert-de-gris des toits de cuivre rhénans */
   --display:'Grenze Gotisch',serif;
   --corps:'IBM Plex Sans',sans-serif;
   --mono:'IBM Plex Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 
 body{
   font-family:var(--corps);
   color:var(--encre);
-  line-height:1.62;
-  font-size:1.0625rem;
-  /* coffrage : traces de planches verticales coulées dans le fond */
+  line-height:1.58;
+  font-size:1.03rem;
   background:
     repeating-linear-gradient(90deg,
       rgba(28,27,22,0.030) 0 2px, transparent 2px 128px,
       rgba(255,255,255,0.05) 128px 130px, transparent 130px 261px),
     var(--fond);
 }
-/* grain béton — au-dessus de tout, encre minérale */
+/* grain béton — encre minérale au-dessus de tout */
 body::before{
   content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
 }
-main{max-width:47rem;margin:0 auto;padding:0 1.1rem 4rem;position:relative;z-index:1}
-
 ::selection{background:var(--autobahn);color:var(--encre)}
 a{color:var(--tampon);text-decoration-thickness:2px;text-underline-offset:3px}
 a:focus-visible,button:focus-visible{outline:3px solid var(--autobahn);outline-offset:2px}
 i[lang="de"]{font-style:italic;font-weight:600}
 
-/* ============ EN-TÊTE MONUMENTAL ============ */
-header.fronton{
-  background:var(--bandeau);color:var(--papier);
-  padding:2.6rem 1.2rem 2.2rem;text-align:center;position:relative;overflow:hidden;
-  border-bottom:6px solid var(--encre);
+/* ============ L'APPAREIL — deck plein écran ============ */
+.appareil{height:100dvh;display:grid;grid-template-rows:1fr auto;position:relative;z-index:1}
+.scene{position:relative;overflow:hidden;width:100%;max-width:47rem;margin:0 auto}
+.fiche{
+  position:absolute;inset:0;display:none;
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:0 1.05rem 1.4rem;
 }
-/* trous de banche du fronton */
-header.fronton::before,header.fronton::after{
+.fiche::-webkit-scrollbar{width:4px}
+.fiche::-webkit-scrollbar-thumb{background:var(--beton-sombre)}
+.fiche.actif{display:block;animation:fiche-in 260ms steps(3,end) both}
+.scene[data-dir="arriere"] .fiche.actif{animation-name:fiche-in-r}
+@keyframes fiche-in{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes fiche-in-r{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+
+/* ============ COUVERTURE — Deckblatt ============ */
+.fiche.couverture{
+  background:var(--bandeau);color:var(--papier);
+  display:none;padding:2rem 1.2rem;text-align:center;overflow:hidden;
+}
+.fiche.couverture.actif{display:grid;align-content:center;justify-items:center;gap:.2rem}
+.fiche.couverture::before,.fiche.couverture::after{
   content:'';position:absolute;left:0;right:0;height:14px;
   background:radial-gradient(circle 5px at 24px 7px, rgba(0,0,0,.55) 4.4px, rgba(255,255,255,.10) 5.2px, transparent 6px);
   background-size:120px 14px;background-repeat:repeat-x;
 }
-header.fronton::before{top:12px}
-header.fronton::after{bottom:12px}
+.fiche.couverture::before{top:14px}
+.fiche.couverture::after{bottom:14px}
 .kicker{
   font-family:var(--mono);font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;
-  color:var(--autobahn);margin-bottom:1rem;
+  color:var(--autobahn);margin-bottom:.9rem;
 }
 h1.titre{
   font-family:var(--display);font-weight:600;line-height:.95;
-  font-size:clamp(2.9rem,11vw,4.6rem);
-  margin:.2rem 0 .9rem;
+  font-size:clamp(2.9rem,11vw,4.6rem);margin:.2rem 0 .9rem;
 }
-.soustitre{font-size:.95rem;color:#CFCBBD;max-width:32rem;margin:0 auto 1.3rem}
+.soustitre{font-size:.95rem;color:#CFCBBD;max-width:32rem;margin:0 auto 1.2rem}
 .dossier{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:#9B978A;
-  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:#9B978A;
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.6rem;
 }
 .stempel-header{
-  position:absolute;top:1.4rem;right:.8rem;transform:rotate(7deg);
+  position:absolute;top:1.6rem;right:.9rem;transform:rotate(7deg);
   font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.2em;
   color:var(--autobahn);border:2.5px solid var(--autobahn);outline:1.5px solid var(--autobahn);
   outline-offset:2.5px;padding:.32em .6em;opacity:.85;
 }
+button.eintreten{
+  font-family:var(--mono);font-weight:700;font-size:.9rem;letter-spacing:.3em;
+  background:var(--autobahn);color:var(--encre);border:3px solid var(--encre);
+  padding:.95rem 2.1rem;cursor:pointer;box-shadow:5px 5px 0 rgba(0,0,0,.55);
+  transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end);
+}
+button.eintreten:active{transform:translate(5px,5px);box-shadow:0 0 0 rgba(0,0,0,.55)}
 
-/* ============ SOMMAIRE / INHALT ============ */
+/* ============ HUB — Inhaltsverzeichnis ============ */
+.fiche.hub{padding-top:1.1rem}
 nav.inhalt{
   background:var(--papier);border:3px solid var(--encre);
-  margin:1.8rem 0 2.6rem;padding:1.2rem 1.2rem 1rem;
+  padding:1rem 1rem .8rem;
 }
 nav.inhalt h2{
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
-  border-bottom:2px solid var(--encre);padding-bottom:.55rem;margin-bottom:.7rem;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.32em;text-transform:uppercase;
+  border-bottom:2px solid var(--encre);padding-bottom:.5rem;margin-bottom:.55rem;
 }
 nav.inhalt ol{list-style:none}
 nav.inhalt li{border-bottom:1px solid var(--beton-sombre)}
 nav.inhalt li:last-child{border-bottom:none}
 nav.inhalt a{
-  display:flex;gap:.7rem;align-items:baseline;padding:.5rem .1rem;
+  display:flex;gap:.7rem;align-items:baseline;padding:.44rem .1rem;
   text-decoration:none;color:var(--encre);
 }
 nav.inhalt a:active{background:var(--autobahn)}
-nav.inhalt .no{font-family:var(--display);font-size:1.25rem;color:var(--tampon);min-width:2.4rem;font-weight:600}
-nav.inhalt .lib{font-weight:600;font-size:.95rem}
+nav.inhalt .no{font-family:var(--display);font-size:1.2rem;color:var(--tampon);min-width:2.4rem;font-weight:600}
+nav.inhalt li:nth-child(3n+2) .no{color:var(--oxyde)}
+nav.inhalt li:nth-child(3n) .no{color:var(--patina)}
+nav.inhalt .lib{font-weight:600;font-size:.92rem}
+.hub-pied{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem}
+.hub-pied a{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--sourd)}
+button.mute{
+  font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.14em;
+  background:var(--fond);border:2px solid var(--encre);padding:.35em .6em;cursor:pointer;
+  color:var(--encre);
+}
+button.mute[aria-pressed="true"]{background:var(--bandeau);color:var(--papier)}
 
-/* ============ SECTIONS § ============ */
-section.par{margin:3.4rem 0}
-.bandeau-sec{
+/* ============ FICHE-TÊTE — bandeau + picto ============ */
+.fiche-tete{
   background:var(--bandeau);color:var(--papier);
-  padding:1.05rem 1.1rem .95rem;position:relative;
-  border-left:10px solid var(--tampon);
+  margin:0 -1.05rem 1.1rem;padding:.8rem 1.05rem .75rem;
+  display:grid;grid-template-columns:1fr 78px;gap:.6rem;align-items:center;
+  border-left:10px solid var(--tampon);position:relative;
 }
-section.par:nth-of-type(even) .bandeau-sec{border-left-color:var(--oxyde)}
-.bandeau-sec::after{ /* trous de banche */
-  content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);
-  width:96px;height:12px;
-  background:radial-gradient(circle 4.5px at 12px 6px, rgba(0,0,0,.6) 4px, rgba(255,255,255,.12) 4.8px, transparent 5.6px);
-  background-size:32px 12px;background-repeat:repeat-x;opacity:.9;
+.fiche.par-pair .fiche-tete{border-left-color:var(--oxyde)}
+.fiche-tete .parno{
+  font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1;
+  color:var(--autobahn);display:block;
 }
-.bandeau-sec .parno{
-  font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;
-  color:var(--autobahn);display:block;margin-bottom:.15rem;
+.fiche-tete h2{
+  font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,5.4vw,1.75rem);line-height:1.02;
+  margin:.1rem 0 .15rem;
 }
-.bandeau-sec h2{
-  font-family:var(--display);font-weight:500;font-size:clamp(1.7rem,6.5vw,2.3rem);line-height:1.02;
+.fiche-tete .teil{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;color:#9B978A;text-transform:uppercase;
 }
-.corps-sec{padding:1.5rem .2rem 0}
+.picto{width:78px;height:78px;display:block}
 
-/* lettrines enluminées — rubrication alternée */
-p.lede{margin-bottom:1.1rem}
-p.lede::first-letter{
-  font-family:var(--display);font-weight:600;float:left;
-  font-size:3.55em;line-height:.78;padding:.06em .12em 0 0;
-}
-section.par:nth-of-type(odd) p.lede::first-letter{color:var(--oxyde)}
-section.par:nth-of-type(even) p.lede::first-letter{color:var(--tampon)}
-
-.corps-sec p{margin-bottom:1.05rem}
+/* ============ CORPS DE FICHE ============ */
+.corps-sec{padding-top:.1rem}
+.corps-sec p{margin-bottom:1rem}
 .corps-sec h3{
-  font-family:var(--mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--tampon);margin:1.7rem 0 .6rem;
-  border-bottom:2px solid var(--beton-sombre);padding-bottom:.35rem;
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--tampon);margin:1.35rem 0 .55rem;
+  border-bottom:2px solid var(--beton-sombre);padding-bottom:.32rem;
 }
-section.par:nth-of-type(even) .corps-sec h3{color:#8A2318}
-.corps-sec ul{margin:0 0 1.1rem 1.15rem}
+.corps-sec h3:first-child{margin-top:.2rem}
+.fiche.par-pair .corps-sec h3{color:#8A2318}
+/* pilcrows de rubrication — cycle 3 pigments */
+.corps-sec h3::before{content:'¶ ';font-weight:700}
+h3.pig-1::before{color:var(--tampon)}
+h3.pig-2::before{color:var(--oxyde)}
+h3.pig-3::before{color:var(--patina)}
+.corps-sec ul{margin:0 0 1rem 1.15rem}
 .corps-sec li{margin-bottom:.5rem}
 .corps-sec li::marker{color:var(--tampon);font-weight:700}
+.fiche.par-pair .corps-sec li::marker{color:var(--oxyde)}
+
+/* lettrines enluminées — pigment principal cyclant + rehaut d'or */
+p.lede{margin-bottom:1rem}
+.lettrine{
+  font-family:var(--display);font-weight:600;float:left;
+  font-size:3.6em;line-height:.78;padding:.04em .12em 0 0;
+  text-shadow:.05em .05em 0 var(--autobahn);
+}
+.lettrine.let-1{color:var(--tampon)}
+.lettrine.let-2{color:var(--oxyde)}
+.lettrine.let-3{color:var(--patina)}
 
 /* ============ ENCADRÉS ============ */
 .achtung{
   background:var(--autobahn);border:3px solid var(--encre);
-  padding:1rem 1.05rem;margin:1.4rem 0;
+  padding:.95rem 1rem;margin:1.25rem 0;
   box-shadow:5px 5px 0 var(--encre);
 }
 .achtung .etiq{
@@ -176,7 +212,7 @@ section.par:nth-of-type(even) .corps-sec h3{color:#8A2318}
 
 .merksatz{
   background:var(--papier);border:2px solid var(--encre);border-left:10px solid var(--tampon);
-  padding:.9rem 1rem;margin:1.4rem 0;
+  padding:.85rem 1rem;margin:1.25rem 0;
 }
 .merksatz .etiq{
   font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.28em;
@@ -193,54 +229,62 @@ section.par:nth-of-type(even) .corps-sec h3{color:#8A2318}
 }
 
 /* ============ TABLEAUX LEXIQUE ============ */
-.tablo{width:100%;border-collapse:collapse;margin:1rem 0 1.6rem;font-size:.92rem}
+.tablo{width:100%;border-collapse:collapse;margin:.6rem 0 1.2rem;font-size:.9rem}
 .tablo caption{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
-  text-align:left;padding-bottom:.45rem;color:var(--sourd);
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+  text-align:left;padding-bottom:.4rem;color:var(--sourd);
 }
 .tablo th{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--bandeau);color:var(--papier);padding:.5rem .55rem;text-align:left;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--bandeau);color:var(--papier);padding:.45rem .5rem;text-align:left;
 }
-.tablo td{border:2px solid var(--encre);padding:.5rem .55rem;background:var(--papier);vertical-align:top}
+.tablo td{border:2px solid var(--encre);padding:.42rem .5rem;background:var(--papier);vertical-align:top}
 .tablo tr:nth-child(even) td{background:#DDD9CA}
 .tablo .de{font-weight:600}
-.tablo .pron{font-family:var(--mono);font-size:.8rem;color:var(--sourd)}
+.tablo .pron{font-family:var(--mono);font-size:.78rem;color:var(--sourd)}
 
-/* ============ REVEALS — l'impression des sections ============ */
-html.js .imprimable{opacity:0;transform:translateY(8px)}
-html.js .imprimable.est-imprime,.est-imprime{opacity:1;transform:none;transition:opacity 240ms steps(3,end),transform 240ms steps(3,end)}
-@media (prefers-reduced-motion:reduce){
-  .imprimable{opacity:1;transform:none}
-  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
-}
+/* ============ MACHINE ENIGMA — quiz ============ */
+.enigma{display:block;width:100%;max-width:340px;margin:0 auto .4rem}
+.enigma .rotor-corps{fill:#4A4842;stroke:var(--encre);stroke-width:2.5}
+.enigma .rotor-crans{stroke:#2C2B26;stroke-width:3}
+.enigma .fenetre{fill:var(--papier);stroke:var(--encre);stroke-width:2}
+.enigma .chiffre{font-family:var(--mono);font-weight:700;font-size:13px;fill:var(--encre);text-anchor:middle}
+.enigma .lampe-v{fill:#55534B;stroke:var(--encre);stroke-width:1.6}
+.enigma .lampe-l{font-family:var(--mono);font-size:7.5px;fill:#8B887C;text-anchor:middle}
+.enigma .lampe.allume .lampe-v{fill:var(--autobahn)}
+.enigma .lampe.allume .lampe-l{fill:var(--encre);font-weight:700}
+.enigma .douille{fill:#2C2B26;stroke:var(--encre);stroke-width:1.5}
+.enigma .kabel{fill:none;stroke:#55534B;stroke-width:3;stroke-linecap:round}
+.enigma .kabel.flash{stroke:var(--oxyde);animation:kflash 480ms steps(3,end) both}
+@keyframes kflash{0%,100%{stroke:var(--oxyde)}50%{stroke:#E4C4BE}}
+.enigma .plaque{fill:#33322D;stroke:var(--encre);stroke-width:2.5}
+.enigma .rivet{fill:#55534B}
+.enigma .crans-g{transform-box:view-box}
+.enigma .crans-g.rota{transform-origin:70px 44px}
+.enigma .crans-g.rotb{transform-origin:160px 44px}
+.enigma .crans-g.rotc{transform-origin:250px 44px}
+.enigma .crans-g.rotor-anim{animation:rot-crante 300ms steps(3,end) both}
+@keyframes rot-crante{from{transform:rotate(-24deg)}to{transform:rotate(0deg)}}
 
 /* ============ §11 PRÜFUNG — le quiz ============ */
-#pruefung .corps-sec{padding-top:1.2rem}
 .quiz-cadre{
   background:var(--papier);border:3px solid var(--encre);box-shadow:6px 6px 0 var(--encre);
-  padding:1.15rem 1.05rem 1.3rem;position:relative;margin-top:1.2rem;
+  padding:.9rem .95rem 1.15rem;position:relative;margin-top:.4rem;
 }
 .quiz-tete{
   display:flex;justify-content:space-between;align-items:center;
-  border-bottom:2px solid var(--encre);padding-bottom:.6rem;margin-bottom:1rem;
+  border-bottom:2px solid var(--encre);padding-bottom:.5rem;margin-bottom:.8rem;
 }
 .quiz-prog{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.2em}
-button.mute{
-  font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.14em;
-  background:var(--fond);border:2px solid var(--encre);padding:.35em .6em;cursor:pointer;
-  color:var(--encre);
-}
-button.mute[aria-pressed="true"]{background:var(--bandeau);color:var(--papier)}
 .quiz-situation{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
   color:var(--oxyde);margin-bottom:.4rem;
 }
-.quiz-q{font-weight:600;font-size:1.06rem;margin-bottom:1.05rem}
-.quiz-choix{display:flex;flex-direction:column;gap:.65rem}
+.quiz-q{font-weight:600;font-size:1.03rem;margin-bottom:.95rem}
+.quiz-choix{display:flex;flex-direction:column;gap:.6rem}
 button.choix{
-  font-family:var(--corps);font-size:.97rem;text-align:left;line-height:1.45;
-  background:var(--fond);border:3px solid var(--encre);padding:.75rem .85rem;
+  font-family:var(--corps);font-size:.95rem;text-align:left;line-height:1.42;
+  background:var(--fond);border:3px solid var(--encre);padding:.7rem .8rem;
   cursor:pointer;color:var(--encre);box-shadow:4px 4px 0 var(--encre);
   transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end),background 60ms steps(2,end);
 }
@@ -249,7 +293,7 @@ button.choix[data-etat="bonne"]{background:#CBD8E8;border-color:var(--tampon);bo
 button.choix[data-etat="mauvaise"]{background:#E4C4BE;border-color:var(--oxyde);box-shadow:4px 4px 0 var(--oxyde)}
 button.choix:disabled{cursor:default;opacity:.92}
 
-.quiz-verdict{position:relative;min-height:3.2rem;margin-top:1.1rem}
+.quiz-verdict{position:relative;min-height:3.1rem;margin-top:1rem}
 .grand-stempel{
   position:absolute;top:-0.4rem;right:.2rem;transform:rotate(-7deg);
   font-family:var(--mono);font-weight:700;font-size:1.02rem;letter-spacing:.24em;
@@ -265,8 +309,8 @@ button.choix:disabled{cursor:default;opacity:.92}
 }
 .grand-stempel.anime{animation:claquer 170ms steps(4,end) both}
 .quiz-explication{
-  border-top:2px dashed var(--sourd);padding-top:.85rem;margin-top:.4rem;
-  font-size:.95rem;
+  border-top:2px dashed var(--sourd);padding-top:.8rem;margin-top:.4rem;
+  font-size:.94rem;
 }
 .quiz-explication .amtston{
   font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--sourd);
@@ -275,55 +319,166 @@ button.choix:disabled{cursor:default;opacity:.92}
 button.weiter{
   font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.26em;
   background:var(--bandeau);color:var(--papier);border:3px solid var(--encre);
-  padding:.8rem 1.3rem;margin-top:1.1rem;cursor:pointer;width:100%;
+  padding:.75rem 1.2rem;margin-top:1rem;cursor:pointer;width:100%;
   box-shadow:4px 4px 0 var(--encre);
   transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end);
 }
 button.weiter:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--encre)}
-.bilan{text-align:center;padding:1.4rem .4rem .6rem}
+.bilan{text-align:center;padding:1.2rem .4rem .5rem}
 .bilan .score{
-  font-family:var(--display);font-weight:700;font-size:4.2rem;line-height:1;
+  font-family:var(--display);font-weight:700;font-size:4rem;line-height:1;
   display:block;margin-bottom:.3rem;
 }
 .bilan .stempel-final{
-  display:inline-block;transform:rotate(-5deg);margin:.9rem 0 1rem;
-  font-family:var(--mono);font-weight:700;font-size:1.15rem;letter-spacing:.3em;
+  display:inline-block;transform:rotate(-5deg);margin:.8rem 0 .9rem;
+  font-family:var(--mono);font-weight:700;font-size:1.12rem;letter-spacing:.3em;
   padding:.5em .9em;border:4px solid currentColor;outline:2.5px solid currentColor;
   outline-offset:3.5px;mix-blend-mode:multiply;
 }
-.bilan .verdict-texte{font-size:.98rem;max-width:30rem;margin:0 auto 1rem}
+.bilan .verdict-texte{font-size:.96rem;max-width:30rem;margin:0 auto .9rem}
 
-
-/* ============ NAVIGATION DOSSIER — fiches paginées ============ */
-html.js section.par,html.js header.fronton,html.js nav.inhalt,html.js footer.impressum{display:none}
-html.js section.par.actif,html.js header.fronton.actif,html.js footer.impressum.actif{display:block}
-html.js nav.inhalt.actif{display:block}
-.navbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:30;
-  background:var(--bandeau);border-top:4px solid var(--encre);
-  gap:.55rem;justify-content:space-between;
-  padding:.55rem .7rem calc(.55rem + env(safe-area-inset-bottom))}
-html.js .navbar.actif{display:flex}
-.navbar button{font-family:var(--mono);font-weight:700;font-size:.7rem;letter-spacing:.12em;
-  background:var(--fond);color:var(--encre);border:2.5px solid var(--encre);
-  padding:.62em .5em;cursor:pointer;flex:1;white-space:nowrap;
-  transition:transform 60ms steps(2,end)}
-.navbar button:active{transform:translate(2px,2px)}
-.navbar button.centre{background:var(--autobahn);flex:1.35}
-.navbar button[disabled]{opacity:.35;cursor:default}
-html.js main{padding-bottom:6.2rem}
-
-/* ============ FOOTER IMPRESSUM ============ */
-footer.impressum{
-  border-top:6px solid var(--encre);margin-top:3.5rem;padding:1.6rem 0 0;
+/* ============ IMPRESSUM ============ */
+.fiche.colophon{display:none}
+.fiche.colophon.actif{display:grid;align-content:center}
+.impressum{
+  border-top:6px solid var(--encre);border-bottom:6px solid var(--encre);
+  padding:1.4rem .2rem;
   font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--sourd);
   line-height:1.9;
 }
-footer.impressum b{color:var(--encre)}
+.impressum b{color:var(--encre)}
+
+/* ============ NAVBAR — barre mécanique à rotors ============ */
+.navbar{
+  background:var(--bandeau);border-top:4px solid var(--encre);
+  display:flex;gap:.55rem;align-items:stretch;
+  padding:.5rem .7rem calc(.5rem + env(safe-area-inset-bottom));
+  position:relative;z-index:30;
+}
+.navbar.cache{display:none}
+.navbar button{
+  font-family:var(--mono);font-weight:700;letter-spacing:.1em;
+  background:var(--fond);color:var(--encre);border:2.5px solid var(--encre);
+  cursor:pointer;transition:transform 60ms steps(2,end);
+}
+.navbar button:active{transform:translate(2px,2px)}
+.navbar button[disabled]{opacity:.35;cursor:default}
+.navbar .fleche{flex:0 0 3.2rem;font-size:1.25rem;padding:.4em 0}
+.navbar .centre{
+  flex:1;background:var(--autobahn);
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  font-size:.7rem;padding:.45em .4em;
+}
+.rotors{display:inline-flex;align-items:center;gap:3px}
+.rotor{
+  display:inline-block;width:1.15em;height:1.5em;overflow:hidden;
+  background:var(--papier);border:2px solid var(--encre);
+  box-shadow:inset 0 3px 4px rgba(0,0,0,.35);position:relative;
+}
+.rotor .colonne{
+  display:block;line-height:1.5em;text-align:center;font-size:1em;
+  transition:transform 180ms steps(2,end);will-change:transform;
+}
+.rtotal{font-size:.85em;letter-spacing:.05em;opacity:.75}
+
+/* ============ PICTOGRAMMES — traits & aplats Plakatstil ============ */
+.picto .trait{fill:none;stroke:var(--papier);stroke-width:3;stroke-linecap:square}
+.picto .plein{fill:var(--papier)}
+.picto .jaune{fill:var(--autobahn)}
+.picto .rougec{fill:#D0553F}
+.picto .vertc{fill:#6FAE93}
+.picto .bleuc{fill:#7C9EC7}
+
+/* §1 — le tampon frappe */
+.actif .pk1-corps{animation:pk1a 700ms steps(3,end) both}
+@keyframes pk1a{0%{transform:translateY(-16px)}55%{transform:translateY(0)}70%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+.actif .pk1-marque{opacity:0;animation:pk1b 700ms steps(1,end) both}
+@keyframes pk1b{0%,55%{opacity:0}60%,100%{opacity:1}}
+
+/* §2 — les chopes trinquent */
+.actif .pk2-g{transform-origin:26px 74px;animation:pk2g 800ms steps(3,end) both}
+.actif .pk2-d{transform-origin:70px 74px;animation:pk2d 800ms steps(3,end) both}
+@keyframes pk2g{0%{transform:rotate(-14deg)}60%{transform:rotate(9deg)}100%{transform:rotate(6deg)}}
+@keyframes pk2d{0%{transform:rotate(14deg)}60%{transform:rotate(-9deg)}100%{transform:rotate(-6deg)}}
+.actif .pk2-etoile{opacity:0;animation:pk2e 800ms steps(1,end) both}
+@keyframes pk2e{0%,58%{opacity:0}64%,100%{opacity:1}}
+
+/* §3 — les traits du Deckel se comptent */
+.actif .pk3-t{stroke-dasharray:22;stroke-dashoffset:22;animation:pk3t 240ms steps(2,end) forwards}
+.actif .pk3-t:nth-of-type(2){animation-delay:200ms}
+.actif .pk3-t:nth-of-type(3){animation-delay:400ms}
+.actif .pk3-t:nth-of-type(4){animation-delay:600ms}
+.actif .pk3-t:nth-of-type(5){animation-delay:820ms}
+@keyframes pk3t{to{stroke-dashoffset:0}}
+
+/* §4 — les pièces s'empilent */
+.actif .pk4-p{opacity:0;animation:pk4a 260ms steps(2,end) forwards}
+.actif .pk4-p:nth-of-type(2){animation-delay:220ms}
+.actif .pk4-p:nth-of-type(3){animation-delay:440ms}
+.actif .pk4-p:nth-of-type(4){animation-delay:660ms}
+@keyframes pk4a{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+
+/* §5 — la flèche Pfand tourne */
+.actif .pk5-fleche{transform-origin:48px 44px;animation:pk5r 900ms steps(4,end) both}
+@keyframes pk5r{from{transform:rotate(-270deg)}to{transform:rotate(0deg)}}
+
+/* §6 — la Rettungsgasse s'ouvre */
+.actif .pk6-g{animation:pk6g 800ms steps(3,end) both}
+.actif .pk6-d{animation:pk6d 800ms steps(3,end) both}
+@keyframes pk6g{0%,30%{transform:translateX(7px)}100%{transform:translateX(0)}}
+@keyframes pk6d{0%,30%{transform:translateX(-7px)}100%{transform:translateX(0)}}
+.actif .pk6-couloir{opacity:0;animation:pk6c 800ms steps(1,end) both}
+@keyframes pk6c{0%,55%{opacity:0}70%,100%{opacity:1}}
+
+/* §7 — l'Ampelmännchen passe au vert */
+.actif .pk7-rouge{animation:pk7r 1100ms steps(1,end) both}
+@keyframes pk7r{0%,49%{opacity:1}50%,100%{opacity:0}}
+.actif .pk7-vert{opacity:0;animation:pk7v 1100ms steps(1,end) both}
+@keyframes pk7v{0%,49%{opacity:0}50%,100%{opacity:1}}
+
+/* §8 — le Kranz tourne cran par cran */
+.actif .pk8-roue{transform-origin:48px 48px;animation:pk8r 1100ms steps(6,end) both}
+@keyframes pk8r{from{transform:rotate(-120deg)}to{transform:rotate(0deg)}}
+
+/* §9 — la file avance */
+.actif .pk9-file{animation:pk9f 900ms steps(3,end) both}
+@keyframes pk9f{from{transform:translateX(-16px)}to{transform:translateX(0)}}
+.actif .pk9-t1{animation:pk9p 900ms steps(1,end) both}
+@keyframes pk9p{0%,65%{opacity:1}70%,100%{opacity:.25}}
+
+/* §10 — la touche frappe Ä */
+.actif .pk10-touche{animation:pk10t 620ms steps(2,end) both}
+@keyframes pk10t{0%{transform:translateY(0)}40%{transform:translateY(6px)}100%{transform:translateY(0)}}
+.actif .pk10-lettre{opacity:0;animation:pk10l 620ms steps(1,end) both}
+@keyframes pk10l{0%,40%{opacity:0}48%,100%{opacity:1}}
+
+/* §11 — mini-rotors */
+.actif .pk11-r{transform-origin:center;animation:pk11a 800ms steps(4,end) both}
+.actif .pk11-r.b{animation-delay:120ms}
+.actif .pk11-r.c{animation-delay:240ms}
+@keyframes pk11a{from{transform:rotate(-90deg)}to{transform:rotate(0deg)}}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* ============ NO-JS — repli défilable ============ */
+html.nojs,html.nojs body{overflow:auto;height:auto}
+html.nojs .appareil{height:auto;display:block}
+html.nojs .scene{overflow:visible}
+html.nojs .fiche{position:static;display:block !important;padding:0 1.05rem 1.6rem;animation:none}
+html.nojs .fiche.couverture{display:grid !important;min-height:60vh}
+html.nojs .navbar{display:none}
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.remove('nojs')</script>
+<div class="appareil">
+<main class="scene" id="scene" data-dir="avant">
 
-<header class="fronton">
+<section class="fiche couverture" id="deckblatt">
+
   <span class="stempel-header">GEPRÜFT</span>
   <p class="kicker">Amtsblatt · Édition Voyageur</p>
   <h1 class="titre">Guide des<br>Usages Allemands</h1>
@@ -333,43 +488,49 @@ footer.impressum b{color:var(--encre)}
     <span>BRÜHL / KÖLN</span>
     <span>GÜLTIG AB SOFORT</span>
   </div>
-</header>
+<button class="eintreten" id="btn-eintreten" type="button">EINTRETEN →</button>
+</section>
 
-<main>
-
+<section class="fiche hub" id="inhalt">
 <nav class="inhalt" aria-label="Sommaire">
   <h2>Inhaltsverzeichnis — Sommaire</h2>
   <ol>
-    <li><a href="#p1"><span class="no">§ 1</span><span class="lib">Le contrat social allemand</span></a></li>
-    <li><a href="#p2"><span class="no">§ 2</span><span class="lib">Saluer, serrer, trinquer</span></a></li>
-    <li><a href="#p3"><span class="no">§ 3</span><span class="lib">Au restaurant — le rituel complet</span></a></li>
-    <li><a href="#p4"><span class="no">§ 4</span><span class="lib">L'argent — Bargeld über alles</span></a></li>
-    <li><a href="#p5"><span class="no">§ 5</span><span class="lib">Magasins, Pfand et dimanche mort</span></a></li>
-    <li><a href="#p6"><span class="no">§ 6</span><span class="lib">La route et l'Autobahn</span></a></li>
-    <li><a href="#p7"><span class="no">§ 7</span><span class="lib">Pièges sociaux à haut risque</span></a></li>
-    <li><a href="#p8"><span class="no">§ 8</span><span class="lib">Manger rhénan</span></a></li>
-    <li><a href="#p9"><span class="no">§ 9</span><span class="lib">Au parc et sur les sites</span></a></li>
-    <li><a href="#p10"><span class="no">§ 10</span><span class="lib">Lexique de survie</span></a></li>
+    <li><a href="#p1-1"><span class="no">§ 1</span><span class="lib">Le contrat social allemand</span></a></li>
+    <li><a href="#p2-1"><span class="no">§ 2</span><span class="lib">Saluer, serrer, trinquer</span></a></li>
+    <li><a href="#p3-1"><span class="no">§ 3</span><span class="lib">Au restaurant — le rituel complet</span></a></li>
+    <li><a href="#p4-1"><span class="no">§ 4</span><span class="lib">L'argent — Bargeld über alles</span></a></li>
+    <li><a href="#p5-1"><span class="no">§ 5</span><span class="lib">Magasins, Pfand et dimanche mort</span></a></li>
+    <li><a href="#p6-1"><span class="no">§ 6</span><span class="lib">La route et l'Autobahn</span></a></li>
+    <li><a href="#p7-1"><span class="no">§ 7</span><span class="lib">Pièges sociaux à haut risque</span></a></li>
+    <li><a href="#p8-1"><span class="no">§ 8</span><span class="lib">Manger rhénan</span></a></li>
+    <li><a href="#p9-1"><span class="no">§ 9</span><span class="lib">Au parc et sur les sites</span></a></li>
+    <li><a href="#p10-1"><span class="no">§ 10</span><span class="lib">Lexique de survie</span></a></li>
     <li><a href="#pruefung"><span class="no">§ 11</span><span class="lib">Prüfung — l'examen final</span></a></li>
   </ol>
 </nav>
+<div class="hub-pied"><a href="#impressum">Impressum · Kolophon</a><button class="mute" type="button" aria-pressed="false">SFX : AN</button></div>
+</section>
 
-<!-- ==================== § 1 ==================== -->
-<section class="par imprimable" id="p1">
-  <div class="bandeau-sec"><span class="parno">§ 1</span><h2>Le contrat social allemand</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Ordnung muss sein — « l'ordre doit régner ». Ce n'est pas un cliché, c'est le système d'exploitation du pays. Les règles allemandes ne sont pas des suggestions qu'on négocie selon le contexte : elles s'appliquent même quand personne ne regarde, et chacun se sent légitime de te les rappeler. Un inconnu qui te reprend dans la rue ne t'agresse pas — il maintient le système, et il s'attend à ce que tu fasses pareil.</p>
+<section class="fiche" id="p1-1" data-par="1">
+<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-1">O</span>rdnung muss sein — « l'ordre doit régner ». Ce n'est pas un cliché, c'est le système d'exploitation du pays. Les règles allemandes ne sont pas des suggestions qu'on négocie selon le contexte : elles s'appliquent même quand personne ne regarde, et chacun se sent légitime de te les rappeler. Un inconnu qui te reprend dans la rue ne t'agresse pas — il maintient le système, et il s'attend à ce que tu fasses pareil.</p>
 
-    <h3>1.1 — La franchise n'est pas de la froideur</h3>
+    <h3 class="pig-1">1.1 — La franchise n'est pas de la froideur</h3>
     <p>Un Allemand qui trouve ton idée mauvaise te dira qu'elle est mauvaise. Pas « intéressante », pas « à creuser » : <i lang="de">schlecht</i>. C'est une marque de respect — on ne te fait pas perdre ton temps avec des politesses creuses. En retour, le « small talk » nord-américain (« Hi, how are you today?! » lancé au caissier) est perçu comme du bruit, voire de l'hypocrisie. Un <i lang="de">Hallo</i> sobre, la transaction, un <i lang="de">Danke, tschüss</i> : voilà l'échange parfait.</p>
 
-    <h3>1.2 — Sie ou du : le vouvoiement par défaut</h3>
+    <h3 class="pig-2">1.2 — Sie ou du : le vouvoiement par défaut</h3>
     <p>On vouvoie (<i lang="de">Sie</i>) tout adulte inconnu : serveurs, commerçants, employés du parc. Le tutoiement (<i lang="de">du</i>) se propose, il ne se prend pas — et c'est la personne la plus âgée ou hiérarchiquement supérieure qui l'offre. En pratique de voyageur : <i lang="de">Sie</i> partout, et tout ira bien. Exception tolérée : entre visiteurs de parcs d'attractions et dans les files, le <i lang="de">du</i> circule plus librement chez les moins de 40 ans.</p>
 
-    <h3>1.3 — La ponctualité est une politesse, pas une performance</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p1-2" data-par="1">
+<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">1.3 — La ponctualité est une politesse, pas une performance</h3>
     <p>Arriver à l'heure, c'est arriver 5 minutes d'avance. Un retard de 10 minutes sans message est une offense réelle. Pour un restaurant réservé, un spectacle, un rendez-vous : la tolérance est proche de zéro. Ton billet de train le dit lui-même — présent sur le quai au plus tard 2 minutes avant le départ, sinon la porte reste fermée.</p>
 
-    <h3>1.4 — Le silence est confortable</h3>
+    <h3 class="pig-1">1.4 — Le silence est confortable</h3>
     <p>Dans l'ascenseur, le train, la file : le silence n'est pas un vide à remplir. Personne n'attend de toi que tu meubles. Les conversations téléphoniques bruyantes en transport en commun attirent des regards lourds de sens.</p>
 
     <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
@@ -377,13 +538,12 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 2 ==================== -->
-<section class="par imprimable" id="p2">
-  <div class="bandeau-sec"><span class="parno">§ 2</span><h2>Saluer, serrer, trinquer</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Bonne nouvelle : tu débarques dans la région la plus chaleureuse du pays. La jovialité rhénane (<i lang="de">rheinische Frohnatur</i>) est un fait culturel documenté — les gens de Cologne parlent aux inconnus, chose impensable à Hambourg. Mais les formes restent codifiées.</p>
+<section class="fiche par-pair" id="p2-1" data-par="2">
+<header class="fiche-tete"><div><span class="parno">§ 2</span><h2>Saluer, serrer, trinquer</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Chopes qui trinquent"><g class="pk2-g"><rect class="plein" x="16" y="42" width="20" height="32"/><rect class="jaune" x="16" y="42" width="20" height="8"/><path class="trait" d="M36 50 h8 v14 h-8"/></g><g class="pk2-d"><rect class="plein" x="60" y="42" width="20" height="32"/><rect class="jaune" x="60" y="42" width="20" height="8"/><path class="trait" d="M60 50 h-8 v14 h8"/></g><g class="pk2-etoile"><line x1="48" y1="18" x2="48" y2="30" stroke="#F7C600" stroke-width="3"/><line x1="38" y1="24" x2="58" y2="24" stroke="#F7C600" stroke-width="3"/><line x1="41" y1="17" x2="55" y2="31" stroke="#F7C600" stroke-width="3"/><line x1="55" y1="17" x2="41" y2="31" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-2">B</span>onne nouvelle : tu débarques dans la région la plus chaleureuse du pays. La jovialité rhénane (<i lang="de">rheinische Frohnatur</i>) est un fait culturel documenté — les gens de Cologne parlent aux inconnus, chose impensable à Hambourg. Mais les formes restent codifiées.</p>
 
-    <h3>2.1 — Les seuils horaires du salut</h3>
+    <h3 class="pig-2">2.1 — Les seuils horaires du salut</h3>
     <ul>
       <li><i lang="de">Guten Morgen</i> — jusqu'à ~10 h 30.</li>
       <li><i lang="de">Guten Tag</i> — de ~10 h 30 à ~18 h. Le passe-partout sûr.</li>
@@ -393,10 +553,15 @@ footer.impressum b{color:var(--encre)}
     </ul>
     <p>En entrant dans une petite boutique, une salle d'attente ou un compartiment : on salue la pièce. En sortant : on dit au revoir. Ne pas le faire te classe immédiatement.</p>
 
-    <h3>2.2 — La poignée de main et le regard</h3>
+    <h3 class="pig-3">2.2 — La poignée de main et le regard</h3>
     <p>Poignée de main ferme, brève, avec contact visuel franc. Un regard fuyant est interprété comme de la faiblesse ou de la dissimulation. Pas de bise entre inconnus — la bise est réservée aux amis proches, et encore.</p>
 
-    <h3>2.3 — Trinquer : le rituel aux yeux ouverts</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p2-2" data-par="2">
+<header class="fiche-tete"><div><span class="parno">§ 2</span><h2>Saluer, serrer, trinquer</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Chopes qui trinquent"><g class="pk2-g"><rect class="plein" x="16" y="42" width="20" height="32"/><rect class="jaune" x="16" y="42" width="20" height="8"/><path class="trait" d="M36 50 h8 v14 h-8"/></g><g class="pk2-d"><rect class="plein" x="60" y="42" width="20" height="32"/><rect class="jaune" x="60" y="42" width="20" height="8"/><path class="trait" d="M60 50 h-8 v14 h8"/></g><g class="pk2-etoile"><line x1="48" y1="18" x2="48" y2="30" stroke="#F7C600" stroke-width="3"/><line x1="38" y1="24" x2="58" y2="24" stroke="#F7C600" stroke-width="3"/><line x1="41" y1="17" x2="55" y2="31" stroke="#F7C600" stroke-width="3"/><line x1="55" y1="17" x2="41" y2="31" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">2.3 — Trinquer : le rituel aux yeux ouverts</h3>
     <p>Au moment du <i lang="de">Prost !</i> (ou <i lang="de">Zum Wohl !</i> avec du vin), tu regardes <b>chaque personne dans les yeux</b> au moment où vos verres se touchent. Trinquer en regardant les verres est une faute grave, sanctionnée par la superstition la plus célèbre du pays : sept ans de mauvaise fortune dans un domaine que la décence m'interdit de préciser ici. Les Allemands y tiennent avec un sérieux mi-amusé, mi-absolu.</p>
 
     <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG</div>
@@ -404,28 +569,37 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 3 ==================== -->
-<section class="par imprimable" id="p3">
-  <div class="bandeau-sec"><span class="parno">§ 3</span><h2>Au restaurant — le rituel complet</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Manger au restaurant en Allemagne suit une chorégraphie précise, du seuil de la porte jusqu'au pourboire. La maîtriser transforme l'expérience ; l'ignorer produit des malentendus dont tu ne comprendras même pas la cause.</p>
+<section class="fiche" id="p3-1" data-par="3">
+<header class="fiche-tete"><div><span class="parno">§ 3</span><h2>Au restaurant — le rituel complet</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sous-bock et traits de comptage"><circle class="trait" cx="48" cy="52" r="32"/><circle cx="48" cy="52" r="25" fill="none" stroke="#B8B5A8" stroke-width="1.5"/><line class="trait pk3-t" x1="34" y1="42" x2="34" y2="62"/><line class="trait pk3-t" x1="43" y1="42" x2="43" y2="62"/><line class="trait pk3-t" x1="52" y1="42" x2="52" y2="62"/><line class="trait pk3-t" x1="61" y1="42" x2="61" y2="62"/><line class="pk3-t" x1="29" y1="60" x2="66" y2="44" stroke="#F7C600" stroke-width="3" fill="none"/></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-3">M</span>anger au restaurant en Allemagne suit une chorégraphie précise, du seuil de la porte jusqu'au pourboire. La maîtriser transforme l'expérience ; l'ignorer produit des malentendus dont tu ne comprendras même pas la cause.</p>
 
-    <h3>3.1 — Entrer et s'asseoir</h3>
+    <h3 class="pig-2">3.1 — Entrer et s'asseoir</h3>
     <p>Dans les brasseries, <i lang="de">Gaststätten</i> et restaurants ordinaires, <b>on se place soi-même</b> — pas d'hôtesse. Table libre = table à toi. Si tout est plein, demander <i lang="de">Ist hier noch frei?</i> (« cette place est-elle libre ? ») et s'asseoir à la table de parfaits inconnus est normal et accepté, surtout au Brauhaus et au Biergarten. On salue, on s'assoit, on ne fait pas nécessairement la conversation.</p>
 
-    <h3>3.2 — L'eau : le piège classique</h3>
+    <h3 class="pig-3">3.2 — L'eau : le piège classique</h3>
     <p>L'eau du robinet gratuite n'existe culturellement pas. Demander un <i lang="de">Leitungswasser</i> est légal mais te vaudra un regard appuyé, et parfois un refus. On commande de l'eau en bouteille, payante, et par défaut elle sera <b>gazeuse</b>. Précise : <i lang="de">stilles Wasser</i> (plate) ou <i lang="de">Wasser mit Sprudel</i> (pétillante). Attends-toi à 3–5 € la bouteille.</p>
 
-    <h3>3.3 — Le service ne te surveille pas — c'est voulu</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p3-2" data-par="3">
+<header class="fiche-tete"><div><span class="parno">§ 3</span><h2>Au restaurant — le rituel complet</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sous-bock et traits de comptage"><circle class="trait" cx="48" cy="52" r="32"/><circle cx="48" cy="52" r="25" fill="none" stroke="#B8B5A8" stroke-width="1.5"/><line class="trait pk3-t" x1="34" y1="42" x2="34" y2="62"/><line class="trait pk3-t" x1="43" y1="42" x2="43" y2="62"/><line class="trait pk3-t" x1="52" y1="42" x2="52" y2="62"/><line class="trait pk3-t" x1="61" y1="42" x2="61" y2="62"/><line class="pk3-t" x1="29" y1="60" x2="66" y2="44" stroke="#F7C600" stroke-width="3" fill="none"/></svg></header>
+<div class="corps-sec"><h3 class="pig-1">3.3 — Le service ne te surveille pas — c'est voulu</h3>
     <p>Le serveur ne repassera pas toutes les cinq minutes demander si « tout est parfait ». Te laisser tranquille est une forme de respect. Pour appeler : contact visuel + petit signe de la main, ou un <i lang="de">Entschuldigung!</i> posé. L'addition ne viendra <b>jamais</b> seule — il faut la demander : <i lang="de">Zahlen, bitte!</i> ou <i lang="de">Die Rechnung, bitte.</i></p>
 
-    <h3>3.4 — « Getrennt oder zusammen? »</h3>
+    <h3 class="pig-2">3.4 — « Getrennt oder zusammen? »</h3>
     <p>Au moment de payer, on te demandera « séparément ou ensemble ? ». Payer chacun sa part, calculée au centime par le serveur lui-même, est parfaitement normal — aucun malaise, aucune calculette sur la table. Réponds <i lang="de">getrennt</i> (séparé) ou <i lang="de">zusammen</i> (ensemble).</p>
 
-    <h3>3.5 — Le pourboire : annoncé, jamais abandonné</h3>
+    <h3 class="pig-3">3.5 — Le pourboire : annoncé, jamais abandonné</h3>
     <p>Le <i lang="de">Trinkgeld</i> se donne <b>au moment de payer, à voix haute</b>, en arrondissant de 5 à 10 %. L'addition fait 47,60 € ? Tu tends ton argent en disant <i lang="de">« Machen Sie 52 »</i> (« faites 52 »). Le compte est bon ? <i lang="de">« Stimmt so »</i> (« gardez tout »). Laisser des pièces sur la table en partant, à la nord-américaine, est vu comme étrange, presque condescendant. En payant par carte, annonce le total avant que le serveur tape le montant.</p>
 
-    <h3>3.6 — Tenue de table</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p3-3" data-par="3">
+<header class="fiche-tete"><div><span class="parno">§ 3</span><h2>Au restaurant — le rituel complet</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sous-bock et traits de comptage"><circle class="trait" cx="48" cy="52" r="32"/><circle cx="48" cy="52" r="25" fill="none" stroke="#B8B5A8" stroke-width="1.5"/><line class="trait pk3-t" x1="34" y1="42" x2="34" y2="62"/><line class="trait pk3-t" x1="43" y1="42" x2="43" y2="62"/><line class="trait pk3-t" x1="52" y1="42" x2="52" y2="62"/><line class="trait pk3-t" x1="61" y1="42" x2="61" y2="62"/><line class="pk3-t" x1="29" y1="60" x2="66" y2="44" stroke="#F7C600" stroke-width="3" fill="none"/></svg></header>
+<div class="corps-sec"><h3 class="pig-1">3.6 — Tenue de table</h3>
     <p>Les mains restent visibles, posées sur la table de part et d'autre de l'assiette — jamais sur les genoux (vieille étiquette toujours vivante). Couteau et fourchette en parallèle à 16 h 20 sur l'assiette : j'ai terminé. Croisés : je fais une pause.</p>
 
     <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
@@ -433,13 +607,12 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 4 ==================== -->
-<section class="par imprimable" id="p4">
-  <div class="bandeau-sec"><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Voici le paradoxe allemand : la quatrième économie mondiale, patrie de SAP et de Siemens, reste viscéralement attachée à l'argent liquide. <i lang="de">Nur Bargeld</i> — « espèces uniquement » — est un écriteau que tu croiseras encore en 2026, dans des établissements par ailleurs impeccables.</p>
+<section class="fiche par-pair" id="p4-1" data-par="4">
+<header class="fiche-tete"><div><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Pièces empilées"><line class="trait" x1="14" y1="84" x2="82" y2="84"/><g class="pk4-p"><ellipse class="jaune" cx="48" cy="77" rx="21" ry="6"/><ellipse cx="48" cy="77" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="64" rx="21" ry="6"/><ellipse cx="48" cy="64" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="51" rx="21" ry="6"/><ellipse cx="48" cy="51" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="38" rx="21" ry="6"/><ellipse cx="48" cy="38" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/><text x="48" y="42" text-anchor="middle" font-family="monospace" font-weight="700" font-size="10" fill="#1C1B16">€</text></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-1">V</span>oici le paradoxe allemand : la quatrième économie mondiale, patrie de SAP et de Siemens, reste viscéralement attachée à l'argent liquide. <i lang="de">Nur Bargeld</i> — « espèces uniquement » — est un écriteau que tu croiseras encore en 2026, dans des établissements par ailleurs impeccables.</p>
 
-    <h3>4.1 — La hiérarchie des moyens de paiement</h3>
+    <h3 class="pig-2">4.1 — La hiérarchie des moyens de paiement</h3>
     <ul>
       <li><b>Espèces</b> — acceptées partout, attendues dans les kiosques, boulangeries, petits cafés, marchés, certains Brauhäuser et food-trucks. Garde 80–120 € sur toi en permanence.</li>
       <li><b>Girocard / cartes de débit</b> — le standard local. Ta carte de débit canadienne avec réseau international passe souvent, pas toujours.</li>
@@ -447,7 +620,12 @@ footer.impressum b{color:var(--encre)}
       <li><b>American Express</b> — couverture nettement plus faible. Ton Amex Platinum servira à l'hôtel et dans les grandes enseignes, mais prévois systématiquement un plan B. Le parc d'attractions la prendra ; le stand de Currywurst devant, non.</li>
     </ul>
 
-    <h3>4.2 — Retirer sans se faire tondre</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p4-2" data-par="4">
+<header class="fiche-tete"><div><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Pièces empilées"><line class="trait" x1="14" y1="84" x2="82" y2="84"/><g class="pk4-p"><ellipse class="jaune" cx="48" cy="77" rx="21" ry="6"/><ellipse cx="48" cy="77" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="64" rx="21" ry="6"/><ellipse cx="48" cy="64" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="51" rx="21" ry="6"/><ellipse cx="48" cy="51" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="38" rx="21" ry="6"/><ellipse cx="48" cy="38" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/><text x="48" y="42" text-anchor="middle" font-family="monospace" font-weight="700" font-size="10" fill="#1C1B16">€</text></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">4.2 — Retirer sans se faire tondre</h3>
     <p>Utilise les distributeurs (<i lang="de">Geldautomat</i>) des vraies banques — Sparkasse, Volksbank, Commerzbank, Deutsche Bank — adossés à une agence. Les automates privés orange/jaunes type Euronet, plantés dans les zones touristiques et les gares, prélèvent des frais gonflés et proposent une conversion dynamique piégeuse : si l'écran offre de débiter « en dollars canadiens », <b>refuse toujours</b> et choisis l'euro.</p>
 
     <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG</div>
@@ -455,13 +633,12 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 5 ==================== -->
-<section class="par imprimable" id="p5">
-  <div class="bandeau-sec"><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Samedi soir, 21 h 55, un supermarché allemand : la scène a l'urgence feutrée d'une fin du monde ordonnée. Car demain, dimanche, <b>tout sera fermé</b>. Pas « quelques commerces » : tout. Le <i lang="de">Ladenschlussgesetz</i>, loi de fermeture des magasins, structure la semaine entière du pays.</p>
+<section class="fiche" id="p5-1" data-par="5">
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-2">S</span>amedi soir, 21 h 55, un supermarché allemand : la scène a l'urgence feutrée d'une fin du monde ordonnée. Car demain, dimanche, <b>tout sera fermé</b>. Pas « quelques commerces » : tout. Le <i lang="de">Ladenschlussgesetz</i>, loi de fermeture des magasins, structure la semaine entière du pays.</p>
 
-    <h3>5.1 — Le dimanche : survivre au jour mort</h3>
+    <h3 class="pig-1">5.1 — Le dimanche : survivre au jour mort</h3>
     <p>Fermés le dimanche : supermarchés, pharmacies (hors garde), vêtements, électronique, centres commerciaux. Les exceptions qui te sauveront :</p>
     <ul>
       <li><b>Boulangeries</b> — ouvertes le dimanche matin, généralement jusqu'à midi ou 13 h.</li>
@@ -470,14 +647,24 @@ footer.impressum b{color:var(--encre)}
       <li><b>Restaurants et cafés</b> — ouverts, heureusement.</li>
     </ul>
 
-    <h3>5.2 — Le Pfand : la consigne comme institution nationale</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p5-2" data-par="5">
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">5.2 — Le Pfand : la consigne comme institution nationale</h3>
     <p>Presque toutes les bouteilles et canettes portent une consigne (<i lang="de">Pfand</i>) : <b>0,25 €</b> pour les bouteilles plastique et canettes jetables (logo DPG), 0,08–0,15 € pour le verre et le plastique réutilisables. Tu la paies à l'achat, tu la récupères en rapportant le contenant dans <b>n'importe quel supermarché</b> qui vend le même type : machine <i lang="de">Pfandautomat</i> à l'entrée, bouteille dans la gueule, bon de caisse à faire valoir. Une caisse de six bouteilles d'eau = 1,50 € qui dorment dans ton coffre.</p>
     <p>Détail de civilisation : on ne jette jamais une bouteille consignée dans une poubelle publique — on la pose debout <b>à côté</b>, geste tacite pour les collecteurs de Pfand qui arrondissent leurs fins de mois.</p>
 
-    <h3>5.3 — La caisse : une épreuve de vitesse</h3>
+    <h3 class="pig-3">5.3 — La caisse : une épreuve de vitesse</h3>
     <p>Chez Aldi et Lidl, les caissiers scannent à une cadence olympique et il n'y a <b>pas d'emballeur</b>. Protocole de survie : pose le séparateur (<i lang="de">Warentrenner</i>) derrière tes articles — réflexe social obligatoire —, rebalance tout en vrac dans le panier, paie, et va emballer tranquillement sur la tablette prévue après les caisses. Emballer sur le tapis pendant que ça scanne = bouchon = soupirs collectifs.</p>
 
-    <h3>5.4 — Apotheke ≠ Drogerie</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p5-3" data-par="5">
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">5.4 — Apotheke ≠ Drogerie</h3>
     <p>Distinction stricte que ton passé de technicien en pharmacie appréciera : l'<b>Apotheke</b> (croix rouge « A ») vend tout médicament, même l'ibuprofène — rien de pharmaceutique en libre-service ailleurs. La <b>Drogerie</b> (dm, Rossmann) vend cosmétique, hygiène, vitamines, mais aucun médicament. Un dimanche ou la nuit, cherche l'<i lang="de">Apotheken-Notdienst</i> : chaque pharmacie affiche en vitrine la garde du secteur. Pour tes fournitures de voyage — bandelettes, hypo-kit d'appoint — c'est l'Apotheke, et elles sont d'excellent conseil.</p>
 
     <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
@@ -485,17 +672,21 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 6 ==================== -->
-<section class="par imprimable" id="p6">
-  <div class="bandeau-sec"><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Rouler en Allemagne avec une voiture immatriculée en France, c'est entrer dans le pays le plus discipliné d'Europe au volant — et le plus impitoyable envers ceux qui improvisent. Trois règles ci-dessous n'existent pas au Québec ; deux d'entre elles peuvent coûter des centaines d'euros, la troisième sauve des vies.</p>
+<section class="fiche par-pair" id="p6-1" data-par="6">
+<header class="fiche-tete"><div><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2><span class="teil">Blatt 1 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rettungsgasse — couloir de secours"><g class="pk6-couloir"><rect class="jaune" x="42" y="6" width="12" height="84"/></g><g class="pk6-g"><rect class="plein" x="24" y="10" width="12" height="18"/><rect class="plein" x="24" y="38" width="12" height="18"/><rect class="plein" x="24" y="66" width="12" height="18"/></g><g class="pk6-d"><rect class="plein" x="60" y="10" width="12" height="18"/><rect class="plein" x="60" y="38" width="12" height="18"/><rect class="plein" x="60" y="66" width="12" height="18"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-3">R</span>ouler en Allemagne avec une voiture immatriculée en France, c'est entrer dans le pays le plus discipliné d'Europe au volant — et le plus impitoyable envers ceux qui improvisent. Trois règles ci-dessous n'existent pas au Québec ; deux d'entre elles peuvent coûter des centaines d'euros, la troisième sauve des vies.</p>
 
     <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG — RETTUNGSGASSE</div>
     <p><b>La règle la plus importante de ce guide.</b> Dès que le trafic ralentit au pas ou s'arrête sur autoroute (même sans sirène à l'horizon), tu formes immédiatement le couloir de secours : la voie la plus à gauche se serre <b>à gauche</b>, toutes les autres voies se serrent <b>à droite</b>. Le couloir s'ouvre entre la voie de gauche et celle d'à côté. C'est obligatoire, préventif, automatique.</p>
     <p>Ne pas le faire : amende de 200 à 320 €+ et interdiction de conduire possible. L'emprunter soi-même : encore pire. Les Allemands le forment sans réfléchir — la voiture française qui reste plantée au milieu se fait remarquer très vite.</p></div>
 
-    <h3>6.1 — L'Autobahn : libre ne veut pas dire anarchique</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p6-2" data-par="6">
+<header class="fiche-tete"><div><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2><span class="teil">Blatt 2 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rettungsgasse — couloir de secours"><g class="pk6-couloir"><rect class="jaune" x="42" y="6" width="12" height="84"/></g><g class="pk6-g"><rect class="plein" x="24" y="10" width="12" height="18"/><rect class="plein" x="24" y="38" width="12" height="18"/><rect class="plein" x="24" y="66" width="12" height="18"/></g><g class="pk6-d"><rect class="plein" x="60" y="10" width="12" height="18"/><rect class="plein" x="60" y="38" width="12" height="18"/><rect class="plein" x="60" y="66" width="12" height="18"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">6.1 — L'Autobahn : libre ne veut pas dire anarchique</h3>
     <ul>
       <li>Vitesse <b>recommandée</b> (<i lang="de">Richtgeschwindigkeit</i>) : 130 km/h. Sans limite affichée, tu peux rouler plus vite — mais en cas d'accident au-delà de 130, ta responsabilité s'alourdit.</li>
       <li>Les sections limitées (120, 100, 80…) sont <b>fréquentes</b> et strictement contrôlées par radars fixes. Tolérance quasi nulle, PV envoyé au loueur, qui te refacture avec frais de dossier.</li>
@@ -504,14 +695,24 @@ footer.impressum b{color:var(--encre)}
       <li>Vérifie tes rétros deux fois avant de déboîter : la voiture qui était un point lointain arrive réellement à 200 km/h.</li>
     </ul>
 
-    <h3>6.2 — En ville : trois différences avec le Québec</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p6-3" data-par="6">
+<header class="fiche-tete"><div><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2><span class="teil">Blatt 3 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rettungsgasse — couloir de secours"><g class="pk6-couloir"><rect class="jaune" x="42" y="6" width="12" height="84"/></g><g class="pk6-g"><rect class="plein" x="24" y="10" width="12" height="18"/><rect class="plein" x="24" y="38" width="12" height="18"/><rect class="plein" x="24" y="66" width="12" height="18"/></g><g class="pk6-d"><rect class="plein" x="60" y="10" width="12" height="18"/><rect class="plein" x="60" y="38" width="12" height="18"/><rect class="plein" x="60" y="66" width="12" height="18"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">6.2 — En ville : trois différences avec le Québec</h3>
     <ul>
       <li><b>Rechts vor links</b> — priorité à droite. Dans les zones résidentielles sans panneau ni feu, le véhicule venant de droite passe en premier. Réflexe à installer avant Brühl.</li>
       <li><b>Virage à droite au feu rouge : interdit</b> — sauf si une petite flèche verte en tôle (<i lang="de">Grüner Pfeil</i>) est fixée à côté du feu. Dans ce cas seulement : arrêt complet obligatoire, puis virage prudent. C'est l'inverse exact de l'habitude nord-américaine.</li>
       <li>Le feu passe à <b>rouge-orange avant le vert</b> — signal de préparation, pas d'invitation à bondir. Et 50 km/h en agglomération, 30 dans les zones résidentielles.</li>
     </ul>
 
-    <h3>6.3 — Umweltplakette : la vignette qui manque à ta voiture française</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p6-4" data-par="6">
+<header class="fiche-tete"><div><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2><span class="teil">Blatt 4 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rettungsgasse — couloir de secours"><g class="pk6-couloir"><rect class="jaune" x="42" y="6" width="12" height="84"/></g><g class="pk6-g"><rect class="plein" x="24" y="10" width="12" height="18"/><rect class="plein" x="24" y="38" width="12" height="18"/><rect class="plein" x="24" y="66" width="12" height="18"/></g><g class="pk6-d"><rect class="plein" x="60" y="10" width="12" height="18"/><rect class="plein" x="60" y="38" width="12" height="18"/><rect class="plein" x="60" y="66" width="12" height="18"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">6.3 — Umweltplakette : la vignette qui manque à ta voiture française</h3>
     <p>Le centre de Cologne est une <i lang="de">Umweltzone</i> — zone environnementale où seuls les véhicules porteurs de la vignette verte peuvent circuler. Les voitures de location <b>allemandes</b> l'ont d'office ; ta location <b>française n'en a pas</b>. Rouler dans la zone sans vignette : environ 100 € d'amende, même avec un moteur propre — c'est l'autocollant qui compte, pas le véhicule.</p>
     <ul>
       <li>Phantasialand (Brühl) est hors zone : aucun souci pour le parc.</li>
@@ -519,7 +720,12 @@ footer.impressum b{color:var(--encre)}
       <li>Alternative zéro stress : parc-relais (<i lang="de">P+R</i>) en périphérie + tram jusqu'au centre.</li>
     </ul>
 
-    <h3>6.4 — Divers réglementaires</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p6-5" data-par="6">
+<header class="fiche-tete"><div><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2><span class="teil">Blatt 5 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rettungsgasse — couloir de secours"><g class="pk6-couloir"><rect class="jaune" x="42" y="6" width="12" height="84"/></g><g class="pk6-g"><rect class="plein" x="24" y="10" width="12" height="18"/><rect class="plein" x="24" y="38" width="12" height="18"/><rect class="plein" x="24" y="66" width="12" height="18"/></g><g class="pk6-d"><rect class="plein" x="60" y="10" width="12" height="18"/><rect class="plein" x="60" y="38" width="12" height="18"/><rect class="plein" x="60" y="66" width="12" height="18"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">6.4 — Divers réglementaires</h3>
     <ul>
       <li><b>Alcool : 0,5 ‰</b> (≈ 0,05) — plus strict que le 0,08 québécois. Avec le Kölsch qui descend tout seul, la marge fond vite.</li>
       <li><b>Stationnement</b> : le panneau bleu avec disque exige la <i lang="de">Parkscheibe</i> — disque bleu en carton (1–2 € en station-service) où tu affiches ton heure d'arrivée.</li>
@@ -529,36 +735,39 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 7 ==================== -->
-<section class="par imprimable" id="p7">
-  <div class="bandeau-sec"><span class="parno">§ 7</span><h2>Pièges sociaux à haut risque</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Voici les fautes qui ne coûtent presque rien en euros mais énormément en regards. Chacune semble anodine vue du Québec ; chacune est un marqueur social puissant vue d'ici.</p>
+<section class="fiche" id="p7-1" data-par="7">
+<header class="fiche-tete"><div><span class="parno">§ 7</span><h2>Pièges sociaux à haut risque</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ampelmännchen"><g class="pk7-rouge"><circle class="rougec" cx="48" cy="24" r="8"/><rect class="rougec" x="36" y="14" width="24" height="4"/><rect class="rougec" x="42" y="32" width="12" height="22"/><rect class="rougec" x="24" y="36" width="48" height="5"/><rect class="rougec" x="42" y="54" width="5" height="24"/><rect class="rougec" x="49" y="54" width="5" height="24"/></g><g class="pk7-vert"><circle class="vertc" cx="52" cy="24" r="8"/><rect class="vertc" x="42" y="14" width="22" height="4"/><polygon class="vertc" points="44,32 58,32 62,54 48,54"/><polygon class="vertc" points="44,36 24,46 27,51 46,42"/><polygon class="vertc" points="58,38 74,44 72,49 56,44"/><polygon class="vertc" points="48,54 34,76 39,79 54,58"/><polygon class="vertc" points="56,54 68,74 63,77 51,58"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-1">V</span>oici les fautes qui ne coûtent presque rien en euros mais énormément en regards. Chacune semble anodine vue du Québec ; chacune est un marqueur social puissant vue d'ici.</p>
 
-    <h3>7.1 — Le feu piéton rouge : le tabou absolu</h3>
+    <h3 class="pig-3">7.1 — Le feu piéton rouge : le tabou absolu</h3>
     <p>Rue déserte, 6 h du matin, aucun véhicule à l'horizon : l'Allemand attend le bonhomme vert. Traverser au rouge (<i lang="de">bei Rot gehen</i>) est passible d'une amende de 5–10 €, mais la vraie sanction est sociale — surtout <b>devant des enfants</b>. La phrase rituelle qu'on te lancera : <i lang="de">« Vorbild sein! »</i> — « montrez l'exemple ! ». Devant un enfant, on attend. Toujours.</p>
 
-    <h3>7.2 — L'anniversaire : jamais en avance</h3>
+    <h3 class="pig-1">7.2 — L'anniversaire : jamais en avance</h3>
     <p>Souhaiter un anniversaire avant le jour J porte malheur (<i lang="de">Unglück</i>) — superstition prise très au sérieux. Pas de « bonne fête en avance », pas de cadeau anticipé, pas de carte postée trop tôt. On attend minuit, ou le jour même. Un <i lang="de">nachträglich alles Gute</i> (en retard) est acceptable ; en avance, jamais.</p>
 
-    <h3>7.3 — Ruhezeit : les heures du silence</h3>
+    <h3 class="pig-2">7.3 — Ruhezeit : les heures du silence</h3>
     <p>De 22 h à 6–7 h et <b>tout le dimanche</b>, le calme est protégé : pas de musique forte, pas de valise qui roule bruyamment dans les couloirs d'hôtel à minuit, pas de conversations de balcon sonores. Le dimanche allemand est structurellement silencieux — les voisins tondent le samedi, jamais le dimanche.</p>
 
-    <h3>7.4 — Le tri, même en vacances</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p7-2" data-par="7">
+<header class="fiche-tete"><div><span class="parno">§ 7</span><h2>Pièges sociaux à haut risque</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ampelmännchen"><g class="pk7-rouge"><circle class="rougec" cx="48" cy="24" r="8"/><rect class="rougec" x="36" y="14" width="24" height="4"/><rect class="rougec" x="42" y="32" width="12" height="22"/><rect class="rougec" x="24" y="36" width="48" height="5"/><rect class="rougec" x="42" y="54" width="5" height="24"/><rect class="rougec" x="49" y="54" width="5" height="24"/></g><g class="pk7-vert"><circle class="vertc" cx="52" cy="24" r="8"/><rect class="vertc" x="42" y="14" width="22" height="4"/><polygon class="vertc" points="44,32 58,32 62,54 48,54"/><polygon class="vertc" points="44,36 24,46 27,51 46,42"/><polygon class="vertc" points="58,38 74,44 72,49 56,44"/><polygon class="vertc" points="48,54 34,76 39,79 54,58"/><polygon class="vertc" points="56,54 68,74 63,77 51,58"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">7.4 — Le tri, même en vacances</h3>
     <p>Les poubelles publiques multiples (papier / emballages / reste) ne sont pas décoratives. Jeter n'importe quoi n'importe où, sous des yeux allemands, te vaudra au minimum le regard, au maximum le commentaire. Et rappel du § 5 : la bouteille consignée se pose à côté de la poubelle, debout.</p>
 
-    <h3>7.5 — Sauna et spa : textilfrei</h3>
+    <h3 class="pig-1">7.5 — Sauna et spa : textilfrei</h3>
     <p>Si ton hôtel a un espace bien-être : dans la plupart des saunas allemands, le maillot est <b>interdit</b> (hygiène), la nudité obligatoire et parfaitement asexuée, serviette sous chaque centimètre de peau. Panneaux <i lang="de">textilfrei</i> ou <i lang="de">FKK</i> = zone naturiste. On n'y fixe personne, on n'y est pas fixé. Si ce n'est pas ton registre, vérifie les horaires « textile » ou passe ton tour sans drame.</p>
   </div>
 </section>
 
-<!-- ==================== § 8 ==================== -->
-<section class="par imprimable" id="p8">
-  <div class="bandeau-sec"><span class="parno">§ 8</span><h2>Manger rhénan</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Kölle, comme les locaux appellent Cologne, boit une bière qui n'existe nulle part ailleurs et la sert selon un rituel qui déroute tous les étrangers. Bienvenue dans la seule ville au monde où le serveur remplit ton verre sans jamais te demander ton avis.</p>
+<section class="fiche par-pair" id="p8-1" data-par="8">
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-2">K</span>ölle, comme les locaux appellent Cologne, boit une bière qui n'existe nulle part ailleurs et la sert selon un rituel qui déroute tous les étrangers. Bienvenue dans la seule ville au monde où le serveur remplit ton verre sans jamais te demander ton avis.</p>
 
-    <h3>8.1 — Le Kölsch et son Köbes : le rituel</h3>
+    <h3 class="pig-2">8.1 — Le Kölsch et son Köbes : le rituel</h3>
     <ul>
       <li>Le <b>Kölsch</b> se sert exclusivement en verres cylindriques de <b>0,2 L</b> (<i lang="de">Stange</i>) — petit, frais, toujours parfait.</li>
       <li>Le serveur du Brauhaus s'appelle le <b>Köbes</b> : bourru de tradition, tablier bleu, il circule avec une couronne de verres (<i lang="de">Kranz</i>) et <b>remplace ton verre vide automatiquement</b>, sans question, en traçant un trait de crayon sur ton sous-bock — c'est ta facture.</li>
@@ -569,7 +778,12 @@ footer.impressum b{color:var(--encre)}
     <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG — CASUS BELLI</div>
     <p>Ne commande <b>jamais</b> un <i lang="de">Alt</i> (la bière de Düsseldorf) dans un Brauhaus de Cologne. La rivalité Köln–Düsseldorf est la plus vieille guerre de bière d'Allemagne — la demande sera reçue quelque part entre l'humour vexé et l'expulsion théâtrale. À Cologne : Kölsch. Point.</p></div>
 
-    <h3>8.2 — Les pièges de la carte rhénane</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p8-2" data-par="8">
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">8.2 — Les pièges de la carte rhénane</h3>
     <ul>
       <li><b><i lang="de">Halver Hahn</i></b> — littéralement « demi-coq ». C'est un <b>petit pain de seigle au gouda</b>, cornichon, moutarde, oignons. Zéro poulet. LE piège à touristes linguistique de la région, tendu depuis un siècle.</li>
       <li><b><i lang="de">Himmel un Ääd</i></b> — « ciel et terre » : purée de pommes de terre + compote de pommes + boudin noir grillé (<i lang="de">Flönz</i>). Le plat rhénan par excellence.</li>
@@ -578,7 +792,12 @@ footer.impressum b{color:var(--encre)}
       <li><b>Döner Kebab</b> — le vrai fast-food national allemand, inventé à Berlin, excellent à 6–9 €. File d'attente = gage de qualité.</li>
     </ul>
 
-    <h3>8.3 — Le rythme des repas</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p8-3" data-par="8">
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">8.3 — Le rythme des repas</h3>
     <ul>
       <li><b>Matin</b> : la <i lang="de">Bäckerei</i> est un pilier civilisationnel — <i lang="de">Brötchen</i> (petits pains) à l'unité, café correct, dès 6–7 h.</li>
       <li><b>Midi</b> : le <i lang="de">Mittagstisch</i> — menus du midi économiques, service rapide, 12 h–14 h.</li>
@@ -589,16 +808,15 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 9 ==================== -->
-<section class="par imprimable" id="p9">
-  <div class="bandeau-sec"><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Un parc d'attractions allemand fonctionne comme le pays : files impeccables, signalétique exhaustive, règles appliquées sans exception — et une efficacité qui rend l'expérience remarquablement fluide quand on joue le jeu.</p>
+<section class="fiche" id="p9-1" data-par="9">
+<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-3">U</span>n parc d'attractions allemand fonctionne comme le pays : files impeccables, signalétique exhaustive, règles appliquées sans exception — et une efficacité qui rend l'expérience remarquablement fluide quand on joue le jeu.</p>
 
-    <h3>9.1 — La file d'attente : territoire sacré</h3>
+    <h3 class="pig-2">9.1 — La file d'attente : territoire sacré</h3>
     <p>Resquiller (<i lang="de">sich vordrängeln</i>) déclenche une réaction immédiate et <b>verbale</b> — les Allemands ne fusillent pas du regard en silence, ils te disent de retourner derrière, fort et devant tout le monde. Garder la place d'un ami parti aux toilettes : toléré pour une personne, mal vu au-delà. Le regroupement familial massif juste avant l'embarquement passe très mal.</p>
 
-    <h3>9.2 — Vocabulaire de parc</h3>
+    <h3 class="pig-3">9.2 — Vocabulaire de parc</h3>
     <ul>
       <li><i lang="de">Einzelfahrer</i> — single rider : files séparées sur plusieurs attractions majeures, ton meilleur levier anti-attente.</li>
       <li><i lang="de">Wartezeit</i> — temps d'attente ; <i lang="de">ab hier ca. 30 Min.</i> = « environ 30 min à partir d'ici ».</li>
@@ -606,7 +824,12 @@ footer.impressum b{color:var(--encre)}
       <li><i lang="de">Größenkontrolle</i> — toise de taille, appliquée au centimètre près, sans négociation possible : c'est la règle, donc c'est la règle.</li>
     </ul>
 
-    <h3>9.3 — Le Dom de Cologne, si tu fais le détour</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p9-2" data-par="9">
+<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">9.3 — Le Dom de Cologne, si tu fais le détour</h3>
     <p>La cathédrale (entrée gratuite) reste un lieu de culte actif : silence réel, épaules couvertes appréciées, pas de flash. La montée de la tour sud — 533 marches — se paie et se mérite. Sur le parvis, ignore poliment les jeux de bonneteau et pétitions : attrape-touristes classiques.</p>
 
     <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
@@ -614,11 +837,10 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 10 ==================== -->
-<section class="par imprimable" id="p10">
-  <div class="bandeau-sec"><span class="parno">§ 10</span><h2>Lexique de survie</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Quatre règles de prononciation suffisent à rendre ton allemand compréhensible : <b>ei</b> se dit « aïe » (<i lang="de">nein</i> = naïne), <b>ie</b> se dit « ii » (<i lang="de">Bier</i> = biir), <b>w</b> se dit « v » et <b>v</b> se dit « f », <b>z</b> se dit « ts ». Le <b>ß</b> est un double s. Et le e final se prononce toujours : <i lang="de">bitte</i> = « bit-teu ».</p>
+<section class="fiche par-pair" id="p10-1" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 1 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-1">Q</span>uatre règles de prononciation suffisent à rendre ton allemand compréhensible : <b>ei</b> se dit « aïe » (<i lang="de">nein</i> = naïne), <b>ie</b> se dit « ii » (<i lang="de">Bier</i> = biir), <b>w</b> se dit « v » et <b>v</b> se dit « f », <b>z</b> se dit « ts ». Le <b>ß</b> est un double s. Et le e final se prononce toujours : <i lang="de">bitte</i> = « bit-teu ».</p>
 
     <table class="tablo">
       <caption>Bloc A — Les indispensables</caption>
@@ -633,7 +855,12 @@ footer.impressum b{color:var(--encre)}
       <tr><td class="de">Ich verstehe nicht</td><td class="pron">irh fèr-chté-eu nirht</td><td>Je ne comprends pas</td></tr>
     </table>
 
-    <table class="tablo">
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p10-2" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 2 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><table class="tablo">
       <caption>Bloc B — Restaurant &amp; Brauhaus</caption>
       <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
       <tr><td class="de">Ist hier noch frei?</td><td class="pron">ist hir norh fraï</td><td>Cette place est-elle libre ?</td></tr>
@@ -646,7 +873,12 @@ footer.impressum b{color:var(--encre)}
       <tr><td class="de">Machen Sie zwanzig</td><td class="pron">marhen zi tsvann-tsirh</td><td>Faites vingt (euros)</td></tr>
     </table>
 
-    <table class="tablo">
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p10-3" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 3 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><table class="tablo">
       <caption>Bloc C — Magasin, route, urgence</caption>
       <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
       <tr><td class="de">Was kostet das?</td><td class="pron">vass kostet dass</td><td>Combien ça coûte ?</td></tr>
@@ -661,7 +893,12 @@ footer.impressum b{color:var(--encre)}
       <tr><td class="de">Notruf: 112</td><td class="pron">note-rouf</td><td>Urgences (médical/pompiers)</td></tr>
     </table>
 
-    <h3>10.1 — Faux amis à désamorcer</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p10-4" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 4 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">10.1 — Faux amis à désamorcer</h3>
     <ul>
       <li><i lang="de">Gift</i> = <b>poison</b>. Un « gift shop » allemand serait une boutique inquiétante.</li>
       <li><i lang="de">Rat</i> = conseil (d'où <i lang="de">Rathaus</i>, l'hôtel de ville — la maison du conseil, pas des rats).</li>
@@ -672,13 +909,12 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
-<!-- ==================== § 11 — PRÜFUNG ==================== -->
-<section class="par imprimable" id="pruefung">
-  <div class="bandeau-sec"><span class="parno">§ 11</span><h2>Prüfung — l'examen final</h2></div>
-  <div class="corps-sec">
-    <p class="lede">Douze situations réelles, tirées de ton itinéraire. Le Bureau tamponnera chaque réponse : <b>GENEHMIGT</b> (approuvé) ou <b>ABGELEHNT</b> (rejeté). À partir de 9 bonnes réponses, le certificat de voyageur conforme t'est délivré. La machine à écrire du Bureau est une Enigma reconvertie — elle cliquette, c'est normal.</p>
+<section class="fiche par-pair" id="pruefung" data-par="11">
+<header class="fiche-tete"><div><span class="parno">§ 11</span><h2>Prüfung — l'examen final</h2><span class="teil">Examen · 12 Fragen</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rotors de la machine"><g class="pk11-r" style="transform-origin:22px 48px"><circle cx="22" cy="48" r="12" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><line x1="22" y1="34" x2="22" y2="40" stroke="#E6E2D3" stroke-width="2.5"/><line x1="22" y1="56" x2="22" y2="62" stroke="#E6E2D3" stroke-width="2.5"/><line x1="8" y1="48" x2="14" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><line x1="30" y1="48" x2="36" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><circle class="jaune" cx="22" cy="48" r="3"/></g><g class="pk11-r b" style="transform-origin:48px 48px"><circle cx="48" cy="48" r="12" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><line x1="48" y1="34" x2="48" y2="40" stroke="#E6E2D3" stroke-width="2.5"/><line x1="48" y1="56" x2="48" y2="62" stroke="#E6E2D3" stroke-width="2.5"/><line x1="34" y1="48" x2="40" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><line x1="56" y1="48" x2="62" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><circle class="jaune" cx="48" cy="48" r="3"/></g><g class="pk11-r c" style="transform-origin:74px 48px"><circle cx="74" cy="48" r="12" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><line x1="74" y1="34" x2="74" y2="40" stroke="#E6E2D3" stroke-width="2.5"/><line x1="74" y1="56" x2="74" y2="62" stroke="#E6E2D3" stroke-width="2.5"/><line x1="60" y1="48" x2="66" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><line x1="82" y1="48" x2="88" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><circle class="jaune" cx="74" cy="48" r="3"/></g></svg></header>
+<div class="corps-sec">
+    <p class="lede"><span class="lettrine let-2">D</span>ouze situations réelles, tirées de ton itinéraire. Le Bureau tamponnera chaque réponse : <b>GENEHMIGT</b> (approuvé) ou <b>ABGELEHNT</b> (rejeté). À partir de 9 bonnes réponses, le certificat de voyageur conforme t'est délivré. La machine à écrire du Bureau est une Enigma reconvertie — elle cliquette, c'est normal.</p>
 
-    <div class="quiz-cadre" id="quiz-cadre">
+    <div class="quiz-cadre" id="quiz-cadre"><svg class="enigma" viewBox="0 0 320 150" role="img" aria-label="Machine Enigma du Bureau"><rect class="plaque" x="2" y="2" width="316" height="146"/><circle class="rivet" cx="12" cy="12" r="3"/><circle class="rivet" cx="308" cy="12" r="3"/><circle class="rivet" cx="12" cy="138" r="3"/><circle class="rivet" cx="308" cy="138" r="3"/><g class="crans-g rota" id="rota-g"><circle class="rotor-corps" cx="70" cy="44" r="24"/><line class="rotor-crans" x1="90.0" y1="44.0" x2="97.0" y2="44.0"/><line class="rotor-crans" x1="84.1" y1="58.1" x2="89.1" y2="63.1"/><line class="rotor-crans" x1="70.0" y1="64.0" x2="70.0" y2="71.0"/><line class="rotor-crans" x1="55.9" y1="58.1" x2="50.9" y2="63.1"/><line class="rotor-crans" x1="50.0" y1="44.0" x2="43.0" y2="44.0"/><line class="rotor-crans" x1="55.9" y1="29.9" x2="50.9" y2="24.9"/><line class="rotor-crans" x1="70.0" y1="24.0" x2="70.0" y2="17.0"/><line class="rotor-crans" x1="84.1" y1="29.9" x2="89.1" y2="24.9"/></g><rect class="fenetre" x="57" y="35" width="26" height="18"/><text class="chiffre" id="rota-t" x="70" y="48">01</text><g class="crans-g rotb" id="rotb-g"><circle class="rotor-corps" cx="160" cy="44" r="24"/><line class="rotor-crans" x1="180.0" y1="44.0" x2="187.0" y2="44.0"/><line class="rotor-crans" x1="174.1" y1="58.1" x2="179.1" y2="63.1"/><line class="rotor-crans" x1="160.0" y1="64.0" x2="160.0" y2="71.0"/><line class="rotor-crans" x1="145.9" y1="58.1" x2="140.9" y2="63.1"/><line class="rotor-crans" x1="140.0" y1="44.0" x2="133.0" y2="44.0"/><line class="rotor-crans" x1="145.9" y1="29.9" x2="140.9" y2="24.9"/><line class="rotor-crans" x1="160.0" y1="24.0" x2="160.0" y2="17.0"/><line class="rotor-crans" x1="174.1" y1="29.9" x2="179.1" y2="24.9"/></g><rect class="fenetre" x="147" y="35" width="26" height="18"/><text class="chiffre" id="rotb-t" x="160" y="48">00</text><g class="crans-g rotc" id="rotc-g"><circle class="rotor-corps" cx="250" cy="44" r="24"/><line class="rotor-crans" x1="270.0" y1="44.0" x2="277.0" y2="44.0"/><line class="rotor-crans" x1="264.1" y1="58.1" x2="269.1" y2="63.1"/><line class="rotor-crans" x1="250.0" y1="64.0" x2="250.0" y2="71.0"/><line class="rotor-crans" x1="235.9" y1="58.1" x2="230.9" y2="63.1"/><line class="rotor-crans" x1="230.0" y1="44.0" x2="223.0" y2="44.0"/><line class="rotor-crans" x1="235.9" y1="29.9" x2="230.9" y2="24.9"/><line class="rotor-crans" x1="250.0" y1="24.0" x2="250.0" y2="17.0"/><line class="rotor-crans" x1="264.1" y1="29.9" x2="269.1" y2="24.9"/></g><rect class="fenetre" x="237" y="35" width="26" height="18"/><text class="chiffre" id="rotc-t" x="250" y="48">A</text><g class="lampe" id="lamp-Q"><circle class="lampe-v" cx="25" cy="92" r="9"/><text class="lampe-l" x="25" y="95">Q</text></g><g class="lampe" id="lamp-W"><circle class="lampe-v" cx="55" cy="92" r="9"/><text class="lampe-l" x="55" y="95">W</text></g><g class="lampe" id="lamp-E"><circle class="lampe-v" cx="85" cy="92" r="9"/><text class="lampe-l" x="85" y="95">E</text></g><g class="lampe" id="lamp-R"><circle class="lampe-v" cx="115" cy="92" r="9"/><text class="lampe-l" x="115" y="95">R</text></g><g class="lampe" id="lamp-T"><circle class="lampe-v" cx="145" cy="92" r="9"/><text class="lampe-l" x="145" y="95">T</text></g><g class="lampe" id="lamp-Z"><circle class="lampe-v" cx="175" cy="92" r="9"/><text class="lampe-l" x="175" y="95">Z</text></g><g class="lampe" id="lamp-U"><circle class="lampe-v" cx="205" cy="92" r="9"/><text class="lampe-l" x="205" y="95">U</text></g><g class="lampe" id="lamp-I"><circle class="lampe-v" cx="235" cy="92" r="9"/><text class="lampe-l" x="235" y="95">I</text></g><g class="lampe" id="lamp-O"><circle class="lampe-v" cx="265" cy="92" r="9"/><text class="lampe-l" x="265" y="95">O</text></g><g class="lampe" id="lamp-P"><circle class="lampe-v" cx="295" cy="92" r="9"/><text class="lampe-l" x="295" y="95">P</text></g><path class="kabel" id="kab-1" d="M45 122 Q95 145 145 122"/><path class="kabel" id="kab-2" d="M105 122 Q160 108 215 122"/><path class="kabel" id="kab-3" d="M175 122 Q225 145 275 122"/><circle class="douille" cx="45" cy="122" r="4"/><circle class="douille" cx="105" cy="122" r="4"/><circle class="douille" cx="145" cy="122" r="4"/><circle class="douille" cx="175" cy="122" r="4"/><circle class="douille" cx="215" cy="122" r="4"/><circle class="douille" cx="275" cy="122" r="4"/></svg>
       <div class="quiz-tete">
         <span class="quiz-prog" id="quiz-prog">FRAGE 1/12</span>
         <button class="mute" id="btn-mute" aria-pressed="false" type="button">SFX : AN</button>
@@ -688,51 +924,25 @@ footer.impressum b{color:var(--encre)}
   </div>
 </section>
 
+<section class="fiche colophon" id="impressum">
 <footer class="impressum">
   <p><b>IMPRESSUM</b> — Édité par le Bureau des Usages &amp; Convenances, division Voyageurs.<br>
-  Forge : <b>BETON-SCRIPTORIUM</b> · Conseil de Recette tenu le 6 juillet 2026 · Claudi-brimbor, scribe.<br>
-  Béton : coffrage apparent. Encre : bleu tampon &amp; rouge de rubrication. Machine : Enigma, trois rotors, bon état.<br>
+  Forge : <b>BETON-SCRIPTORIUM</b> · itération 3 · Conseils des 6 &amp; 7 juillet 2026 · Claudi-brimbor, scribe.<br>
+  Béton : coffrage apparent. Encre : quatre pigments — bleu tampon, rouge de rubrication, or Autobahn, Patinagrün. Machine : Enigma, trois rotors, désormais visible — bon état.<br>
   Indications fournies <i lang="de">ohne Gewähr</i> (sans garantie) — les usages évoluent, la politesse demeure.<br>
   Az. 2026/07-EM · GÜLTIG AB SOFORT · <span style="color:var(--tampon);font-weight:700">GEPRÜFT ✓</span></p>
 </footer>
+</section>
 
 </main>
+<nav class="navbar cache" id="navbar" aria-label="Navigation du dossier">
+<button class="fleche" id="nav-prev" type="button" aria-label="Fiche précédente">‹</button>
+<button class="centre" id="nav-hub" type="button" aria-label="Sommaire"><span>INHALT</span><span class="rotors" aria-hidden="true"><span class="rotor"><span class="colonne" id="col-d"></span></span><span class="rotor"><span class="colonne" id="col-u"></span></span><span class="rtotal" id="rtotal"></span></span></button>
+<button class="fleche" id="nav-next" type="button" aria-label="Fiche suivante">›</button>
+</nav>
+</div>
 
 <script>
-/* ============ Navigation dossier — routeur à fiches ============ */
-(function(){try{
-  const PAGES=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','pruefung'];
-  const acc=['header.fronton','nav.inhalt','footer.impressum'].map(sel=>document.querySelector(sel));
-  const bar=document.querySelector('.navbar');
-  const bPrev=document.getElementById('nav-prev'),bHub=document.getElementById('nav-hub'),bNext=document.getElementById('nav-next');
-  const secs={};PAGES.forEach(id=>secs[id]=document.getElementById(id));
-  function imprimer(el){if(!el)return;el.classList.add('imprimable');el.classList.remove('est-imprime');void el.offsetWidth;el.classList.add('est-imprime');}
-  function courant(){const h=location.hash.replace('#','');return PAGES.includes(h)?h:null;}
-  function afficher(id){
-    Object.values(secs).forEach(x=>x.classList.remove('actif'));
-    acc.forEach(e=>e&&e.classList.remove('actif'));
-    if(id){
-      secs[id].classList.add('actif');bar.classList.add('actif');
-      const i=PAGES.indexOf(id);
-      bPrev.textContent=(i===0)?'\u2039 INHALT':'\u2039 ZUR\u00dcCK';
-      bNext.disabled=(i===PAGES.length-1);
-      bHub.textContent='INHALT \u00b7 '+(i+1)+'/'+PAGES.length;
-      imprimer(secs[id]);
-    }else{
-      acc.forEach(e=>e&&e.classList.add('actif'));bar.classList.remove('actif');
-      imprimer(document.querySelector('nav.inhalt'));
-    }
-    window.scrollTo(0,0);
-  }
-  function aller(id){if(id){location.hash='#'+id;}else{history.pushState('','',location.pathname+'#inhalt');afficher(null);}}
-  bPrev.addEventListener('click',()=>{const i=PAGES.indexOf(courant());(i<=0)?aller(null):aller(PAGES[i-1]);});
-  bNext.addEventListener('click',()=>{const i=PAGES.indexOf(courant());if(i>-1&&i<PAGES.length-1)aller(PAGES[i+1]);});
-  bHub.addEventListener('click',()=>aller(null));
-  window.addEventListener('hashchange',()=>afficher(courant()));
-  afficher(courant());
-  }catch(e){document.documentElement.classList.remove('js');console.error('[routeur]',e);}
-})();
-
 /* ============ Moteur sonore ENIGMA — synthèse pure ============ */
 const Enigma=(function(){
   let ctx=null,muted=false;
@@ -786,11 +996,104 @@ const Enigma=(function(){
     });
     lp.connect(g).connect(c.destination);
   }
-  return{frappe:()=>frappe(),rotor,lampe,kurzschluss,
+  return{frappe:()=>frappe(),tick:()=>frappe(undefined,0.5),rotor,lampe,kurzschluss,
     toggle(){muted=!muted;return muted;},ensure};
 })();
 
-/* ============ PRÜFUNG — moteur ============ */
+/* ============ ROUTEUR v3 — le deck de Karteikarten ============ */
+(function(){try{
+  const scene=document.getElementById('scene');
+  const FICHES=Array.from(document.querySelectorAll('.fiche'));
+  const IDS=FICHES.map(f=>f.id);
+  const CONTENU=FICHES.filter(f=>f.dataset.par);
+  const navbar=document.getElementById('navbar');
+  const bPrev=document.getElementById('nav-prev');
+  const bHub=document.getElementById('nav-hub');
+  const bNext=document.getElementById('nav-next');
+  const colD=document.getElementById('col-d');
+  const colU=document.getElementById('col-u');
+  document.getElementById('rtotal').textContent='\u2044'+CONTENU.length;
+
+  /* colonnes des rotors : 0-9 + cran neutre */
+  [colD,colU].forEach(col=>{
+    col.innerHTML='';
+    '0123456789\u00B7'.split('').forEach(ch=>{
+      const s=document.createElement('span');
+      s.textContent=ch;s.style.cssText='display:block;height:1.5em;line-height:1.5em;text-align:center';
+      col.appendChild(s);
+    });
+  });
+  function setRotor(col,n){col.style.transform='translateY(calc(-'+n+' * 1.5em))';}
+
+  let courantId=null,pendingDir=null,demarre=false;
+  const idx=id=>IDS.indexOf(id);
+  function cible(){
+    const h=location.hash.slice(1);
+    if(!h)return 'deckblatt';
+    return IDS.includes(h)?h:'inhalt';
+  }
+  function afficher(id,dir){
+    const el=document.getElementById(id);if(!el)return;
+    scene.dataset.dir=dir||'avant';
+    FICHES.forEach(f=>f.classList.remove('actif'));
+    el.classList.add('actif');el.scrollTop=0;
+    navbar.classList.toggle('cache',id==='deckblatt');
+    const ci=CONTENU.indexOf(el);
+    if(ci>-1){const n=ci+1;setRotor(colD,Math.floor(n/10));setRotor(colU,n%10);}
+    else{setRotor(colD,10);setRotor(colU,10);}
+    const i=idx(id);
+    bPrev.disabled=(i<=0);
+    bNext.disabled=(i>=IDS.length-1);
+    if(demarre&&courantId!==id)Enigma.tick();
+    courantId=id;demarre=true;
+  }
+  function aller(id){
+    if(id===courantId)return;
+    pendingDir=(idx(id)>=idx(courantId))?'avant':'arriere';
+    if(id==='deckblatt'){
+      history.pushState('','',location.pathname+location.search);
+      afficher(id,pendingDir);pendingDir=null;
+    }else{
+      location.hash='#'+id;
+    }
+  }
+  function next(){const i=idx(courantId);if(i<IDS.length-1)aller(IDS[i+1]);}
+  function prev(){const i=idx(courantId);if(i>0)aller(IDS[i-1]);}
+
+  bPrev.addEventListener('click',prev);
+  bNext.addEventListener('click',next);
+  bHub.addEventListener('click',()=>aller('inhalt'));
+  const be=document.getElementById('btn-eintreten');
+  if(be)be.addEventListener('click',()=>{Enigma.frappe();aller('inhalt');});
+
+  /* balayage tactile */
+  let tx=0,ty=0;
+  scene.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  scene.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>60&&Math.abs(dy)<40){(dx<0)?next():prev();}
+  },{passive:true});
+
+  /* mute synchronisé (hub + quiz) */
+  document.querySelectorAll('button.mute').forEach(b=>b.addEventListener('click',()=>{
+    const m=Enigma.toggle();
+    document.querySelectorAll('button.mute').forEach(x=>{
+      x.textContent=m?'SFX : AUS':'SFX : AN';
+      x.setAttribute('aria-pressed',String(m));
+    });
+    if(!m)Enigma.frappe();
+  }));
+
+  window.addEventListener('hashchange',()=>{
+    const c=cible();
+    const d=pendingDir||((idx(c)>=idx(courantId))?'avant':'arriere');
+    pendingDir=null;afficher(c,d);
+  });
+  afficher(cible(),'avant');
+}catch(e){document.documentElement.classList.add('nojs');console.error('[routeur]',e);}
+})();
+
+/* ============ PRÜFUNG — moteur branché sur la machine ============ */
 const FRAGEN=[
  {sit:"Brauhaus, Cologne, 19 h",
   q:"Ton verre de Kölsch se vide. Sans un mot, le Köbes en pose un plein et trace un trait sur ton sous-bock. Tu n'en veux plus après celui-ci. Que fais-tu ?",
@@ -854,25 +1157,42 @@ const FRAGEN=[
   ex:"Souhaiter un anniversaire en avance porte malheur — superstition prise très au sérieux. On attend minuit ou le jour même ; « nachträglich » (en retard) passe, en avance jamais (§ 7.2)."}
 ];
 
-(function(){
+(function(){try{
   const zone=document.getElementById('quiz-zone');
   const prog=document.getElementById('quiz-prog');
-  const btnMute=document.getElementById('btn-mute');
+  if(!zone||!prog)return;
+  const LAMPES='QWERTZUIOP';
+  const rotAt=document.getElementById('rota-t');
+  const rotBt=document.getElementById('rotb-t');
+  const rotCt=document.getElementById('rotc-t');
   let idx=0,score=0,repondu=false;
 
-  btnMute.addEventListener('click',()=>{
-    const m=Enigma.toggle();
-    btnMute.textContent=m?'SFX : AUS':'SFX : AN';
-    btnMute.setAttribute('aria-pressed',String(m));
-    if(!m)Enigma.frappe();
-  });
+  function retrig(el,cls){
+    if(!el)return;
+    el.classList.remove(cls);void el.getBoundingClientRect();el.classList.add(cls);
+  }
+  function setRotA(){if(rotAt)rotAt.textContent=String(idx+1).padStart(2,'0');
+    retrig(document.getElementById('rota-g'),'rotor-anim');}
+  function setRotB(){if(rotBt)rotBt.textContent=String(score).padStart(2,'0');
+    retrig(document.getElementById('rotb-g'),'rotor-anim');}
+  function setRotC(){if(rotCt)rotCt.textContent=String.fromCharCode(65+(idx*7)%26);
+    retrig(document.getElementById('rotc-g'),'rotor-anim');}
+  function allumer(lettre,ms){
+    const l=document.getElementById('lamp-'+lettre);if(!l)return;
+    l.classList.add('allume');setTimeout(()=>l.classList.remove('allume'),ms||900);
+  }
+  function flashKabel(){
+    const k=document.getElementById('kab-'+(1+Math.floor(Math.random()*3)));if(!k)return;
+    retrig(k,'flash');setTimeout(()=>k.classList.remove('flash'),520);
+  }
 
   function rendre(){
     repondu=false;
     const f=FRAGEN[idx];
     prog.textContent='FRAGE '+(idx+1)+'/12';
+    setRotA();setRotC();
     zone.innerHTML='';
-    const sit=document.createElement('p');sit.className='quiz-situation';sit.textContent='Situation — '+f.sit;
+    const sit=document.createElement('p');sit.className='quiz-situation';sit.textContent='Situation \u2014 '+f.sit;
     const q=document.createElement('p');q.className='quiz-q';q.textContent=f.q;
     const box=document.createElement('div');box.className='quiz-choix';
     f.c.forEach((txt,i)=>{
@@ -892,17 +1212,23 @@ const FRAGEN=[
       if(j===f.b)b.dataset.etat='bonne';
       else if(j===i)b.dataset.etat='mauvaise';
     });
-    bonne?Enigma.lampe():Enigma.kurzschluss();
+    if(bonne){
+      Enigma.lampe();setRotB();
+      const ch=(f.c[f.b]||'').toUpperCase().replace(/[^A-Z]/g,'').split('').find(x=>LAMPES.includes(x));
+      allumer(ch||LAMPES[Math.floor(Math.random()*10)]);
+    }else{
+      Enigma.kurzschluss();flashKabel();
+    }
     const verd=document.createElement('div');verd.className='quiz-verdict';
     const st=document.createElement('span');
     st.className='grand-stempel anime '+(bonne?'ok':'non');
     st.textContent=bonne?'GENEHMIGT':'ABGELEHNT';
     verd.appendChild(st);
     const ex=document.createElement('div');ex.className='quiz-explication';
-    ex.innerHTML='<span class="amtston">Motivation de la décision</span>'+f.ex;
+    ex.innerHTML='<span class="amtston">Motivation de la d\u00e9cision</span>'+f.ex;
     const w=document.createElement('button');w.type='button';w.className='weiter';
-    w.textContent=(idx<FRAGEN.length-1)?'WEITER →':'VERDICT FINAL →';
-    w.addEventListener('click',()=>{Enigma.rotor();idx++; (idx<FRAGEN.length)?rendre():bilan();});
+    w.textContent=(idx<FRAGEN.length-1)?'WEITER \u2192':'VERDICT FINAL \u2192';
+    w.addEventListener('click',()=>{Enigma.rotor();idx++;(idx<FRAGEN.length)?rendre():bilan();});
     zone.append(verd,ex,w);
   }
 
@@ -910,26 +1236,36 @@ const FRAGEN=[
     prog.textContent='AKTE GESCHLOSSEN';
     let classe,tampon,texte;
     if(score===12){classe='ok';tampon='MIT AUSZEICHNUNG';
-      texte="Douze tampons bleus. Le Bureau n'avait plus vu ça depuis 1987. Tu peux corriger les Allemands eux-mêmes — avec tact, ils apprécieront la franchise.";}
+      texte="Douze tampons bleus. Le Bureau n'avait plus vu \u00e7a depuis 1987. Tu peux corriger les Allemands eux-m\u00eames \u2014 avec tact, ils appr\u00e9cieront la franchise.";}
     else if(score>=9){classe='ok';tampon='BESTANDEN';
-      texte="Certificat de voyageur conforme délivré. Tu peux poser le Deckel, former la Rettungsgasse et annoncer ton pourboire sans trembler. L'Allemagne t'attend.";}
+      texte="Certificat de voyageur conforme d\u00e9livr\u00e9. Tu peux poser le Deckel, former la Rettungsgasse et annoncer ton pourboire sans trembler. L'Allemagne t'attend.";}
     else if(score>=6){classe='ok';tampon='KNAPP BESTANDEN';
-      texte="Admis de justesse. Le Bureau recommande une relecture des § signalés avant de t'approcher d'un Köbes ou d'un feu piéton. La marge d'erreur est faible là-bas.";}
+      texte="Admis de justesse. Le Bureau recommande une relecture des \u00a7 signal\u00e9s avant de t'approcher d'un K\u00f6bes ou d'un feu pi\u00e9ton. La marge d'erreur est faible l\u00e0-bas.";}
     else{classe='non';tampon='NICHT BESTANDEN';
-      texte="Le Bureau rejette la demande — mais approuve automatiquement l'Antrag auf Wiederholung (demande de reprise). Relis le règlement, l'Enigma ne juge pas, elle compte.";}
+      texte="Le Bureau rejette la demande \u2014 mais approuve automatiquement l'Antrag auf Wiederholung (demande de reprise). Relis le r\u00e8glement, l'Enigma ne juge pas, elle compte.";}
     zone.innerHTML='<div class="bilan">'
       +'<span class="score">'+score+'/12</span>'
       +'<span class="stempel-final grand-stempel '+classe+'" style="position:static;animation:claquer 170ms steps(4,end) both">'+tampon+'</span>'
       +'<p class="verdict-texte">'+texte+'</p>'
       +'</div>';
     const w=document.createElement('button');w.type='button';w.className='weiter';w.textContent='NEUER ANTRAG (recommencer)';
-    w.addEventListener('click',()=>{Enigma.rotor();idx=0;score=0;rendre();});
+    w.addEventListener('click',()=>{Enigma.rotor();idx=0;score=0;setRotB();rendre();});
     zone.querySelector('.bilan').appendChild(w);
-    (score>=6)?Enigma.lampe():Enigma.kurzschluss();
+    if(score>=9){
+      Enigma.lampe();
+      LAMPES.split('').forEach((ch,i)=>setTimeout(()=>allumer(ch,1300),i*90));
+    }else if(score>=6){Enigma.lampe();}
+    else{
+      Enigma.kurzschluss();
+      [1,2,3].forEach((n,i)=>setTimeout(()=>{const k=document.getElementById('kab-'+n);
+        if(k){retrig(k,'flash');setTimeout(()=>k.classList.remove('flash'),520);}},i*160));
+    }
   }
 
   rendre();
+}catch(e){console.error('[pruefung]',e);}
 })();
+
 </script>
 </body>
 </html>
