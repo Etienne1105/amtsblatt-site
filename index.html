@@ -8,12 +8,6 @@
 <meta property="og:description" content="11 paragraphes réglementaires + Prüfung de 12 mises en situation. GENEHMIGT ou ABGELEHNT ?">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#3A3833">
-<nav class="navbar" aria-label="Navigation du dossier">
-  <button type="button" id="nav-prev">&lsaquo; ZUR&Uuml;CK</button>
-  <button type="button" id="nav-hub" class="centre">INHALT</button>
-  <button type="button" id="nav-next">WEITER &rsaquo;</button>
-</nav>
-
 <title>AMTSBLATT — Guide des usages allemands · Édition voyageur</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');
@@ -1007,12 +1001,12 @@ const Enigma=(function(){
   const IDS=FICHES.map(f=>f.id);
   const CONTENU=FICHES.filter(f=>f.dataset.par);
   const navbar=document.getElementById('navbar');
-  const bPrev=document.getElementById('nav-prev');
-  const bHub=document.getElementById('nav-hub');
-  const bNext=document.getElementById('nav-next');
-  const colD=document.getElementById('col-d');
-  const colU=document.getElementById('col-u');
-  document.getElementById('rtotal').textContent='\u2044'+CONTENU.length;
+  const bPrev=navbar.querySelector('#nav-prev');
+  const bHub=navbar.querySelector('#nav-hub');
+  const bNext=navbar.querySelector('#nav-next');
+  const colD=navbar.querySelector('#col-d');
+  const colU=navbar.querySelector('#col-u');
+  navbar.querySelector('#rtotal').textContent='\u2044'+CONTENU.length;
 
   /* colonnes des rotors : 0-9 + cran neutre */
   [colD,colU].forEach(col=>{
