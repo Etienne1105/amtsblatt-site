@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Règlement pratique du voyageur en Rhénanie : Kölsch et Köbes, Rettungsgasse, pourboires annoncés, Pfand, dimanche mort — et l'examen final tamponné à l'Enigma.">
+<meta property="og:title" content="Amtsblatt — Guide des usages allemands">
+<meta property="og:description" content="11 paragraphes réglementaires + Prüfung de 12 mises en situation. GENEHMIGT ou ABGELEHNT ?">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#3A3833">
+<title>AMTSBLATT — Guide des usages allemands · Édition voyageur</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ============ BETON-SCRIPTORIUM — tokens forgés ============ */
+:root{
+  --fond:#D8D4C6;          /* papier journal grisé / béton clair */
+  --papier:#E6E2D3;        /* encadrés, cartes */
+  --beton-sombre:#B8B5A8;  /* surfaces creusées */
+  --bandeau:#3A3833;       /* graphite des bandeaux de section */
+  --encre:#1C1B16;         /* noir encre chaude */
+  --sourd:#5C594F;         /* texte secondaire */
+  --autobahn:#F7C600;      /* jaune RAL 1023 — ACHTUNG seulement */
+  --tampon:#1D4E89;        /* bleu encre de tampon */
+  --oxyde:#B02418;         /* rouge rubrication / ABGELEHNT */
+  --display:'Grenze Gotisch',serif;
+  --corps:'IBM Plex Sans',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  font-family:var(--corps);
+  color:var(--encre);
+  line-height:1.62;
+  font-size:1.0625rem;
+  /* coffrage : traces de planches verticales coulées dans le fond */
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(28,27,22,0.030) 0 2px, transparent 2px 128px,
+      rgba(255,255,255,0.05) 128px 130px, transparent 130px 261px),
+    var(--fond);
+}
+/* grain béton — au-dessus de tout, encre minérale */
+body::before{
+  content:'';position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+main{max-width:47rem;margin:0 auto;padding:0 1.1rem 4rem;position:relative;z-index:1}
+
+::selection{background:var(--autobahn);color:var(--encre)}
+a{color:var(--tampon);text-decoration-thickness:2px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--autobahn);outline-offset:2px}
+i[lang="de"]{font-style:italic;font-weight:600}
+
+/* ============ EN-TÊTE MONUMENTAL ============ */
+header.fronton{
+  background:var(--bandeau);color:var(--papier);
+  padding:2.6rem 1.2rem 2.2rem;text-align:center;position:relative;overflow:hidden;
+  border-bottom:6px solid var(--encre);
+}
+/* trous de banche du fronton */
+header.fronton::before,header.fronton::after{
+  content:'';position:absolute;left:0;right:0;height:14px;
+  background:radial-gradient(circle 5px at 24px 7px, rgba(0,0,0,.55) 4.4px, rgba(255,255,255,.10) 5.2px, transparent 6px);
+  background-size:120px 14px;background-repeat:repeat-x;
+}
+header.fronton::before{top:12px}
+header.fronton::after{bottom:12px}
+.kicker{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--autobahn);margin-bottom:1rem;
+}
+h1.titre{
+  font-family:var(--display);font-weight:600;line-height:.95;
+  font-size:clamp(2.9rem,11vw,4.6rem);
+  margin:.2rem 0 .9rem;
+}
+.soustitre{font-size:.95rem;color:#CFCBBD;max-width:32rem;margin:0 auto 1.3rem}
+.dossier{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:#9B978A;
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+}
+.stempel-header{
+  position:absolute;top:1.4rem;right:.8rem;transform:rotate(7deg);
+  font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.2em;
+  color:var(--autobahn);border:2.5px solid var(--autobahn);outline:1.5px solid var(--autobahn);
+  outline-offset:2.5px;padding:.32em .6em;opacity:.85;
+}
+
+/* ============ SOMMAIRE / INHALT ============ */
+nav.inhalt{
+  background:var(--papier);border:3px solid var(--encre);
+  margin:1.8rem 0 2.6rem;padding:1.2rem 1.2rem 1rem;
+}
+nav.inhalt h2{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
+  border-bottom:2px solid var(--encre);padding-bottom:.55rem;margin-bottom:.7rem;
+}
+nav.inhalt ol{list-style:none}
+nav.inhalt li{border-bottom:1px solid var(--beton-sombre)}
+nav.inhalt li:last-child{border-bottom:none}
+nav.inhalt a{
+  display:flex;gap:.7rem;align-items:baseline;padding:.5rem .1rem;
+  text-decoration:none;color:var(--encre);
+}
+nav.inhalt a:active{background:var(--autobahn)}
+nav.inhalt .no{font-family:var(--display);font-size:1.25rem;color:var(--tampon);min-width:2.4rem;font-weight:600}
+nav.inhalt .lib{font-weight:600;font-size:.95rem}
+
+/* ============ SECTIONS § ============ */
+section.par{margin:3.4rem 0}
+.bandeau-sec{
+  background:var(--bandeau);color:var(--papier);
+  padding:1.05rem 1.1rem .95rem;position:relative;
+  border-left:10px solid var(--tampon);
+}
+section.par:nth-of-type(even) .bandeau-sec{border-left-color:var(--oxyde)}
+.bandeau-sec::after{ /* trous de banche */
+  content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:96px;height:12px;
+  background:radial-gradient(circle 4.5px at 12px 6px, rgba(0,0,0,.6) 4px, rgba(255,255,255,.12) 4.8px, transparent 5.6px);
+  background-size:32px 12px;background-repeat:repeat-x;opacity:.9;
+}
+.bandeau-sec .parno{
+  font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;
+  color:var(--autobahn);display:block;margin-bottom:.15rem;
+}
+.bandeau-sec h2{
+  font-family:var(--display);font-weight:500;font-size:clamp(1.7rem,6.5vw,2.3rem);line-height:1.02;
+}
+.corps-sec{padding:1.5rem .2rem 0}
+
+/* lettrines enluminées — rubrication alternée */
+p.lede{margin-bottom:1.1rem}
+p.lede::first-letter{
+  font-family:var(--display);font-weight:600;float:left;
+  font-size:3.55em;line-height:.78;padding:.06em .12em 0 0;
+}
+section.par:nth-of-type(odd) p.lede::first-letter{color:var(--oxyde)}
+section.par:nth-of-type(even) p.lede::first-letter{color:var(--tampon)}
+
+.corps-sec p{margin-bottom:1.05rem}
+.corps-sec h3{
+  font-family:var(--mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--tampon);margin:1.7rem 0 .6rem;
+  border-bottom:2px solid var(--beton-sombre);padding-bottom:.35rem;
+}
+section.par:nth-of-type(even) .corps-sec h3{color:#8A2318}
+.corps-sec ul{margin:0 0 1.1rem 1.15rem}
+.corps-sec li{margin-bottom:.5rem}
+.corps-sec li::marker{color:var(--tampon);font-weight:700}
+
+/* ============ ENCADRÉS ============ */
+.achtung{
+  background:var(--autobahn);border:3px solid var(--encre);
+  padding:1rem 1.05rem;margin:1.4rem 0;
+  box-shadow:5px 5px 0 var(--encre);
+}
+.achtung .etiq{
+  font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.3em;
+  display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem;
+}
+.achtung .etiq .tri{font-size:1.05rem}
+.achtung p{margin:0}
+.achtung p + p{margin-top:.6rem}
+
+.merksatz{
+  background:var(--papier);border:2px solid var(--encre);border-left:10px solid var(--tampon);
+  padding:.9rem 1rem;margin:1.4rem 0;
+}
+.merksatz .etiq{
+  font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.28em;
+  color:var(--tampon);display:block;margin-bottom:.35rem;
+}
+.merksatz p{margin:0}
+
+.stempel-inline{
+  display:inline-block;transform:rotate(-4deg);
+  font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.2em;
+  color:var(--tampon);border:2.5px solid var(--tampon);outline:1.5px solid var(--tampon);
+  outline-offset:2px;padding:.28em .55em;mix-blend-mode:multiply;
+  margin:.2rem 0 .2rem .3rem;vertical-align:middle;
+}
+
+/* ============ TABLEAUX LEXIQUE ============ */
+.tablo{width:100%;border-collapse:collapse;margin:1rem 0 1.6rem;font-size:.92rem}
+.tablo caption{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+  text-align:left;padding-bottom:.45rem;color:var(--sourd);
+}
+.tablo th{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--bandeau);color:var(--papier);padding:.5rem .55rem;text-align:left;
+}
+.tablo td{border:2px solid var(--encre);padding:.5rem .55rem;background:var(--papier);vertical-align:top}
+.tablo tr:nth-child(even) td{background:#DDD9CA}
+.tablo .de{font-weight:600}
+.tablo .pron{font-family:var(--mono);font-size:.8rem;color:var(--sourd)}
+
+/* ============ REVEALS — l'impression des sections ============ */
+.imprimable{opacity:0;transform:translateY(8px)}
+.est-imprime{opacity:1;transform:none;transition:opacity 240ms steps(3,end),transform 240ms steps(3,end)}
+@media (prefers-reduced-motion:reduce){
+  .imprimable{opacity:1;transform:none}
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* ============ §11 PRÜFUNG — le quiz ============ */
+#pruefung .corps-sec{padding-top:1.2rem}
+.quiz-cadre{
+  background:var(--papier);border:3px solid var(--encre);box-shadow:6px 6px 0 var(--encre);
+  padding:1.15rem 1.05rem 1.3rem;position:relative;margin-top:1.2rem;
+}
+.quiz-tete{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:2px solid var(--encre);padding-bottom:.6rem;margin-bottom:1rem;
+}
+.quiz-prog{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.2em}
+button.mute{
+  font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.14em;
+  background:var(--fond);border:2px solid var(--encre);padding:.35em .6em;cursor:pointer;
+  color:var(--encre);
+}
+button.mute[aria-pressed="true"]{background:var(--bandeau);color:var(--papier)}
+.quiz-situation{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--oxyde);margin-bottom:.4rem;
+}
+.quiz-q{font-weight:600;font-size:1.06rem;margin-bottom:1.05rem}
+.quiz-choix{display:flex;flex-direction:column;gap:.65rem}
+button.choix{
+  font-family:var(--corps);font-size:.97rem;text-align:left;line-height:1.45;
+  background:var(--fond);border:3px solid var(--encre);padding:.75rem .85rem;
+  cursor:pointer;color:var(--encre);box-shadow:4px 4px 0 var(--encre);
+  transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end),background 60ms steps(2,end);
+}
+button.choix:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--encre)}
+button.choix[data-etat="bonne"]{background:#CBD8E8;border-color:var(--tampon);box-shadow:4px 4px 0 var(--tampon)}
+button.choix[data-etat="mauvaise"]{background:#E4C4BE;border-color:var(--oxyde);box-shadow:4px 4px 0 var(--oxyde)}
+button.choix:disabled{cursor:default;opacity:.92}
+
+.quiz-verdict{position:relative;min-height:3.2rem;margin-top:1.1rem}
+.grand-stempel{
+  position:absolute;top:-0.4rem;right:.2rem;transform:rotate(-7deg);
+  font-family:var(--mono);font-weight:700;font-size:1.02rem;letter-spacing:.24em;
+  padding:.42em .75em;border:3.5px solid currentColor;outline:2px solid currentColor;
+  outline-offset:3px;mix-blend-mode:multiply;pointer-events:none;
+}
+.grand-stempel.ok{color:var(--tampon)}
+.grand-stempel.non{color:var(--oxyde)}
+@keyframes claquer{
+  0%{transform:rotate(-7deg) scale(2.1);opacity:0}
+  60%{transform:rotate(-7deg) scale(.94);opacity:1}
+  100%{transform:rotate(-7deg) scale(1);opacity:1}
+}
+.grand-stempel.anime{animation:claquer 170ms steps(4,end) both}
+.quiz-explication{
+  border-top:2px dashed var(--sourd);padding-top:.85rem;margin-top:.4rem;
+  font-size:.95rem;
+}
+.quiz-explication .amtston{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--sourd);
+  display:block;margin-bottom:.3rem;text-transform:uppercase;
+}
+button.weiter{
+  font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.26em;
+  background:var(--bandeau);color:var(--papier);border:3px solid var(--encre);
+  padding:.8rem 1.3rem;margin-top:1.1rem;cursor:pointer;width:100%;
+  box-shadow:4px 4px 0 var(--encre);
+  transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end);
+}
+button.weiter:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--encre)}
+.bilan{text-align:center;padding:1.4rem .4rem .6rem}
+.bilan .score{
+  font-family:var(--display);font-weight:700;font-size:4.2rem;line-height:1;
+  display:block;margin-bottom:.3rem;
+}
+.bilan .stempel-final{
+  display:inline-block;transform:rotate(-5deg);margin:.9rem 0 1rem;
+  font-family:var(--mono);font-weight:700;font-size:1.15rem;letter-spacing:.3em;
+  padding:.5em .9em;border:4px solid currentColor;outline:2.5px solid currentColor;
+  outline-offset:3.5px;mix-blend-mode:multiply;
+}
+.bilan .verdict-texte{font-size:.98rem;max-width:30rem;margin:0 auto 1rem}
+
+/* ============ FOOTER IMPRESSUM ============ */
+footer.impressum{
+  border-top:6px solid var(--encre);margin-top:3.5rem;padding:1.6rem 0 0;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--sourd);
+  line-height:1.9;
+}
+footer.impressum b{color:var(--encre)}
+</style>
+</head>
+<body>
+
+<header class="fronton">
+  <span class="stempel-header">GEPRÜFT</span>
+  <p class="kicker">Amtsblatt · Édition Voyageur</p>
+  <h1 class="titre">Guide des<br>Usages Allemands</h1>
+  <p class="soustitre">Règlement pratique à l'usage du voyageur québécois en Rhénanie — savoir-vivre, Autobahn, Kölsch et autres matières réglementées.</p>
+  <div class="dossier">
+    <span>Az. 2026/07-EM</span>
+    <span>BRÜHL / KÖLN</span>
+    <span>GÜLTIG AB SOFORT</span>
+  </div>
+</header>
+
+<main>
+
+<nav class="inhalt" aria-label="Sommaire">
+  <h2>Inhaltsverzeichnis — Sommaire</h2>
+  <ol>
+    <li><a href="#p1"><span class="no">§ 1</span><span class="lib">Le contrat social allemand</span></a></li>
+    <li><a href="#p2"><span class="no">§ 2</span><span class="lib">Saluer, serrer, trinquer</span></a></li>
+    <li><a href="#p3"><span class="no">§ 3</span><span class="lib">Au restaurant — le rituel complet</span></a></li>
+    <li><a href="#p4"><span class="no">§ 4</span><span class="lib">L'argent — Bargeld über alles</span></a></li>
+    <li><a href="#p5"><span class="no">§ 5</span><span class="lib">Magasins, Pfand et dimanche mort</span></a></li>
+    <li><a href="#p6"><span class="no">§ 6</span><span class="lib">La route et l'Autobahn</span></a></li>
+    <li><a href="#p7"><span class="no">§ 7</span><span class="lib">Pièges sociaux à haut risque</span></a></li>
+    <li><a href="#p8"><span class="no">§ 8</span><span class="lib">Manger rhénan</span></a></li>
+    <li><a href="#p9"><span class="no">§ 9</span><span class="lib">Au parc et sur les sites</span></a></li>
+    <li><a href="#p10"><span class="no">§ 10</span><span class="lib">Lexique de survie</span></a></li>
+    <li><a href="#pruefung"><span class="no">§ 11</span><span class="lib">Prüfung — l'examen final</span></a></li>
+  </ol>
+</nav>
+
+<!-- ==================== § 1 ==================== -->
+<section class="par imprimable" id="p1">
+  <div class="bandeau-sec"><span class="parno">§ 1</span><h2>Le contrat social allemand</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Ordnung muss sein — « l'ordre doit régner ». Ce n'est pas un cliché, c'est le système d'exploitation du pays. Les règles allemandes ne sont pas des suggestions qu'on négocie selon le contexte : elles s'appliquent même quand personne ne regarde, et chacun se sent légitime de te les rappeler. Un inconnu qui te reprend dans la rue ne t'agresse pas — il maintient le système, et il s'attend à ce que tu fasses pareil.</p>
+
+    <h3>1.1 — La franchise n'est pas de la froideur</h3>
+    <p>Un Allemand qui trouve ton idée mauvaise te dira qu'elle est mauvaise. Pas « intéressante », pas « à creuser » : <i lang="de">schlecht</i>. C'est une marque de respect — on ne te fait pas perdre ton temps avec des politesses creuses. En retour, le « small talk » nord-américain (« Hi, how are you today?! » lancé au caissier) est perçu comme du bruit, voire de l'hypocrisie. Un <i lang="de">Hallo</i> sobre, la transaction, un <i lang="de">Danke, tschüss</i> : voilà l'échange parfait.</p>
+
+    <h3>1.2 — Sie ou du : le vouvoiement par défaut</h3>
+    <p>On vouvoie (<i lang="de">Sie</i>) tout adulte inconnu : serveurs, commerçants, employés du parc. Le tutoiement (<i lang="de">du</i>) se propose, il ne se prend pas — et c'est la personne la plus âgée ou hiérarchiquement supérieure qui l'offre. En pratique de voyageur : <i lang="de">Sie</i> partout, et tout ira bien. Exception tolérée : entre visiteurs de parcs d'attractions et dans les files, le <i lang="de">du</i> circule plus librement chez les moins de 40 ans.</p>
+
+    <h3>1.3 — La ponctualité est une politesse, pas une performance</h3>
+    <p>Arriver à l'heure, c'est arriver 5 minutes d'avance. Un retard de 10 minutes sans message est une offense réelle. Pour un restaurant réservé, un spectacle, un rendez-vous : la tolérance est proche de zéro. Ton billet de train le dit lui-même — présent sur le quai au plus tard 2 minutes avant le départ, sinon la porte reste fermée.</p>
+
+    <h3>1.4 — Le silence est confortable</h3>
+    <p>Dans l'ascenseur, le train, la file : le silence n'est pas un vide à remplir. Personne n'attend de toi que tu meubles. Les conversations téléphoniques bruyantes en transport en commun attirent des regards lourds de sens.</p>
+
+    <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
+    <p>Sois direct, sois à l'heure, vouvoie tout le monde, et n'aie pas peur du silence. Tu passeras pour quelqu'un de bien élevé.</p></div>
+  </div>
+</section>
+
+<!-- ==================== § 2 ==================== -->
+<section class="par imprimable" id="p2">
+  <div class="bandeau-sec"><span class="parno">§ 2</span><h2>Saluer, serrer, trinquer</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Bonne nouvelle : tu débarques dans la région la plus chaleureuse du pays. La jovialité rhénane (<i lang="de">rheinische Frohnatur</i>) est un fait culturel documenté — les gens de Cologne parlent aux inconnus, chose impensable à Hambourg. Mais les formes restent codifiées.</p>
+
+    <h3>2.1 — Les seuils horaires du salut</h3>
+    <ul>
+      <li><i lang="de">Guten Morgen</i> — jusqu'à ~10 h 30.</li>
+      <li><i lang="de">Guten Tag</i> — de ~10 h 30 à ~18 h. Le passe-partout sûr.</li>
+      <li><i lang="de">Guten Abend</i> — après ~18 h.</li>
+      <li><i lang="de">Hallo</i> — informel, accepté presque partout, parfait dans les commerces.</li>
+      <li>Départ : <i lang="de">Tschüss</i> (informel, universel en Rhénanie) ou <i lang="de">Auf Wiedersehen</i> (formel).</li>
+    </ul>
+    <p>En entrant dans une petite boutique, une salle d'attente ou un compartiment : on salue la pièce. En sortant : on dit au revoir. Ne pas le faire te classe immédiatement.</p>
+
+    <h3>2.2 — La poignée de main et le regard</h3>
+    <p>Poignée de main ferme, brève, avec contact visuel franc. Un regard fuyant est interprété comme de la faiblesse ou de la dissimulation. Pas de bise entre inconnus — la bise est réservée aux amis proches, et encore.</p>
+
+    <h3>2.3 — Trinquer : le rituel aux yeux ouverts</h3>
+    <p>Au moment du <i lang="de">Prost !</i> (ou <i lang="de">Zum Wohl !</i> avec du vin), tu regardes <b>chaque personne dans les yeux</b> au moment où vos verres se touchent. Trinquer en regardant les verres est une faute grave, sanctionnée par la superstition la plus célèbre du pays : sept ans de mauvaise fortune dans un domaine que la décence m'interdit de préciser ici. Les Allemands y tiennent avec un sérieux mi-amusé, mi-absolu.</p>
+
+    <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG</div>
+    <p>On ne commence jamais à boire avant le <i lang="de">Prost</i> collectif, et on ne pioche jamais dans son assiette avant le <i lang="de">Guten Appetit</i> général. L'impatience se remarque.</p></div>
+  </div>
+</section>
+
+<!-- ==================== § 3 ==================== -->
+<section class="par imprimable" id="p3">
+  <div class="bandeau-sec"><span class="parno">§ 3</span><h2>Au restaurant — le rituel complet</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Manger au restaurant en Allemagne suit une chorégraphie précise, du seuil de la porte jusqu'au pourboire. La maîtriser transforme l'expérience ; l'ignorer produit des malentendus dont tu ne comprendras même pas la cause.</p>
+
+    <h3>3.1 — Entrer et s'asseoir</h3>
+    <p>Dans les brasseries, <i lang="de">Gaststätten</i> et restaurants ordinaires, <b>on se place soi-même</b> — pas d'hôtesse. Table libre = table à toi. Si tout est plein, demander <i lang="de">Ist hier noch frei?</i> (« cette place est-elle libre ? ») et s'asseoir à la table de parfaits inconnus est normal et accepté, surtout au Brauhaus et au Biergarten. On salue, on s'assoit, on ne fait pas nécessairement la conversation.</p>
+
+    <h3>3.2 — L'eau : le piège classique</h3>
+    <p>L'eau du robinet gratuite n'existe culturellement pas. Demander un <i lang="de">Leitungswasser</i> est légal mais te vaudra un regard appuyé, et parfois un refus. On commande de l'eau en bouteille, payante, et par défaut elle sera <b>gazeuse</b>. Précise : <i lang="de">stilles Wasser</i> (plate) ou <i lang="de">Wasser mit Sprudel</i> (pétillante). Attends-toi à 3–5 € la bouteille.</p>
+
+    <h3>3.3 — Le service ne te surveille pas — c'est voulu</h3>
+    <p>Le serveur ne repassera pas toutes les cinq minutes demander si « tout est parfait ». Te laisser tranquille est une forme de respect. Pour appeler : contact visuel + petit signe de la main, ou un <i lang="de">Entschuldigung!</i> posé. L'addition ne viendra <b>jamais</b> seule — il faut la demander : <i lang="de">Zahlen, bitte!</i> ou <i lang="de">Die Rechnung, bitte.</i></p>
+
+    <h3>3.4 — « Getrennt oder zusammen? »</h3>
+    <p>Au moment de payer, on te demandera « séparément ou ensemble ? ». Payer chacun sa part, calculée au centime par le serveur lui-même, est parfaitement normal — aucun malaise, aucune calculette sur la table. Réponds <i lang="de">getrennt</i> (séparé) ou <i lang="de">zusammen</i> (ensemble).</p>
+
+    <h3>3.5 — Le pourboire : annoncé, jamais abandonné</h3>
+    <p>Le <i lang="de">Trinkgeld</i> se donne <b>au moment de payer, à voix haute</b>, en arrondissant de 5 à 10 %. L'addition fait 47,60 € ? Tu tends ton argent en disant <i lang="de">« Machen Sie 52 »</i> (« faites 52 »). Le compte est bon ? <i lang="de">« Stimmt so »</i> (« gardez tout »). Laisser des pièces sur la table en partant, à la nord-américaine, est vu comme étrange, presque condescendant. En payant par carte, annonce le total avant que le serveur tape le montant.</p>
+
+    <h3>3.6 — Tenue de table</h3>
+    <p>Les mains restent visibles, posées sur la table de part et d'autre de l'assiette — jamais sur les genoux (vieille étiquette toujours vivante). Couteau et fourchette en parallèle à 16 h 20 sur l'assiette : j'ai terminé. Croisés : je fais une pause.</p>
+
+    <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
+    <p><i lang="de">Zahlen bitte</i> → annonce ton total arrondi → <i lang="de">Stimmt so</i>. Trois phrases, et tu paies comme un local.</p></div>
+  </div>
+</section>
+
+<!-- ==================== § 4 ==================== -->
+<section class="par imprimable" id="p4">
+  <div class="bandeau-sec"><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Voici le paradoxe allemand : la quatrième économie mondiale, patrie de SAP et de Siemens, reste viscéralement attachée à l'argent liquide. <i lang="de">Nur Bargeld</i> — « espèces uniquement » — est un écriteau que tu croiseras encore en 2026, dans des établissements par ailleurs impeccables.</p>
+
+    <h3>4.1 — La hiérarchie des moyens de paiement</h3>
+    <ul>
+      <li><b>Espèces</b> — acceptées partout, attendues dans les kiosques, boulangeries, petits cafés, marchés, certains Brauhäuser et food-trucks. Garde 80–120 € sur toi en permanence.</li>
+      <li><b>Girocard / cartes de débit</b> — le standard local. Ta carte de débit canadienne avec réseau international passe souvent, pas toujours.</li>
+      <li><b>Visa / Mastercard crédit</b> — acceptées dans les chaînes, hôtels, stations-service, grandes surfaces ; refusées ou tolérées à contrecœur ailleurs.</li>
+      <li><b>American Express</b> — couverture nettement plus faible. Ton Amex Platinum servira à l'hôtel et dans les grandes enseignes, mais prévois systématiquement un plan B. Le parc d'attractions la prendra ; le stand de Currywurst devant, non.</li>
+    </ul>
+
+    <h3>4.2 — Retirer sans se faire tondre</h3>
+    <p>Utilise les distributeurs (<i lang="de">Geldautomat</i>) des vraies banques — Sparkasse, Volksbank, Commerzbank, Deutsche Bank — adossés à une agence. Les automates privés orange/jaunes type Euronet, plantés dans les zones touristiques et les gares, prélèvent des frais gonflés et proposent une conversion dynamique piégeuse : si l'écran offre de débiter « en dollars canadiens », <b>refuse toujours</b> et choisis l'euro.</p>
+
+    <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG</div>
+    <p>Ne pars jamais visiter une vieille ville, un marché ou un Biergarten avec moins de 50 € en poche. La phrase <i lang="de">« Karte geht nicht »</i> (la carte ne passe pas) frappe toujours au moment où la bière est déjà servie.</p></div>
+  </div>
+</section>
+
+<!-- ==================== § 5 ==================== -->
+<section class="par imprimable" id="p5">
+  <div class="bandeau-sec"><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Samedi soir, 21 h 55, un supermarché allemand : la scène a l'urgence feutrée d'une fin du monde ordonnée. Car demain, dimanche, <b>tout sera fermé</b>. Pas « quelques commerces » : tout. Le <i lang="de">Ladenschlussgesetz</i>, loi de fermeture des magasins, structure la semaine entière du pays.</p>
+
+    <h3>5.1 — Le dimanche : survivre au jour mort</h3>
+    <p>Fermés le dimanche : supermarchés, pharmacies (hors garde), vêtements, électronique, centres commerciaux. Les exceptions qui te sauveront :</p>
+    <ul>
+      <li><b>Boulangeries</b> — ouvertes le dimanche matin, généralement jusqu'à midi ou 13 h.</li>
+      <li><b>Stations-service</b> — mini-épiceries à prix majorés, ouvertes 7 j/7.</li>
+      <li><b>Supermarchés de gare</b> — le REWE de la gare centrale de Cologne (<i lang="de">Köln Hauptbahnhof</i>) est ouvert le dimanche : c'est le plan de secours officiel de toute la région.</li>
+      <li><b>Restaurants et cafés</b> — ouverts, heureusement.</li>
+    </ul>
+
+    <h3>5.2 — Le Pfand : la consigne comme institution nationale</h3>
+    <p>Presque toutes les bouteilles et canettes portent une consigne (<i lang="de">Pfand</i>) : <b>0,25 €</b> pour les bouteilles plastique et canettes jetables (logo DPG), 0,08–0,15 € pour le verre et le plastique réutilisables. Tu la paies à l'achat, tu la récupères en rapportant le contenant dans <b>n'importe quel supermarché</b> qui vend le même type : machine <i lang="de">Pfandautomat</i> à l'entrée, bouteille dans la gueule, bon de caisse à faire valoir. Une caisse de six bouteilles d'eau = 1,50 € qui dorment dans ton coffre.</p>
+    <p>Détail de civilisation : on ne jette jamais une bouteille consignée dans une poubelle publique — on la pose debout <b>à côté</b>, geste tacite pour les collecteurs de Pfand qui arrondissent leurs fins de mois.</p>
+
+    <h3>5.3 — La caisse : une épreuve de vitesse</h3>
+    <p>Chez Aldi et Lidl, les caissiers scannent à une cadence olympique et il n'y a <b>pas d'emballeur</b>. Protocole de survie : pose le séparateur (<i lang="de">Warentrenner</i>) derrière tes articles — réflexe social obligatoire —, rebalance tout en vrac dans le panier, paie, et va emballer tranquillement sur la tablette prévue après les caisses. Emballer sur le tapis pendant que ça scanne = bouchon = soupirs collectifs.</p>
+
+    <h3>5.4 — Apotheke ≠ Drogerie</h3>
+    <p>Distinction stricte que ton passé de technicien en pharmacie appréciera : l'<b>Apotheke</b> (croix rouge « A ») vend tout médicament, même l'ibuprofène — rien de pharmaceutique en libre-service ailleurs. La <b>Drogerie</b> (dm, Rossmann) vend cosmétique, hygiène, vitamines, mais aucun médicament. Un dimanche ou la nuit, cherche l'<i lang="de">Apotheken-Notdienst</i> : chaque pharmacie affiche en vitrine la garde du secteur. Pour tes fournitures de voyage — bandelettes, hypo-kit d'appoint — c'est l'Apotheke, et elles sont d'excellent conseil.</p>
+
+    <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
+    <p>Fais tes provisions le samedi. Garde tes bouteilles vides. Pose le Warentrenner. Emballe après, pas pendant.</p></div>
+  </div>
+</section>
+
+<!-- ==================== § 6 ==================== -->
+<section class="par imprimable" id="p6">
+  <div class="bandeau-sec"><span class="parno">§ 6</span><h2>La route et l'Autobahn</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Rouler en Allemagne avec une voiture immatriculée en France, c'est entrer dans le pays le plus discipliné d'Europe au volant — et le plus impitoyable envers ceux qui improvisent. Trois règles ci-dessous n'existent pas au Québec ; deux d'entre elles peuvent coûter des centaines d'euros, la troisième sauve des vies.</p>
+
+    <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG — RETTUNGSGASSE</div>
+    <p><b>La règle la plus importante de ce guide.</b> Dès que le trafic ralentit au pas ou s'arrête sur autoroute (même sans sirène à l'horizon), tu formes immédiatement le couloir de secours : la voie la plus à gauche se serre <b>à gauche</b>, toutes les autres voies se serrent <b>à droite</b>. Le couloir s'ouvre entre la voie de gauche et celle d'à côté. C'est obligatoire, préventif, automatique.</p>
+    <p>Ne pas le faire : amende de 200 à 320 €+ et interdiction de conduire possible. L'emprunter soi-même : encore pire. Les Allemands le forment sans réfléchir — la voiture française qui reste plantée au milieu se fait remarquer très vite.</p></div>
+
+    <h3>6.1 — L'Autobahn : libre ne veut pas dire anarchique</h3>
+    <ul>
+      <li>Vitesse <b>recommandée</b> (<i lang="de">Richtgeschwindigkeit</i>) : 130 km/h. Sans limite affichée, tu peux rouler plus vite — mais en cas d'accident au-delà de 130, ta responsabilité s'alourdit.</li>
+      <li>Les sections limitées (120, 100, 80…) sont <b>fréquentes</b> et strictement contrôlées par radars fixes. Tolérance quasi nulle, PV envoyé au loueur, qui te refacture avec frais de dossier.</li>
+      <li><b>Voie de gauche = dépassement uniquement.</b> On se rabat toujours. Traîner à gauche à 120 pendant qu'une berline arrive à 200 est dangereux et sanctionnable.</li>
+      <li><b>Interdiction absolue de dépasser par la droite</b> sur autoroute.</li>
+      <li>Vérifie tes rétros deux fois avant de déboîter : la voiture qui était un point lointain arrive réellement à 200 km/h.</li>
+    </ul>
+
+    <h3>6.2 — En ville : trois différences avec le Québec</h3>
+    <ul>
+      <li><b>Rechts vor links</b> — priorité à droite. Dans les zones résidentielles sans panneau ni feu, le véhicule venant de droite passe en premier. Réflexe à installer avant Brühl.</li>
+      <li><b>Virage à droite au feu rouge : interdit</b> — sauf si une petite flèche verte en tôle (<i lang="de">Grüner Pfeil</i>) est fixée à côté du feu. Dans ce cas seulement : arrêt complet obligatoire, puis virage prudent. C'est l'inverse exact de l'habitude nord-américaine.</li>
+      <li>Le feu passe à <b>rouge-orange avant le vert</b> — signal de préparation, pas d'invitation à bondir. Et 50 km/h en agglomération, 30 dans les zones résidentielles.</li>
+    </ul>
+
+    <h3>6.3 — Umweltplakette : la vignette qui manque à ta voiture française</h3>
+    <p>Le centre de Cologne est une <i lang="de">Umweltzone</i> — zone environnementale où seuls les véhicules porteurs de la vignette verte peuvent circuler. Les voitures de location <b>allemandes</b> l'ont d'office ; ta location <b>française n'en a pas</b>. Rouler dans la zone sans vignette : environ 100 € d'amende, même avec un moteur propre — c'est l'autocollant qui compte, pas le véhicule.</p>
+    <ul>
+      <li>Phantasialand (Brühl) est hors zone : aucun souci pour le parc.</li>
+      <li>Si tu veux entrer dans Cologne intra-muros en voiture (voir le Dom) : achète la vignette (~5–20 € selon le point de vente) dans une station de contrôle technique <b>TÜV</b> ou <b>DEKRA</b>, ou certaines grandes stations-service — carte grise en main, apposée en 5 minutes.</li>
+      <li>Alternative zéro stress : parc-relais (<i lang="de">P+R</i>) en périphérie + tram jusqu'au centre.</li>
+    </ul>
+
+    <h3>6.4 — Divers réglementaires</h3>
+    <ul>
+      <li><b>Alcool : 0,5 ‰</b> (≈ 0,05) — plus strict que le 0,08 québécois. Avec le Kölsch qui descend tout seul, la marge fond vite.</li>
+      <li><b>Stationnement</b> : le panneau bleu avec disque exige la <i lang="de">Parkscheibe</i> — disque bleu en carton (1–2 € en station-service) où tu affiches ton heure d'arrivée.</li>
+      <li><b>Essence</b> : on fait le plein d'abord, on paie ensuite en caisse en annonçant le numéro de pompe. Super E5 ou E10 pour l'essence — en cas de doute sur la compatibilité E10 de ta location, prends E5.</li>
+      <li><b>Radars de feu rouge</b> : très répandus. L'orange qui « passe encore » n'existe pas ici.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== § 7 ==================== -->
+<section class="par imprimable" id="p7">
+  <div class="bandeau-sec"><span class="parno">§ 7</span><h2>Pièges sociaux à haut risque</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Voici les fautes qui ne coûtent presque rien en euros mais énormément en regards. Chacune semble anodine vue du Québec ; chacune est un marqueur social puissant vue d'ici.</p>
+
+    <h3>7.1 — Le feu piéton rouge : le tabou absolu</h3>
+    <p>Rue déserte, 6 h du matin, aucun véhicule à l'horizon : l'Allemand attend le bonhomme vert. Traverser au rouge (<i lang="de">bei Rot gehen</i>) est passible d'une amende de 5–10 €, mais la vraie sanction est sociale — surtout <b>devant des enfants</b>. La phrase rituelle qu'on te lancera : <i lang="de">« Vorbild sein! »</i> — « montrez l'exemple ! ». Devant un enfant, on attend. Toujours.</p>
+
+    <h3>7.2 — L'anniversaire : jamais en avance</h3>
+    <p>Souhaiter un anniversaire avant le jour J porte malheur (<i lang="de">Unglück</i>) — superstition prise très au sérieux. Pas de « bonne fête en avance », pas de cadeau anticipé, pas de carte postée trop tôt. On attend minuit, ou le jour même. Un <i lang="de">nachträglich alles Gute</i> (en retard) est acceptable ; en avance, jamais.</p>
+
+    <h3>7.3 — Ruhezeit : les heures du silence</h3>
+    <p>De 22 h à 6–7 h et <b>tout le dimanche</b>, le calme est protégé : pas de musique forte, pas de valise qui roule bruyamment dans les couloirs d'hôtel à minuit, pas de conversations de balcon sonores. Le dimanche allemand est structurellement silencieux — les voisins tondent le samedi, jamais le dimanche.</p>
+
+    <h3>7.4 — Le tri, même en vacances</h3>
+    <p>Les poubelles publiques multiples (papier / emballages / reste) ne sont pas décoratives. Jeter n'importe quoi n'importe où, sous des yeux allemands, te vaudra au minimum le regard, au maximum le commentaire. Et rappel du § 5 : la bouteille consignée se pose à côté de la poubelle, debout.</p>
+
+    <h3>7.5 — Sauna et spa : textilfrei</h3>
+    <p>Si ton hôtel a un espace bien-être : dans la plupart des saunas allemands, le maillot est <b>interdit</b> (hygiène), la nudité obligatoire et parfaitement asexuée, serviette sous chaque centimètre de peau. Panneaux <i lang="de">textilfrei</i> ou <i lang="de">FKK</i> = zone naturiste. On n'y fixe personne, on n'y est pas fixé. Si ce n'est pas ton registre, vérifie les horaires « textile » ou passe ton tour sans drame.</p>
+  </div>
+</section>
+
+<!-- ==================== § 8 ==================== -->
+<section class="par imprimable" id="p8">
+  <div class="bandeau-sec"><span class="parno">§ 8</span><h2>Manger rhénan</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Kölle, comme les locaux appellent Cologne, boit une bière qui n'existe nulle part ailleurs et la sert selon un rituel qui déroute tous les étrangers. Bienvenue dans la seule ville au monde où le serveur remplit ton verre sans jamais te demander ton avis.</p>
+
+    <h3>8.1 — Le Kölsch et son Köbes : le rituel</h3>
+    <ul>
+      <li>Le <b>Kölsch</b> se sert exclusivement en verres cylindriques de <b>0,2 L</b> (<i lang="de">Stange</i>) — petit, frais, toujours parfait.</li>
+      <li>Le serveur du Brauhaus s'appelle le <b>Köbes</b> : bourru de tradition, tablier bleu, il circule avec une couronne de verres (<i lang="de">Kranz</i>) et <b>remplace ton verre vide automatiquement</b>, sans question, en traçant un trait de crayon sur ton sous-bock — c'est ta facture.</li>
+      <li>Pour arrêter la machine, un seul geste reconnu : <b>poser le sous-bock (<i lang="de">Deckel</i>) sur le verre</b>. Tant que le Deckel n'est pas dessus, le Kölsch coule.</li>
+      <li>Au moment de payer, le Köbes compte les traits. Simple, brutal, génial.</li>
+    </ul>
+
+    <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG — CASUS BELLI</div>
+    <p>Ne commande <b>jamais</b> un <i lang="de">Alt</i> (la bière de Düsseldorf) dans un Brauhaus de Cologne. La rivalité Köln–Düsseldorf est la plus vieille guerre de bière d'Allemagne — la demande sera reçue quelque part entre l'humour vexé et l'expulsion théâtrale. À Cologne : Kölsch. Point.</p></div>
+
+    <h3>8.2 — Les pièges de la carte rhénane</h3>
+    <ul>
+      <li><b><i lang="de">Halver Hahn</i></b> — littéralement « demi-coq ». C'est un <b>petit pain de seigle au gouda</b>, cornichon, moutarde, oignons. Zéro poulet. LE piège à touristes linguistique de la région, tendu depuis un siècle.</li>
+      <li><b><i lang="de">Himmel un Ääd</i></b> — « ciel et terre » : purée de pommes de terre + compote de pommes + boudin noir grillé (<i lang="de">Flönz</i>). Le plat rhénan par excellence.</li>
+      <li><b><i lang="de">Rheinischer Sauerbraten</i></b> — rôti mariné aigre-doux, sauce aux raisins ; historiquement du cheval, aujourd'hui presque toujours du bœuf (la carte le précise).</li>
+      <li><b>Currywurst</b> — saucisse sauce tomate-curry, institution de comptoir, 4–6 €.</li>
+      <li><b>Döner Kebab</b> — le vrai fast-food national allemand, inventé à Berlin, excellent à 6–9 €. File d'attente = gage de qualité.</li>
+    </ul>
+
+    <h3>8.3 — Le rythme des repas</h3>
+    <ul>
+      <li><b>Matin</b> : la <i lang="de">Bäckerei</i> est un pilier civilisationnel — <i lang="de">Brötchen</i> (petits pains) à l'unité, café correct, dès 6–7 h.</li>
+      <li><b>Midi</b> : le <i lang="de">Mittagstisch</i> — menus du midi économiques, service rapide, 12 h–14 h.</li>
+      <li><b>15–17 h</b> : <i lang="de">Kaffee und Kuchen</i> — café et part de gâteau, institution dominicale et familiale absolue.</li>
+      <li><b>Soir</b> : les cuisines ferment tôt hors grandes villes — vise 21 h max pour commander.</li>
+      <li><b>À boire sans alcool</b> : l'<i lang="de">Apfelschorle</i> (jus de pomme + eau gazeuse), boisson nationale officieuse, parfaite en parc d'attractions.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== § 9 ==================== -->
+<section class="par imprimable" id="p9">
+  <div class="bandeau-sec"><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Un parc d'attractions allemand fonctionne comme le pays : files impeccables, signalétique exhaustive, règles appliquées sans exception — et une efficacité qui rend l'expérience remarquablement fluide quand on joue le jeu.</p>
+
+    <h3>9.1 — La file d'attente : territoire sacré</h3>
+    <p>Resquiller (<i lang="de">sich vordrängeln</i>) déclenche une réaction immédiate et <b>verbale</b> — les Allemands ne fusillent pas du regard en silence, ils te disent de retourner derrière, fort et devant tout le monde. Garder la place d'un ami parti aux toilettes : toléré pour une personne, mal vu au-delà. Le regroupement familial massif juste avant l'embarquement passe très mal.</p>
+
+    <h3>9.2 — Vocabulaire de parc</h3>
+    <ul>
+      <li><i lang="de">Einzelfahrer</i> — single rider : files séparées sur plusieurs attractions majeures, ton meilleur levier anti-attente.</li>
+      <li><i lang="de">Wartezeit</i> — temps d'attente ; <i lang="de">ab hier ca. 30 Min.</i> = « environ 30 min à partir d'ici ».</li>
+      <li><i lang="de">Schließfächer</i> — consignes/casiers, souvent obligatoires pour les sacs sur les grosses attractions (pièces ou paiement sans contact).</li>
+      <li><i lang="de">Größenkontrolle</i> — toise de taille, appliquée au centimètre près, sans négociation possible : c'est la règle, donc c'est la règle.</li>
+    </ul>
+
+    <h3>9.3 — Le Dom de Cologne, si tu fais le détour</h3>
+    <p>La cathédrale (entrée gratuite) reste un lieu de culte actif : silence réel, épaules couvertes appréciées, pas de flash. La montée de la tour sud — 533 marches — se paie et se mérite. Sur le parvis, ignore poliment les jeux de bonneteau et pétitions : attrape-touristes classiques.</p>
+
+    <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
+    <p>En file : patience exemplaire. Aux casiers : monnaie prête. À la toise : pas de négociation. Et l'Apfelschorle est ton amie sous le soleil de juillet.</p></div>
+  </div>
+</section>
+
+<!-- ==================== § 10 ==================== -->
+<section class="par imprimable" id="p10">
+  <div class="bandeau-sec"><span class="parno">§ 10</span><h2>Lexique de survie</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Quatre règles de prononciation suffisent à rendre ton allemand compréhensible : <b>ei</b> se dit « aïe » (<i lang="de">nein</i> = naïne), <b>ie</b> se dit « ii » (<i lang="de">Bier</i> = biir), <b>w</b> se dit « v » et <b>v</b> se dit « f », <b>z</b> se dit « ts ». Le <b>ß</b> est un double s. Et le e final se prononce toujours : <i lang="de">bitte</i> = « bit-teu ».</p>
+
+    <table class="tablo">
+      <caption>Bloc A — Les indispensables</caption>
+      <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
+      <tr><td class="de">Hallo / Guten Tag</td><td class="pron">halo / gouten tak</td><td>Bonjour</td></tr>
+      <tr><td class="de">Tschüss</td><td class="pron">tchuss</td><td>Au revoir (informel)</td></tr>
+      <tr><td class="de">Bitte</td><td class="pron">bit-teu</td><td>S'il vous plaît / je vous en prie / voici</td></tr>
+      <tr><td class="de">Danke (schön)</td><td class="pron">dann-keu cheune</td><td>Merci (beaucoup)</td></tr>
+      <tr><td class="de">Entschuldigung</td><td class="pron">ènt-choul-di-goung</td><td>Pardon / excusez-moi</td></tr>
+      <tr><td class="de">Ja / Nein</td><td class="pron">ya / naïne</td><td>Oui / non</td></tr>
+      <tr><td class="de">Sprechen Sie Englisch?</td><td class="pron">chprè-rhen zi ènglich</td><td>Parlez-vous anglais ?</td></tr>
+      <tr><td class="de">Ich verstehe nicht</td><td class="pron">irh fèr-chté-eu nirht</td><td>Je ne comprends pas</td></tr>
+    </table>
+
+    <table class="tablo">
+      <caption>Bloc B — Restaurant &amp; Brauhaus</caption>
+      <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
+      <tr><td class="de">Ist hier noch frei?</td><td class="pron">ist hir norh fraï</td><td>Cette place est-elle libre ?</td></tr>
+      <tr><td class="de">Die Karte, bitte</td><td class="pron">di kar-teu bit-teu</td><td>La carte, s'il vous plaît</td></tr>
+      <tr><td class="de">Ein stilles Wasser, bitte</td><td class="pron">aïne chtileus vasser</td><td>Une eau plate, svp</td></tr>
+      <tr><td class="de">Ein Kölsch, bitte</td><td class="pron">aïne keulch bit-teu</td><td>Un Kölsch, svp</td></tr>
+      <tr><td class="de">Zahlen, bitte!</td><td class="pron">tsa-len bit-teu</td><td>L'addition, svp</td></tr>
+      <tr><td class="de">Zusammen / Getrennt</td><td class="pron">tsou-za-men / gue-trènnt</td><td>Ensemble / séparément</td></tr>
+      <tr><td class="de">Stimmt so</td><td class="pron">chtimmt zo</td><td>Gardez la monnaie</td></tr>
+      <tr><td class="de">Machen Sie zwanzig</td><td class="pron">marhen zi tsvann-tsirh</td><td>Faites vingt (euros)</td></tr>
+    </table>
+
+    <table class="tablo">
+      <caption>Bloc C — Magasin, route, urgence</caption>
+      <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
+      <tr><td class="de">Was kostet das?</td><td class="pron">vass kostet dass</td><td>Combien ça coûte ?</td></tr>
+      <tr><td class="de">Mit Karte, bitte</td><td class="pron">mit kar-teu</td><td>Par carte, svp</td></tr>
+      <tr><td class="de">Wo ist die Toilette?</td><td class="pron">vo ist di toa-lè-teu</td><td>Où sont les toilettes ?</td></tr>
+      <tr><td class="de">Ausfahrt / Einfahrt</td><td class="pron">aoss-fart / aïne-fart</td><td>Sortie / entrée (route)</td></tr>
+      <tr><td class="de">Stau</td><td class="pron">chtaô</td><td>Bouchon</td></tr>
+      <tr><td class="de">Tankstelle</td><td class="pron">tank-chtè-leu</td><td>Station-service</td></tr>
+      <tr><td class="de">Ich brauche Hilfe</td><td class="pron">irh braô-rheu hil-feu</td><td>J'ai besoin d'aide</td></tr>
+      <tr><td class="de">Ich bin Diabetiker</td><td class="pron">irh binn dia-bé-ti-keur</td><td>Je suis diabétique</td></tr>
+      <tr><td class="de">Apotheke</td><td class="pron">apo-té-keu</td><td>Pharmacie</td></tr>
+      <tr><td class="de">Notruf: 112</td><td class="pron">note-rouf</td><td>Urgences (médical/pompiers)</td></tr>
+    </table>
+
+    <h3>10.1 — Faux amis à désamorcer</h3>
+    <ul>
+      <li><i lang="de">Gift</i> = <b>poison</b>. Un « gift shop » allemand serait une boutique inquiétante.</li>
+      <li><i lang="de">Rat</i> = conseil (d'où <i lang="de">Rathaus</i>, l'hôtel de ville — la maison du conseil, pas des rats).</li>
+      <li><i lang="de">bekommen</i> = recevoir, pas devenir. <i lang="de">Ich bekomme ein Schnitzel</i> = « je prends un schnitzel », pas « je deviens un schnitzel ».</li>
+      <li><i lang="de">Chef</i> = le patron, pas le cuisinier (lui, c'est le <i lang="de">Koch</i>).</li>
+      <li><i lang="de">Ausfahrt</i> n'est pas une ville, malgré sa présence à toutes les sorties d'autoroute.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== § 11 — PRÜFUNG ==================== -->
+<section class="par imprimable" id="pruefung">
+  <div class="bandeau-sec"><span class="parno">§ 11</span><h2>Prüfung — l'examen final</h2></div>
+  <div class="corps-sec">
+    <p class="lede">Douze situations réelles, tirées de ton itinéraire. Le Bureau tamponnera chaque réponse : <b>GENEHMIGT</b> (approuvé) ou <b>ABGELEHNT</b> (rejeté). À partir de 9 bonnes réponses, le certificat de voyageur conforme t'est délivré. La machine à écrire du Bureau est une Enigma reconvertie — elle cliquette, c'est normal.</p>
+
+    <div class="quiz-cadre" id="quiz-cadre">
+      <div class="quiz-tete">
+        <span class="quiz-prog" id="quiz-prog">FRAGE 1/12</span>
+        <button class="mute" id="btn-mute" aria-pressed="false" type="button">SFX : AN</button>
+      </div>
+      <div id="quiz-zone"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="impressum">
+  <p><b>IMPRESSUM</b> — Édité par le Bureau des Usages &amp; Convenances, division Voyageurs.<br>
+  Forge : <b>BETON-SCRIPTORIUM</b> · Conseil de Recette tenu le 6 juillet 2026 · Claudi-brimbor, scribe.<br>
+  Béton : coffrage apparent. Encre : bleu tampon &amp; rouge de rubrication. Machine : Enigma, trois rotors, bon état.<br>
+  Indications fournies <i lang="de">ohne Gewähr</i> (sans garantie) — les usages évoluent, la politesse demeure.<br>
+  Az. 2026/07-EM · GÜLTIG AB SOFORT · <span style="color:var(--tampon);font-weight:700">GEPRÜFT ✓</span></p>
+</footer>
+
+</main>
+
+<script>
+/* ============ Reveals — l'impression des sections ============ */
+(function(){
+  const els=document.querySelectorAll('.imprimable');
+  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('est-imprime'));return;}
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('est-imprime');io.unobserve(en.target);}});
+  },{rootMargin:'0px 0px -8% 0px',threshold:0.05});
+  els.forEach(e=>io.observe(e));
+})();
+
+/* ============ Moteur sonore ENIGMA — synthèse pure ============ */
+const Enigma=(function(){
+  let ctx=null,muted=false;
+  function ensure(){
+    if(!ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;ctx=new AC();}
+    if(ctx.state==='suspended')ctx.resume();
+    return ctx;
+  }
+  /* frappe de touche : burst de bruit bandpass + thock de levier */
+  function frappe(temps,force){
+    const c=ensure();if(!c||muted)return;const t=temps||c.currentTime;const f=force||1;
+    const dur=0.014;
+    const buf=c.createBuffer(1,c.sampleRate*dur,c.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++){d[i]=(Math.random()*2-1)*(1-i/d.length);}
+    const src=c.createBufferSource();src.buffer=buf;
+    const bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2400;bp.Q.value=8;
+    const g=c.createGain();g.gain.setValueAtTime(0.11*f,t);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    src.connect(bp).connect(g).connect(c.destination);src.start(t);src.stop(t+dur);
+    const o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(170,t);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.09*f,t);g2.gain.exponentialRampToValueAtTime(0.001,t+0.035);
+    o.connect(g2).connect(c.destination);o.start(t);o.stop(t+0.04);
+  }
+  /* rotor : 4 clics décroissants — l'avancée mécanique */
+  function rotor(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    for(let i=0;i<4;i++){frappe(t+i*0.026,0.65-i*0.1);}
+  }
+  /* GENEHMIGT : clic de relais + la lampe s'allume (chaleur étouffée) */
+  function lampe(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    frappe(t,0.8);
+    const o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(523.25,t+0.05);
+    const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t+0.05);
+    g.gain.exponentialRampToValueAtTime(0.12,t+0.07);
+    g.gain.exponentialRampToValueAtTime(0.001,t+0.21);
+    o.connect(lp).connect(g).connect(c.destination);o.start(t+0.05);o.stop(t+0.23);
+  }
+  /* ABGELEHNT : battement de deux squares — court-circuit sec */
+  function kurzschluss(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    frappe(t,0.8);
+    const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=600;
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t+0.05);
+    g.gain.exponentialRampToValueAtTime(0.10,t+0.065);
+    g.gain.exponentialRampToValueAtTime(0.001,t+0.26);
+    [110,113].forEach(fr=>{
+      const o=c.createOscillator();o.type='square';o.frequency.setValueAtTime(fr,t+0.05);
+      o.connect(lp);o.start(t+0.05);o.stop(t+0.27);
+    });
+    lp.connect(g).connect(c.destination);
+  }
+  return{frappe:()=>frappe(),rotor,lampe,kurzschluss,
+    toggle(){muted=!muted;return muted;},ensure};
+})();
+
+/* ============ PRÜFUNG — moteur ============ */
+const FRAGEN=[
+ {sit:"Brauhaus, Cologne, 19 h",
+  q:"Ton verre de Kölsch se vide. Sans un mot, le Köbes en pose un plein et trace un trait sur ton sous-bock. Tu n'en veux plus après celui-ci. Que fais-tu ?",
+  c:["Je lui dis fermement « Nein, danke » à son prochain passage","Je pose le sous-bock (Deckel) sur mon verre","Je laisse le verre plein intact sur la table, message clair","Je demande l'addition immédiatement pour couper le flux"],
+  b:1,
+  ex:"Le Deckel posé sur le verre est LE signal reconnu — tant qu'il n'y est pas, le Kölsch coule automatiquement. C'est le contrat tacite du Brauhaus, et les traits de crayon sont ta facture (§ 8.1)."},
+ {sit:"Restaurant, fin de repas",
+  q:"L'addition affiche 47,60 €. Tu veux laisser environ 10 % de pourboire. Le serveur attend, terminal en main. Protocole ?",
+  c:["Je paie 47,60 € et je laisse 5 € en pièces sur la table en partant","J'annonce « Machen Sie 52 » avant qu'il tape le montant","Je paie le montant exact — le service est compris en Europe","J'attends qu'il propose lui-même d'arrondir"],
+  b:1,
+  ex:"Le Trinkgeld s'annonce à voix haute au moment de payer — « Machen Sie 52 » ou « Stimmt so » si le compte y est. Laisser des pièces sur la table est perçu comme étrange, presque condescendant (§ 3.5)."},
+ {sit:"Même restaurant, deux couverts",
+  q:"Le serveur arrive et demande : « Getrennt oder zusammen? ». Il vient de te demander…",
+  c:["Sur place ou à emporter","Si vous payez séparément ou ensemble","Si vous voulez le dessert maintenant ou plus tard","Si la table vous convient ou si vous préférez la terrasse"],
+  b:1,
+  ex:"Payer chacun sa part, recalculée au centime par le serveur, est la norme absolue — aucun malaise. Réponds « getrennt » (séparé) ou « zusammen » (ensemble) (§ 3.4)."},
+ {sit:"Brühl, 6 h 30 du matin",
+  q:"Feu piéton rouge, rue parfaitement déserte. Un enfant attend aussi, cartable sur le dos. Tu es pressé. Décision ?",
+  c:["Je traverse — aucune voiture à 500 m à la ronde","Je traverse mais en m'excusant du regard","J'attends le bonhomme vert, point","Je traverse 20 m plus loin, hors du passage, c'est différent"],
+  b:2,
+  ex:"Devant un enfant, traverser au rouge est LE tabou : « Vorbild sein! » — montrez l'exemple. L'amende (5–10 €) est anecdotique ; la réprobation publique, elle, est immédiate (§ 7.1)."},
+ {sit:"Autoroute A1, direction Cologne",
+  q:"Le trafic passe brutalement de 120 km/h à l'arrêt complet. Aucune sirène audible. Tu es sur la voie du milieu (3 voies). Réflexe ?",
+  c:["Je reste centré dans ma voie en laissant de l'espace devant","Je me serre à droite immédiatement pour ouvrir le couloir","Je me serre à gauche — le couloir s'ouvre côté glissière","J'attends d'entendre une sirène avant de bouger"],
+  b:1,
+  ex:"Rettungsgasse : dès l'arrêt du trafic, la voie la plus à gauche serre à gauche, TOUTES les autres serrent à droite. Préventif, obligatoire, 200–320 €+ si tu ne le fais pas (§ 6, ACHTUNG)."},
+ {sit:"Dimanche, 14 h",
+  q:"Plus de lait, plus de pain, frigo vide. Les supermarchés de Brühl sont fermés. Ton meilleur plan ?",
+  c:["Le REWE de la gare centrale de Cologne, ouvert le dimanche","Attendre 18 h — les magasins rouvrent en soirée le dimanche","Le centre commercial voisin, exempté de la loi","N'importe quel Aldi : les discounters ne ferment jamais"],
+  b:0,
+  ex:"Le dimanche allemand est mort : Ladenschlussgesetz. Les survivants : boulangeries le matin, stations-service, et les supermarchés de gare — le REWE de Köln Hbf est le plan B officiel de la région (§ 5.1)."},
+ {sit:"Biergarten, tablée germano-québécoise",
+  q:"Les verres se lèvent, « Prost! » retentit. Pendant que les verres se touchent, ton regard doit être…",
+  c:["Sur les verres — pour ne pas renverser","Dans les yeux de chaque personne avec qui tu trinques","Vers le ciel — tradition bavaroise","Peu importe, c'est le geste qui compte"],
+  b:1,
+  ex:"Contact visuel obligatoire à chaque choc de verre, personne par personne. La sanction folklorique de l'oubli : sept ans de misère dans un domaine intime. Les Allemands y tiennent mi-riant, mi-sérieux (§ 2.3)."},
+ {sit:"Caisse Aldi, samedi 17 h",
+  q:"La caissière scanne tes articles à une vitesse déraisonnable. La file s'allonge derrière. Stratégie réglementaire ?",
+  c:["J'emballe soigneusement chaque article dans mes sacs au fur et à mesure","Je demande poliment à la caissière de ralentir","Tout part en vrac dans le panier, j'emballe après sur la tablette dédiée","Je laisse passer les gens pressés derrière moi"],
+  b:2,
+  ex:"Le protocole Aldi : Warentrenner posé, articles en vrac dans le panier, paiement, puis emballage tranquille sur la tablette après les caisses. Emballer sur le tapis = bouchon = soupirs collectifs (§ 5.3)."},
+ {sit:"Rue de Cologne, bouteille d'eau finie",
+  q:"Ta bouteille en plastique est vide. Elle porte le logo DPG. Le geste juste ?",
+  c:["Poubelle jaune la plus proche — c'est du recyclage après tout","Je la garde : 0,25 € au Pfandautomat du prochain supermarché","Je la laisse sur un banc, quelqu'un la prendra","N'importe quelle poubelle, le tri se fait en aval"],
+  b:1,
+  ex:"Logo DPG = 0,25 € de consigne, récupérable dans n'importe quel supermarché. Et si tu ne veux pas la garder : pose-la debout À CÔTÉ d'une poubelle publique — le geste tacite pour les collecteurs de Pfand (§ 5.2)."},
+ {sit:"Brauhaus Früh, Cologne, ton ami commande",
+  q:"Ton compagnon de voyage lance au Köbes : « Ein Alt, bitte! ». Réaction appropriée ?",
+  c:["Aucune — Alt, Kölsch, c'est de la bière allemande","Je commande la même chose par solidarité","Je l'arrête : à Cologne on ne commande JAMAIS la bière de Düsseldorf","Je précise au Köbes qu'il est étranger, ça excusera"],
+  b:2,
+  ex:"L'Alt est la bière de Düsseldorf, rivale héréditaire. La commander dans un Brauhaus de Cologne oscille entre provocation et suicide social — la réponse du Köbes sera théâtrale. À Kölle : Kölsch (§ 8.1)."},
+ {sit:"Zone résidentielle, Brühl, au volant",
+  q:"Intersection sans panneau ni feu. Une voiture arrive sur ta droite au même moment. Qui passe ?",
+  c:["Moi — je suis sur l'axe qui semble principal","Elle — priorité à droite (rechts vor links)","Le premier arrivé, comme un stop 4 directions québécois","On se fait signe, courtoisie universelle"],
+  b:1,
+  ex:"Rechts vor links : sans signalisation, le véhicule venant de droite a priorité — règle par défaut dans toutes les zones résidentielles allemandes. Le « stop 4 directions » n'existe pas ici (§ 6.2)."},
+ {sit:"Hôtel, couloir, 22 h",
+  q:"Tu croises ton hôte allemand. Tu sais que c'est son anniversaire DEMAIN. L'usage exige…",
+  c:["« Alles Gute zum Geburtstag! » — autant le dire maintenant","Un mot gentil du genre « bonne fête en avance »","Rien. Tu attends demain, quitte à le rater","Un cadeau ce soir, les vœux demain"],
+  b:2,
+  ex:"Souhaiter un anniversaire en avance porte malheur — superstition prise très au sérieux. On attend minuit ou le jour même ; « nachträglich » (en retard) passe, en avance jamais (§ 7.2)."}
+];
+
+(function(){
+  const zone=document.getElementById('quiz-zone');
+  const prog=document.getElementById('quiz-prog');
+  const btnMute=document.getElementById('btn-mute');
+  let idx=0,score=0,repondu=false;
+
+  btnMute.addEventListener('click',()=>{
+    const m=Enigma.toggle();
+    btnMute.textContent=m?'SFX : AUS':'SFX : AN';
+    btnMute.setAttribute('aria-pressed',String(m));
+    if(!m)Enigma.frappe();
+  });
+
+  function rendre(){
+    repondu=false;
+    const f=FRAGEN[idx];
+    prog.textContent='FRAGE '+(idx+1)+'/12';
+    zone.innerHTML='';
+    const sit=document.createElement('p');sit.className='quiz-situation';sit.textContent='Situation — '+f.sit;
+    const q=document.createElement('p');q.className='quiz-q';q.textContent=f.q;
+    const box=document.createElement('div');box.className='quiz-choix';
+    f.c.forEach((txt,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='choix';b.textContent=txt;
+      b.addEventListener('click',()=>repondre(i,b,box,f));
+      box.appendChild(b);
+    });
+    zone.append(sit,q,box);
+  }
+
+  function repondre(i,btn,box,f){
+    if(repondu)return;repondu=true;
+    const bonne=(i===f.b);
+    if(bonne)score++;
+    box.querySelectorAll('button').forEach((b,j)=>{
+      b.disabled=true;
+      if(j===f.b)b.dataset.etat='bonne';
+      else if(j===i)b.dataset.etat='mauvaise';
+    });
+    bonne?Enigma.lampe():Enigma.kurzschluss();
+    const verd=document.createElement('div');verd.className='quiz-verdict';
+    const st=document.createElement('span');
+    st.className='grand-stempel anime '+(bonne?'ok':'non');
+    st.textContent=bonne?'GENEHMIGT':'ABGELEHNT';
+    verd.appendChild(st);
+    const ex=document.createElement('div');ex.className='quiz-explication';
+    ex.innerHTML='<span class="amtston">Motivation de la décision</span>'+f.ex;
+    const w=document.createElement('button');w.type='button';w.className='weiter';
+    w.textContent=(idx<FRAGEN.length-1)?'WEITER →':'VERDICT FINAL →';
+    w.addEventListener('click',()=>{Enigma.rotor();idx++; (idx<FRAGEN.length)?rendre():bilan();});
+    zone.append(verd,ex,w);
+  }
+
+  function bilan(){
+    prog.textContent='AKTE GESCHLOSSEN';
+    let classe,tampon,texte;
+    if(score===12){classe='ok';tampon='MIT AUSZEICHNUNG';
+      texte="Douze tampons bleus. Le Bureau n'avait plus vu ça depuis 1987. Tu peux corriger les Allemands eux-mêmes — avec tact, ils apprécieront la franchise.";}
+    else if(score>=9){classe='ok';tampon='BESTANDEN';
+      texte="Certificat de voyageur conforme délivré. Tu peux poser le Deckel, former la Rettungsgasse et annoncer ton pourboire sans trembler. L'Allemagne t'attend.";}
+    else if(score>=6){classe='ok';tampon='KNAPP BESTANDEN';
+      texte="Admis de justesse. Le Bureau recommande une relecture des § signalés avant de t'approcher d'un Köbes ou d'un feu piéton. La marge d'erreur est faible là-bas.";}
+    else{classe='non';tampon='NICHT BESTANDEN';
+      texte="Le Bureau rejette la demande — mais approuve automatiquement l'Antrag auf Wiederholung (demande de reprise). Relis le règlement, l'Enigma ne juge pas, elle compte.";}
+    zone.innerHTML='<div class="bilan">'
+      +'<span class="score">'+score+'/12</span>'
+      +'<span class="stempel-final grand-stempel '+classe+'" style="position:static;animation:claquer 170ms steps(4,end) both">'+tampon+'</span>'
+      +'<p class="verdict-texte">'+texte+'</p>'
+      +'</div>';
+    const w=document.createElement('button');w.type='button';w.className='weiter';w.textContent='NEUER ANTRAG (recommencer)';
+    w.addEventListener('click',()=>{Enigma.rotor();idx=0;score=0;rendre();});
+    zone.querySelector('.bilan').appendChild(w);
+    (score>=6)?Enigma.lampe():Enigma.kurzschluss();
+  }
+
+  rendre();
+})();
+</script>
+</body>
+</html>
