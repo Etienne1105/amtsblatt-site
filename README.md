@@ -20,5 +20,18 @@ Guide culturel de voyage (Rhénanie) en un seul fichier HTML autonome, forgé da
 
 Site statique pur : Netlify (Drop ou import Git), GitHub Pages, ou n'importe quel hébergeur. Seule dépendance externe : Google Fonts (`Grenze Gotisch`, `IBM Plex Sans/Mono`).
 
+## Journal des itérations
+
+### v2 — 2026-07-07 · Navigation dossier à fiches
+Le mur monolithique (tous les § déroulés sur une seule page) devient un **dossier navigable** :
+- **Hub d'accueil** : le sommaire (*Inhaltsverzeichnis*) est l'écran d'entrée ; un tap ouvre la fiche § voulue en plein écran.
+- **Barre sticky** `‹ ZURÜCK · INHALT n/11 · WEITER ›`, calée dans la zone du pouce (respect du `safe-area-inset` iOS).
+- **Hash-routing** : les boutons précédent/suivant de Safari fonctionnent, et les liens profonds sont partageables (`…/#p6` ouvre directement la Rettungsgasse).
+- **Amélioration progressive** : sans JavaScript, le document complet reste lisible en un seul flux — rien ne casse.
+- `beton-scriptorium.vibe.json` → `iteration: 2`, justification *layout* révisée.
+
+### v1 — 2026-07-06 · Mur monolithique
+Première coulée. Guide complet §1–§11 en page unique, vibe **BETON-SCRIPTORIUM** forgée au Conseil de Recette (palette béton + rubrication, typo Grenze Gotisch × IBM Plex, SFX Enigma, gate anti-slop).
+
 ---
 *Forge : vibe-forge · Scribe : Claudi-brimbor · Az. 2026/07-EM · GÜLTIG AB SOFORT*
