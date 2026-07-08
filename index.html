@@ -245,7 +245,8 @@ p.lede{margin-bottom:1rem}
 .tablo .pron{font-family:var(--mono);font-size:.78rem;color:var(--sourd)}
 
 /* ============ MACHINE ENIGMA — quiz ============ */
-.enigma{display:block;width:100%;max-width:340px;margin:0 auto .4rem}
+.enigma{display:block;width:100%;max-width:280px;margin:0 auto .3rem}
+.enigma .lampe{cursor:pointer}
 .enigma .rotor-corps{fill:#4A4842;stroke:var(--encre);stroke-width:2.5}
 .enigma .rotor-crans{stroke:#2C2B26;stroke-width:3}
 .enigma .fenetre{fill:var(--papier);stroke:var(--encre);stroke-width:2}
@@ -270,7 +271,7 @@ p.lede{margin-bottom:1rem}
 /* ============ §11 PRÜFUNG — le quiz ============ */
 .quiz-cadre{
   background:var(--papier);border:3px solid var(--encre);box-shadow:6px 6px 0 var(--encre);
-  padding:.9rem .95rem 1.15rem;position:relative;margin-top:.4rem;
+  padding:.7rem .85rem .9rem;position:relative;margin-top:.4rem;
 }
 .quiz-tete{
   display:flex;justify-content:space-between;align-items:center;
@@ -479,6 +480,89 @@ html.nojs .scene{overflow:visible}
 html.nojs .fiche{position:static;display:block !important;padding:0 1.05rem 1.6rem;animation:none}
 html.nojs .fiche.couverture{display:grid !important;min-height:60vh}
 html.nojs .navbar{display:none}
+
+/* ============ v5 — EMPFANG : l'accueil à tuiles ============ */
+.empfang-tete{padding:.7rem 0 .4rem;text-align:center}
+.kicker-e{font-family:var(--mono);font-size:.62rem;letter-spacing:.4em;color:var(--tampon)}
+.empfang-lede{font-size:.9rem;color:var(--sourd);max-width:26rem;margin:.4rem auto .1rem}
+.tuiles{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.tuile{
+  display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;gap:0 .5rem;
+  align-items:center;text-decoration:none;color:var(--encre);
+  background:var(--papier);border:2.5px solid var(--encre);
+  box-shadow:3px 3px 0 var(--encre);padding:.45rem .55rem;
+  transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end);
+}
+.tuile:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--encre)}
+.tuile .picto{width:38px;height:38px;grid-row:1/3}
+.tuile .tno{font-family:var(--mono);font-weight:700;font-size:.6rem;letter-spacing:.14em;color:var(--tampon)}
+.tuile .tlib{font-weight:600;font-size:.78rem;line-height:1.12}
+.tuile:nth-child(3n+2) .tno{color:var(--oxyde)}
+.tuile:nth-child(3n) .tno{color:var(--patina)}
+.tuile-sprach{grid-column:1/-1;background:var(--autobahn);grid-template-columns:auto auto;justify-content:center}
+.tuile-sprach .tno{color:var(--encre)}
+.tuile-sprach .tlib{font-size:.92rem;letter-spacing:.06em}
+
+/* ============ v5 — SPRACHFÜHRER ============ */
+button.dire{
+  display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;vertical-align:middle;
+  background:var(--fond);border:2px solid var(--encre);color:var(--tampon);
+  cursor:pointer;padding:0;margin-left:.25rem;
+  transition:transform 60ms steps(2,end);
+}
+button.dire:active{transform:translate(2px,2px)}
+button.dire.parle{background:var(--autobahn)}
+html.sans-voix button.dire{display:none}
+.tablo-sprach td{padding:.34rem .45rem}
+.tablo-sprach .de{white-space:nowrap}
+button.pruefen-toggle{
+  font-family:var(--mono);font-weight:700;font-size:.62rem;letter-spacing:.16em;
+  background:var(--fond);border:2px solid var(--encre);padding:.3em .6em;
+  cursor:pointer;margin-bottom:.35rem;color:var(--encre);
+}
+table.cache-sens tr:not(.revele) td:last-child{
+  color:transparent;background:repeating-linear-gradient(45deg,var(--beton-sombre) 0 6px,#C6C3B6 6px 12px);
+  cursor:pointer;
+}
+table.cache-sens tr.revele td:last-child{background:#F3EDC9}
+
+/* Satzbaukasten */
+.baukasten{border:2.5px solid var(--encre);background:var(--papier);padding:.6rem;box-shadow:4px 4px 0 var(--encre)}
+.bk-fenetre{
+  background:var(--bandeau);color:var(--papier);min-height:3.4rem;
+  padding:.5rem .7rem;margin-bottom:.55rem;display:grid;align-content:center;
+}
+#bk-de{font-family:var(--mono);font-weight:700;font-size:.95rem;letter-spacing:.03em}
+#bk-fr{font-size:.72rem;color:#B8B5A8;font-style:italic}
+.bk-rang{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem}
+.bk-rang button{
+  font-family:var(--corps);font-size:.76rem;font-weight:600;
+  background:var(--fond);border:2px solid var(--encre);padding:.32em .5em;
+  cursor:pointer;color:var(--encre);
+}
+.bk-a.choisi{background:var(--tampon);color:var(--papier)}
+.bk-f{opacity:.32;pointer-events:none}
+.bk-f.dispo{opacity:1;pointer-events:auto}
+.bk-f.choisi{background:var(--patina);color:var(--papier)}
+button.bk-sprechen{margin-top:.1rem;padding:.55rem 1rem}
+html.sans-voix .bk-sprechen{display:none}
+
+/* ============ v5 — ANNEXE GEHEIM ============ */
+.fiche.geheim{border-left-color:var(--oxyde)}
+.parno-geheim{color:var(--oxyde) !important;border-color:var(--oxyde) !important}
+.stempel-geheim{
+  justify-self:end;transform:rotate(6deg);text-align:center;
+  font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.22em;line-height:1.35;
+  color:var(--oxyde);border:3px solid var(--oxyde);outline:1.5px solid var(--oxyde);
+  outline-offset:2.5px;padding:.3em .5em;mix-blend-mode:multiply;
+}
+.stempel-entschluesselt{
+  position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-6deg);
+  font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.24em;
+  color:var(--autobahn);border:3.5px solid var(--autobahn);outline:2px solid var(--autobahn);
+  outline-offset:3px;padding:.4em .7em;background:rgba(28,27,22,.88);
+  animation:claquer 170ms steps(4,end) both;pointer-events:none;z-index:5;
+}
 </style>
 </head>
 <body>
@@ -498,6 +582,16 @@ html.nojs .navbar{display:none}
     <span>GÜLTIG AB SOFORT</span>
   </div>
 <button class="eintreten" id="btn-eintreten" type="button">EINTRETEN →</button>
+</section>
+
+<section class="fiche hub" id="empfang">
+<div class="empfang-tete">
+<span class="kicker-e">BUNDESREPUBLIK · GUIDE DE TERRAIN</span>
+<p class="empfang-lede">Onze paragraphes pour voyager en Allemagne sans commettre d'infraction culturelle. Tape une machine :</p>
+</div>
+<div class="tuiles"><a class="tuile" href="#p1-1"><span class="tno">§ 1</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg><span class="tlib">Le contrat social</span></a><a class="tuile" href="#p2-1"><span class="tno">§ 2</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Chopes qui trinquent"><g class="pk2-g"><rect class="plein" x="16" y="42" width="20" height="32"/><rect class="jaune" x="16" y="42" width="20" height="8"/><path class="trait" d="M36 50 h8 v14 h-8"/></g><g class="pk2-d"><rect class="plein" x="60" y="42" width="20" height="32"/><rect class="jaune" x="60" y="42" width="20" height="8"/><path class="trait" d="M60 50 h-8 v14 h8"/></g><g class="pk2-etoile"><line x1="48" y1="18" x2="48" y2="30" stroke="#F7C600" stroke-width="3"/><line x1="38" y1="24" x2="58" y2="24" stroke="#F7C600" stroke-width="3"/><line x1="41" y1="17" x2="55" y2="31" stroke="#F7C600" stroke-width="3"/><line x1="55" y1="17" x2="41" y2="31" stroke="#F7C600" stroke-width="3"/></g></svg><span class="tlib">Saluer &amp; tutoyer</span></a><a class="tuile" href="#p3-1"><span class="tno">§ 3</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sous-bock et traits de comptage"><circle class="trait" cx="48" cy="52" r="32"/><circle cx="48" cy="52" r="25" fill="none" stroke="#B8B5A8" stroke-width="1.5"/><line class="trait pk3-t" x1="34" y1="42" x2="34" y2="62"/><line class="trait pk3-t" x1="43" y1="42" x2="43" y2="62"/><line class="trait pk3-t" x1="52" y1="42" x2="52" y2="62"/><line class="trait pk3-t" x1="61" y1="42" x2="61" y2="62"/><line class="pk3-t" x1="29" y1="60" x2="66" y2="44" stroke="#F7C600" stroke-width="3" fill="none"/></svg><span class="tlib">Restaurant</span></a><a class="tuile" href="#p4-1"><span class="tno">§ 4</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="La pièce tombe dans la caisse"><g class="pk4-caisse"><rect class="plein" x="24" y="54" width="48" height="32"/><rect class="jaune" x="34" y="50" width="28" height="6"/><rect x="24" y="54" width="48" height="32" fill="none" stroke="#1C1B16" stroke-width="2.5"/><text x="48" y="75" text-anchor="middle" font-family="monospace" font-weight="700" font-size="9" fill="#F7C600">BAR</text></g><g class="pk4-piece"><circle class="jaune" cx="48" cy="34" r="13"/><circle cx="48" cy="34" r="13" fill="none" stroke="#1C1B16" stroke-width="2.5"/><circle cx="48" cy="34" r="8" fill="none" stroke="#1C1B16" stroke-width="1.5"/><text x="48" y="39" text-anchor="middle" font-family="monospace" font-weight="700" font-size="12" fill="#1C1B16">€</text></g></svg><span class="tlib">Argent &amp; pourboire</span></a><a class="tuile" href="#p5-1"><span class="tno">§ 5</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg><span class="tlib">Magasins &amp; Pfand</span></a><a class="tuile" href="#p6-1"><span class="tno">§ 6</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rettungsgasse — couloir de secours"><g class="pk6-couloir"><rect class="jaune" x="42" y="6" width="12" height="84"/></g><g class="pk6-g"><rect class="plein" x="24" y="10" width="12" height="18"/><rect class="plein" x="24" y="38" width="12" height="18"/><rect class="plein" x="24" y="66" width="12" height="18"/></g><g class="pk6-d"><rect class="plein" x="60" y="10" width="12" height="18"/><rect class="plein" x="60" y="38" width="12" height="18"/><rect class="plein" x="60" y="66" width="12" height="18"/></g></svg><span class="tlib">La route</span></a><a class="tuile" href="#p7-1"><span class="tno">§ 7</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ampelmännchen"><g class="pk7-rouge"><circle class="rougec" cx="48" cy="24" r="8"/><rect class="rougec" x="36" y="14" width="24" height="4"/><rect class="rougec" x="42" y="32" width="12" height="22"/><rect class="rougec" x="24" y="36" width="48" height="5"/><rect class="rougec" x="42" y="54" width="5" height="24"/><rect class="rougec" x="49" y="54" width="5" height="24"/></g><g class="pk7-vert"><circle class="vertc" cx="52" cy="24" r="8"/><rect class="vertc" x="42" y="14" width="22" height="4"/><polygon class="vertc" points="44,32 58,32 62,54 48,54"/><polygon class="vertc" points="44,36 24,46 27,51 46,42"/><polygon class="vertc" points="58,38 74,44 72,49 56,44"/><polygon class="vertc" points="48,54 34,76 39,79 54,58"/><polygon class="vertc" points="56,54 68,74 63,77 51,58"/></g></svg><span class="tlib">Pièges sociaux</span></a><a class="tuile" href="#p8-1"><span class="tno">§ 8</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/></g></svg><span class="tlib">Manger &amp; boire</span></a><a class="tuile" href="#p9-1"><span class="tno">§ 9</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg><span class="tlib">Parcs &amp; files</span></a><a class="tuile tuile-sprach" href="#p10-1"><span class="tno">§ 10</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg><span class="tlib">Sprachführer</span></a><a class="tuile" href="#p11-1"><span class="tno">§ 11</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rotors de la machine"><g class="pk11-r" style="transform-origin:22px 48px"><circle cx="22" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="22" y1="34" x2="22" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="22" y1="56" x2="22" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="8" y1="48" x2="14" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="30" y1="48" x2="36" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="22" cy="48" r="3"/></g><g class="pk11-r b" style="transform-origin:48px 48px"><circle cx="48" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="48" y1="34" x2="48" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="48" y1="56" x2="48" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="34" y1="48" x2="40" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="56" y1="48" x2="62" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="48" cy="48" r="3"/></g><g class="pk11-r c" style="transform-origin:74px 48px"><circle cx="74" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="74" y1="34" x2="74" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="74" y1="56" x2="74" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="60" y1="48" x2="66" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="82" y1="48" x2="88" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="74" cy="48" r="3"/></g></svg><span class="tlib">Prüfung</span></a></div>
+<div class="hub-pied"><a href="#inhalt">Inhaltsverzeichnis — liste détaillée</a>
+<button class="mute" type="button" aria-pressed="false">SFX : AN</button></div>
 </section>
 
 <section class="fiche hub" id="inhalt">
@@ -867,80 +961,140 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche par-pair" id="p10-1" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 1 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 1 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
 <div class="corps-sec">
-    <p class="lede"><span class="lettrine let-1">Q</span>uatre règles de prononciation suffisent à rendre ton allemand compréhensible : <b>ei</b> se dit « aïe » (<i lang="de">nein</i> = naïne), <b>ie</b> se dit « ii » (<i lang="de">Bier</i> = biir), <b>w</b> se dit « v » et <b>v</b> se dit « f », <b>z</b> se dit « ts ». Le <b>ß</b> est un double s. Et le e final se prononce toujours : <i lang="de">bitte</i> = « bit-teu ».</p>
-
-    </div>
+<p class="lede"><span class="lettrine let-1">B</span>onne nouvelle administrative : ta bouche de francophone possède déjà les trois sons qui torturent les anglophones — le <i lang="de">ü</i>, le <i lang="de">ö</i> et le R guttural. L'allemand se prononce comme il s'écrit, sans exception cachée : quatre règles, et tout ce dossier devient lisible à voix haute.</p>
+<div class="merksatz"><span class="etiq">MERKSATZ</span><p>Chaque bouton <b>◀)</b> fait parler la voix allemande de ton appareil. Écoute, répète, tape le bouton PRÜFEN des lexiques pour te tester — le Bureau ne juge pas, il tamponne.</p></div>
+<p>Commence par le mot le plus rentable du voyage&nbsp;: <b lang="de">Entschuldigung</b> <button class="dire" type="button" data-de="Entschuldigung" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> <span class="pron">(ènt-CHOUL-di-goung)</span> — pardon, excusez-moi, laissez-passer universel. Il ouvre les conversations, les foules et les portes de service.</p>
+</div>
 </section>
 
 <section class="fiche par-pair" id="p10-2" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 2 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
-<div class="corps-sec"><table class="tablo">
-      <caption>Bloc A — Les indispensables</caption>
-      <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
-      <tr><td class="de">Hallo / Guten Tag</td><td class="pron">halo / gouten tak</td><td>Bonjour</td></tr>
-      <tr><td class="de">Tschüss</td><td class="pron">tchuss</td><td>Au revoir (informel)</td></tr>
-      <tr><td class="de">Bitte</td><td class="pron">bit-teu</td><td>S'il vous plaît / je vous en prie / voici</td></tr>
-      <tr><td class="de">Danke (schön)</td><td class="pron">dann-keu cheune</td><td>Merci (beaucoup)</td></tr>
-      <tr><td class="de">Entschuldigung</td><td class="pron">ènt-choul-di-goung</td><td>Pardon / excusez-moi</td></tr>
-      <tr><td class="de">Ja / Nein</td><td class="pron">ya / naïne</td><td>Oui / non</td></tr>
-      <tr><td class="de">Sprechen Sie Englisch?</td><td class="pron">chprè-rhen zi ènglich</td><td>Parlez-vous anglais ?</td></tr>
-      <tr><td class="de">Ich verstehe nicht</td><td class="pron">irh fèr-chté-eu nirht</td><td>Je ne comprends pas</td></tr>
-    </table>
-
-    </div>
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 2 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec">
+<h3 class="pig-2">Les huit sons à régler</h3>
+<table class="tablo tablo-sprach"><caption>Table de décodage — consonnes</caption>
+<tr><th>Écrit</th><th>Se dit</th><th>Exemple</th></tr>
+<tr><td class="de">sch</td><td class="pron">« ch »</td><td>Schnell <button class="dire" type="button" data-de="schnell" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = vite</td></tr>
+<tr><td class="de">ch <span class="pron">(après a, o, u)</span></td><td class="pron">raclement doux</td><td>Bach <button class="dire" type="button" data-de="Bach" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = ruisseau</td></tr>
+<tr><td class="de">ch <span class="pron">(après e, i)</span></td><td class="pron">chat fâché, « hi » soufflé</td><td>ich <button class="dire" type="button" data-de="ich" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = je</td></tr>
+<tr><td class="de">w</td><td class="pron">« v »</td><td>Wasser <button class="dire" type="button" data-de="Wasser" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = eau</td></tr>
+<tr><td class="de">v</td><td class="pron">« f »</td><td>Vogel <button class="dire" type="button" data-de="Vogel" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = oiseau</td></tr>
+<tr><td class="de">z</td><td class="pron">« ts »</td><td>Zug <button class="dire" type="button" data-de="Zug" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = train</td></tr>
+<tr><td class="de">s <span class="pron">(devant voyelle)</span></td><td class="pron">« z »</td><td>Sonne <button class="dire" type="button" data-de="Sonne" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = soleil</td></tr>
+<tr><td class="de">ß</td><td class="pron">« ss »</td><td>Straße <button class="dire" type="button" data-de="Straße" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = rue</td></tr>
+</table>
+<p><b>VW</b> se dit donc « Fau-Vé » — le test ultime de la règle w/v.</p>
+</div>
 </section>
 
 <section class="fiche par-pair" id="p10-3" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 3 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
-<div class="corps-sec"><table class="tablo">
-      <caption>Bloc B — Restaurant &amp; Brauhaus</caption>
-      <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
-      <tr><td class="de">Ist hier noch frei?</td><td class="pron">ist hir norh fraï</td><td>Cette place est-elle libre ?</td></tr>
-      <tr><td class="de">Die Karte, bitte</td><td class="pron">di kar-teu bit-teu</td><td>La carte, s'il vous plaît</td></tr>
-      <tr><td class="de">Ein stilles Wasser, bitte</td><td class="pron">aïne chtileus vasser</td><td>Une eau plate, svp</td></tr>
-      <tr><td class="de">Ein Kölsch, bitte</td><td class="pron">aïne keulch bit-teu</td><td>Un Kölsch, svp</td></tr>
-      <tr><td class="de">Zahlen, bitte!</td><td class="pron">tsa-len bit-teu</td><td>L'addition, svp</td></tr>
-      <tr><td class="de">Zusammen / Getrennt</td><td class="pron">tsou-za-men / gue-trènnt</td><td>Ensemble / séparément</td></tr>
-      <tr><td class="de">Stimmt so</td><td class="pron">chtimmt zo</td><td>Gardez la monnaie</td></tr>
-      <tr><td class="de">Machen Sie zwanzig</td><td class="pron">marhen zi tsvann-tsirh</td><td>Faites vingt (euros)</td></tr>
-    </table>
-
-    </div>
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 3 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec">
+<h3 class="pig-3">Voyelles doubles &amp; Umlauts</h3>
+<table class="tablo tablo-sprach"><caption>Table de décodage — voyelles</caption>
+<tr><th>Écrit</th><th>Se dit</th><th>Exemple</th></tr>
+<tr><td class="de">ei</td><td class="pron">« aï »</td><td>nein <button class="dire" type="button" data-de="nein" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = non</td></tr>
+<tr><td class="de">ie</td><td class="pron">« i » long</td><td>Bier <button class="dire" type="button" data-de="Bier" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = bière</td></tr>
+<tr><td class="de">eu / äu</td><td class="pron">« oï »</td><td>neun <button class="dire" type="button" data-de="neun" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = neuf</td></tr>
+<tr><td class="de">ä</td><td class="pron">« è »</td><td>spät <button class="dire" type="button" data-de="spät" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = tard</td></tr>
+<tr><td class="de">ö</td><td class="pron">« eu » de <i>peur</i></td><td>Köln <button class="dire" type="button" data-de="Köln" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = Cologne</td></tr>
+<tr><td class="de">ü</td><td class="pron">« u » de <i>lune</i></td><td>fünf <button class="dire" type="button" data-de="fünf" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = cinq</td></tr>
+</table>
+<div class="achtung"><span class="etiq"><span class="tri">⚠</span> AVANTAGE QUÉBÉCOIS</span>
+<p>ö et ü sont des sons <b>français</b>. Les anglophones les massacrent, toi tu les possèdes de naissance. Le R allemand&nbsp;? Le R français fait parfaitement l'affaire. Accent tonique&nbsp;: presque toujours sur la <b>première syllabe</b>.</p></div>
+</div>
 </section>
 
 <section class="fiche par-pair" id="p10-4" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 4 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
-<div class="corps-sec"><table class="tablo">
-      <caption>Bloc C — Magasin, route, urgence</caption>
-      <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
-      <tr><td class="de">Was kostet das?</td><td class="pron">vass kostet dass</td><td>Combien ça coûte ?</td></tr>
-      <tr><td class="de">Mit Karte, bitte</td><td class="pron">mit kar-teu</td><td>Par carte, svp</td></tr>
-      <tr><td class="de">Wo ist die Toilette?</td><td class="pron">vo ist di toa-lè-teu</td><td>Où sont les toilettes ?</td></tr>
-      <tr><td class="de">Ausfahrt / Einfahrt</td><td class="pron">aoss-fart / aïne-fart</td><td>Sortie / entrée (route)</td></tr>
-      <tr><td class="de">Stau</td><td class="pron">chtaô</td><td>Bouchon</td></tr>
-      <tr><td class="de">Tankstelle</td><td class="pron">tank-chtè-leu</td><td>Station-service</td></tr>
-      <tr><td class="de">Ich brauche Hilfe</td><td class="pron">irh braô-rheu hil-feu</td><td>J'ai besoin d'aide</td></tr>
-      <tr><td class="de">Ich bin Diabetiker</td><td class="pron">irh binn dia-bé-ti-keur</td><td>Je suis diabétique</td></tr>
-      <tr><td class="de">Apotheke</td><td class="pron">apo-té-keu</td><td>Pharmacie</td></tr>
-      <tr><td class="de">Notruf: 112</td><td class="pron">note-rouf</td><td>Urgences (médical/pompiers)</td></tr>
-    </table>
-
-    </div>
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 4 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">Le kit de survie — dix-huit heures par jour</h3><button class="pruefen-toggle" type="button">PRÜFEN — cache les sens</button><table class="tablo tablo-sprach"><caption>Bloc A — Les indispensables</caption><tr><th>Allemand</th><th>Se dit</th><th>Sens</th></tr><tr><td class="de">Hallo / Guten Tag <button class="dire" type="button" data-de="Hallo / Guten Tag" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">halo / gouten tak</td><td>Bonjour</td></tr><tr><td class="de">Tschüss <button class="dire" type="button" data-de="Tschüss" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">tchuss</td><td>Salut (départ)</td></tr><tr><td class="de">Bitte / Danke <button class="dire" type="button" data-de="Bitte / Danke" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">bitè / dankè</td><td>S.V.P. / Merci</td></tr><tr><td class="de">Sprechen Sie Englisch? <button class="dire" type="button" data-de="Sprechen Sie Englisch?" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">chprè-rẖn zi èng-lich</td><td>Parlez-vous anglais ?</td></tr><tr><td class="de">Ich verstehe nicht <button class="dire" type="button" data-de="Ich verstehe nicht" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">ih fer-CHTÉ-è niht</td><td>Je ne comprends pas</td></tr><tr><td class="de">Wie viel kostet das? <button class="dire" type="button" data-de="Wie viel kostet das?" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">vi fil kostet dass</td><td>Combien ça coûte ?</td></tr><tr><td class="de">Wo ist die Toilette? <button class="dire" type="button" data-de="Wo ist die Toilette?" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">vo ist di to-a-lètè</td><td>Où sont les toilettes ?</td></tr><tr><td class="de">Alles klar <button class="dire" type="button" data-de="Alles klar" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">alèss klar</td><td>Tout est beau / compris</td></tr></table></div>
 </section>
 
 <section class="fiche par-pair" id="p10-5" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 5 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
-<div class="corps-sec"><h3 class="pig-2">10.1 — Faux amis à désamorcer</h3>
-    <ul>
-      <li><i lang="de">Gift</i> = <b>poison</b>. Un « gift shop » allemand serait une boutique inquiétante.</li>
-      <li><i lang="de">Rat</i> = conseil (d'où <i lang="de">Rathaus</i>, l'hôtel de ville — la maison du conseil, pas des rats).</li>
-      <li><i lang="de">bekommen</i> = recevoir, pas devenir. <i lang="de">Ich bekomme ein Schnitzel</i> = « je prends un schnitzel », pas « je deviens un schnitzel ».</li>
-      <li><i lang="de">Chef</i> = le patron, pas le cuisinier (lui, c'est le <i lang="de">Koch</i>).</li>
-      <li><i lang="de">Ausfahrt</i> n'est pas une ville, malgré sa présence à toutes les sorties d'autoroute.</li>
-    </ul>
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 5 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">Brauhaus &amp; restaurant</h3><button class="pruefen-toggle" type="button">PRÜFEN — cache les sens</button><table class="tablo tablo-sprach"><caption>Bloc B — À table</caption><tr><th>Allemand</th><th>Se dit</th><th>Sens</th></tr><tr><td class="de">Ein Kölsch, bitte <button class="dire" type="button" data-de="Ein Kölsch, bitte" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">aïn keulch bitè</td><td>Un Kölsch, S.V.P.</td></tr><tr><td class="de">Noch eins, bitte <button class="dire" type="button" data-de="Noch eins, bitte" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">nor aïnss bitè</td><td>Un autre, S.V.P.</td></tr><tr><td class="de">Die Speisekarte, bitte <button class="dire" type="button" data-de="Die Speisekarte, bitte" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">di CHPAÏ-zè-kartè</td><td>Le menu, S.V.P.</td></tr><tr><td class="de">Zahlen, bitte <button class="dire" type="button" data-de="Zahlen, bitte" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">TSA-lẖn bitè</td><td>L’addition, S.V.P.</td></tr><tr><td class="de">Zusammen oder getrennt? <button class="dire" type="button" data-de="Zusammen oder getrennt?" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">tsou-ZAM-ẖn odèr guè-TRÈNT</td><td>Ensemble ou séparé ? (on te le demandera)</td></tr><tr><td class="de">Stimmt so <button class="dire" type="button" data-de="Stimmt so" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">chtimt zo</td><td>Gardez la monnaie (§ 4)</td></tr><tr><td class="de">Leitungswasser <button class="dire" type="button" data-de="Leitungswasser" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">LAÏ-toungss-vassèr</td><td>Eau du robinet (rareté — § 3)</td></tr><tr><td class="de">Lecker! <button class="dire" type="button" data-de="Lecker!" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">lèkèr</td><td>Délicieux !</td></tr></table></div>
+</section>
+
+<section class="fiche par-pair" id="p10-6" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 6 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">Magasin, santé, urgence</h3><button class="pruefen-toggle" type="button">PRÜFEN — cache les sens</button><table class="tablo tablo-sprach"><caption>Bloc C — La ville</caption><tr><th>Allemand</th><th>Se dit</th><th>Sens</th></tr><tr><td class="de">Bar oder mit Karte? <button class="dire" type="button" data-de="Bar oder mit Karte?" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">bar odèr mit kartè</td><td>Comptant ou carte ? (§ 4)</td></tr><tr><td class="de">Eine Tüte, bitte <button class="dire" type="button" data-de="Eine Tüte, bitte" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">aïnè TU-tè</td><td>Un sac, S.V.P.</td></tr><tr><td class="de">Der Kassenzettel <button class="dire" type="button" data-de="Der Kassenzettel" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">KASS-ẖn-tsètẖl</td><td>Le reçu</td></tr><tr><td class="de">Die Apotheke <button class="dire" type="button" data-de="Die Apotheke" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">a-po-TÉ-kè</td><td>La pharmacie (croix rouge)</td></tr><tr><td class="de">Ich brauche einen Arzt <button class="dire" type="button" data-de="Ich brauche einen Arzt" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">ih BRA’OU-rẖ aïnẖn artst</td><td>J’ai besoin d’un médecin</td></tr><tr><td class="de">Es ist dringend <button class="dire" type="button" data-de="Es ist dringend" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">èss ist DRING-ẖnt</td><td>C’est urgent</td></tr><tr><td class="de">Die Notaufnahme <button class="dire" type="button" data-de="Die Notaufnahme" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">NOT-a’ouf-namè</td><td>Les urgences (hôpital)</td></tr><tr><td class="de">Geschlossen / Ruhetag <button class="dire" type="button" data-de="Geschlossen / Ruhetag" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">guè-CHLOSS-ẖn / ROU-è-tak</td><td>Fermé / jour de fermeture</td></tr></table></div>
+</section>
+
+<section class="fiche par-pair" id="p10-7" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 7 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">Bahn &amp; transports</h3><button class="pruefen-toggle" type="button">PRÜFEN — cache les sens</button><table class="tablo tablo-sprach"><caption>Bloc D — Sur les rails</caption><tr><th>Allemand</th><th>Se dit</th><th>Sens</th></tr><tr><td class="de">Das Gleis <button class="dire" type="button" data-de="Das Gleis" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">glaïss</td><td>La voie / le quai</td></tr><tr><td class="de">Abfahrt / Ankunft <button class="dire" type="button" data-de="Abfahrt / Ankunft" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">AP-fart / AN-kounft</td><td>Départ / arrivée</td></tr><tr><td class="de">Die Verspätung <button class="dire" type="button" data-de="Die Verspätung" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">fer-CHPÈ-toung</td><td>Le retard (tu le verras)</td></tr><tr><td class="de">Umsteigen <button class="dire" type="button" data-de="Umsteigen" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">OUM-chtaï-guẖn</td><td>Changer de train</td></tr><tr><td class="de">Der Anschluss <button class="dire" type="button" data-de="Der Anschluss" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">AN-chlouss</td><td>La correspondance</td></tr><tr><td class="de">Einfach / hin und zurück <button class="dire" type="button" data-de="Einfach / hin und zurück" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">aïn-far / hin ount tsou-RUK</td><td>Aller simple / aller-retour</td></tr><tr><td class="de">Zwei Fahrkarten nach Köln <button class="dire" type="button" data-de="Zwei Fahrkarten nach Köln" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">tsvaï FAR-kartẖn nar keuln</td><td>Deux billets pour Cologne</td></tr><tr><td class="de">Fährt dieser Zug nach…? <button class="dire" type="button" data-de="Fährt dieser Zug nach…?" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">fèrt dizèr tsouk nar</td><td>Ce train va-t-il à… ?</td></tr></table></div>
+</section>
+
+<section class="fiche par-pair" id="p10-8" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 8 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">Freizeitpark — vocabulaire de terrain</h3><button class="pruefen-toggle" type="button">PRÜFEN — cache les sens</button><table class="tablo tablo-sprach"><caption>Bloc E — Dans le parc</caption><tr><th>Allemand</th><th>Se dit</th><th>Sens</th></tr><tr><td class="de">Die Warteschlange <button class="dire" type="button" data-de="Die Warteschlange" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">VAR-tè-chlangè</td><td>La file d’attente (§ 9)</td></tr><tr><td class="de">Die Wartezeit <button class="dire" type="button" data-de="Die Wartezeit" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">VAR-tè-tsaït</td><td>Le temps d’attente affiché</td></tr><tr><td class="de">Der Einzelfahrer <button class="dire" type="button" data-de="Der Einzelfahrer" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">AÏN-tsẖl-farèr</td><td>Single rider</td></tr><tr><td class="de">Die Achterbahn <button class="dire" type="button" data-de="Die Achterbahn" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">AR-tèr-ban</td><td>Les montagnes russes</td></tr><tr><td class="de">Außer Betrieb <button class="dire" type="button" data-de="Außer Betrieb" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">A’OUSS-èr bè-TRIP</td><td>Hors service</td></tr><tr><td class="de">Die Mindestgröße <button class="dire" type="button" data-de="Die Mindestgröße" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">MIN-dèst-greussè</td><td>La taille minimale</td></tr><tr><td class="de">Der Ausgang / Eingang <button class="dire" type="button" data-de="Der Ausgang / Eingang" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">A’OUSS-gang / AÏN-gang</td><td>Sortie / entrée</td></tr><tr><td class="de">Noch einmal! <button class="dire" type="button" data-de="Noch einmal!" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">nor AÏN-mal</td><td>Encore une fois !</td></tr></table></div>
+</section>
+
+<section class="fiche par-pair" id="p10-9" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 9 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec">
+<h3 class="pig-3">Chiffres &amp; heure — deux pièges célèbres</h3>
+<table class="tablo tablo-sprach"><caption>Bloc F — Compter</caption>
+<tr><th>Allemand</th><th>Se dit</th><th>Sens</th></tr>
+<tr><td class="de">eins, zwei, drei <button class="dire" type="button" data-de="eins, zwei, drei" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">aïnss, tsvaï, draï</td><td>1, 2, 3</td></tr><tr><td class="de">vier, fünf, sechs <button class="dire" type="button" data-de="vier, fünf, sechs" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">fir, funf, zèkss</td><td>4, 5, 6</td></tr><tr><td class="de">sieben, acht, neun <button class="dire" type="button" data-de="sieben, acht, neun" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">ZI-bẖn, art, noïn</td><td>7, 8, 9</td></tr><tr><td class="de">zehn, zwanzig, hundert <button class="dire" type="button" data-de="zehn, zwanzig, hundert" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">tsén, TSVAN-tsih, HOUN-dèrt</td><td>10, 20, 100</td></tr><tr><td class="de">einundzwanzig <button class="dire" type="button" data-de="einundzwanzig" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">AÏN-ount-tsvan-tsih</td><td>21 (un-et-vingt !)</td></tr><tr><td class="de">Viertel nach / vor <button class="dire" type="button" data-de="Viertel nach / vor" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></td><td class="pron">FIR-tẖl nar / for</td><td>Et quart / moins quart</td></tr>
+</table>
+<div class="achtung"><span class="etiq"><span class="tri">⚠</span> ACHTUNG ×2</span>
+<p><b>21 = einundzwanzig</b> — « un-et-vingt » : l’unité se dit <b>avant</b> la dizaine. Et <b lang="de">halb zehn</b> <button class="dire" type="button" data-de="halb zehn" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = <b>9 h 30</b> — « à moitié vers dix », pas 10 h 30. Ce piège a coûté des trains à des générations de voyageurs.</p></div>
+</div>
+</section>
+
+<section class="fiche par-pair" id="p10-10" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 10 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec">
+<h3 class="pig-1">Satzbaukasten — le constructeur de phrases</h3>
+<p>Choisis une amorce, puis une brique compatible : la machine assemble, tape et prononce. Seize phrases correctes, zéro grammaire à apprendre.</p>
+<div class="baukasten" id="baukasten">
+  <div class="bk-fenetre"><span id="bk-de">—</span><span id="bk-fr"></span></div>
+  <div class="bk-rang" id="bk-amorces">
+    <button type="button" class="bk-a" data-g="wo" data-de="Wo ist" data-fr="Où est">Wo ist …</button>
+    <button type="button" class="bk-a" data-g="mochte" data-de="Ich möchte" data-fr="Je voudrais">Ich möchte …</button>
+    <button type="button" class="bk-a" data-g="gibt" data-de="Gibt es" data-fr="Y a-t-il">Gibt es …</button>
+    <button type="button" class="bk-a" data-g="konnen" data-de="Können Sie" data-fr="Pouvez-vous">Können Sie …</button>
   </div>
+  <div class="bk-rang" id="bk-fins">
+    <button type="button" class="bk-f" data-g="wo" data-de="der Bahnhof?" data-fr="la gare ?">der Bahnhof?</button>
+    <button type="button" class="bk-f" data-g="wo" data-de="die Apotheke?" data-fr="la pharmacie ?">die Apotheke?</button>
+    <button type="button" class="bk-f" data-g="wo" data-de="der Ausgang?" data-fr="la sortie ?">der Ausgang?</button>
+    <button type="button" class="bk-f" data-g="wo" data-de="die Toilette?" data-fr="les toilettes ?">die Toilette?</button>
+    <button type="button" class="bk-f" data-g="mochte" data-de="ein Kölsch, bitte." data-fr="un Kölsch, S.V.P.">ein Kölsch, bitte.</button>
+    <button type="button" class="bk-f" data-g="mochte" data-de="die Rechnung, bitte." data-fr="l’addition, S.V.P.">die Rechnung, bitte.</button>
+    <button type="button" class="bk-f" data-g="mochte" data-de="zwei Fahrkarten nach Köln." data-fr="deux billets pour Cologne.">zwei Fahrkarten…</button>
+    <button type="button" class="bk-f" data-g="mochte" data-de="ein Zimmer für zwei Nächte." data-fr="une chambre pour deux nuits.">ein Zimmer…</button>
+    <button type="button" class="bk-f" data-g="gibt" data-de="einen Schnellpass?" data-fr="un fast pass ?">einen Schnellpass?</button>
+    <button type="button" class="bk-f" data-g="gibt" data-de="eine Ermäßigung?" data-fr="un rabais ?">eine Ermäßigung?</button>
+    <button type="button" class="bk-f" data-g="gibt" data-de="freies WLAN?" data-fr="du wifi gratuit ?">freies WLAN?</button>
+    <button type="button" class="bk-f" data-g="gibt" data-de="einen Ruhetag?" data-fr="un jour de fermeture ?">einen Ruhetag?</button>
+    <button type="button" class="bk-f" data-g="konnen" data-de="mir helfen?" data-fr="m’aider ?">mir helfen?</button>
+    <button type="button" class="bk-f" data-g="konnen" data-de="das wiederholen?" data-fr="répéter ?">das wiederholen?</button>
+    <button type="button" class="bk-f" data-g="konnen" data-de="langsamer sprechen?" data-fr="parler plus lentement ?">langsamer sprechen?</button>
+    <button type="button" class="bk-f" data-g="konnen" data-de="mir das zeigen?" data-fr="me le montrer ?">mir das zeigen?</button>
+  </div>
+  <button type="button" class="weiter bk-sprechen" id="bk-sprechen">SPRECHEN ◀)</button>
+</div>
+</div>
+</section>
+
+<section class="fiche par-pair" id="p10-11" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 11 · 11</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec">
+<h3 class="pig-2">Faux amis — à désamorcer avant usage</h3>
+<ul>
+<li><i lang="de">Gift</i> <button class="dire" type="button" data-de="Gift" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = <b>poison</b>. Le cadeau, c’est <i lang="de">Geschenk</i>.</li>
+<li><i lang="de">Rat</i> <button class="dire" type="button" data-de="Rat" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = <b>conseil</b> — le <i lang="de">Rathaus</i> est la maison du conseil, pas des rats.</li>
+<li><i lang="de">bald</i> <button class="dire" type="button" data-de="bald" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = <b>bientôt</b>, rien à voir avec la calvitie.</li>
+<li><i lang="de">brav</i> <button class="dire" type="button" data-de="brav" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = <b>sage, obéissant</b> — pas courageux.</li>
+<li><i lang="de">der See / die See</i> <button class="dire" type="button" data-de="der See, die See" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = le <b>lac</b> / la <b>mer</b>. Un article change le plan d’eau.</li>
+<li><i lang="de">Chef</i> <button class="dire" type="button" data-de="Chef" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = le <b>patron</b>. Le cuisinier, c’est <i lang="de">Koch</i>.</li>
+<li><i lang="de">Handy</i> <button class="dire" type="button" data-de="Handy" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = le <b>cellulaire</b>. Faux anglicisme 100 % allemand.</li>
+<li><i lang="de">also</i> <button class="dire" type="button" data-de="also" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> = <b>donc</b> — jamais « aussi ».</li>
+</ul>
+</div>
 </section>
 
 <section class="fiche par-pair" id="p11-1" data-par="11">
@@ -971,6 +1125,25 @@ html.nojs .navbar{display:none}
   Indications fournies <i lang="de">ohne Gewähr</i> (sans garantie) — les usages évoluent, la politesse demeure.<br>
   Az. 2026/07-EM · GÜLTIG AB SOFORT · <span style="color:var(--tampon);font-weight:700">GEPRÜFT ✓</span></p>
 </footer>
+</section>
+
+<section class="fiche geheim" id="geheim">
+<header class="fiche-tete"><div><span class="parno parno-geheim">ANNEXE 7</span>
+<h2>Vocabulaire non homologué</h2>
+<span class="teil">Streng geheim · déclassifié pour toi</span></div>
+<span class="stempel-geheim">STRENG<br>GEHEIM</span></header>
+<div class="corps-sec">
+<p class="lede">Le Bureau nie l'existence de cette fiche. Jurons doux, calibrés pour l'espace public allemand — avec leurs équivalents québécois certifiés.</p>
+<ul>
+<li><i lang="de">Mist!</i> <button class="dire" type="button" data-de="Mist" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> — zut, mautadine. Le juron officiel des quais de gare.</li>
+<li><i lang="de">Verdammt!</i> <button class="dire" type="button" data-de="Verdammt" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> — sacrament (version soft). Dosage : un par retard de train.</li>
+<li><i lang="de">Quatsch!</i> <button class="dire" type="button" data-de="Quatsch" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> — n'importe quoi ! Voyons donc !</li>
+<li><i lang="de">Na toll…</i> <button class="dire" type="button" data-de="Na toll" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> — « ben coudonc… », sarcasme homologué DIN.</li>
+<li><i lang="de">Donnerwetter!</i> <button class="dire" type="button" data-de="Donnerwetter" aria-label="Écouter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><polygon points="3,9 8,9 13,4 13,20 8,15 3,15" fill="currentColor"/><path d="M16 8 q3 4 0 8 M18.5 5.5 q5 6.5 0 13" fill="none" stroke="currentColor" stroke-width="2"/></svg></button> — torrieu ! Vieilli, donc irrésistible.</li>
+</ul>
+<div class="merksatz"><span class="etiq">PROTOCOLE</span><p>Utilisés avec le sourire, ils valent dix conversations. Cette fiche s'autodétruira… en fait non, elle est tamponnée, elle est éternelle.</p></div>
+<button class="weiter" type="button" id="geheim-retour">ZURÜCK ZUM EMPFANG</button>
+</div>
 </section>
 
 </main>
@@ -1053,6 +1226,138 @@ const Enigma=(function(){
     ding,rotor,lampe,kurzschluss,
     toggle(){muted=!muted;return muted;},ensure};
 })();
+
+/* ============ STIMME — la voix allemande de l'appareil ============ */
+const Stimme=(function(){
+  let voix=null;
+  function charger(){
+    try{
+      const vs=speechSynthesis.getVoices();
+      voix=vs.find(v=>v.lang==='de-DE')||vs.find(v=>v.lang&&v.lang.indexOf('de')===0)||null;
+    }catch(e){voix=null;}
+    document.documentElement.classList.toggle('sans-voix',!voix);
+  }
+  if('speechSynthesis' in window){
+    charger();
+    if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=charger;
+  }else{document.documentElement.classList.add('sans-voix');}
+  function dire(txt,btn){
+    if(!voix||!txt)return;
+    try{
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(txt);
+      u.voice=voix;u.lang=voix.lang;u.rate=0.86;
+      if(btn){btn.classList.add('parle');u.onend=u.onerror=()=>btn.classList.remove('parle');}
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  return{dire};
+})();
+
+/* ============ SPRACHFÜHRER — délégations : écoute, PRÜFEN, Baukasten ============ */
+(function(){try{
+  document.addEventListener('click',e=>{
+    const dire=e.target.closest('button.dire');
+    if(dire){Stimme.dire(dire.dataset.de,dire);return;}
+    const pt=e.target.closest('button.pruefen-toggle');
+    if(pt){
+      const table=pt.parentElement.querySelector('table');
+      if(table){
+        const on=table.classList.toggle('cache-sens');
+        table.querySelectorAll('tr.revele').forEach(r=>r.classList.remove('revele'));
+        pt.textContent=on?'AUFDECKEN \u2014 montre tout':'PR\u00dcFEN \u2014 cache les sens';
+        Enigma.tick();
+      }return;
+    }
+    const tr=e.target.closest('table.cache-sens tr');
+    if(tr&&!tr.querySelector('th')){tr.classList.add('revele');Enigma.tape();return;}
+  });
+  /* Satzbaukasten */
+  const bk=document.getElementById('baukasten');
+  if(bk){
+    const de=document.getElementById('bk-de'),fr=document.getElementById('bk-fr');
+    let amorce=null,fin=null,timer=0;
+    function ecrire(txt){
+      clearInterval(timer);let i=0;de.textContent='';
+      timer=setInterval(()=>{
+        i+=2;de.textContent=txt.slice(0,i);Enigma.tape();
+        if(i>=txt.length){clearInterval(timer);de.textContent=txt;Enigma.ding();}
+      },34);
+    }
+    function maj(){
+      if(amorce&&fin){
+        const phrase=amorce.dataset.de+' '+fin.dataset.de;
+        ecrire(phrase);fr.textContent=amorce.dataset.fr+' '+fin.dataset.fr;
+      }else if(amorce){de.textContent=amorce.dataset.de+' \u2026';fr.textContent='';}
+    }
+    bk.addEventListener('click',e=>{
+      const a=e.target.closest('.bk-a');
+      if(a){
+        amorce=a;fin=null;
+        bk.querySelectorAll('.bk-a').forEach(b=>b.classList.toggle('choisi',b===a));
+        bk.querySelectorAll('.bk-f').forEach(b=>{
+          b.classList.toggle('dispo',b.dataset.g===a.dataset.g);
+          b.classList.remove('choisi');
+        });
+        maj();return;
+      }
+      const f=e.target.closest('.bk-f.dispo');
+      if(f){
+        fin=f;
+        bk.querySelectorAll('.bk-f').forEach(b=>b.classList.toggle('choisi',b===f));
+        maj();return;
+      }
+      if(e.target.closest('#bk-sprechen')&&amorce&&fin){
+        Stimme.dire(amorce.dataset.de+' '+fin.dataset.de);
+      }
+    });
+  }
+}catch(e){console.error('[sprach]',e);}})();
+
+/* ============ GEHEIMNISSE — deux œufs dans le béton ============ */
+(function(){try{
+  /* 1. Trois frappes sur le tampon de la couverture ouvrent l'Annexe 7 */
+  const st=document.querySelector('.stempel-header');
+  let taps=0,dernier=0;
+  if(st){
+    st.style.cursor='pointer';
+    st.addEventListener('click',()=>{
+      const t=Date.now();
+      taps=(t-dernier<1600)?taps+1:1;dernier=t;
+      Enigma.tick();
+      if(taps>=3){taps=0;Enigma.ding();location.hash='#geheim';}
+    });
+  }
+  /* 2. Q-W-E-R-T-Z sur le Lampenfeld : la machine capitule */
+  let seq='';
+  document.addEventListener('click',e=>{
+    const l=e.target.closest('.enigma .lampe');
+    if(!l)return;
+    const ch=(l.id||'').replace('lamp-','');
+    seq=(seq+ch).slice(-6);
+    l.classList.add('allume');setTimeout(()=>l.classList.remove('allume'),260);
+    Enigma.tape();
+    if(seq==='QWERTZ'){
+      seq='';
+      const svg=l.closest('.enigma');
+      ['rota-g','rotb-g','rotc-g'].forEach((id,i)=>setTimeout(()=>{
+        const g=document.getElementById(id);
+        if(g){g.classList.remove('rotor-anim');void g.getBoundingClientRect();g.classList.add('rotor-anim');}
+      },i*130));
+      'QWERTZUIOP'.split('').forEach((c2,i)=>setTimeout(()=>{
+        const la=document.getElementById('lamp-'+c2);
+        if(la){la.classList.add('allume');setTimeout(()=>la.classList.remove('allume'),700);}
+      },i*70));
+      Enigma.rotor();setTimeout(()=>Enigma.ding(),500);
+      const cadre=svg&&svg.closest('.quiz-cadre');
+      if(cadre&&!cadre.querySelector('.stempel-entschluesselt')){
+        const s=document.createElement('span');
+        s.className='stempel-entschluesselt';s.textContent='ENTSCHL\u00dcSSELT';
+        cadre.appendChild(s);setTimeout(()=>s.remove(),2400);
+      }
+    }
+  });
+}catch(e){console.error('[geheim]',e);}})();
 
 /* ============ FRAPPE — la machine dactylographie chaque fiche ============ */
 const Frappe=(function(){
@@ -1168,6 +1473,7 @@ const Frappe=(function(){
   function setRotor(col,n){col.style.transform='translateY(calc(-'+n+' * 1.5em))';}
 
   let courantId=null,pendingDir=null,demarre=false;
+  const NAVIG=IDS.filter(x=>x!=='geheim');
   const idx=id=>IDS.indexOf(id);
   function cible(){
     const h=location.hash.slice(1);
@@ -1184,9 +1490,9 @@ const Frappe=(function(){
     const ci=CONTENU.indexOf(el);
     if(ci>-1){const n=ci+1;setRotor(colD,Math.floor(n/10));setRotor(colU,n%10);}
     else{setRotor(colD,10);setRotor(colU,10);}
-    const i=idx(id);
+    const i=NAVIG.indexOf(courantId==='geheim'?'empfang':id);
     bPrev.disabled=(i<=0);
-    bNext.disabled=(i>=IDS.length-1);
+    bNext.disabled=(i>=NAVIG.length-1);
     if(demarre&&courantId!==id)Enigma.tick();
     Frappe.demarrer(el,Math.max(0,ci));
     courantId=id;demarre=true;
@@ -1201,14 +1507,16 @@ const Frappe=(function(){
       location.hash='#'+id;
     }
   }
-  function next(){const i=idx(courantId);if(i<IDS.length-1)aller(IDS[i+1]);}
-  function prev(){const i=idx(courantId);if(i>0)aller(IDS[i-1]);}
+  function next(){const i=NAVIG.indexOf(courantId);if(i>-1&&i<NAVIG.length-1)aller(NAVIG[i+1]);}
+  function prev(){const i=NAVIG.indexOf(courantId);if(i>0)aller(NAVIG[i-1]);}
 
   bPrev.addEventListener('click',prev);
   bNext.addEventListener('click',next);
-  bHub.addEventListener('click',()=>aller('inhalt'));
+  bHub.addEventListener('click',()=>aller('empfang'));
   const be=document.getElementById('btn-eintreten');
-  if(be)be.addEventListener('click',()=>{Enigma.frappe();aller('inhalt');});
+  if(be)be.addEventListener('click',()=>{Enigma.frappe();aller('empfang');});
+  const gr=document.getElementById('geheim-retour');
+  if(gr)gr.addEventListener('click',()=>aller('empfang'));
 
   /* balayage tactile */
   let tx=0,ty=0;
@@ -1341,14 +1649,15 @@ const FRAGEN=[
     const box=document.createElement('div');box.className='quiz-choix';
     f.c.forEach((txt,i)=>{
       const b=document.createElement('button');b.type='button';b.className='choix';b.textContent=txt;
-      b.addEventListener('click',()=>repondre(i,b,box,f));
+      b.addEventListener('click',()=>repondre(i,b,box,f,sit,q));
       box.appendChild(b);
     });
     zone.append(sit,q,box);
   }
 
-  function repondre(i,btn,box,f){
+  function repondre(i,btn,box,f,sit,q){
     if(repondu)return;repondu=true;
+    if(sit)sit.remove();if(q)q.remove();
     const bonne=(i===f.b);
     if(bonne)score++;
     box.querySelectorAll('button').forEach((b,j)=>{

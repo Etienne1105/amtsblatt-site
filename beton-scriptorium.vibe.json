@@ -3,7 +3,7 @@
   "name": "BETON-SCRIPTORIUM",
   "created": "2026-07-06",
   "parent_id": null,
-  "iteration": 4,
+  "iteration": 5,
   "identity": {
     "era": "Rathaus ouest-allemand 1972 rencontre un scriptorium rhénan du XVe",
     "mood": [
@@ -61,7 +61,8 @@
       "structure": "grid 100dvh rows 1fr/auto : scène de fiches + barre de navigation mécanique ; body overflow hidden",
       "fiches": "cartes Karteikarten calibrées ≤1250 caractères (35 fiches), §11 scindé intro/examen, verdict du quiz remplaçant les choix (hauteur constante)",
       "navigation": "boutons ‹/›, balayage tactile ±60px, tuiles du hub INHALT, hash routing #pX-Y conservé pour les liens profonds",
-      "couverture": "fiche deckblatt plein écran, bouton EINTRETEN = user gesture d'initialisation audio"
+      "couverture": "fiche deckblatt plein écran, bouton EINTRETEN = user gesture d'initialisation audio",
+      "empfang": "page d'accueil EMPFANG entre couverture et table des matières : 11 tuiles bristol à pictogrammes (tous s'animent à l'arrivée), tuile Sprachführer pleine largeur en jaune Autobahn, lien vers l'Inhaltsverzeichnis détaillé"
     },
     "effects": {
       "border_radius": "0px — absolu, aucune exception",
@@ -96,7 +97,8 @@
     "kurzschluss": "battement squares 110/113Hz lowpass 600 — ABGELEHNT",
     "gesture": "AudioContext initialisé au tap EINTRETEN de la couverture ; boutons mute synchronisés (hub + quiz)",
     "dactylo": "frappes légères échantillonnées (force 0.22, ~85ms) pendant la dactylographie ; clac de tampon à l'apparition des encadrés",
-    "ding": "cloche de fin de fiche : sine 1244.5Hz + partiel inharmonique 2.76×, decay 500ms — le chariot arrive en bout de ligne"
+    "ding": "cloche de fin de fiche : sine 1244.5Hz + partiel inharmonique 2.76×, decay 500ms — le chariot arrive en bout de ligne",
+    "stimme": "voix allemande native de l'appareil (SpeechSynthesis de-DE, rate 0.86) sur chaque mot et phrase du Sprachführer ; repli propre sans voix (boutons masqués)"
   },
   "antislop_checklist": {
     "pas_de_border_radius_partout": true,
@@ -121,13 +123,22 @@
     "vert Patinagrün #3E7A63 — toits de cuivre de Cologne",
     "GEPRÜFT / GENEHMIGT / ABGELEHNT — double cadre, multiply, claquer 170ms steps(4)",
     "dactylographie à profils avec pauses de ponctuation — la fiche se tape sous tes yeux, ding de chariot en fin de carte",
-    "carte bristol lignée à marge rouge et liseré de classement pigmenté"
+    "carte bristol lignée à marge rouge et liseré de classement pigmenté",
+    "voix de-DE sur chaque entrée du lexique — l'app parle allemand",
+    "Satzbaukasten : la phrase se dactylographie puis se prononce",
+    "Annexe 7 : Mist ≈ mautadine, Na toll ≈ ben coudonc — jurons homologués DIN",
+    "les 11 pictos s'animent tous en chœur à l'arrivée sur l'accueil"
   ],
   "changelog": {
     "v1": "fonte initiale — palette, typo, grain béton, tampons, quiz Enigma sonore",
     "v2": "navigation dossier à fiches paginées (hash routing), reveals imprimables",
     "v2.1": "correctif spécificité CSS des reveals + routeur sous try/catch",
     "v3": "Conseil du 7 juillet 2026 — deck plein écran sans défilement principal, redécoupage h3 (~30 fiches), 11 pictogrammes Plakatstil animés, Enigma omniprésente (rotors navbar + machine complète au quiz), enluminures 4 pigments avec Patinagrün, tick sonore de navigation",
-    "v4": "7 juillet 2026 — cartes bristol (papier ligné, marge rouge, liseré, pictos à l'encre), zéro défilement (35 fiches ≤1250c, §11 scindé, verdict remplaçant les choix), dactylographie machine à écrire (3 profils, curseur, skip au tap, ding), animations accélérées ~40%, pièce §4 refondue (chute dans la fente BAR)"
+    "v4": "7 juillet 2026 — cartes bristol (papier ligné, marge rouge, liseré, pictos à l'encre), zéro défilement (35 fiches ≤1250c, §11 scindé, verdict remplaçant les choix), dactylographie machine à écrire (3 profils, curseur, skip au tap, ding), animations accélérées ~40%, pièce §4 refondue (chute dans la fente BAR)",
+    "v5": "8 juillet 2026 — EMPFANG à tuiles avant l'Inhalt, Sprachführer professionnel (TTS de-DE, PRÜFEN, Satzbaukasten, 6 lexiques dont Bahn et Freizeitpark, faux amis enrichis), deux easter eggs (Annexe 7, QWERTZ), quiz compacté (verdict remplace tout, machine 280px)"
+  },
+  "components": {
+    "sprachfuehrer": "11 fiches : prononciation en 2 volets (avantage francophone assumé), 6 lexiques thématiques à boutons d'écoute et mode PRÜFEN (colonne des sens voilée, tap par rangée), Satzbaukasten (4 amorces × 4 briques calibrées, phrase dactylographiée puis prononcée), faux amis",
+    "geheimnisse": "Annexe 7 STRENG GEHEIM (jurons doux à équivalents québécois) déverrouillée par 3 frappes sur le tampon GEPRÜFT de la couverture, hors flux de navigation ; séquence QWERTZ sur le Lampenfeld → rotors affolés, cascade de lampes, tampon ENTSCHLÜSSELT"
   }
 }

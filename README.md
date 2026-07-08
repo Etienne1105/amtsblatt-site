@@ -14,13 +14,20 @@ Guide culturel de voyage (Rhénanie) en un seul fichier HTML autonome, forgé da
 | Fichier | Rôle |
 |---|---|
 | `index.html` | Le guide complet — HTML/CSS/JS autonome, mobile-first |
-| `beton-scriptorium.vibe.json` | La vibe forgée (itération 4 — Conseils des 6 & 7 juillet 2026) — palette 4 pigments, deck, typo, SFX, gate anti-slop |
+| `beton-scriptorium.vibe.json` | La vibe forgée (itération 5 — Conseils des 6-8 juillet 2026) — palette 4 pigments, deck, typo, SFX, gate anti-slop |
 
 ## Déploiement
 
 Site statique pur : Netlify (Drop ou import Git), GitHub Pages, ou n'importe quel hébergeur. Seule dépendance externe : Google Fonts (`Grenze Gotisch`, `IBM Plex Sans/Mono`).
 
 ## Journal des itérations
+
+### v5 — 2026-07-08 · Der Sprachführer
+- **EMPFANG** : page d'accueil à 11 tuiles bristol (pictos animés en chœur), tuile Sprachführer pleine largeur, avant l'Inhaltsverzeichnis conservé.
+- **Sprachführer professionnel (§ 10, 11 fiches)** : voix allemande native (SpeechSynthesis de-DE) sur chaque entrée, prononciation en deux volets avec l'avantage francophone assumé, six lexiques thématiques (survie, Brauhaus, ville-santé, Bahn, Freizeitpark, chiffres-temps), mode **PRÜFEN** par table (sens voilés, tap pour révéler), **Satzbaukasten** — 16 phrases calibrées, dactylographiées puis prononcées —, faux amis enrichis.
+- **Deux œufs de Pâques** : une Annexe 7 classifiée quelque part sous un tampon, et une séquence de clavier sur le Lampenfeld.
+- **Quiz** : le verdict remplace désormais situation, question et choix (hauteur constante) ; machine compactée à 280 px.
+- `beton-scriptorium.vibe.json` → `iteration: 5`.
 
 ### v4 — 2026-07-07 · La fiche bristol dactylographiée
 - **Cartes Karteikarten** : chaque fiche devient une carte bristol posée sur le béton — papier ligné bleu pâle, marge rouge, liseré de classement pigmenté, ombre dure ; pictogrammes repassés à l'encre.
