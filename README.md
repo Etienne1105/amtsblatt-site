@@ -14,13 +14,20 @@ Guide culturel de voyage (Rhénanie) en un seul fichier HTML autonome, forgé da
 | Fichier | Rôle |
 |---|---|
 | `index.html` | Le guide complet — HTML/CSS/JS autonome, mobile-first |
-| `beton-scriptorium.vibe.json` | La vibe forgée (itération 3 — Conseils des 6 & 7 juillet 2026) — palette 4 pigments, deck, typo, SFX, gate anti-slop |
+| `beton-scriptorium.vibe.json` | La vibe forgée (itération 4 — Conseils des 6 & 7 juillet 2026) — palette 4 pigments, deck, typo, SFX, gate anti-slop |
 
 ## Déploiement
 
 Site statique pur : Netlify (Drop ou import Git), GitHub Pages, ou n'importe quel hébergeur. Seule dépendance externe : Google Fonts (`Grenze Gotisch`, `IBM Plex Sans/Mono`).
 
 ## Journal des itérations
+
+### v4 — 2026-07-07 · La fiche bristol dactylographiée
+- **Cartes Karteikarten** : chaque fiche devient une carte bristol posée sur le béton — papier ligné bleu pâle, marge rouge, liseré de classement pigmenté, ombre dure ; pictogrammes repassés à l'encre.
+- **Zéro défilement** : 35 fiches calibrées ≤ 1250 caractères, § 11 scindé (intro / examen), verdict du quiz remplaçant les choix (hauteur constante). `overflow:hidden` — filet automatique sous 640 px de hauteur seulement.
+- **Dactylographie** : chaque fiche se tape à l'ouverture — trois profils de frappe (330/420/500 c/s) avec pauses à la ponctuation, curseur bloc clignotant, encadrés et rangées de tables révélés en blocs, frappes sonores échantillonnées et *ding* de chariot en fin de carte. Un tap révèle tout.
+- **Animations accélérées ~40 %** ; le picto § 4 refondu — la pièce tombe dans la fente de la caisse `BAR`.
+- `beton-scriptorium.vibe.json` → `iteration: 4`.
 
 ### v3 — 2026-07-07 · Le deck mécanique
 Conseil de Recette v3 (trois décisions d'Étienne) : le défilement cesse d'être le mode principal de navigation.

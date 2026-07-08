@@ -3,7 +3,7 @@
   "name": "BETON-SCRIPTORIUM",
   "created": "2026-07-06",
   "parent_id": null,
-  "iteration": 3,
+  "iteration": 4,
   "identity": {
     "era": "Rathaus ouest-allemand 1972 rencontre un scriptorium rhénan du XVe",
     "mood": [
@@ -57,9 +57,9 @@
       "scale_note": "sauts >2.5x entre corps et display, jamais l'échelle 1.5x uniforme"
     },
     "layout": {
-      "mode": "deck de fiches plein écran (Karteikarten) — le défilement n'est jamais le mode principal de navigation",
+      "mode": "deck de fiches bristol plein écran — zéro défilement (overflow:hidden ; filet auto sous 640px de hauteur seulement)",
       "structure": "grid 100dvh rows 1fr/auto : scène de fiches + barre de navigation mécanique ; body overflow hidden",
-      "fiches": "position absolute inset 0, une seule .actif ; découpe du contenu aux frontières h3, ~1400 caractères max par fiche ; filet overflow-y:auto interne toléré sur les rares fiches denses (quiz, tableaux)",
+      "fiches": "cartes Karteikarten calibrées ≤1250 caractères (35 fiches), §11 scindé intro/examen, verdict du quiz remplaçant les choix (hauteur constante)",
       "navigation": "boutons ‹/›, balayage tactile ±60px, tuiles du hub INHALT, hash routing #pX-Y conservé pour les liens profonds",
       "couverture": "fiche deckblatt plein écran, bouton EINTRETEN = user gesture d'initialisation audio"
     },
@@ -69,7 +69,8 @@
       "signature_effect": "béton coffrage apparent : grain feTurbulence overlay + repeating-linear-gradient vertical (traces de planches) + rangées de trous de banche (Schalungsanker)",
       "lettrines": "span .lettrine Grenze Gotisch 3.6em flottée sur la fiche d'ouverture de chaque § — pigment principal cyclant bleu/rouge/vert, rehaut d'or constant en ombre décalée (bichromie d'impression) ; pilcrows ¶ pigmentés sur les h3 des sous-fiches, cycle 3 pigments",
       "pictogrammes": "11 pictos SVG Plakatstil (un par §), traits papier sur bandeau graphite, aplats de pigments — animés en steps() à chaque activation de fiche : tampon qui frappe (§1), chopes qui trinquent (§2), Deckel dont les traits se dessinent (§3), pièces qui s'empilent (§4), flèche Pfand qui tourne (§5), Rettungsgasse qui s'ouvre (§6), Ampelmännchen rouge→vert (§7), Kranz qui tourne (§8), file qui avance (§9), touche qui frappe Ä (§10), mini-rotors (§11)",
-      "stamps": "tampons GEPRÜFT / GENEHMIGT / ABGELEHNT — IBM Plex Mono, double cadre, rotation -4° à -7°, mix-blend-mode multiply (encre sur papier)"
+      "stamps": "tampons GEPRÜFT / GENEHMIGT / ABGELEHNT — IBM Plex Mono, double cadre, rotation -4° à -7°, mix-blend-mode multiply (encre sur papier)",
+      "karteikarte": "fiche bristol : papier #EDE9DB ligné bleu pâle (26px), marge rouge verticale, liseré de classement 9px (bleu/rouge selon parité du §), bordure encre 2.5px, ombre dure 5px sur le béton de la scène ; en-tête papier à double filet, parno tamponné incliné, pictos repassés à l'encre"
     },
     "enigma_incarnation": {
       "principe": "décision du Conseil v3 : l'Enigma est OMNIPRÉSENTE — référencée et sonorisée depuis v1, elle est désormais dessinée",
@@ -79,11 +80,12 @@
   },
   "motion": {
     "signature": "steps() partout — le monde est électromécanique, rien ne glisse, tout crante",
-    "fiche_in": "entrée de fiche : 260ms steps(3), translation directionnelle 26px selon le sens de navigation (data-dir), déclenchée nativement par display none→block",
+    "fiche_in": "entrée de fiche : 180ms steps(2), translation directionnelle 20px",
     "rotors": "chiffres roulants translateY 180ms steps(2)",
-    "pictos": "600–1000ms steps(N), fill both, rejouent à chaque activation de fiche",
+    "pictos": "400–680ms steps(N), fill both, rejouent à chaque activation",
     "compositor_only": "transform + opacity uniquement, jamais transition:all",
-    "reduced_motion": "prefers-reduced-motion : toutes animations à .01ms"
+    "reduced_motion": "prefers-reduced-motion : toutes animations à .01ms",
+    "typewriter": "dactylographie de chaque fiche à l'ouverture : rAF à budget, 3 profils (330/420/500 c/s) choisis par index de fiche, pauses à la ponctuation (60-180ms), curseur bloc clignotant steps(2), encadrés et rangées de tables révélés en blocs séquentiels, tap = révélation intégrale, prefers-reduced-motion = texte immédiat"
   },
   "sound": {
     "moteur": "Enigma — synthèse Web Audio pure, zéro sample, conforme doctrine SL Vol.16",
@@ -92,7 +94,9 @@
     "rotor": "4 clics décroissants — WEITER du quiz",
     "lampe": "clic relais + triangle 523Hz lowpass — GENEHMIGT",
     "kurzschluss": "battement squares 110/113Hz lowpass 600 — ABGELEHNT",
-    "gesture": "AudioContext initialisé au tap EINTRETEN de la couverture ; boutons mute synchronisés (hub + quiz)"
+    "gesture": "AudioContext initialisé au tap EINTRETEN de la couverture ; boutons mute synchronisés (hub + quiz)",
+    "dactylo": "frappes légères échantillonnées (force 0.22, ~85ms) pendant la dactylographie ; clac de tampon à l'apparition des encadrés",
+    "ding": "cloche de fin de fiche : sine 1244.5Hz + partiel inharmonique 2.76×, decay 500ms — le chariot arrive en bout de ligne"
   },
   "antislop_checklist": {
     "pas_de_border_radius_partout": true,
@@ -115,12 +119,15 @@
     "Ampelmännchen à chapeau, rouge puis vert marcheur",
     "Kranz de Kölsch qui tourne cran par cran",
     "vert Patinagrün #3E7A63 — toits de cuivre de Cologne",
-    "GEPRÜFT / GENEHMIGT / ABGELEHNT — double cadre, multiply, claquer 170ms steps(4)"
+    "GEPRÜFT / GENEHMIGT / ABGELEHNT — double cadre, multiply, claquer 170ms steps(4)",
+    "dactylographie à profils avec pauses de ponctuation — la fiche se tape sous tes yeux, ding de chariot en fin de carte",
+    "carte bristol lignée à marge rouge et liseré de classement pigmenté"
   ],
   "changelog": {
     "v1": "fonte initiale — palette, typo, grain béton, tampons, quiz Enigma sonore",
     "v2": "navigation dossier à fiches paginées (hash routing), reveals imprimables",
     "v2.1": "correctif spécificité CSS des reveals + routeur sous try/catch",
-    "v3": "Conseil du 7 juillet 2026 — deck plein écran sans défilement principal, redécoupage h3 (~30 fiches), 11 pictogrammes Plakatstil animés, Enigma omniprésente (rotors navbar + machine complète au quiz), enluminures 4 pigments avec Patinagrün, tick sonore de navigation"
+    "v3": "Conseil du 7 juillet 2026 — deck plein écran sans défilement principal, redécoupage h3 (~30 fiches), 11 pictogrammes Plakatstil animés, Enigma omniprésente (rotors navbar + machine complète au quiz), enluminures 4 pigments avec Patinagrün, tick sonore de navigation",
+    "v4": "7 juillet 2026 — cartes bristol (papier ligné, marge rouge, liseré, pictos à l'encre), zéro défilement (35 fiches ≤1250c, §11 scindé, verdict remplaçant les choix), dactylographie machine à écrire (3 profils, curseur, skip au tap, ding), animations accélérées ~40%, pièce §4 refondue (chute dans la fente BAR)"
   }
 }

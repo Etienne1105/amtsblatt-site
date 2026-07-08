@@ -34,8 +34,8 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 body{
   font-family:var(--corps);
   color:var(--encre);
-  line-height:1.58;
-  font-size:1.03rem;
+  line-height:1.52;
+  font-size:.99rem;
   background:
     repeating-linear-gradient(90deg,
       rgba(28,27,22,0.030) 0 2px, transparent 2px 128px,
@@ -54,22 +54,29 @@ i[lang="de"]{font-style:italic;font-weight:600}
 
 /* ============ L'APPAREIL — deck plein écran ============ */
 .appareil{height:100dvh;display:grid;grid-template-rows:1fr auto;position:relative;z-index:1}
-.scene{position:relative;overflow:hidden;width:100%;max-width:47rem;margin:0 auto}
+.scene{position:relative;overflow:hidden;width:100%;max-width:47rem;margin:0 auto;padding:10px 10px 6px}
 .fiche{
   position:absolute;inset:0;display:none;
-  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
-  padding:0 1.05rem 1.4rem;
+  overflow:hidden;
+  padding:0 1rem .9rem;
+  background:
+    linear-gradient(90deg,transparent 0 2.6rem,rgba(176,36,24,.18) 2.6rem calc(2.6rem + 2px),transparent calc(2.6rem + 2px)),
+    repeating-linear-gradient(0deg,transparent 0 25px,rgba(29,78,137,.09) 25px 26px),
+    #EDE9DB;
+  border:2.5px solid var(--encre);
+  border-left:9px solid var(--tampon);
+  box-shadow:5px 5px 0 rgba(28,27,22,.45);
 }
-.fiche::-webkit-scrollbar{width:4px}
-.fiche::-webkit-scrollbar-thumb{background:var(--beton-sombre)}
-.fiche.actif{display:block;animation:fiche-in 260ms steps(3,end) both}
+.fiche.par-pair{border-left-color:var(--oxyde)}
+@media (max-height:640px){.fiche{overflow-y:auto;overscroll-behavior:contain}}
+.fiche.actif{display:block;animation:fiche-in 180ms steps(2,end) both}
 .scene[data-dir="arriere"] .fiche.actif{animation-name:fiche-in-r}
-@keyframes fiche-in{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
-@keyframes fiche-in-r{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+@keyframes fiche-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@keyframes fiche-in-r{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
 
 /* ============ COUVERTURE — Deckblatt ============ */
 .fiche.couverture{
-  background:var(--bandeau);color:var(--papier);
+  background:var(--bandeau);color:var(--papier);border-left-color:var(--encre);
   display:none;padding:2rem 1.2rem;text-align:center;overflow:hidden;
 }
 .fiche.couverture.actif{display:grid;align-content:center;justify-items:center;gap:.2rem}
@@ -140,30 +147,30 @@ button.mute[aria-pressed="true"]{background:var(--bandeau);color:var(--papier)}
 
 /* ============ FICHE-TÊTE — bandeau + picto ============ */
 .fiche-tete{
-  background:var(--bandeau);color:var(--papier);
-  margin:0 -1.05rem 1.1rem;padding:.8rem 1.05rem .75rem;
-  display:grid;grid-template-columns:1fr 78px;gap:.6rem;align-items:center;
-  border-left:10px solid var(--tampon);position:relative;
+  margin:0 -1rem .75rem;padding:.65rem 1rem .5rem;
+  display:grid;grid-template-columns:1fr 62px;gap:.5rem;align-items:center;
+  border-bottom:3px double var(--encre);
 }
-.fiche.par-pair .fiche-tete{border-left-color:var(--oxyde)}
 .fiche-tete .parno{
-  font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1;
-  color:var(--autobahn);display:block;
+  font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.22em;
+  color:var(--tampon);border:2px solid var(--tampon);display:inline-block;
+  padding:.12em .42em;transform:rotate(-2deg);mix-blend-mode:multiply;
 }
+.fiche.par-pair .fiche-tete .parno{color:var(--oxyde);border-color:var(--oxyde)}
 .fiche-tete h2{
-  font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,5.4vw,1.75rem);line-height:1.02;
-  margin:.1rem 0 .15rem;
+  font-family:var(--display);font-weight:600;font-size:clamp(1.2rem,4.9vw,1.55rem);line-height:1.02;
+  margin:.3rem 0 .1rem;color:var(--encre);
 }
 .fiche-tete .teil{
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;color:#9B978A;text-transform:uppercase;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;color:var(--sourd);text-transform:uppercase;
 }
-.picto{width:78px;height:78px;display:block}
+.picto{width:62px;height:62px;display:block}
 
 /* ============ CORPS DE FICHE ============ */
 .corps-sec{padding-top:.1rem}
-.corps-sec p{margin-bottom:1rem}
+.corps-sec p{margin-bottom:.85rem}
 .corps-sec h3{
-  font-family:var(--mono);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
+  font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--tampon);margin:1.35rem 0 .55rem;
   border-bottom:2px solid var(--beton-sombre);padding-bottom:.32rem;
 }
@@ -371,86 +378,94 @@ button.weiter:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--encre)}
 }
 .rotor .colonne{
   display:block;line-height:1.5em;text-align:center;font-size:1em;
-  transition:transform 180ms steps(2,end);will-change:transform;
+  transition:transform 140ms steps(2,end);will-change:transform;
 }
 .rtotal{font-size:.85em;letter-spacing:.05em;opacity:.75}
 
 /* ============ PICTOGRAMMES — traits & aplats Plakatstil ============ */
-.picto .trait{fill:none;stroke:var(--papier);stroke-width:3;stroke-linecap:square}
-.picto .plein{fill:var(--papier)}
+.picto .trait{fill:none;stroke:var(--encre);stroke-width:3;stroke-linecap:square}
+.picto .plein{fill:var(--encre)}
 .picto .jaune{fill:var(--autobahn)}
-.picto .rougec{fill:#D0553F}
-.picto .vertc{fill:#6FAE93}
-.picto .bleuc{fill:#7C9EC7}
+.picto .rougec{fill:var(--oxyde)}
+.picto .vertc{fill:var(--patina)}
+.picto .bleuc{fill:var(--tampon)}
 
 /* §1 — le tampon frappe */
-.actif .pk1-corps{animation:pk1a 700ms steps(3,end) both}
+.actif .pk1-corps{animation:pk1a 440ms steps(3,end) both}
 @keyframes pk1a{0%{transform:translateY(-16px)}55%{transform:translateY(0)}70%{transform:translateY(-3px)}100%{transform:translateY(0)}}
-.actif .pk1-marque{opacity:0;animation:pk1b 700ms steps(1,end) both}
+.actif .pk1-marque{opacity:0;animation:pk1b 440ms steps(1,end) both}
 @keyframes pk1b{0%,55%{opacity:0}60%,100%{opacity:1}}
 
 /* §2 — les chopes trinquent */
-.actif .pk2-g{transform-origin:26px 74px;animation:pk2g 800ms steps(3,end) both}
-.actif .pk2-d{transform-origin:70px 74px;animation:pk2d 800ms steps(3,end) both}
+.actif .pk2-g{transform-origin:26px 74px;animation:pk2g 500ms steps(3,end) both}
+.actif .pk2-d{transform-origin:70px 74px;animation:pk2d 500ms steps(3,end) both}
 @keyframes pk2g{0%{transform:rotate(-14deg)}60%{transform:rotate(9deg)}100%{transform:rotate(6deg)}}
 @keyframes pk2d{0%{transform:rotate(14deg)}60%{transform:rotate(-9deg)}100%{transform:rotate(-6deg)}}
-.actif .pk2-etoile{opacity:0;animation:pk2e 800ms steps(1,end) both}
+.actif .pk2-etoile{opacity:0;animation:pk2e 500ms steps(1,end) both}
 @keyframes pk2e{0%,58%{opacity:0}64%,100%{opacity:1}}
 
 /* §3 — les traits du Deckel se comptent */
-.actif .pk3-t{stroke-dasharray:22;stroke-dashoffset:22;animation:pk3t 240ms steps(2,end) forwards}
-.actif .pk3-t:nth-of-type(2){animation-delay:200ms}
-.actif .pk3-t:nth-of-type(3){animation-delay:400ms}
-.actif .pk3-t:nth-of-type(4){animation-delay:600ms}
-.actif .pk3-t:nth-of-type(5){animation-delay:820ms}
+.actif .pk3-t{stroke-dasharray:22;stroke-dashoffset:22;animation:pk3t 150ms steps(2,end) forwards}
+.actif .pk3-t:nth-of-type(2){animation-delay:70ms}
+.actif .pk3-t:nth-of-type(3){animation-delay:140ms}
+.actif .pk3-t:nth-of-type(4){animation-delay:360ms}
+.actif .pk3-t:nth-of-type(5){animation-delay:500ms}
 @keyframes pk3t{to{stroke-dashoffset:0}}
 
-/* §4 — les pièces s'empilent */
-.actif .pk4-p{opacity:0;animation:pk4a 260ms steps(2,end) forwards}
-.actif .pk4-p:nth-of-type(2){animation-delay:220ms}
-.actif .pk4-p:nth-of-type(3){animation-delay:440ms}
-.actif .pk4-p:nth-of-type(4){animation-delay:660ms}
-@keyframes pk4a{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+/* §4 — la pièce tombe dans la fente */
+.actif .pk4-piece{animation:pk4chute 560ms steps(4,end) both}
+@keyframes pk4chute{0%{transform:translateY(-26px)}62%{transform:translateY(9px)}78%,100%{transform:translateY(13px);opacity:0}}
+.actif .pk4-caisse{animation:pk4pouf 560ms steps(2,end) both}
+@keyframes pk4pouf{0%,70%{transform:none}80%{transform:translateY(2px)}100%{transform:none}}}
 
 /* §5 — la flèche Pfand tourne */
-.actif .pk5-fleche{transform-origin:48px 44px;animation:pk5r 900ms steps(4,end) both}
+.actif .pk5-fleche{transform-origin:48px 44px;animation:pk5r 550ms steps(4,end) both}
 @keyframes pk5r{from{transform:rotate(-270deg)}to{transform:rotate(0deg)}}
 
 /* §6 — la Rettungsgasse s'ouvre */
-.actif .pk6-g{animation:pk6g 800ms steps(3,end) both}
-.actif .pk6-d{animation:pk6d 800ms steps(3,end) both}
+.actif .pk6-g{animation:pk6g 500ms steps(3,end) both}
+.actif .pk6-d{animation:pk6d 500ms steps(3,end) both}
 @keyframes pk6g{0%,30%{transform:translateX(7px)}100%{transform:translateX(0)}}
 @keyframes pk6d{0%,30%{transform:translateX(-7px)}100%{transform:translateX(0)}}
-.actif .pk6-couloir{opacity:0;animation:pk6c 800ms steps(1,end) both}
+.actif .pk6-couloir{opacity:0;animation:pk6c 500ms steps(1,end) both}
 @keyframes pk6c{0%,55%{opacity:0}70%,100%{opacity:1}}
 
 /* §7 — l'Ampelmännchen passe au vert */
-.actif .pk7-rouge{animation:pk7r 1100ms steps(1,end) both}
+.actif .pk7-rouge{animation:pk7r 680ms steps(1,end) both}
 @keyframes pk7r{0%,49%{opacity:1}50%,100%{opacity:0}}
-.actif .pk7-vert{opacity:0;animation:pk7v 1100ms steps(1,end) both}
+.actif .pk7-vert{opacity:0;animation:pk7v 680ms steps(1,end) both}
 @keyframes pk7v{0%,49%{opacity:0}50%,100%{opacity:1}}
 
 /* §8 — le Kranz tourne cran par cran */
-.actif .pk8-roue{transform-origin:48px 48px;animation:pk8r 1100ms steps(6,end) both}
+.actif .pk8-roue{transform-origin:48px 48px;animation:pk8r 640ms steps(6,end) both}
 @keyframes pk8r{from{transform:rotate(-120deg)}to{transform:rotate(0deg)}}
 
 /* §9 — la file avance */
-.actif .pk9-file{animation:pk9f 900ms steps(3,end) both}
+.actif .pk9-file{animation:pk9f 540ms steps(3,end) both}
 @keyframes pk9f{from{transform:translateX(-16px)}to{transform:translateX(0)}}
-.actif .pk9-t1{animation:pk9p 900ms steps(1,end) both}
+.actif .pk9-t1{animation:pk9p 540ms steps(1,end) both}
 @keyframes pk9p{0%,65%{opacity:1}70%,100%{opacity:.25}}
 
 /* §10 — la touche frappe Ä */
-.actif .pk10-touche{animation:pk10t 620ms steps(2,end) both}
+.actif .pk10-touche{animation:pk10t 400ms steps(2,end) both}
 @keyframes pk10t{0%{transform:translateY(0)}40%{transform:translateY(6px)}100%{transform:translateY(0)}}
-.actif .pk10-lettre{opacity:0;animation:pk10l 620ms steps(1,end) both}
+.actif .pk10-lettre{opacity:0;animation:pk10l 400ms steps(1,end) both}
 @keyframes pk10l{0%,40%{opacity:0}48%,100%{opacity:1}}
 
 /* §11 — mini-rotors */
-.actif .pk11-r{transform-origin:center;animation:pk11a 800ms steps(4,end) both}
-.actif .pk11-r.b{animation-delay:120ms}
-.actif .pk11-r.c{animation-delay:240ms}
+.actif .pk11-r{transform-origin:center;animation:pk11a 480ms steps(4,end) both}
+.actif .pk11-r.b{animation-delay:70ms}
+.actif .pk11-r.c{animation-delay:140ms}
 @keyframes pk11a{from{transform:rotate(-90deg)}to{transform:rotate(0deg)}}
+
+/* ============ MACHINE À ÉCRIRE ============ */
+.curseur{display:inline-block;width:.52em;height:.95em;background:var(--encre);
+  vertical-align:-.1em;margin-left:1px;animation:curclign 640ms steps(2,end) infinite}
+@keyframes curclign{50%{opacity:0}}
+.cache-frappe{display:none}
+tr.cache-frappe{display:table-row;visibility:collapse}
+.quiz-bonne{font-size:.9rem;border-left:6px solid var(--tampon);padding:.3rem 0 .3rem .6rem;
+  margin:.5rem 0;font-weight:600}
 
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion:reduce){
@@ -506,25 +521,30 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche" id="p1-1" data-par="1">
-<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-1">O</span>rdnung muss sein — « l'ordre doit régner ». Ce n'est pas un cliché, c'est le système d'exploitation du pays. Les règles allemandes ne sont pas des suggestions qu'on négocie selon le contexte : elles s'appliquent même quand personne ne regarde, et chacun se sent légitime de te les rappeler. Un inconnu qui te reprend dans la rue ne t'agresse pas — il maintient le système, et il s'attend à ce que tu fasses pareil.</p>
 
     <h3 class="pig-1">1.1 — La franchise n'est pas de la froideur</h3>
     <p>Un Allemand qui trouve ton idée mauvaise te dira qu'elle est mauvaise. Pas « intéressante », pas « à creuser » : <i lang="de">schlecht</i>. C'est une marque de respect — on ne te fait pas perdre ton temps avec des politesses creuses. En retour, le « small talk » nord-américain (« Hi, how are you today?! » lancé au caissier) est perçu comme du bruit, voire de l'hypocrisie. Un <i lang="de">Hallo</i> sobre, la transaction, un <i lang="de">Danke, tschüss</i> : voilà l'échange parfait.</p>
 
-    <h3 class="pig-2">1.2 — Sie ou du : le vouvoiement par défaut</h3>
-    <p>On vouvoie (<i lang="de">Sie</i>) tout adulte inconnu : serveurs, commerçants, employés du parc. Le tutoiement (<i lang="de">du</i>) se propose, il ne se prend pas — et c'est la personne la plus âgée ou hiérarchiquement supérieure qui l'offre. En pratique de voyageur : <i lang="de">Sie</i> partout, et tout ira bien. Exception tolérée : entre visiteurs de parcs d'attractions et dans les files, le <i lang="de">du</i> circule plus librement chez les moins de 40 ans.</p>
-
     </div>
 </section>
 
 <section class="fiche" id="p1-2" data-par="1">
-<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
-<div class="corps-sec"><h3 class="pig-3">1.3 — La ponctualité est une politesse, pas une performance</h3>
+<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">1.2 — Sie ou du : le vouvoiement par défaut</h3>
+    <p>On vouvoie (<i lang="de">Sie</i>) tout adulte inconnu : serveurs, commerçants, employés du parc. Le tutoiement (<i lang="de">du</i>) se propose, il ne se prend pas — et c'est la personne la plus âgée ou hiérarchiquement supérieure qui l'offre. En pratique de voyageur : <i lang="de">Sie</i> partout, et tout ira bien. Exception tolérée : entre visiteurs de parcs d'attractions et dans les files, le <i lang="de">du</i> circule plus librement chez les moins de 40 ans.</p>
+
+    <h3 class="pig-3">1.3 — La ponctualité est une politesse, pas une performance</h3>
     <p>Arriver à l'heure, c'est arriver 5 minutes d'avance. Un retard de 10 minutes sans message est une offense réelle. Pour un restaurant réservé, un spectacle, un rendez-vous : la tolérance est proche de zéro. Ton billet de train le dit lui-même — présent sur le quai au plus tard 2 minutes avant le départ, sinon la porte reste fermée.</p>
 
-    <h3 class="pig-1">1.4 — Le silence est confortable</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p1-3" data-par="1">
+<header class="fiche-tete"><div><span class="parno">§ 1</span><h2>Le contrat social allemand</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon officiel"><g class="pk1-corps"><rect class="plein" x="40" y="6" width="16" height="12"/><rect class="plein" x="44" y="18" width="8" height="10"/><rect class="plein" x="28" y="28" width="40" height="16"/></g><line class="trait" x1="14" y1="50" x2="82" y2="50"/><g class="pk1-marque"><rect x="26" y="60" width="44" height="20" fill="none" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="67" x2="63" y2="67" stroke="#F7C600" stroke-width="3"/><line x1="33" y1="74" x2="55" y2="74" stroke="#F7C600" stroke-width="3"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-1">1.4 — Le silence est confortable</h3>
     <p>Dans l'ascenseur, le train, la file : le silence n'est pas un vide à remplir. Personne n'attend de toi que tu meubles. Les conversations téléphoniques bruyantes en transport en commun attirent des regards lourds de sens.</p>
 
     <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
@@ -547,15 +567,15 @@ html.nojs .navbar{display:none}
     </ul>
     <p>En entrant dans une petite boutique, une salle d'attente ou un compartiment : on salue la pièce. En sortant : on dit au revoir. Ne pas le faire te classe immédiatement.</p>
 
-    <h3 class="pig-3">2.2 — La poignée de main et le regard</h3>
-    <p>Poignée de main ferme, brève, avec contact visuel franc. Un regard fuyant est interprété comme de la faiblesse ou de la dissimulation. Pas de bise entre inconnus — la bise est réservée aux amis proches, et encore.</p>
-
     </div>
 </section>
 
 <section class="fiche par-pair" id="p2-2" data-par="2">
 <header class="fiche-tete"><div><span class="parno">§ 2</span><h2>Saluer, serrer, trinquer</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Chopes qui trinquent"><g class="pk2-g"><rect class="plein" x="16" y="42" width="20" height="32"/><rect class="jaune" x="16" y="42" width="20" height="8"/><path class="trait" d="M36 50 h8 v14 h-8"/></g><g class="pk2-d"><rect class="plein" x="60" y="42" width="20" height="32"/><rect class="jaune" x="60" y="42" width="20" height="8"/><path class="trait" d="M60 50 h-8 v14 h8"/></g><g class="pk2-etoile"><line x1="48" y1="18" x2="48" y2="30" stroke="#F7C600" stroke-width="3"/><line x1="38" y1="24" x2="58" y2="24" stroke="#F7C600" stroke-width="3"/><line x1="41" y1="17" x2="55" y2="31" stroke="#F7C600" stroke-width="3"/><line x1="55" y1="17" x2="41" y2="31" stroke="#F7C600" stroke-width="3"/></g></svg></header>
-<div class="corps-sec"><h3 class="pig-1">2.3 — Trinquer : le rituel aux yeux ouverts</h3>
+<div class="corps-sec"><h3 class="pig-3">2.2 — La poignée de main et le regard</h3>
+    <p>Poignée de main ferme, brève, avec contact visuel franc. Un regard fuyant est interprété comme de la faiblesse ou de la dissimulation. Pas de bise entre inconnus — la bise est réservée aux amis proches, et encore.</p>
+
+    <h3 class="pig-1">2.3 — Trinquer : le rituel aux yeux ouverts</h3>
     <p>Au moment du <i lang="de">Prost !</i> (ou <i lang="de">Zum Wohl !</i> avec du vin), tu regardes <b>chaque personne dans les yeux</b> au moment où vos verres se touchent. Trinquer en regardant les verres est une faute grave, sanctionnée par la superstition la plus célèbre du pays : sept ans de mauvaise fortune dans un domaine que la décence m'interdit de préciser ici. Les Allemands y tiennent avec un sérieux mi-amusé, mi-absolu.</p>
 
     <div class="achtung"><div class="etiq"><span class="tri">⚠</span> ACHTUNG</div>
@@ -585,15 +605,15 @@ html.nojs .navbar{display:none}
     <h3 class="pig-2">3.4 — « Getrennt oder zusammen? »</h3>
     <p>Au moment de payer, on te demandera « séparément ou ensemble ? ». Payer chacun sa part, calculée au centime par le serveur lui-même, est parfaitement normal — aucun malaise, aucune calculette sur la table. Réponds <i lang="de">getrennt</i> (séparé) ou <i lang="de">zusammen</i> (ensemble).</p>
 
-    <h3 class="pig-3">3.5 — Le pourboire : annoncé, jamais abandonné</h3>
-    <p>Le <i lang="de">Trinkgeld</i> se donne <b>au moment de payer, à voix haute</b>, en arrondissant de 5 à 10 %. L'addition fait 47,60 € ? Tu tends ton argent en disant <i lang="de">« Machen Sie 52 »</i> (« faites 52 »). Le compte est bon ? <i lang="de">« Stimmt so »</i> (« gardez tout »). Laisser des pièces sur la table en partant, à la nord-américaine, est vu comme étrange, presque condescendant. En payant par carte, annonce le total avant que le serveur tape le montant.</p>
-
     </div>
 </section>
 
 <section class="fiche" id="p3-3" data-par="3">
 <header class="fiche-tete"><div><span class="parno">§ 3</span><h2>Au restaurant — le rituel complet</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sous-bock et traits de comptage"><circle class="trait" cx="48" cy="52" r="32"/><circle cx="48" cy="52" r="25" fill="none" stroke="#B8B5A8" stroke-width="1.5"/><line class="trait pk3-t" x1="34" y1="42" x2="34" y2="62"/><line class="trait pk3-t" x1="43" y1="42" x2="43" y2="62"/><line class="trait pk3-t" x1="52" y1="42" x2="52" y2="62"/><line class="trait pk3-t" x1="61" y1="42" x2="61" y2="62"/><line class="pk3-t" x1="29" y1="60" x2="66" y2="44" stroke="#F7C600" stroke-width="3" fill="none"/></svg></header>
-<div class="corps-sec"><h3 class="pig-1">3.6 — Tenue de table</h3>
+<div class="corps-sec"><h3 class="pig-3">3.5 — Le pourboire : annoncé, jamais abandonné</h3>
+    <p>Le <i lang="de">Trinkgeld</i> se donne <b>au moment de payer, à voix haute</b>, en arrondissant de 5 à 10 %. L'addition fait 47,60 € ? Tu tends ton argent en disant <i lang="de">« Machen Sie 52 »</i> (« faites 52 »). Le compte est bon ? <i lang="de">« Stimmt so »</i> (« gardez tout »). Laisser des pièces sur la table en partant, à la nord-américaine, est vu comme étrange, presque condescendant. En payant par carte, annonce le total avant que le serveur tape le montant.</p>
+
+    <h3 class="pig-1">3.6 — Tenue de table</h3>
     <p>Les mains restent visibles, posées sur la table de part et d'autre de l'assiette — jamais sur les genoux (vieille étiquette toujours vivante). Couteau et fourchette en parallèle à 16 h 20 sur l'assiette : j'ai terminé. Croisés : je fais une pause.</p>
 
     <div class="merksatz"><span class="etiq">Merksatz — à retenir</span>
@@ -602,7 +622,7 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche par-pair" id="p4-1" data-par="4">
-<header class="fiche-tete"><div><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Pièces empilées"><line class="trait" x1="14" y1="84" x2="82" y2="84"/><g class="pk4-p"><ellipse class="jaune" cx="48" cy="77" rx="21" ry="6"/><ellipse cx="48" cy="77" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="64" rx="21" ry="6"/><ellipse cx="48" cy="64" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="51" rx="21" ry="6"/><ellipse cx="48" cy="51" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="38" rx="21" ry="6"/><ellipse cx="48" cy="38" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/><text x="48" y="42" text-anchor="middle" font-family="monospace" font-weight="700" font-size="10" fill="#1C1B16">€</text></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="La pièce tombe dans la caisse"><g class="pk4-caisse"><rect class="plein" x="24" y="54" width="48" height="32"/><rect class="jaune" x="34" y="50" width="28" height="6"/><rect x="24" y="54" width="48" height="32" fill="none" stroke="#1C1B16" stroke-width="2.5"/><text x="48" y="75" text-anchor="middle" font-family="monospace" font-weight="700" font-size="9" fill="#F7C600">BAR</text></g><g class="pk4-piece"><circle class="jaune" cx="48" cy="34" r="13"/><circle cx="48" cy="34" r="13" fill="none" stroke="#1C1B16" stroke-width="2.5"/><circle cx="48" cy="34" r="8" fill="none" stroke="#1C1B16" stroke-width="1.5"/><text x="48" y="39" text-anchor="middle" font-family="monospace" font-weight="700" font-size="12" fill="#1C1B16">€</text></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-1">V</span>oici le paradoxe allemand : la quatrième économie mondiale, patrie de SAP et de Siemens, reste viscéralement attachée à l'argent liquide. <i lang="de">Nur Bargeld</i> — « espèces uniquement » — est un écriteau que tu croiseras encore en 2026, dans des établissements par ailleurs impeccables.</p>
 
@@ -618,7 +638,7 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche par-pair" id="p4-2" data-par="4">
-<header class="fiche-tete"><div><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Pièces empilées"><line class="trait" x1="14" y1="84" x2="82" y2="84"/><g class="pk4-p"><ellipse class="jaune" cx="48" cy="77" rx="21" ry="6"/><ellipse cx="48" cy="77" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="64" rx="21" ry="6"/><ellipse cx="48" cy="64" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="51" rx="21" ry="6"/><ellipse cx="48" cy="51" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/></g><g class="pk4-p"><ellipse class="jaune" cx="48" cy="38" rx="21" ry="6"/><ellipse cx="48" cy="38" rx="21" ry="6" fill="none" stroke="#1C1B16" stroke-width="2"/><text x="48" y="42" text-anchor="middle" font-family="monospace" font-weight="700" font-size="10" fill="#1C1B16">€</text></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 4</span><h2>L'argent — Bargeld über alles</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="La pièce tombe dans la caisse"><g class="pk4-caisse"><rect class="plein" x="24" y="54" width="48" height="32"/><rect class="jaune" x="34" y="50" width="28" height="6"/><rect x="24" y="54" width="48" height="32" fill="none" stroke="#1C1B16" stroke-width="2.5"/><text x="48" y="75" text-anchor="middle" font-family="monospace" font-weight="700" font-size="9" fill="#F7C600">BAR</text></g><g class="pk4-piece"><circle class="jaune" cx="48" cy="34" r="13"/><circle cx="48" cy="34" r="13" fill="none" stroke="#1C1B16" stroke-width="2.5"/><circle cx="48" cy="34" r="8" fill="none" stroke="#1C1B16" stroke-width="1.5"/><text x="48" y="39" text-anchor="middle" font-family="monospace" font-weight="700" font-size="12" fill="#1C1B16">€</text></g></svg></header>
 <div class="corps-sec"><h3 class="pig-3">4.2 — Retirer sans se faire tondre</h3>
     <p>Utilise les distributeurs (<i lang="de">Geldautomat</i>) des vraies banques — Sparkasse, Volksbank, Commerzbank, Deutsche Bank — adossés à une agence. Les automates privés orange/jaunes type Euronet, plantés dans les zones touristiques et les gares, prélèvent des frais gonflés et proposent une conversion dynamique piégeuse : si l'écran offre de débiter « en dollars canadiens », <b>refuse toujours</b> et choisis l'euro.</p>
 
@@ -628,7 +648,7 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche" id="p5-1" data-par="5">
-<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 1 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-2">S</span>amedi soir, 21 h 55, un supermarché allemand : la scène a l'urgence feutrée d'une fin du monde ordonnée. Car demain, dimanche, <b>tout sera fermé</b>. Pas « quelques commerces » : tout. Le <i lang="de">Ladenschlussgesetz</i>, loi de fermeture des magasins, structure la semaine entière du pays.</p>
 
@@ -645,19 +665,24 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche" id="p5-2" data-par="5">
-<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 2 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
 <div class="corps-sec"><h3 class="pig-2">5.2 — Le Pfand : la consigne comme institution nationale</h3>
     <p>Presque toutes les bouteilles et canettes portent une consigne (<i lang="de">Pfand</i>) : <b>0,25 €</b> pour les bouteilles plastique et canettes jetables (logo DPG), 0,08–0,15 € pour le verre et le plastique réutilisables. Tu la paies à l'achat, tu la récupères en rapportant le contenant dans <b>n'importe quel supermarché</b> qui vend le même type : machine <i lang="de">Pfandautomat</i> à l'entrée, bouteille dans la gueule, bon de caisse à faire valoir. Une caisse de six bouteilles d'eau = 1,50 € qui dorment dans ton coffre.</p>
     <p>Détail de civilisation : on ne jette jamais une bouteille consignée dans une poubelle publique — on la pose debout <b>à côté</b>, geste tacite pour les collecteurs de Pfand qui arrondissent leurs fins de mois.</p>
-
-    <h3 class="pig-3">5.3 — La caisse : une épreuve de vitesse</h3>
-    <p>Chez Aldi et Lidl, les caissiers scannent à une cadence olympique et il n'y a <b>pas d'emballeur</b>. Protocole de survie : pose le séparateur (<i lang="de">Warentrenner</i>) derrière tes articles — réflexe social obligatoire —, rebalance tout en vrac dans le panier, paie, et va emballer tranquillement sur la tablette prévue après les caisses. Emballer sur le tapis pendant que ça scanne = bouchon = soupirs collectifs.</p>
 
     </div>
 </section>
 
 <section class="fiche" id="p5-3" data-par="5">
-<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 3 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">5.3 — La caisse : une épreuve de vitesse</h3>
+    <p>Chez Aldi et Lidl, les caissiers scannent à une cadence olympique et il n'y a <b>pas d'emballeur</b>. Protocole de survie : pose le séparateur (<i lang="de">Warentrenner</i>) derrière tes articles — réflexe social obligatoire —, rebalance tout en vrac dans le panier, paie, et va emballer tranquillement sur la tablette prévue après les caisses. Emballer sur le tapis pendant que ça scanne = bouchon = soupirs collectifs.</p>
+
+    </div>
+</section>
+
+<section class="fiche" id="p5-4" data-par="5">
+<header class="fiche-tete"><div><span class="parno">§ 5</span><h2>Magasins, Pfand et dimanche mort</h2><span class="teil">Blatt 4 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Consigne Pfand"><rect class="trait" x="41" y="34" width="14" height="32"/><rect class="trait" x="45" y="20" width="6" height="14"/><g class="pk5-fleche"><path class="trait" d="M48 12 A32 32 0 1 1 20 28" stroke="#6FAE93"/><path class="vertc" d="M14 18 L26 24 L16 34 Z"/></g></svg></header>
 <div class="corps-sec"><h3 class="pig-1">5.4 — Apotheke ≠ Drogerie</h3>
     <p>Distinction stricte que ton passé de technicien en pharmacie appréciera : l'<b>Apotheke</b> (croix rouge « A ») vend tout médicament, même l'ibuprofène — rien de pharmaceutique en libre-service ailleurs. La <b>Drogerie</b> (dm, Rossmann) vend cosmétique, hygiène, vitamines, mais aucun médicament. Un dimanche ou la nuit, cherche l'<i lang="de">Apotheken-Notdienst</i> : chaque pharmacie affiche en vitrine la garde du secteur. Pour tes fournitures de voyage — bandelettes, hypo-kit d'appoint — c'est l'Apotheke, et elles sont d'excellent conseil.</p>
 
@@ -740,15 +765,15 @@ html.nojs .navbar{display:none}
     <h3 class="pig-1">7.2 — L'anniversaire : jamais en avance</h3>
     <p>Souhaiter un anniversaire avant le jour J porte malheur (<i lang="de">Unglück</i>) — superstition prise très au sérieux. Pas de « bonne fête en avance », pas de cadeau anticipé, pas de carte postée trop tôt. On attend minuit, ou le jour même. Un <i lang="de">nachträglich alles Gute</i> (en retard) est acceptable ; en avance, jamais.</p>
 
-    <h3 class="pig-2">7.3 — Ruhezeit : les heures du silence</h3>
-    <p>De 22 h à 6–7 h et <b>tout le dimanche</b>, le calme est protégé : pas de musique forte, pas de valise qui roule bruyamment dans les couloirs d'hôtel à minuit, pas de conversations de balcon sonores. Le dimanche allemand est structurellement silencieux — les voisins tondent le samedi, jamais le dimanche.</p>
-
     </div>
 </section>
 
 <section class="fiche" id="p7-2" data-par="7">
 <header class="fiche-tete"><div><span class="parno">§ 7</span><h2>Pièges sociaux à haut risque</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ampelmännchen"><g class="pk7-rouge"><circle class="rougec" cx="48" cy="24" r="8"/><rect class="rougec" x="36" y="14" width="24" height="4"/><rect class="rougec" x="42" y="32" width="12" height="22"/><rect class="rougec" x="24" y="36" width="48" height="5"/><rect class="rougec" x="42" y="54" width="5" height="24"/><rect class="rougec" x="49" y="54" width="5" height="24"/></g><g class="pk7-vert"><circle class="vertc" cx="52" cy="24" r="8"/><rect class="vertc" x="42" y="14" width="22" height="4"/><polygon class="vertc" points="44,32 58,32 62,54 48,54"/><polygon class="vertc" points="44,36 24,46 27,51 46,42"/><polygon class="vertc" points="58,38 74,44 72,49 56,44"/><polygon class="vertc" points="48,54 34,76 39,79 54,58"/><polygon class="vertc" points="56,54 68,74 63,77 51,58"/></g></svg></header>
-<div class="corps-sec"><h3 class="pig-3">7.4 — Le tri, même en vacances</h3>
+<div class="corps-sec"><h3 class="pig-2">7.3 — Ruhezeit : les heures du silence</h3>
+    <p>De 22 h à 6–7 h et <b>tout le dimanche</b>, le calme est protégé : pas de musique forte, pas de valise qui roule bruyamment dans les couloirs d'hôtel à minuit, pas de conversations de balcon sonores. Le dimanche allemand est structurellement silencieux — les voisins tondent le samedi, jamais le dimanche.</p>
+
+    <h3 class="pig-3">7.4 — Le tri, même en vacances</h3>
     <p>Les poubelles publiques multiples (papier / emballages / reste) ne sont pas décoratives. Jeter n'importe quoi n'importe où, sous des yeux allemands, te vaudra au minimum le regard, au maximum le commentaire. Et rappel du § 5 : la bouteille consignée se pose à côté de la poubelle, debout.</p>
 
     <h3 class="pig-1">7.5 — Sauna et spa : textilfrei</h3>
@@ -757,11 +782,16 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche par-pair" id="p8-1" data-par="8">
-<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 1 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-2">K</span>ölle, comme les locaux appellent Cologne, boit une bière qui n'existe nulle part ailleurs et la sert selon un rituel qui déroute tous les étrangers. Bienvenue dans la seule ville au monde où le serveur remplit ton verre sans jamais te demander ton avis.</p>
 
-    <h3 class="pig-2">8.1 — Le Kölsch et son Köbes : le rituel</h3>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p8-2" data-par="8">
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 2 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-2">8.1 — Le Kölsch et son Köbes : le rituel</h3>
     <ul>
       <li>Le <b>Kölsch</b> se sert exclusivement en verres cylindriques de <b>0,2 L</b> (<i lang="de">Stange</i>) — petit, frais, toujours parfait.</li>
       <li>Le serveur du Brauhaus s'appelle le <b>Köbes</b> : bourru de tradition, tablier bleu, il circule avec une couronne de verres (<i lang="de">Kranz</i>) et <b>remplace ton verre vide automatiquement</b>, sans question, en traçant un trait de crayon sur ton sous-bock — c'est ta facture.</li>
@@ -775,8 +805,8 @@ html.nojs .navbar{display:none}
     </div>
 </section>
 
-<section class="fiche par-pair" id="p8-2" data-par="8">
-<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/></g></svg></header>
+<section class="fiche par-pair" id="p8-3" data-par="8">
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 3 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/></g></svg></header>
 <div class="corps-sec"><h3 class="pig-3">8.2 — Les pièges de la carte rhénane</h3>
     <ul>
       <li><b><i lang="de">Halver Hahn</i></b> — littéralement « demi-coq ». C'est un <b>petit pain de seigle au gouda</b>, cornichon, moutarde, oignons. Zéro poulet. LE piège à touristes linguistique de la région, tendu depuis un siècle.</li>
@@ -789,8 +819,8 @@ html.nojs .navbar{display:none}
     </div>
 </section>
 
-<section class="fiche par-pair" id="p8-3" data-par="8">
-<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#E6E2D3" stroke-width="2"/></g></svg></header>
+<section class="fiche par-pair" id="p8-4" data-par="8">
+<header class="fiche-tete"><div><span class="parno">§ 8</span><h2>Manger rhénan</h2><span class="teil">Blatt 4 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Kranz de Kölsch"><g class="pk8-roue"><circle class="trait" cx="48" cy="48" r="11"/><rect class="jaune" x="43" y="8" width="10" height="15"/><rect x="43" y="8" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="43" y="73" width="10" height="15"/><rect x="43" y="73" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="24" width="10" height="15"/><rect x="71" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="71" y="57" width="10" height="15"/><rect x="71" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="24" width="10" height="15"/><rect x="15" y="24" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/><rect class="jaune" x="15" y="57" width="10" height="15"/><rect x="15" y="57" width="10" height="15" fill="none" stroke="#1C1B16" stroke-width="2"/></g></svg></header>
 <div class="corps-sec"><h3 class="pig-1">8.3 — Le rythme des repas</h3>
     <ul>
       <li><b>Matin</b> : la <i lang="de">Bäckerei</i> est un pilier civilisationnel — <i lang="de">Brötchen</i> (petits pains) à l'unité, café correct, dès 6–7 h.</li>
@@ -803,14 +833,19 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche" id="p9-1" data-par="9">
-<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 1 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-3">U</span>n parc d'attractions allemand fonctionne comme le pays : files impeccables, signalétique exhaustive, règles appliquées sans exception — et une efficacité qui rend l'expérience remarquablement fluide quand on joue le jeu.</p>
 
     <h3 class="pig-2">9.1 — La file d'attente : territoire sacré</h3>
     <p>Resquiller (<i lang="de">sich vordrängeln</i>) déclenche une réaction immédiate et <b>verbale</b> — les Allemands ne fusillent pas du regard en silence, ils te disent de retourner derrière, fort et devant tout le monde. Garder la place d'un ami parti aux toilettes : toléré pour une personne, mal vu au-delà. Le regroupement familial massif juste avant l'embarquement passe très mal.</p>
 
-    <h3 class="pig-3">9.2 — Vocabulaire de parc</h3>
+    </div>
+</section>
+
+<section class="fiche" id="p9-2" data-par="9">
+<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 2 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
+<div class="corps-sec"><h3 class="pig-3">9.2 — Vocabulaire de parc</h3>
     <ul>
       <li><i lang="de">Einzelfahrer</i> — single rider : files séparées sur plusieurs attractions majeures, ton meilleur levier anti-attente.</li>
       <li><i lang="de">Wartezeit</i> — temps d'attente ; <i lang="de">ab hier ca. 30 Min.</i> = « environ 30 min à partir d'ici ».</li>
@@ -821,8 +856,8 @@ html.nojs .navbar{display:none}
     </div>
 </section>
 
-<section class="fiche" id="p9-2" data-par="9">
-<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 2 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
+<section class="fiche" id="p9-3" data-par="9">
+<header class="fiche-tete"><div><span class="parno">§ 9</span><h2>Au parc et sur les sites</h2><span class="teil">Blatt 3 · 3</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="File d’attente ordonnée"><line class="trait" x1="78" y1="26" x2="78" y2="70"/><g class="pk9-file"><circle class="plein pk9-t1" cx="64" cy="48" r="7"/><circle class="plein" cx="46" cy="48" r="7"/><circle class="plein" cx="28" cy="48" r="7"/><circle class="plein" cx="10" cy="48" r="7"/></g></svg></header>
 <div class="corps-sec"><h3 class="pig-1">9.3 — Le Dom de Cologne, si tu fais le détour</h3>
     <p>La cathédrale (entrée gratuite) reste un lieu de culte actif : silence réel, épaules couvertes appréciées, pas de flash. La montée de la tour sud — 533 marches — se paie et se mérite. Sur le parvis, ignore poliment les jeux de bonneteau et pétitions : attrape-touristes classiques.</p>
 
@@ -832,11 +867,16 @@ html.nojs .navbar{display:none}
 </section>
 
 <section class="fiche par-pair" id="p10-1" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 1 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 1 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-1">Q</span>uatre règles de prononciation suffisent à rendre ton allemand compréhensible : <b>ei</b> se dit « aïe » (<i lang="de">nein</i> = naïne), <b>ie</b> se dit « ii » (<i lang="de">Bier</i> = biir), <b>w</b> se dit « v » et <b>v</b> se dit « f », <b>z</b> se dit « ts ». Le <b>ß</b> est un double s. Et le e final se prononce toujours : <i lang="de">bitte</i> = « bit-teu ».</p>
 
-    <table class="tablo">
+    </div>
+</section>
+
+<section class="fiche par-pair" id="p10-2" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 2 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<div class="corps-sec"><table class="tablo">
       <caption>Bloc A — Les indispensables</caption>
       <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
       <tr><td class="de">Hallo / Guten Tag</td><td class="pron">halo / gouten tak</td><td>Bonjour</td></tr>
@@ -852,8 +892,8 @@ html.nojs .navbar{display:none}
     </div>
 </section>
 
-<section class="fiche par-pair" id="p10-2" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 2 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<section class="fiche par-pair" id="p10-3" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 3 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
 <div class="corps-sec"><table class="tablo">
       <caption>Bloc B — Restaurant &amp; Brauhaus</caption>
       <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
@@ -870,8 +910,8 @@ html.nojs .navbar{display:none}
     </div>
 </section>
 
-<section class="fiche par-pair" id="p10-3" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 3 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<section class="fiche par-pair" id="p10-4" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 4 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
 <div class="corps-sec"><table class="tablo">
       <caption>Bloc C — Magasin, route, urgence</caption>
       <tr><th>Allemand</th><th>Prononciation</th><th>Sens</th></tr>
@@ -890,8 +930,8 @@ html.nojs .navbar{display:none}
     </div>
 </section>
 
-<section class="fiche par-pair" id="p10-4" data-par="10">
-<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 4 · 4</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect class="plein" x="28" y="12" width="40" height="28" opacity=".92"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
+<section class="fiche par-pair" id="p10-5" data-par="10">
+<header class="fiche-tete"><div><span class="parno">§ 10</span><h2>Lexique de survie</h2><span class="teil">Blatt 5 · 5</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Touche de machine à écrire"><rect x="28" y="12" width="40" height="28" fill="#FBF9F0" stroke="#1C1B16" stroke-width="2.5"/><text class="pk10-lettre" x="48" y="34" text-anchor="middle" font-family="Grenze Gotisch,serif" font-weight="700" font-size="24" fill="#1C1B16">Ä</text><g class="pk10-touche"><circle cx="48" cy="66" r="14" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><rect class="plein" x="45" y="80" width="6" height="10"/></g></svg></header>
 <div class="corps-sec"><h3 class="pig-2">10.1 — Faux amis à désamorcer</h3>
     <ul>
       <li><i lang="de">Gift</i> = <b>poison</b>. Un « gift shop » allemand serait une boutique inquiétante.</li>
@@ -903,12 +943,17 @@ html.nojs .navbar{display:none}
   </div>
 </section>
 
-<section class="fiche par-pair" id="pruefung" data-par="11">
-<header class="fiche-tete"><div><span class="parno">§ 11</span><h2>Prüfung — l'examen final</h2><span class="teil">Examen · 12 Fragen</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rotors de la machine"><g class="pk11-r" style="transform-origin:22px 48px"><circle cx="22" cy="48" r="12" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><line x1="22" y1="34" x2="22" y2="40" stroke="#E6E2D3" stroke-width="2.5"/><line x1="22" y1="56" x2="22" y2="62" stroke="#E6E2D3" stroke-width="2.5"/><line x1="8" y1="48" x2="14" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><line x1="30" y1="48" x2="36" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><circle class="jaune" cx="22" cy="48" r="3"/></g><g class="pk11-r b" style="transform-origin:48px 48px"><circle cx="48" cy="48" r="12" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><line x1="48" y1="34" x2="48" y2="40" stroke="#E6E2D3" stroke-width="2.5"/><line x1="48" y1="56" x2="48" y2="62" stroke="#E6E2D3" stroke-width="2.5"/><line x1="34" y1="48" x2="40" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><line x1="56" y1="48" x2="62" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><circle class="jaune" cx="48" cy="48" r="3"/></g><g class="pk11-r c" style="transform-origin:74px 48px"><circle cx="74" cy="48" r="12" fill="#55534B" stroke="#E6E2D3" stroke-width="3"/><line x1="74" y1="34" x2="74" y2="40" stroke="#E6E2D3" stroke-width="2.5"/><line x1="74" y1="56" x2="74" y2="62" stroke="#E6E2D3" stroke-width="2.5"/><line x1="60" y1="48" x2="66" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><line x1="82" y1="48" x2="88" y2="48" stroke="#E6E2D3" stroke-width="2.5"/><circle class="jaune" cx="74" cy="48" r="3"/></g></svg></header>
+<section class="fiche par-pair" id="p11-1" data-par="11">
+<header class="fiche-tete"><div><span class="parno">§ 11</span><h2>Prüfung — l'examen final</h2><span class="teil">Blatt 1 · 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rotors de la machine"><g class="pk11-r" style="transform-origin:22px 48px"><circle cx="22" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="22" y1="34" x2="22" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="22" y1="56" x2="22" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="8" y1="48" x2="14" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="30" y1="48" x2="36" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="22" cy="48" r="3"/></g><g class="pk11-r b" style="transform-origin:48px 48px"><circle cx="48" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="48" y1="34" x2="48" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="48" y1="56" x2="48" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="34" y1="48" x2="40" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="56" y1="48" x2="62" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="48" cy="48" r="3"/></g><g class="pk11-r c" style="transform-origin:74px 48px"><circle cx="74" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="74" y1="34" x2="74" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="74" y1="56" x2="74" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="60" y1="48" x2="66" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="82" y1="48" x2="88" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="74" cy="48" r="3"/></g></svg></header>
 <div class="corps-sec">
     <p class="lede"><span class="lettrine let-2">D</span>ouze situations réelles, tirées de ton itinéraire. Le Bureau tamponnera chaque réponse : <b>GENEHMIGT</b> (approuvé) ou <b>ABGELEHNT</b> (rejeté). À partir de 9 bonnes réponses, le certificat de voyageur conforme t'est délivré. La machine à écrire du Bureau est une Enigma reconvertie — elle cliquette, c'est normal.</p>
 
-    <div class="quiz-cadre" id="quiz-cadre"><svg class="enigma" viewBox="0 0 320 150" role="img" aria-label="Machine Enigma du Bureau"><rect class="plaque" x="2" y="2" width="316" height="146"/><circle class="rivet" cx="12" cy="12" r="3"/><circle class="rivet" cx="308" cy="12" r="3"/><circle class="rivet" cx="12" cy="138" r="3"/><circle class="rivet" cx="308" cy="138" r="3"/><g class="crans-g rota" id="rota-g"><circle class="rotor-corps" cx="70" cy="44" r="24"/><line class="rotor-crans" x1="90.0" y1="44.0" x2="97.0" y2="44.0"/><line class="rotor-crans" x1="84.1" y1="58.1" x2="89.1" y2="63.1"/><line class="rotor-crans" x1="70.0" y1="64.0" x2="70.0" y2="71.0"/><line class="rotor-crans" x1="55.9" y1="58.1" x2="50.9" y2="63.1"/><line class="rotor-crans" x1="50.0" y1="44.0" x2="43.0" y2="44.0"/><line class="rotor-crans" x1="55.9" y1="29.9" x2="50.9" y2="24.9"/><line class="rotor-crans" x1="70.0" y1="24.0" x2="70.0" y2="17.0"/><line class="rotor-crans" x1="84.1" y1="29.9" x2="89.1" y2="24.9"/></g><rect class="fenetre" x="57" y="35" width="26" height="18"/><text class="chiffre" id="rota-t" x="70" y="48">01</text><g class="crans-g rotb" id="rotb-g"><circle class="rotor-corps" cx="160" cy="44" r="24"/><line class="rotor-crans" x1="180.0" y1="44.0" x2="187.0" y2="44.0"/><line class="rotor-crans" x1="174.1" y1="58.1" x2="179.1" y2="63.1"/><line class="rotor-crans" x1="160.0" y1="64.0" x2="160.0" y2="71.0"/><line class="rotor-crans" x1="145.9" y1="58.1" x2="140.9" y2="63.1"/><line class="rotor-crans" x1="140.0" y1="44.0" x2="133.0" y2="44.0"/><line class="rotor-crans" x1="145.9" y1="29.9" x2="140.9" y2="24.9"/><line class="rotor-crans" x1="160.0" y1="24.0" x2="160.0" y2="17.0"/><line class="rotor-crans" x1="174.1" y1="29.9" x2="179.1" y2="24.9"/></g><rect class="fenetre" x="147" y="35" width="26" height="18"/><text class="chiffre" id="rotb-t" x="160" y="48">00</text><g class="crans-g rotc" id="rotc-g"><circle class="rotor-corps" cx="250" cy="44" r="24"/><line class="rotor-crans" x1="270.0" y1="44.0" x2="277.0" y2="44.0"/><line class="rotor-crans" x1="264.1" y1="58.1" x2="269.1" y2="63.1"/><line class="rotor-crans" x1="250.0" y1="64.0" x2="250.0" y2="71.0"/><line class="rotor-crans" x1="235.9" y1="58.1" x2="230.9" y2="63.1"/><line class="rotor-crans" x1="230.0" y1="44.0" x2="223.0" y2="44.0"/><line class="rotor-crans" x1="235.9" y1="29.9" x2="230.9" y2="24.9"/><line class="rotor-crans" x1="250.0" y1="24.0" x2="250.0" y2="17.0"/><line class="rotor-crans" x1="264.1" y1="29.9" x2="269.1" y2="24.9"/></g><rect class="fenetre" x="237" y="35" width="26" height="18"/><text class="chiffre" id="rotc-t" x="250" y="48">A</text><g class="lampe" id="lamp-Q"><circle class="lampe-v" cx="25" cy="92" r="9"/><text class="lampe-l" x="25" y="95">Q</text></g><g class="lampe" id="lamp-W"><circle class="lampe-v" cx="55" cy="92" r="9"/><text class="lampe-l" x="55" y="95">W</text></g><g class="lampe" id="lamp-E"><circle class="lampe-v" cx="85" cy="92" r="9"/><text class="lampe-l" x="85" y="95">E</text></g><g class="lampe" id="lamp-R"><circle class="lampe-v" cx="115" cy="92" r="9"/><text class="lampe-l" x="115" y="95">R</text></g><g class="lampe" id="lamp-T"><circle class="lampe-v" cx="145" cy="92" r="9"/><text class="lampe-l" x="145" y="95">T</text></g><g class="lampe" id="lamp-Z"><circle class="lampe-v" cx="175" cy="92" r="9"/><text class="lampe-l" x="175" y="95">Z</text></g><g class="lampe" id="lamp-U"><circle class="lampe-v" cx="205" cy="92" r="9"/><text class="lampe-l" x="205" y="95">U</text></g><g class="lampe" id="lamp-I"><circle class="lampe-v" cx="235" cy="92" r="9"/><text class="lampe-l" x="235" y="95">I</text></g><g class="lampe" id="lamp-O"><circle class="lampe-v" cx="265" cy="92" r="9"/><text class="lampe-l" x="265" y="95">O</text></g><g class="lampe" id="lamp-P"><circle class="lampe-v" cx="295" cy="92" r="9"/><text class="lampe-l" x="295" y="95">P</text></g><path class="kabel" id="kab-1" d="M45 122 Q95 145 145 122"/><path class="kabel" id="kab-2" d="M105 122 Q160 108 215 122"/><path class="kabel" id="kab-3" d="M175 122 Q225 145 275 122"/><circle class="douille" cx="45" cy="122" r="4"/><circle class="douille" cx="105" cy="122" r="4"/><circle class="douille" cx="145" cy="122" r="4"/><circle class="douille" cx="175" cy="122" r="4"/><circle class="douille" cx="215" cy="122" r="4"/><circle class="douille" cx="275" cy="122" r="4"/></svg>
+    </div>
+</section>
+
+<section class="fiche par-pair" id="pruefung" data-par="11">
+<header class="fiche-tete"><div><span class="parno">§ 11</span><h2>Prüfung — l'examen final</h2><span class="teil">Examen · 12 Fragen</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Rotors de la machine"><g class="pk11-r" style="transform-origin:22px 48px"><circle cx="22" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="22" y1="34" x2="22" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="22" y1="56" x2="22" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="8" y1="48" x2="14" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="30" y1="48" x2="36" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="22" cy="48" r="3"/></g><g class="pk11-r b" style="transform-origin:48px 48px"><circle cx="48" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="48" y1="34" x2="48" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="48" y1="56" x2="48" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="34" y1="48" x2="40" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="56" y1="48" x2="62" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="48" cy="48" r="3"/></g><g class="pk11-r c" style="transform-origin:74px 48px"><circle cx="74" cy="48" r="12" fill="#B8B5A8" stroke="#1C1B16" stroke-width="3"/><line x1="74" y1="34" x2="74" y2="40" stroke="#1C1B16" stroke-width="2.5"/><line x1="74" y1="56" x2="74" y2="62" stroke="#1C1B16" stroke-width="2.5"/><line x1="60" y1="48" x2="66" y2="48" stroke="#1C1B16" stroke-width="2.5"/><line x1="82" y1="48" x2="88" y2="48" stroke="#1C1B16" stroke-width="2.5"/><circle class="jaune" cx="74" cy="48" r="3"/></g></svg></header>
+<div class="corps-sec"><div class="quiz-cadre" id="quiz-cadre"><svg class="enigma" viewBox="0 0 320 150" role="img" aria-label="Machine Enigma du Bureau"><rect class="plaque" x="2" y="2" width="316" height="146"/><circle class="rivet" cx="12" cy="12" r="3"/><circle class="rivet" cx="308" cy="12" r="3"/><circle class="rivet" cx="12" cy="138" r="3"/><circle class="rivet" cx="308" cy="138" r="3"/><g class="crans-g rota" id="rota-g"><circle class="rotor-corps" cx="70" cy="44" r="24"/><line class="rotor-crans" x1="90.0" y1="44.0" x2="97.0" y2="44.0"/><line class="rotor-crans" x1="84.1" y1="58.1" x2="89.1" y2="63.1"/><line class="rotor-crans" x1="70.0" y1="64.0" x2="70.0" y2="71.0"/><line class="rotor-crans" x1="55.9" y1="58.1" x2="50.9" y2="63.1"/><line class="rotor-crans" x1="50.0" y1="44.0" x2="43.0" y2="44.0"/><line class="rotor-crans" x1="55.9" y1="29.9" x2="50.9" y2="24.9"/><line class="rotor-crans" x1="70.0" y1="24.0" x2="70.0" y2="17.0"/><line class="rotor-crans" x1="84.1" y1="29.9" x2="89.1" y2="24.9"/></g><rect class="fenetre" x="57" y="35" width="26" height="18"/><text class="chiffre" id="rota-t" x="70" y="48">01</text><g class="crans-g rotb" id="rotb-g"><circle class="rotor-corps" cx="160" cy="44" r="24"/><line class="rotor-crans" x1="180.0" y1="44.0" x2="187.0" y2="44.0"/><line class="rotor-crans" x1="174.1" y1="58.1" x2="179.1" y2="63.1"/><line class="rotor-crans" x1="160.0" y1="64.0" x2="160.0" y2="71.0"/><line class="rotor-crans" x1="145.9" y1="58.1" x2="140.9" y2="63.1"/><line class="rotor-crans" x1="140.0" y1="44.0" x2="133.0" y2="44.0"/><line class="rotor-crans" x1="145.9" y1="29.9" x2="140.9" y2="24.9"/><line class="rotor-crans" x1="160.0" y1="24.0" x2="160.0" y2="17.0"/><line class="rotor-crans" x1="174.1" y1="29.9" x2="179.1" y2="24.9"/></g><rect class="fenetre" x="147" y="35" width="26" height="18"/><text class="chiffre" id="rotb-t" x="160" y="48">00</text><g class="crans-g rotc" id="rotc-g"><circle class="rotor-corps" cx="250" cy="44" r="24"/><line class="rotor-crans" x1="270.0" y1="44.0" x2="277.0" y2="44.0"/><line class="rotor-crans" x1="264.1" y1="58.1" x2="269.1" y2="63.1"/><line class="rotor-crans" x1="250.0" y1="64.0" x2="250.0" y2="71.0"/><line class="rotor-crans" x1="235.9" y1="58.1" x2="230.9" y2="63.1"/><line class="rotor-crans" x1="230.0" y1="44.0" x2="223.0" y2="44.0"/><line class="rotor-crans" x1="235.9" y1="29.9" x2="230.9" y2="24.9"/><line class="rotor-crans" x1="250.0" y1="24.0" x2="250.0" y2="17.0"/><line class="rotor-crans" x1="264.1" y1="29.9" x2="269.1" y2="24.9"/></g><rect class="fenetre" x="237" y="35" width="26" height="18"/><text class="chiffre" id="rotc-t" x="250" y="48">A</text><g class="lampe" id="lamp-Q"><circle class="lampe-v" cx="25" cy="92" r="9"/><text class="lampe-l" x="25" y="95">Q</text></g><g class="lampe" id="lamp-W"><circle class="lampe-v" cx="55" cy="92" r="9"/><text class="lampe-l" x="55" y="95">W</text></g><g class="lampe" id="lamp-E"><circle class="lampe-v" cx="85" cy="92" r="9"/><text class="lampe-l" x="85" y="95">E</text></g><g class="lampe" id="lamp-R"><circle class="lampe-v" cx="115" cy="92" r="9"/><text class="lampe-l" x="115" y="95">R</text></g><g class="lampe" id="lamp-T"><circle class="lampe-v" cx="145" cy="92" r="9"/><text class="lampe-l" x="145" y="95">T</text></g><g class="lampe" id="lamp-Z"><circle class="lampe-v" cx="175" cy="92" r="9"/><text class="lampe-l" x="175" y="95">Z</text></g><g class="lampe" id="lamp-U"><circle class="lampe-v" cx="205" cy="92" r="9"/><text class="lampe-l" x="205" y="95">U</text></g><g class="lampe" id="lamp-I"><circle class="lampe-v" cx="235" cy="92" r="9"/><text class="lampe-l" x="235" y="95">I</text></g><g class="lampe" id="lamp-O"><circle class="lampe-v" cx="265" cy="92" r="9"/><text class="lampe-l" x="265" y="95">O</text></g><g class="lampe" id="lamp-P"><circle class="lampe-v" cx="295" cy="92" r="9"/><text class="lampe-l" x="295" y="95">P</text></g><path class="kabel" id="kab-1" d="M45 122 Q95 145 145 122"/><path class="kabel" id="kab-2" d="M105 122 Q160 108 215 122"/><path class="kabel" id="kab-3" d="M175 122 Q225 145 275 122"/><circle class="douille" cx="45" cy="122" r="4"/><circle class="douille" cx="105" cy="122" r="4"/><circle class="douille" cx="145" cy="122" r="4"/><circle class="douille" cx="175" cy="122" r="4"/><circle class="douille" cx="215" cy="122" r="4"/><circle class="douille" cx="275" cy="122" r="4"/></svg>
       <div class="quiz-tete">
         <span class="quiz-prog" id="quiz-prog">FRAGE 1/12</span>
         <button class="mute" id="btn-mute" aria-pressed="false" type="button">SFX : AN</button>
@@ -990,8 +1035,111 @@ const Enigma=(function(){
     });
     lp.connect(g).connect(c.destination);
   }
-  return{frappe:()=>frappe(),tick:()=>frappe(undefined,0.5),rotor,lampe,kurzschluss,
+  /* ding de fin de fiche : cloche du chariot */
+  function ding(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    const o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(1244.5,t);
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.085,t+0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.5);
+    o.connect(g).connect(c.destination);o.start(t);o.stop(t+0.52);
+    const o2=c.createOscillator();o2.type='sine';o2.frequency.setValueAtTime(3435,t);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.0001,t);
+    g2.gain.exponentialRampToValueAtTime(0.028,t+0.006);
+    g2.gain.exponentialRampToValueAtTime(0.0001,t+0.2);
+    o2.connect(g2).connect(c.destination);o2.start(t);o2.stop(t+0.22);
+  }
+  return{frappe:()=>frappe(),tick:()=>frappe(undefined,0.5),tape:()=>frappe(undefined,0.22),
+    ding,rotor,lampe,kurzschluss,
     toggle(){muted=!muted;return muted;},ensure};
+})();
+
+/* ============ FRAPPE — la machine dactylographie chaque fiche ============ */
+const Frappe=(function(){
+  const REDUIT=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PROFILS=[
+    {cps:330,virgule:60,point:120},
+    {cps:420,virgule:90,point:180},
+    {cps:500,virgule:40,point:90}
+  ];
+  let enCours=null; /* {actes,raf,curseur,fiche} */
+
+  function collecter(el,actes){
+    for(const n of Array.from(el.childNodes)){
+      if(n.nodeType===3){
+        if(n.textContent.trim())actes.push({t:'txt',n,full:n.textContent});
+      }else if(n.nodeType===1){
+        if(n.matches('svg'))continue;
+        if(n.matches('.achtung,.merksatz,.quiz-cadre,.stempel-inline')){
+          actes.push({t:'bloc',n,clac:n.matches('.achtung,.quiz-cadre')});
+        }else if(n.matches('table')){
+          const cap=n.querySelector('caption');
+          if(cap)collecter(cap,actes);
+          n.querySelectorAll('tr').forEach(tr=>actes.push({t:'bloc',n:tr}));
+        }else collecter(n,actes);
+      }
+    }
+  }
+  function toutReveler(e){
+    if(!e)return;
+    e.actes.forEach(a=>{
+      if(a.t==='txt')a.n.textContent=a.full;
+      else a.n.classList.remove('cache-frappe');
+    });
+    if(e.curseur)e.curseur.remove();
+    if(e.raf)cancelAnimationFrame(e.raf);
+    e.fiche.removeEventListener('pointerdown',e.skip);
+  }
+  function stop(){toutReveler(enCours);enCours=null;}
+
+  function demarrer(fiche,seed){
+    stop();
+    const corps=fiche.querySelector('.corps-sec');
+    if(!corps)return;
+    const actes=[];collecter(corps,actes);
+    if(!actes.length)return;
+    if(REDUIT)return; /* tout reste visible */
+    /* préparer : vider les textes, cacher les blocs */
+    actes.forEach(a=>{
+      if(a.t==='txt')a.n.textContent='';
+      else a.n.classList.add('cache-frappe');
+    });
+    const curseur=document.createElement('span');curseur.className='curseur';
+    const p=PROFILS[Math.abs(seed)%PROFILS.length];
+    const e={actes,curseur,fiche,raf:0,skip:null};
+    let i=0,pos=0,last=0,lastSon=0,budget=0;
+    function pas(now){
+      if(!last)last=now;
+      budget+=Math.min(60,now-last)/1000*p.cps;last=now;
+      while(budget>=1&&i<actes.length){
+        const a=actes[i];
+        if(a.t==='txt'){
+          const take=Math.min(a.full.length-pos,Math.floor(budget));
+          if(take>0){
+            pos+=take;budget-=take;
+            const ch=a.full[pos-1];
+            if(ch==='.'||ch==='!'||ch==='?')budget-=p.point/1000*p.cps;
+            else if(ch===','||ch===';'||ch===':')budget-=p.virgule/1000*p.cps;
+            a.n.textContent=a.full.slice(0,pos);
+            if(a.n.parentNode)a.n.parentNode.insertBefore(curseur,a.n.nextSibling);
+          }
+          if(pos>=a.full.length){i++;pos=0;}
+        }else{
+          a.n.classList.remove('cache-frappe');
+          if(a.clac)Enigma.tick();
+          budget-=10;i++;
+        }
+      }
+      if(now-lastSon>85&&i<actes.length){Enigma.tape();lastSon=now;}
+      if(i<actes.length){e.raf=requestAnimationFrame(pas);}
+      else{curseur.remove();fiche.removeEventListener('pointerdown',e.skip);enCours=null;Enigma.ding();}
+    }
+    e.skip=function(){toutReveler(e);enCours=null;};
+    fiche.addEventListener('pointerdown',e.skip,{once:true});
+    enCours=e;
+    e.raf=requestAnimationFrame(pas);
+  }
+  return{demarrer,stop};
 })();
 
 /* ============ ROUTEUR v3 — le deck de Karteikarten ============ */
@@ -1029,6 +1177,7 @@ const Enigma=(function(){
   function afficher(id,dir){
     const el=document.getElementById(id);if(!el)return;
     scene.dataset.dir=dir||'avant';
+    Frappe.stop();
     FICHES.forEach(f=>f.classList.remove('actif'));
     el.classList.add('actif');el.scrollTop=0;
     navbar.classList.toggle('cache',id==='deckblatt');
@@ -1039,6 +1188,7 @@ const Enigma=(function(){
     bPrev.disabled=(i<=0);
     bNext.disabled=(i>=IDS.length-1);
     if(demarre&&courantId!==id)Enigma.tick();
+    Frappe.demarrer(el,Math.max(0,ci));
     courantId=id;demarre=true;
   }
   function aller(id){
@@ -1213,13 +1363,15 @@ const FRAGEN=[
     }else{
       Enigma.kurzschluss();flashKabel();
     }
+    const rappel=(!bonne)?'<p class="quiz-bonne">\u2192 '+f.c[f.b]+'</p>':'';
+    box.remove();
     const verd=document.createElement('div');verd.className='quiz-verdict';
     const st=document.createElement('span');
     st.className='grand-stempel anime '+(bonne?'ok':'non');
     st.textContent=bonne?'GENEHMIGT':'ABGELEHNT';
     verd.appendChild(st);
     const ex=document.createElement('div');ex.className='quiz-explication';
-    ex.innerHTML='<span class="amtston">Motivation de la d\u00e9cision</span>'+f.ex;
+    ex.innerHTML='<span class="amtston">Motivation de la d\u00e9cision</span>'+rappel+f.ex;
     const w=document.createElement('button');w.type='button';w.className='weiter';
     w.textContent=(idx<FRAGEN.length-1)?'WEITER \u2192':'VERDICT FINAL \u2192';
     w.addEventListener('click',()=>{Enigma.rotor();idx++;(idx<FRAGEN.length)?rendre():bilan();});
