@@ -61,3 +61,6 @@ Première coulée. Guide complet §1–§11 en page unique, vibe **BETON-SCRIPTO
 
 ---
 *Forge : vibe-forge · Scribe : Claudi-brimbor · Az. 2026/07-EM · GÜLTIG AB SOFORT*
+
+## NL v1 — « Het Logboek » (2026-07-09)
+Guide néerlandais complet dans /nl/ : vibe DELFT-LOGBOEK (faïence, Hollandais Volant), 29 fiches (§1-9 + Taalgids 9 fiches TTS nl-NL + Toets 12 vragen sur moulin à sacs de grain), moteur v5 transplanté (Frappe/routeur), sons refondus bois/moulin, 2 œufs (spook, tempête). Épreuve jsdom 27/27.

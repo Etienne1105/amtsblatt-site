@@ -1,25 +1,872 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nederland — dossier en traitement</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Het Logboek &mdash; guide n&eacute;erlandais</title>
+<meta name="theme-color" content="#1A3F6B">
+<meta name="description" content="Journal de bord du voyageur aux Pays-Bas &mdash; fiches de fa&iuml;ence, Taalgids parlant, moulin correcteur.">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700&family=IBM+Plex+Mono:wght@400;700&display=swap');
-body{min-height:100dvh;display:grid;place-content:center;text-align:center;gap:.6rem;
-font-family:'IBM Plex Mono',monospace;color:#1C1B16;background:#D8D4C6;padding:1.2rem}
-h1{font-family:'Grenze Gotisch',serif;font-size:2.6rem}
-.st{display:inline-block;transform:rotate(-5deg);color:#22578F;border:3px solid #22578F;
-outline:1.5px solid #22578F;outline-offset:3px;padding:.4em .8em;font-weight:700;
-letter-spacing:.22em;margin:0 auto .4rem;mix-blend-mode:multiply}
-p{font-size:.78rem;letter-spacing:.1em;max-width:26rem;line-height:1.8}
-a{color:#E8590C;font-weight:700}
+/* HET LOGBOEK — vibe Delft : faïence, Oranje cérémoniel, or-Gouda. */
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;700;800&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap');
+:root{
+  --delft:#22578F; --donker:#1A3F6B; --nacht:#0E1E33;
+  --oranje:#E8590C; --gouda:#E8A020; --hout:#8A5A2B;
+  --faience:#F2EFE4; --fond:#CBD3DA; --inkt:#1C2530; --sourd:#5E6A76;
+  --afkeur:#B02418;
+  --mono:'IBM Plex Mono',monospace; --corps:'IBM Plex Sans',sans-serif; --titre:'Grenze Gotisch',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:var(--corps);color:var(--inkt);background:var(--fond);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(28,37,48,.10) 0 2px,transparent 2px 148px),
+    repeating-linear-gradient(90deg,rgba(28,37,48,.10) 0 2px,transparent 2px 148px);
+  overflow:hidden;
+}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.045;z-index:60;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23g)'/%3E%3C/svg%3E")}
+
+/* ---------- deck mécanique ---------- */
+#app{display:grid;grid-template-rows:1fr auto;height:100dvh}
+#scene{position:relative;overflow:hidden;padding:.85rem .85rem .5rem}
+.fiche{display:none;position:absolute;inset:.85rem .85rem .5rem;overflow:hidden}
+.fiche.actif{display:block;animation:fiche-in 240ms cubic-bezier(.2,.75,.3,1) both}
+#scene[data-dir="arriere"] .fiche.actif{animation-name:fiche-in-r}
+@keyframes fiche-in{from{transform:translateX(46px) rotate(.5deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes fiche-in-r{from{transform:translateX(-46px) rotate(-.5deg);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- le carreau de faïence ---------- */
+.fiche{
+  background:var(--faience);
+  border:3px solid var(--delft);
+  box-shadow:inset 0 0 0 3px var(--faience),inset 0 0 0 5px var(--delft),
+    0 5px 0 rgba(26,63,107,.55);
+  border-radius:3px;
+  padding:1rem 1.05rem .9rem;
+}
+/* motifs d'angle — ossenkop stylisé */
+.fiche::before{content:'';position:absolute;inset:9px;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 0 0,var(--delft) 0 4px,transparent 5px),
+    radial-gradient(circle at 100% 0,var(--delft) 0 4px,transparent 5px),
+    radial-gradient(circle at 0 100%,var(--delft) 0 4px,transparent 5px),
+    radial-gradient(circle at 100% 100%,var(--delft) 0 4px,transparent 5px),
+    radial-gradient(circle at 14px 14px,transparent 0 7px,var(--delft) 7px 9px,transparent 10px),
+    radial-gradient(circle at calc(100% - 14px) 14px,transparent 0 7px,var(--delft) 7px 9px,transparent 10px),
+    radial-gradient(circle at 14px calc(100% - 14px),transparent 0 7px,var(--delft) 7px 9px,transparent 10px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px),transparent 0 7px,var(--delft) 7px 9px,transparent 10px);
+  opacity:.8}
+/* craquelure + glaçure */
+.fiche::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:3px;
+  background:
+    linear-gradient(155deg,rgba(255,255,255,.28) 0 8%,transparent 26%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.012' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.13 0 0 0 0 0.24 0 0 0 0 0.38 0 0 0 0.5 -0.22'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23c)'/%3E%3C/svg%3E");
+  opacity:.16;mix-blend-mode:multiply}
+
+/* ---------- tête de fiche ---------- */
+.fiche-tete{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;
+  border-bottom:3px double var(--delft);padding-bottom:.45rem;margin-bottom:.55rem}
+.parno{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.14em;
+  color:var(--faience);background:var(--delft);padding:.18em .5em;transform:rotate(-2.5deg);
+  box-shadow:2px 2px 0 var(--donker)}
+.par-pair .parno{background:var(--oranje);box-shadow:2px 2px 0 #9C3A06}
+.fiche-tete h2{font-family:var(--titre);font-size:clamp(1.25rem,4.6vw,1.7rem);line-height:1.02;
+  color:var(--donker);margin:.22rem 0 .1rem}
+.teil{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--sourd)}
+.picto{width:64px;height:64px;flex:none}
+.picto .plein{fill:var(--delft)} .picto .jaune{fill:var(--gouda)} .picto .oranj{fill:var(--oranje)}
+.picto .trait{stroke:var(--inkt);stroke-width:3;fill:none;stroke-linecap:round}
+
+/* ---------- corps ---------- */
+.corps-sec{font-size:.92rem;line-height:1.5;position:relative;z-index:2;height:calc(100% - 92px);overflow:hidden}
+.corps-sec p{margin:.4rem 0}
+.corps-sec h3{font-family:var(--titre);font-size:1.08rem;color:var(--delft);margin:.55rem 0 .1rem}
+.corps-sec h3::before{content:'\2767';color:var(--oranje);margin-right:.35em;font-size:.95em}
+.lettrine{float:left;font-family:var(--titre);font-weight:800;font-size:2.9em;line-height:.82;
+  margin:.04em .12em 0 0}
+.ld{color:var(--delft)} .lo{color:var(--oranje)} .lg{color:var(--gouda);text-shadow:1px 1px 0 var(--inkt)}
+strong{color:var(--donker)} em{font-style:italic}
+a{color:var(--oranje);font-weight:600}
+
+.achtung{border:2.5px solid var(--oranje);background:rgba(232,89,12,.07);padding:.55rem .6rem .45rem;margin:.55rem 0;position:relative}
+.achtung::before{content:'LET OP!';position:absolute;top:-.75em;left:.6rem;background:var(--oranje);
+  color:var(--faience);font-family:var(--mono);font-weight:700;font-size:.58rem;letter-spacing:.22em;padding:.15em .5em}
+.achtung p{margin:.1rem 0;font-size:.86rem}
+.merksatz{border-left:8px solid var(--delft);background:rgba(34,87,143,.08);padding:.5rem .6rem;margin:.55rem 0;position:relative}
+.merksatz::before{content:'ONTHOUD';position:absolute;top:-.72em;left:.6rem;background:var(--delft);
+  color:var(--faience);font-family:var(--mono);font-weight:700;font-size:.58rem;letter-spacing:.22em;padding:.15em .5em}
+.merksatz p{margin:.1rem 0;font-size:.88rem;font-style:italic}
+
+/* ---------- frappe ---------- */
+.cache-frappe{visibility:hidden}
+table .cache-frappe{visibility:collapse}
+.curseur{display:inline-block;width:.52em;height:1.05em;background:var(--delft);vertical-align:-.14em;
+  animation:knip 640ms steps(2,end) infinite}
+@keyframes knip{50%{opacity:0}}
+
+/* ---------- tables ---------- */
+table{border-collapse:collapse;width:100%;font-size:.8rem;margin:.4rem 0}
+caption{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--sourd);text-align:left;padding-bottom:.25rem}
+th{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-align:left;color:var(--faience);
+  background:var(--donker);padding:.28rem .45rem}
+td{padding:.3rem .45rem;border-bottom:1.5px solid rgba(34,87,143,.28);vertical-align:top}
+.tablo-sprach .de{white-space:nowrap;font-weight:600}
+.tablo-sprach .pron{font-family:var(--mono);font-size:.72rem;color:var(--delft)}
+button.dire{border:none;background:var(--delft);color:var(--faience);width:1.55rem;height:1.35rem;
+  vertical-align:middle;cursor:pointer;border-radius:2px;padding:.08rem 0}
+button.dire.parle{background:var(--oranje)}
+html.sans-voix button.dire{display:none}
+table.cache-sens td.fr{color:transparent;background:repeating-linear-gradient(45deg,rgba(34,87,143,.22) 0 6px,rgba(34,87,143,.08) 6px 12px);cursor:pointer;border-radius:2px}
+table.cache-sens tr.revele td.fr{color:var(--inkt);background:none}
+button.pruefen-toggle{font-family:var(--mono);font-weight:700;font-size:.6rem;letter-spacing:.14em;
+  background:var(--faience);border:2px solid var(--delft);color:var(--delft);padding:.35em .7em;cursor:pointer;margin-top:.2rem}
+
+/* ---------- Zinnenbouwdoos ---------- */
+.bk-rang{display:flex;flex-wrap:wrap;gap:.32rem;margin:.4rem 0}
+.bk-rang button{font-family:var(--corps);font-size:.76rem;font-weight:600;background:var(--faience);
+  border:2px solid var(--delft);padding:.3em .5em;cursor:pointer;color:var(--inkt)}
+.bk-a.choisi{background:var(--delft);color:var(--faience)}
+.bk-f{opacity:.3;pointer-events:none}
+.bk-f.dispo{opacity:1;pointer-events:auto}
+.bk-f.choisi{background:var(--oranje);border-color:var(--oranje);color:var(--faience)}
+.bk-sortie{border:2.5px solid var(--donker);background:#fff;min-height:3.4rem;padding:.45rem .6rem;margin:.35rem 0}
+#bk-de{font-weight:700;font-size:1rem;color:var(--donker)}
+#bk-fr{font-size:.74rem;color:var(--sourd);font-style:italic}
+button.bk-sprechen{font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.16em;
+  background:var(--gouda);border:2.5px solid var(--inkt);box-shadow:3px 3px 0 var(--inkt);
+  padding:.55rem 1rem;cursor:pointer}
+button.bk-sprechen:active{transform:translate(3px,3px);box-shadow:none}
+
+/* ---------- navbar au moulin ---------- */
+.navbar{display:flex;align-items:stretch;gap:.5rem;background:var(--donker);
+  border-top:3px solid var(--inkt);padding:.4rem .6rem calc(.4rem + env(safe-area-inset-bottom))}
+.navbar.cache{display:none}
+.navbar button{font-family:var(--mono);font-weight:700;color:var(--faience);background:none;
+  border:2.5px solid var(--faience);cursor:pointer}
+.navbar button:disabled{opacity:.28}
+.fleche{font-size:1.35rem;line-height:1;padding:.1rem .8rem}
+.centre{flex:1;display:flex;align-items:center;justify-content:center;gap:.55rem;
+  font-size:.62rem;letter-spacing:.22em;padding:.3rem .4rem}
+.molen-nav{width:34px;height:34px;flex:none}
+#wieken-nav{transition:transform .5s cubic-bezier(.25,.7,.3,1.15)}
+.rotors{display:inline-flex;align-items:center;gap:.18rem}
+.rotor{display:inline-block;height:1.5em;overflow:hidden;background:var(--faience);color:var(--inkt);
+  border:1.5px solid var(--inkt);width:1.15em;font-size:.84rem}
+.colonne{display:block;transition:transform .42s cubic-bezier(.3,.8,.3,1)}
+.rtotal{font-size:.78rem;opacity:.85}
+
+/* ---------- logboek (couverture) ---------- */
+#logboek{display:grid;place-content:center;text-align:center}
+.logboek-cadre{max-width:26rem;position:relative;padding:1rem}
+#logboek .kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.34em;color:var(--sourd)}
+#logboek h1{font-family:var(--titre);font-size:clamp(3rem,13vw,4.4rem);color:var(--donker);line-height:.92;margin:.35rem 0 .3rem}
+.soustitre{font-size:.92rem;line-height:1.55;margin:.4rem 0}
+.edition{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--delft);margin:.5rem 0}
+.stempel-header{position:absolute;top:-.4rem;right:-.3rem;transform:rotate(7deg);cursor:pointer;user-select:none;
+  font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.18em;color:var(--delft);
+  border:2.5px solid var(--delft);outline:1.5px solid var(--delft);outline-offset:2.5px;
+  padding:.3em .6em;mix-blend-mode:multiply;background:rgba(242,239,228,.5)}
+.aanmonsteren{display:inline-block;margin:.7rem 0 .4rem;font-family:var(--mono);font-weight:700;
+  font-size:.78rem;letter-spacing:.16em;color:var(--faience);background:var(--oranje);
+  border:3px solid var(--inkt);box-shadow:4px 4px 0 var(--inkt);padding:.75rem 1.3rem;cursor:pointer}
+.aanmonsteren:active{transform:translate(4px,4px);box-shadow:none}
+.mention-bas{font-size:.7rem;color:var(--sourd)}
+
+/* ---------- onthaal ---------- */
+#onthaal .corps-sec,#inhoud .corps-sec{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.onthaal-intro{font-size:.88rem;margin-bottom:.5rem}
+.tuiles{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.tuile{display:flex;flex-direction:column;align-items:center;gap:.15rem;text-decoration:none;color:var(--inkt);
+  background:var(--faience);border:2.5px solid var(--delft);box-shadow:inset 0 0 0 2px var(--faience),inset 0 0 0 3.5px var(--delft),0 3px 0 rgba(26,63,107,.45);
+  padding:.55rem .3rem .45rem;text-align:center}
+.tuile:active{transform:translateY(3px);box-shadow:inset 0 0 0 2px var(--faience),inset 0 0 0 3.5px var(--delft)}
+.tuile .picto{width:46px;height:46px}
+.tno{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;color:var(--sourd)}
+.tnom{font-weight:600;font-size:.76rem;line-height:1.15}
+.tuile-taal{grid-column:1 / -1;flex-direction:row;justify-content:center;gap:.7rem;
+  background:var(--oranje);border-color:var(--inkt);color:var(--faience)}
+.tuile-taal .tno{color:rgba(242,239,228,.8)}
+.tuile-taal .picto .plein{fill:var(--faience)}
+.tuile-taal .picto .trait{stroke:var(--inkt)}
+.onthaal-pied{margin-top:.55rem;text-align:center;font-size:.8rem}
+
+/* ---------- inhoud ---------- */
+.inhoud-titre{font-family:var(--titre);color:var(--donker);font-size:1.5rem;margin-bottom:.5rem}
+.inhoud-liste{list-style:none}
+.inhoud-liste li{border-bottom:1.5px solid rgba(34,87,143,.3);padding:.42rem 0}
+.inhoud-liste a{color:var(--inkt);text-decoration:none;font-size:.88rem}
+.inhoud-liste a:active{color:var(--oranje)}
+
+/* ---------- toets ---------- */
+.toets-corps{height:100%;display:flex;flex-direction:column;overflow:hidden}
+.toets-tete{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.3rem}
+.quiz-prog{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;color:var(--delft)}
+button.mute{font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.1em;
+  border:2px solid var(--delft);background:none;color:var(--delft);padding:.3em .5em;cursor:pointer}
+.molen-cadre{flex:none;display:flex;justify-content:center}
+.molen{width:min(64vw,238px);height:auto}
+#molen-wieken{transition:transform .7s cubic-bezier(.3,.65,.35,1.05)}
+.molen.storm #molen-wieken{animation:storm 2.4s cubic-bezier(.5,0,.5,1) both}
+@keyframes storm{to{transform:rotate(1440deg)}}
+#vang path{transition:opacity .12s}
+.vang-on #vang path{opacity:1;animation:vangtril 480ms steps(3,end)}
+@keyframes vangtril{33%{transform:translateX(2px)}66%{transform:translateX(-2px)}}
+.zak rect[id$="-vul"]{transition:transform .55s cubic-bezier(.3,.9,.4,1.1)}
+#lantaarn rect{transition:fill .3s}
+.molen.storm #lantaarn rect{fill:var(--oranje)}
+.quiz-zone{flex:1;overflow:hidden;padding-top:.25rem}
+.quiz-situation{font-size:.8rem;font-style:italic;color:var(--sourd);margin:.15rem 0}
+.quiz-q{font-weight:700;font-size:.92rem;color:var(--donker);margin:.2rem 0 .4rem}
+.quiz-choix{display:grid;gap:.4rem}
+button.choix{text-align:left;font-family:var(--corps);font-size:.84rem;font-weight:600;
+  background:var(--faience);border:2.5px solid var(--delft);padding:.5rem .6rem;cursor:pointer;color:var(--inkt)}
+button.choix[data-etat="bonne"]{background:var(--delft);color:var(--faience)}
+button.choix[data-etat="mauvaise"]{background:var(--afkeur);color:var(--faience);border-color:var(--afkeur)}
+.quiz-verdict{margin:.2rem 0}
+.grand-stempel{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.94rem;letter-spacing:.2em;
+  padding:.35em .7em;border:3px solid currentColor;outline:2px solid currentColor;outline-offset:3px;
+  transform:rotate(-4deg);mix-blend-mode:multiply}
+.grand-stempel.ok{color:var(--delft)} .grand-stempel.non{color:var(--afkeur)}
+.grand-stempel.anime{animation:claquer 170ms steps(4,end) both}
+@keyframes claquer{from{transform:rotate(-4deg) scale(2.1);opacity:0}to{transform:rotate(-4deg) scale(1);opacity:1}}
+.quiz-explication{font-size:.8rem;margin:.4rem 0}
+.quiz-explication .amtston{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;color:var(--sourd);margin-bottom:.15rem}
+.quiz-bonne{font-weight:700;color:var(--delft)}
+button.weiter{font-family:var(--mono);font-weight:700;font-size:.7rem;letter-spacing:.16em;
+  background:var(--gouda);border:2.5px solid var(--inkt);box-shadow:3px 3px 0 var(--inkt);
+  padding:.55rem .95rem;cursor:pointer;margin-top:.25rem}
+button.weiter:active{transform:translate(3px,3px);box-shadow:none}
+.bilan{text-align:center}
+.bilan .score{display:block;font-family:var(--titre);font-size:2.6rem;color:var(--donker)}
+.verdict-texte{font-size:.86rem;margin:.5rem 0}
+.vers-toets{text-align:center;margin-top:.6rem}
+.btn-toets{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.74rem;letter-spacing:.16em;
+  color:var(--faience);background:var(--delft);border:3px solid var(--inkt);box-shadow:4px 4px 0 var(--inkt);
+  padding:.65rem 1.1rem;text-decoration:none}
+.btn-toets:active{transform:translate(4px,4px);box-shadow:none}
+
+/* ---------- colofon ---------- */
+.colofon-corps{display:grid;place-content:center;text-align:center;gap:.4rem;height:100%}
+.colofon-corps h2{font-family:var(--titre);color:var(--donker);font-size:1.7rem}
+.colofon-corps p{font-size:.84rem;max-width:24rem}
+.colofon-tech{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--sourd)}
+
+/* ---------- spook (nuit de mer) ---------- */
+.fiche-spook{background:var(--nacht);border-color:#3E6EA8;
+  box-shadow:inset 0 0 0 3px var(--nacht),inset 0 0 0 5px #3E6EA8,0 5px 0 rgba(0,0,0,.5)}
+.fiche-spook::before{opacity:.35;filter:invert(.8)}
+.fiche-spook::after{opacity:.22}
+.spook-corps{color:#C8D8E8;height:100%;overflow:hidden}
+.spook-corps h2{font-family:var(--titre);font-size:1.8rem;color:#7FE0C3;text-shadow:0 0 14px rgba(127,224,195,.55);margin:.4rem 0}
+.spook-corps p{font-size:.88rem;line-height:1.55;margin:.4rem 0}
+.spook-corps strong{color:#F2EFE4}
+.spook-stempel{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.6rem;letter-spacing:.2em;
+  color:#7FE0C3;border:2px solid #7FE0C3;padding:.3em .6em;transform:rotate(-3deg)}
+.spook-signalement{border-left:6px solid var(--oranje);padding-left:.55rem;font-style:italic}
+.spook-retour{font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.14em;
+  background:none;border:2.5px solid #C8D8E8;color:#C8D8E8;padding:.55rem .9rem;cursor:pointer;margin-top:.5rem}
+
+/* ---------- pictos animés ---------- */
+.pk1-r1,.pk1-r2{transform-origin:center;animation:none}
+.actif .pk1-r1{transform-origin:26px 64px;animation:roue 1.6s steps(8) infinite}
+.actif .pk1-r2{transform-origin:72px 64px;animation:roue 1.6s steps(8) infinite}
+@keyframes roue{to{transform:rotate(360deg)}}
+.actif .pk1-bel{animation:bel 2.2s steps(2,end) infinite}
+@keyframes bel{0%,78%{transform:none}82%{transform:translateX(1.6px)}86%{transform:translateX(-1.6px)}90%{transform:none}}
+.actif .pk2-kaart{animation:kaart 1.9s steps(3,end) infinite}
+@keyframes kaart{0%,55%{transform:none}70%,80%{transform:translate(-9px,9px)}95%{transform:none}}
+.actif .pk2-golf{opacity:0;animation:golf 1.9s steps(2,end) infinite}
+@keyframes golf{72%,92%{opacity:1}}
+.actif .pk3-a{animation:val 1.7s steps(3,end) infinite}
+.actif .pk3-b{animation:val 1.7s steps(3,end) .4s infinite}
+@keyframes val{0%{transform:translateY(-26px);opacity:0}30%,100%{transform:none;opacity:1}}
+.actif .pk4-damp{animation:damp 1.5s steps(3) infinite}
+@keyframes damp{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-7px);opacity:0}}
+.actif .pk5-pijl{animation:pijl 1.6s steps(4,end) infinite}
+@keyframes pijl{0%{transform:translateX(-14px);opacity:0}45%,100%{transform:none;opacity:1}}
+.actif .pk6-blad{transform-origin:24px 56px;animation:blad 2.4s steps(5,end) infinite}
+@keyframes blad{0%,55%{transform:none}75%,100%{transform:rotateX(72deg);opacity:.25}}
+.actif .pk7-poort{animation:poort 2s steps(2,end) infinite}
+@keyframes poort{0%,60%{transform:none}70%,88%{transform:scaleX(.16)}96%{transform:none}}
+.actif .pk7-piep{opacity:0;animation:golf 2s steps(2,end) infinite}
+.actif .pk8-glazuur{stroke-dasharray:80;stroke-dashoffset:80;animation:glaz 2.2s steps(8) infinite}
+@keyframes glaz{45%,100%{stroke-dashoffset:0}}
+.actif .pk8-glans{animation:knip 2.2s steps(2,end) infinite}
+.actif .pk9-w1,.actif .pk9-w2{animation:roue 1.3s steps(6) infinite}
+.actif .pk9-w1{transform-origin:28px 70px}.actif .pk9-w2{transform-origin:68px 70px}
+.actif .pk10-golf{opacity:0;animation:golf 1.6s steps(2,end) infinite}
+.actif .pk11-bloem{transform-origin:48px 48px;animation:bloem 2.6s steps(6,end) both}
+@keyframes bloem{from{transform:scale(.15);opacity:0}55%,100%{transform:none;opacity:1}}
+.actif .pk11-zon{animation:knip 2.6s steps(2,end) infinite}
+
+/* ---------- replis ---------- */
+html.nojs .fiche{display:block;position:static;height:auto;margin-bottom:1rem;overflow:visible}
+html.nojs .corps-sec{height:auto;overflow:visible}
+html.nojs body{overflow:auto}
+html.nojs .cache-frappe{visibility:visible}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
+}
+@media (min-height:760px){.corps-sec{font-size:.98rem}}
+
 </style>
 </head>
 <body>
-<span class="st">IN BEHANDELING</span>
-<h1>Nederland</h1>
-<p>Le waterschap instruit le dossier. Base&nbsp;: 's-Hertogenbosch.<br>
-Ouverture des vannes imminente.</p>
-<p><a href="/">&larr; Retour au Classeur</a></p>
+<div id="app">
+<main id="scene">
+<section class="fiche" id="logboek"><div class="logboek-cadre"><span class="stempel-header">GOEDGEKEURD</span><p class="kicker">KONINKRIJK DER NEDERLANDEN &middot; WATERSCHAP BSC &middot; ANNO 2026</p><h1>Het Logboek</h1><p class="soustitre">Journal de bord du voyageur d&eacute;barqu&eacute; &agrave; la Waag &mdash; pes&eacute; par la guilde, peint en bleu de Delft, scell&eacute; &agrave; la cire oranje.</p><p class="edition">Guide de terrain &middot; Noord-Brabant &middot; base&nbsp;: &rsquo;s-Hertogenbosch</p><button type="button" id="btn-aanmonsteren" class="aanmonsteren">AANMONSTEREN &mdash; monter &agrave; bord</button><p class="mention-bas">Onze fiches de fa&iuml;ence &middot; un Taalgids parlant &middot; un moulin correcteur</p></div></section><section class="fiche" id="onthaal"><div class="corps-sec onthaal-corps"><p class="onthaal-intro">Bienvenue &agrave; bord. Dix &sect; pour circuler aux Pays-Bas sans te faire sonner dessus, plus un Taalgids &agrave; voix haute. Tape une tuile&nbsp;:</p><div class="tuiles"><a class="tuile" href="#p1-1"><span class="tno">&sect; 1</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Vélo dont les roues tournent"><g class="pk1-r1"><circle class="trait" cx="26" cy="64" r="16" fill="none"/><line class="trait" x1="26" y1="50" x2="26" y2="78"/><line class="trait" x1="12" y1="64" x2="40" y2="64"/></g><g class="pk1-r2"><circle class="trait" cx="72" cy="64" r="16" fill="none"/><line class="trait" x1="72" y1="50" x2="72" y2="78"/><line class="trait" x1="58" y1="64" x2="86" y2="64"/></g><path class="trait" d="M26 64 L44 38 H62 L72 64 M44 38 L54 64 H26" fill="none"/><path class="plein" d="M40 32 h12 v5 h-12 z"/><g class="pk1-bel"><circle class="jaune" cx="66" cy="30" r="5"/><path class="trait" d="M74 24 q4 6 0 12 M79 20 q6 10 0 20" fill="none"/></g></svg><span class="tnom">De fiets</span></a><a class="tuile" href="#p2-1"><span class="tno">&sect; 2</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Carte bancaire tapée sur un terminal"><rect class="plein" x="14" y="40" width="36" height="40" rx="3"/><rect class="jaune" x="20" y="46" width="24" height="10"/><circle class="trait" cx="32" cy="68" r="6" fill="none"/><g class="pk2-kaart"><rect class="oranj" x="52" y="22" width="34" height="22" rx="3"/><rect class="trait" x="52" y="28" width="34" height="5" fill="#1C2530"/></g><g class="pk2-golf"><path class="trait" d="M50 52 q6 4 0 8 M56 48 q10 8 0 16" fill="none"/></g></svg><span class="tnom">Pinnen</span></a><a class="tuile" href="#p3-1"><span class="tno">&sect; 3</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sac de courses qui se remplit"><path class="plein" d="M24 40 h48 l-5 42 h-38 z"/><path class="trait" d="M36 40 v-8 a12 12 0 0 1 24 0 v8" fill="none"/><g class="pk3-a"><rect class="jaune" x="34" y="50" width="10" height="14"/></g><g class="pk3-b"><circle class="oranj" cx="56" cy="58" r="6"/></g><path class="trait" d="M30 46 h36" fill="none" stroke-dasharray="3 4"/></svg><span class="tnom">Winkelen</span></a><a class="tuile" href="#p4-1"><span class="tno">&sect; 4</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Verre de borrel et bitterbal fumante"><path class="plein" d="M18 34 h24 l-4 30 h-16 z"/><rect class="jaune" x="20" y="38" width="20" height="7"/><path class="trait" d="M26 64 v12 h8 M22 78 h16" fill="none"/><circle class="oranj" cx="68" cy="62" r="13"/><circle class="trait" cx="68" cy="62" r="13" fill="none"/><g class="pk4-damp"><path class="trait" d="M62 42 q3 -6 0 -12 M68 44 q4 -7 0 -14 M74 42 q3 -6 0 -12" fill="none"/></g></svg><span class="tnom">Gezelligheid</span></a><a class="tuile" href="#p5-1"><span class="tno">&sect; 5</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole à flèche directe"><path class="plein" d="M14 22 h56 v34 h-34 l-12 12 v-12 h-10 z"/><g class="pk5-pijl"><line class="trait" x1="24" y1="39" x2="56" y2="39" stroke="#F2EFE4"/><path d="M52 33 L62 39 L52 45 z" fill="#E8A020"/></g><circle class="oranj" cx="78" cy="70" r="7"/></svg><span class="tnom">Directheid</span></a><a class="tuile" href="#p6-1"><span class="tno">&sect; 6</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Agenda dont une page tourne"><rect class="plein" x="20" y="20" width="56" height="60" rx="3"/><rect class="jaune" x="20" y="20" width="56" height="12"/><line class="trait" x1="34" y1="14" x2="34" y2="28"/><line class="trait" x1="62" y1="14" x2="62" y2="28"/><g class="pk6-blad"><path d="M24 36 h48 v40 h-48 z" fill="#F2EFE4" stroke="#1C2530" stroke-width="2.5"/><line class="trait" x1="30" y1="46" x2="66" y2="46"/><line class="trait" x1="30" y1="56" x2="58" y2="56"/><circle class="oranj" cx="60" cy="66" r="5"/></g></svg><span class="tnom">De agenda</span></a><a class="tuile" href="#p7-1"><span class="tno">&sect; 7</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Portique OV et onde du bip"><rect class="plein" x="16" y="30" width="14" height="50"/><rect class="plein" x="66" y="30" width="14" height="50"/><rect class="jaune" x="16" y="30" width="14" height="8"/><rect class="jaune" x="66" y="30" width="14" height="8"/><g class="pk7-poort"><rect class="oranj" x="30" y="46" width="17" height="6" rx="3"/><rect class="oranj" x="49" y="46" width="17" height="6" rx="3"/></g><g class="pk7-piep"><circle class="trait" cx="23" cy="26" r="4" fill="none"/><path class="trait" d="M29 20 q6 6 0 12" fill="none"/></g></svg><span class="tnom">OV &amp; trein</span></a><a class="tuile" href="#p8-1"><span class="tno">&sect; 8</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bossche Bol nappée de chocolat"><circle class="plein" cx="48" cy="54" r="24"/><g class="pk8-glazuur"><path class="trait" d="M26 50 q8 -18 22 -20 q16 -2 22 14" fill="none" stroke-width="4"/></g><path class="jaune" d="M30 64 q18 12 36 0 l-4 8 q-14 8 -28 0 z"/><g class="pk8-glans"><circle cx="38" cy="42" r="4" fill="#F2EFE4"/></g><line class="trait" x1="18" y1="80" x2="78" y2="80"/></svg><span class="tnom">Den Bosch</span></a><a class="tuile" href="#p9-1"><span class="tno">&sect; 9</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bus 300 vers Kaatsheuvel"><rect class="plein" x="12" y="30" width="72" height="36" rx="5"/><rect class="jaune" x="18" y="36" width="16" height="12"/><rect class="jaune" x="40" y="36" width="16" height="12"/><rect class="oranj" x="62" y="36" width="16" height="12"/><g class="pk9-w1"><circle class="trait" cx="28" cy="70" r="8" fill="none"/><line class="trait" x1="28" y1="63" x2="28" y2="77"/></g><g class="pk9-w2"><circle class="trait" cx="68" cy="70" r="8" fill="none"/><line class="trait" x1="68" y1="63" x2="68" y2="77"/></g><rect class="trait" x="36" y="20" width="24" height="10" fill="#1C2530"/></svg><span class="tnom">Naar de Efteling</span></a><a class="tuile" href="#p11-1"><span class="tno">&sect; 11</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tulipe qui éclot"><line class="trait" x1="48" y1="82" x2="48" y2="48"/><path class="plein" d="M40 74 q-14 -2 -16 -16 q14 2 16 16z"/><g class="pk11-bloem"><path class="oranj" d="M34 48 q0 -22 14 -26 q14 4 14 26 q-7 8 -14 8 q-7 0 -14 -8z"/><path class="trait" d="M41 44 v-14 M55 44 v-14" fill="none"/></g><g class="pk11-zon"><circle class="jaune" cx="76" cy="22" r="8"/></g></svg><span class="tnom">De Toets</span></a><a class="tuile tuile-taal" href="#p10-1"><span class="tno">&sect; 10</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg><span class="tnom">Taalgids &mdash; le n&eacute;erlandais qui parle</span></a></div><p class="onthaal-pied"><a href="#inhoud">Table des mati&egrave;res compl&egrave;te &rarr;</a></p></div></section><section class="fiche" id="inhoud"><div class="corps-sec inhoud-corps"><h2 class="inhoud-titre">Inhoud &mdash; table des mati&egrave;res</h2><ol class="inhoud-liste"><li><a href="#p1-1">&sect;&nbsp;1 &mdash; De fiets&nbsp;: survivre au v&eacute;lo-roi</a></li><li><a href="#p2-1">&sect;&nbsp;2 &mdash; Pinnen&nbsp;: la carte r&egrave;gne (adieu le cash allemand)</a></li><li><a href="#p3-1">&sect;&nbsp;3 &mdash; Winkelen&nbsp;: Albert Heijn, Bonuskaart, consigne</a></li><li><a href="#p4-1">&sect;&nbsp;4 &mdash; Gezelligheid &amp; borrel&nbsp;: l&rsquo;art du cocon</a></li><li><a href="#p5-1">&sect;&nbsp;5 &mdash; Directheid&nbsp;: la franchise n&rsquo;est pas une attaque</a></li><li><a href="#p6-1">&sect;&nbsp;6 &mdash; De agenda&nbsp;: la spontan&eacute;it&eacute; se planifie</a></li><li><a href="#p7-1">&sect;&nbsp;7 &mdash; OV &amp; trein&nbsp;: inchecken, uitchecken, toujours</a></li><li><a href="#p8-1">&sect;&nbsp;8 &mdash; Den Bosch&nbsp;: la ville de Jheronimus</a></li><li><a href="#p9-1">&sect;&nbsp;9 &mdash; Naar de Efteling&nbsp;: bus 300/301 et retour</a></li><li><a href="#p10-1">&sect;&nbsp;10 &mdash; Taalgids&nbsp;: le n&eacute;erlandais de poche, &agrave; voix haute</a></li><li><a href="#p11-1">&sect;&nbsp;11 &mdash; Slotwoord &amp; de Toets du moulin</a></li></ol></div></section><section class="fiche par-impair" id="p1-1" data-par="1"><header class="fiche-tete"><div><span class="parno">&sect; 1</span><h2>De fiets &mdash; le v&eacute;lo-roi</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Vélo dont les roues tournent"><g class="pk1-r1"><circle class="trait" cx="26" cy="64" r="16" fill="none"/><line class="trait" x1="26" y1="50" x2="26" y2="78"/><line class="trait" x1="12" y1="64" x2="40" y2="64"/></g><g class="pk1-r2"><circle class="trait" cx="72" cy="64" r="16" fill="none"/><line class="trait" x1="72" y1="50" x2="72" y2="78"/><line class="trait" x1="58" y1="64" x2="86" y2="64"/></g><path class="trait" d="M26 64 L44 38 H62 L72 64 M44 38 L54 64 H26" fill="none"/><path class="plein" d="M40 32 h12 v5 h-12 z"/><g class="pk1-bel"><circle class="jaune" cx="66" cy="30" r="5"/><path class="trait" d="M74 24 q4 6 0 12 M79 20 q6 10 0 20" fill="none"/></g></svg></header><div class="corps-sec"><p><span class="lettrine ld">A</span>ux Pays-Bas, le v&eacute;lo n&rsquo;est pas un moyen de transport&nbsp;: c&rsquo;est l&rsquo;esp&egrave;ce dominante. Il y a plus de v&eacute;los que d&rsquo;habitants, et la ville est dessin&eacute;e pour eux d&rsquo;abord.</p><h3>Le fietspad, territoire sacr&eacute;</h3><p>La bande <strong>rouge-ros&eacute;e</strong> le long des rues est le <em>fietspad</em> &mdash; la piste cyclable. Y marcher, y tra&icirc;ner, y consulter son t&eacute;l&eacute;phone&nbsp;: trois fa&ccedil;ons de d&eacute;clencher la sonnette, puis le juron.</p><div class="achtung"><p>Avant de traverser QUOI que ce soit&nbsp;: regarde <strong>deux fois dans chaque sens</strong>. Les v&eacute;los surgissent &agrave; contresens, en silence, &agrave; 25&nbsp;km/h &mdash; et les scooters partagent leurs pistes.</p></div><p>Un cycliste n&eacute;erlandais ne freine pas&nbsp;: il <em>esquive</em>. Ton r&ocirc;le de pi&eacute;ton est d&rsquo;&ecirc;tre pr&eacute;visible &mdash; trajectoire droite, pas d&rsquo;arr&ecirc;t brusque.</p></div></section><section class="fiche par-impair" id="p1-2" data-par="1"><header class="fiche-tete"><div><span class="parno">&sect; 1</span><h2>De fiets &mdash; le v&eacute;lo-roi</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Vélo dont les roues tournent"><g class="pk1-r1"><circle class="trait" cx="26" cy="64" r="16" fill="none"/><line class="trait" x1="26" y1="50" x2="26" y2="78"/><line class="trait" x1="12" y1="64" x2="40" y2="64"/></g><g class="pk1-r2"><circle class="trait" cx="72" cy="64" r="16" fill="none"/><line class="trait" x1="72" y1="50" x2="72" y2="78"/><line class="trait" x1="58" y1="64" x2="86" y2="64"/></g><path class="trait" d="M26 64 L44 38 H62 L72 64 M44 38 L54 64 H26" fill="none"/><path class="plein" d="M40 32 h12 v5 h-12 z"/><g class="pk1-bel"><circle class="jaune" cx="66" cy="30" r="5"/><path class="trait" d="M74 24 q4 6 0 12 M79 20 q6 10 0 20" fill="none"/></g></svg></header><div class="corps-sec"><h3>La sonnette n&rsquo;est pas une insulte</h3><p>Le <em>tring-tring</em> signifie &laquo;&nbsp;je passe&nbsp;&raquo;, pas &laquo;&nbsp;je te d&eacute;teste&nbsp;&raquo;. R&eacute;ponse correcte&nbsp;: un pas de c&ocirc;t&eacute;, sans se retourner dramatiquement.</p><h3>Rep&egrave;res urbains</h3><p>Les <strong>parkings &agrave; v&eacute;los g&eacute;ants</strong> pr&egrave;s des gares (des milliers de places) sont un monument national involontaire. &Agrave; Den Bosch, le centre est largement pi&eacute;ton&nbsp;&mdash; mais un v&eacute;lo peut toujours appara&icirc;tre.</p><div class="merksatz"><p>Le fietspad est &agrave; eux. Le trottoir est &agrave; toi. La chauss&eacute;e se n&eacute;gocie.</p></div><p>La nuit, les v&eacute;los sans phare existent&nbsp;: redouble d&rsquo;attention en sortant d&rsquo;un caf&eacute;. Statistiquement, ton plus grand danger n&eacute;erlandais roule sur deux roues et transporte trois enfants.</p></div></section><section class="fiche par-pair" id="p2-1" data-par="2"><header class="fiche-tete"><div><span class="parno">&sect; 2</span><h2>Pinnen &mdash; la carte r&egrave;gne</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Carte bancaire tapée sur un terminal"><rect class="plein" x="14" y="40" width="36" height="40" rx="3"/><rect class="jaune" x="20" y="46" width="24" height="10"/><circle class="trait" cx="32" cy="68" r="6" fill="none"/><g class="pk2-kaart"><rect class="oranj" x="52" y="22" width="34" height="22" rx="3"/><rect class="trait" x="52" y="28" width="34" height="5" fill="#1C2530"/></g><g class="pk2-golf"><path class="trait" d="M50 52 q6 4 0 8 M56 48 q10 8 0 16" fill="none"/></g></svg></header><div class="corps-sec"><p><span class="lettrine lo">T</span>u sors d&rsquo;Allemagne, o&ugrave; le cash est roi&nbsp;? Inverse tout. Ici, <em>pinnen</em> (payer par carte) est la norme absolue &mdash; au march&eacute;, aux toilettes, pour un caf&eacute; &agrave; 2&nbsp;&euro;.</p><h3>&laquo;&nbsp;PIN only&nbsp;&raquo;</h3><p>Beaucoup de commerces <strong>refusent les esp&egrave;ces</strong>&nbsp;: l&rsquo;&eacute;criteau <em>&laquo;&nbsp;alleen pinnen&nbsp;&raquo;</em> ou <em>&laquo;&nbsp;PIN only&nbsp;&raquo;</em> le dit. Le sans-contact passe partout.</p><div class="achtung"><p>Certains supermarch&eacute;s et automates n&rsquo;acceptent pas toutes les cartes de <strong>cr&eacute;dit</strong> (h&eacute;ritage du d&eacute;bit Maestro). Aie une carte de <strong>d&eacute;bit</strong> en secours &mdash; et un peu de monnaie, par superstition.</p></div></div></section><section class="fiche par-pair" id="p2-2" data-par="2"><header class="fiche-tete"><div><span class="parno">&sect; 2</span><h2>Pinnen &mdash; la carte r&egrave;gne</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Carte bancaire tapée sur un terminal"><rect class="plein" x="14" y="40" width="36" height="40" rx="3"/><rect class="jaune" x="20" y="46" width="24" height="10"/><circle class="trait" cx="32" cy="68" r="6" fill="none"/><g class="pk2-kaart"><rect class="oranj" x="52" y="22" width="34" height="22" rx="3"/><rect class="trait" x="52" y="28" width="34" height="5" fill="#1C2530"/></g><g class="pk2-golf"><path class="trait" d="M50 52 q6 4 0 8 M56 48 q10 8 0 16" fill="none"/></g></svg></header><div class="corps-sec"><h3>Le pourboire, version d&eacute;tendue</h3><p>Pas de liturgie allemande du &laquo;&nbsp;Stimmt so&nbsp;&raquo;&nbsp;: ici on <strong>arrondit</strong> ou on laisse 5-10&nbsp;% si le service a brill&eacute;. Personne ne te jugera de payer le montant exact.</p><h3>Toilettes et petits montants</h3><p>Les toilettes publiques co&ucirc;tent souvent 50&nbsp;c &agrave; 1&nbsp;&euro;&nbsp;&mdash; et de plus en plus se paient... par carte. Le pays a d&eacute;mat&eacute;rialis&eacute; jusqu&rsquo;&agrave; la petite monnaie du vestiaire.</p><div class="merksatz"><p>&laquo;&nbsp;Pinnen, ja graag&nbsp;&raquo; &mdash; par carte, oui volontiers. La phrase qui ouvre toutes les caisses du royaume.</p></div></div></section><section class="fiche par-impair" id="p3-1" data-par="3"><header class="fiche-tete"><div><span class="parno">&sect; 3</span><h2>Winkelen &mdash; faire ses courses</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sac de courses qui se remplit"><path class="plein" d="M24 40 h48 l-5 42 h-38 z"/><path class="trait" d="M36 40 v-8 a12 12 0 0 1 24 0 v8" fill="none"/><g class="pk3-a"><rect class="jaune" x="34" y="50" width="10" height="14"/></g><g class="pk3-b"><circle class="oranj" cx="56" cy="58" r="6"/></g><path class="trait" d="M30 46 h36" fill="none" stroke-dasharray="3 4"/></svg></header><div class="corps-sec"><p><span class="lettrine lg">A</span>lbert Heijn &mdash; <strong>AH</strong>, enseigne bleue &mdash; est le supermarch&eacute;-institution. Jumbo (jaune) et Lidl compl&egrave;tent la trinit&eacute;. Dans les gares&nbsp;: <em>AH to go</em>, sauveur de trains matinaux.</p><h3>La Bonuskaart, cl&eacute; des prix</h3><p>Les rabais &eacute;tiquet&eacute;s <strong>&laquo;&nbsp;Bonus&nbsp;&raquo;</strong> ne s&rsquo;appliquent qu&rsquo;avec la <em>Bonuskaart</em> &mdash; gratuite, demande-la en caisse ou prends l&rsquo;app AH. Sans elle, tu paies le plein tarif en silence.</p><div class="achtung"><p><strong>Drogist &ne; pharmacie.</strong> Kruidvat et Etos vendent paracet&eacute;mol et shampoing&nbsp;; pour une ordonnance ou un vrai conseil, c&rsquo;est l&rsquo;<em>apotheek</em> &mdash; m&ecirc;me pi&egrave;ge qu&rsquo;en Allemagne.</p></div></div></section><section class="fiche par-impair" id="p3-2" data-par="3"><header class="fiche-tete"><div><span class="parno">&sect; 3</span><h2>Winkelen &mdash; faire ses courses</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Sac de courses qui se remplit"><path class="plein" d="M24 40 h48 l-5 42 h-38 z"/><path class="trait" d="M36 40 v-8 a12 12 0 0 1 24 0 v8" fill="none"/><g class="pk3-a"><rect class="jaune" x="34" y="50" width="10" height="14"/></g><g class="pk3-b"><circle class="oranj" cx="56" cy="58" r="6"/></g><path class="trait" d="M30 46 h36" fill="none" stroke-dasharray="3 4"/></svg></header><div class="corps-sec"><h3>Statiegeld &mdash; la consigne</h3><p>Canettes et petites bouteilles&nbsp;: <strong>15&nbsp;c</strong> de consigne&nbsp;; grandes bouteilles&nbsp;: <strong>25&nbsp;c</strong>. Les machines de retour sont &agrave; l&rsquo;entr&eacute;e des supermarch&eacute;s &mdash; le re&ccedil;u se d&eacute;duit en caisse.</p><h3>Le dimanche existe&nbsp;!</h3><p>Contrairement &agrave; l&rsquo;Allemagne verrouill&eacute;e, les villes n&eacute;erlandaises pratiquent le <em>koopzondag</em>&nbsp;: supermarch&eacute;s et boutiques ouvrent le dimanche (souvent 12h-17h). Le choc culturel inverse.</p><div class="merksatz"><p>Sac payant, Bonuskaart gratuite, consigne rembours&eacute;e&nbsp;: le caddie n&eacute;erlandais est un petit syst&egrave;me comptable.</p></div></div></section><section class="fiche par-pair" id="p4-1" data-par="4"><header class="fiche-tete"><div><span class="parno">&sect; 4</span><h2>Gezelligheid &amp; borrel</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Verre de borrel et bitterbal fumante"><path class="plein" d="M18 34 h24 l-4 30 h-16 z"/><rect class="jaune" x="20" y="38" width="20" height="7"/><path class="trait" d="M26 64 v12 h8 M22 78 h16" fill="none"/><circle class="oranj" cx="68" cy="62" r="13"/><circle class="trait" cx="68" cy="62" r="13" fill="none"/><g class="pk4-damp"><path class="trait" d="M62 42 q3 -6 0 -12 M68 44 q4 -7 0 -14 M74 42 q3 -6 0 -12" fill="none"/></g></svg></header><div class="corps-sec"><p><span class="lettrine ld">G</span><em>ezellig</em> est LE mot national &mdash; intraduisible&nbsp;: un m&eacute;lange de chaleureux, convivial, douillet, &laquo;&nbsp;bien-ensemble&nbsp;&raquo;. Un caf&eacute; peut &ecirc;tre gezellig, une soir&eacute;e, une ruelle, une personne.</p><h3>Le borrel</h3><p>L&rsquo;ap&eacute;ro-rituel. Le vendredi apr&egrave;s le travail, c&rsquo;est le <em>vrijmibo</em> (vrijdagmiddagborrel)&nbsp;: bi&egrave;re, discussions franches, et surtout&hellip;</p><div class="achtung"><p><strong>Bitterballen&nbsp;:</strong> boules de rago&ucirc;t panées, frites, servies avec la moutarde. L&rsquo;int&eacute;rieur sort de la friteuse &agrave; l&rsquo;&eacute;tat de <em>lave</em>. Attends 60 secondes ou porte le deuil de ton palais.</p></div></div></section><section class="fiche par-pair" id="p4-2" data-par="4"><header class="fiche-tete"><div><span class="parno">&sect; 4</span><h2>Gezelligheid &amp; borrel</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Verre de borrel et bitterbal fumante"><path class="plein" d="M18 34 h24 l-4 30 h-16 z"/><rect class="jaune" x="20" y="38" width="20" height="7"/><path class="trait" d="M26 64 v12 h8 M22 78 h16" fill="none"/><circle class="oranj" cx="68" cy="62" r="13"/><circle class="trait" cx="68" cy="62" r="13" fill="none"/><g class="pk4-damp"><path class="trait" d="M62 42 q3 -6 0 -12 M68 44 q4 -7 0 -14 M74 42 q3 -6 0 -12" fill="none"/></g></svg></header><div class="corps-sec"><h3>Lekker, l&rsquo;autre mot-univers</h3><p><em>Lekker</em> = bon, agr&eacute;able, chouette. Tout peut &ecirc;tre lekker&nbsp;: le repas (<em>lekker eten</em>), la m&eacute;t&eacute;o (<em>lekker weer</em>), dormir (<em>lekker slapen</em>), et m&ecirc;me toi, para&icirc;t-il.</p><h3>Trinquer</h3><p><strong>&laquo;&nbsp;Proost!&nbsp;&raquo;</strong> &mdash; un regard bref suffit, pas le contact oculaire liturgique allemand. La bi&egrave;re arrive en petit verre (<em>fluitje</em> ou <em>vaasje</em>)&nbsp;: c&rsquo;est normal, elle reste fra&icirc;che et &ccedil;a se recommande.</p><div class="merksatz"><p>Gezellig se vit, ne se traduit pas. Si tu comprends pourquoi la soir&eacute;e &eacute;tait gezellig, tu as compris le pays.</p></div></div></section><section class="fiche par-impair" id="p5-1" data-par="5"><header class="fiche-tete"><div><span class="parno">&sect; 5</span><h2>Directheid &mdash; la franchise</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole à flèche directe"><path class="plein" d="M14 22 h56 v34 h-34 l-12 12 v-12 h-10 z"/><g class="pk5-pijl"><line class="trait" x1="24" y1="39" x2="56" y2="39" stroke="#F2EFE4"/><path d="M52 33 L62 39 L52 45 z" fill="#E8A020"/></g><circle class="oranj" cx="78" cy="70" r="7"/></svg></header><div class="corps-sec"><p><span class="lettrine lo">L</span>e N&eacute;erlandais dit ce qu&rsquo;il pense. Pas par agressivit&eacute;&nbsp;: par <strong>efficacit&eacute;</strong>. &laquo;&nbsp;Ton id&eacute;e ne marchera pas&nbsp;&raquo; est un cadeau d&rsquo;honn&ecirc;tet&eacute;, pas une attaque.</p><h3>D&eacute;calage avec l&rsquo;Allemagne</h3><p>Fini le culte du titre&nbsp;: pas de &laquo;&nbsp;Herr Doktor&nbsp;&raquo; ici. Le tutoiement (<em>je/jij</em>) arrive vite, les hi&eacute;rarchies s&rsquo;aplatissent, le patron fait la vaisselle du borrel.</p><div class="achtung"><p>Ne sur-remercie pas, ne t&rsquo;excuse pas trois fois&nbsp;: l&rsquo;exc&egrave;s de politesse fran&ccedil;aise-canadienne passe pour du flou. Une demande claire est une marque de respect.</p></div></div></section><section class="fiche par-impair" id="p5-2" data-par="5"><header class="fiche-tete"><div><span class="parno">&sect; 5</span><h2>Directheid &mdash; la franchise</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole à flèche directe"><path class="plein" d="M14 22 h56 v34 h-34 l-12 12 v-12 h-10 z"/><g class="pk5-pijl"><line class="trait" x1="24" y1="39" x2="56" y2="39" stroke="#F2EFE4"/><path d="M52 33 L62 39 L52 45 z" fill="#E8A020"/></g><circle class="oranj" cx="78" cy="70" r="7"/></svg></header><div class="corps-sec"><h3>&laquo;&nbsp;Doe normaal&nbsp;&raquo;</h3><p>La devise officieuse&nbsp;: <em>&laquo;&nbsp;Doe maar gewoon, dan doe je al gek genoeg&nbsp;&raquo;</em> &mdash; &laquo;&nbsp;fais normal, c&rsquo;est d&eacute;j&agrave; assez fou&nbsp;&raquo;. L&rsquo;anti-frime &eacute;rig&eacute;e en philosophie&nbsp;: pas d&rsquo;&eacute;talage, pas de grands airs.</p><h3>L&rsquo;humour pince-sans-rire</h3><p>Sec, absurde, souvent au d&eacute;triment de soi-m&ecirc;me. Si on te taquine, c&rsquo;est bon signe&nbsp;: on t&rsquo;a adopt&eacute;.</p><div class="merksatz"><p>La franchise re&ccedil;ue = de l&rsquo;estime. La franchise rendue = de l&rsquo;int&eacute;gration.</p></div></div></section><section class="fiche par-pair" id="p6-1" data-par="6"><header class="fiche-tete"><div><span class="parno">&sect; 6</span><h2>De agenda &mdash; tout se planifie</h2><span class="teil">Blad 1 &middot; 1</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Agenda dont une page tourne"><rect class="plein" x="20" y="20" width="56" height="60" rx="3"/><rect class="jaune" x="20" y="20" width="56" height="12"/><line class="trait" x1="34" y1="14" x2="34" y2="28"/><line class="trait" x1="62" y1="14" x2="62" y2="28"/><g class="pk6-blad"><path d="M24 36 h48 v40 h-48 z" fill="#F2EFE4" stroke="#1C2530" stroke-width="2.5"/><line class="trait" x1="30" y1="46" x2="66" y2="46"/><line class="trait" x1="30" y1="56" x2="58" y2="56"/><circle class="oranj" cx="60" cy="66" r="5"/></g></svg></header><div class="corps-sec"><p><span class="lettrine lg">L</span>a spontan&eacute;it&eacute; n&eacute;erlandaise se prend <strong>deux semaines d&rsquo;avance</strong>. Proposer un caf&eacute; d&eacute;clenche la sortie de l&rsquo;agenda&nbsp;: c&rsquo;est s&eacute;rieux, pas froid.</p><h3>Les horaires du ventre</h3><p>Le pays mange <strong>t&ocirc;t</strong>&nbsp;: d&icirc;ner &agrave; 18h-18h30, cuisines qui ferment vers 21h. Le midi&nbsp;? Un <em>broodje</em> (sandwich) avec un verre de lait, avalé en 20 minutes &mdash; le banquet de midi n&rsquo;existe pas.</p><div class="achtung"><p>Restaurant vis&eacute; un soir de week-end&nbsp;? <strong>R&eacute;serve.</strong> Arriver &agrave; 20h30 sans r&eacute;servation, c&rsquo;est souvent arriver pour le dessert des autres.</p></div><div class="merksatz"><p>Ponctuel, pr&eacute;venu, r&eacute;serv&eacute;&nbsp;: le triangle d&rsquo;or de l&rsquo;invit&eacute; aux Pays-Bas.</p></div></div></section><section class="fiche par-impair" id="p7-1" data-par="7"><header class="fiche-tete"><div><span class="parno">&sect; 7</span><h2>OV &amp; trein &mdash; circuler</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Portique OV et onde du bip"><rect class="plein" x="16" y="30" width="14" height="50"/><rect class="plein" x="66" y="30" width="14" height="50"/><rect class="jaune" x="16" y="30" width="14" height="8"/><rect class="jaune" x="66" y="30" width="14" height="8"/><g class="pk7-poort"><rect class="oranj" x="30" y="46" width="17" height="6" rx="3"/><rect class="oranj" x="49" y="46" width="17" height="6" rx="3"/></g><g class="pk7-piep"><circle class="trait" cx="23" cy="26" r="4" fill="none"/><path class="trait" d="M29 20 q6 6 0 12" fill="none"/></g></svg></header><div class="corps-sec"><p><span class="lettrine ld">D</span>epuis <strong>OVpay</strong>, ta carte bancaire sans-contact EST ton titre de transport&nbsp;: tape-la au portique ou au valideur en montant &mdash; et surtout en descendant.</p><h3>Inchecken, uitchecken</h3><div class="achtung"><p>Le <strong>check-out oubli&eacute;</strong> co&ucirc;te cher&nbsp;: le syst&egrave;me d&eacute;bite le tarif maximal du trajet (souvent ~20&nbsp;&euro; en train). Le bip de sortie est sacr&eacute;.</p></div><p><strong>Une carte par personne</strong>&nbsp;: on ne tape pas la m&ecirc;me carte &agrave; deux &mdash; le portique compte les &acirc;mes, pas les couples.</p><p>Le planificateur national&nbsp;: <strong>9292.nl</strong> (ou l&rsquo;app NS pour les trains). Il conna&icirc;t chaque bus, chaque quai, chaque retard.</p></div></section><section class="fiche par-impair" id="p7-2" data-par="7"><header class="fiche-tete"><div><span class="parno">&sect; 7</span><h2>OV &amp; trein &mdash; circuler</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Portique OV et onde du bip"><rect class="plein" x="16" y="30" width="14" height="50"/><rect class="plein" x="66" y="30" width="14" height="50"/><rect class="jaune" x="16" y="30" width="14" height="8"/><rect class="jaune" x="66" y="30" width="14" height="8"/><g class="pk7-poort"><rect class="oranj" x="30" y="46" width="17" height="6" rx="3"/><rect class="oranj" x="49" y="46" width="17" height="6" rx="3"/></g><g class="pk7-piep"><circle class="trait" cx="23" cy="26" r="4" fill="none"/><path class="trait" d="M29 20 q6 6 0 12" fill="none"/></g></svg></header><div class="corps-sec"><h3>Le train depuis Den Bosch</h3><p>&rsquo;s-Hertogenbosch est un <strong>n&oelig;ud ferroviaire</strong>&nbsp;: Utrecht ~30&nbsp;min, Eindhoven ~20, Tilburg ~15, Amsterdam ~60. <em>Intercity</em> = rapide, <em>Sprinter</em> = omnibus.</p><h3>Petites liturgies du rail</h3><p>Les wagons <strong>&laquo;&nbsp;Stilte&nbsp;&raquo;</strong> sont des sanctuaires de silence &mdash; m&ecirc;me r&egrave;gle qu&rsquo;en Allemagne, m&ecirc;mes regards si tu parles. Pas de compostage&nbsp;: le bip fait foi.</p><div class="merksatz"><p>Bip &agrave; l&rsquo;entr&eacute;e, bip &agrave; la sortie, une carte par personne&nbsp;: r&eacute;cite-le comme une berceuse.</p></div></div></section><section class="fiche par-pair" id="p8-1" data-par="8"><header class="fiche-tete"><div><span class="parno">&sect; 8</span><h2>Den Bosch &mdash; ta base</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bossche Bol nappée de chocolat"><circle class="plein" cx="48" cy="54" r="24"/><g class="pk8-glazuur"><path class="trait" d="M26 50 q8 -18 22 -20 q16 -2 22 14" fill="none" stroke-width="4"/></g><path class="jaune" d="M30 64 q18 12 36 0 l-4 8 q-14 8 -28 0 z"/><g class="pk8-glans"><circle cx="38" cy="42" r="4" fill="#F2EFE4"/></g><line class="trait" x1="18" y1="80" x2="78" y2="80"/></svg></header><div class="corps-sec"><p><span class="lettrine lo">S</span>on vrai nom&nbsp;: <strong>&rsquo;s-Hertogenbosch</strong>, &laquo;&nbsp;le bois du duc&nbsp;&raquo;. Tout le monde dit <em>Den Bosch</em> (&laquo;&nbsp;den boss&nbsp;&raquo;). C&rsquo;est la ville de <strong>Jheronimus Bosch</strong> &mdash; le peintre des d&eacute;lices et des monstres est n&eacute; et mort ici.</p><h3>&Agrave; voir sans plan</h3><p>La <strong>Sint-Janskathedraal</strong>, sommet du gothique brabançon&nbsp;: l&egrave;ve les yeux vers les figurines des arcs-boutants &mdash; dont un <em>ange au t&eacute;l&eacute;phone portable</em>, glissé lors de la restauration de 2011. La <strong>Binnendieze</strong>&nbsp;: la rivi&egrave;re passe SOUS la ville, et des barques la remontent.</p></div></section><section class="fiche par-pair" id="p8-2" data-par="8"><header class="fiche-tete"><div><span class="parno">&sect; 8</span><h2>Den Bosch &mdash; ta base</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bossche Bol nappée de chocolat"><circle class="plein" cx="48" cy="54" r="24"/><g class="pk8-glazuur"><path class="trait" d="M26 50 q8 -18 22 -20 q16 -2 22 14" fill="none" stroke-width="4"/></g><path class="jaune" d="M30 64 q18 12 36 0 l-4 8 q-14 8 -28 0 z"/><g class="pk8-glans"><circle cx="38" cy="42" r="4" fill="#F2EFE4"/></g><line class="trait" x1="18" y1="80" x2="78" y2="80"/></svg></header><div class="corps-sec"><h3>Le Bossche Bol, monument comestible</h3><p>Une sph&egrave;re de p&acirc;te &agrave; choux, gav&eacute;e de cr&egrave;me fouett&eacute;e, nappée de chocolat. La r&eacute;f&eacute;rence&nbsp;: <strong>Jan de Groot</strong>, pr&egrave;s de la gare. Se mange en assumant les d&eacute;g&acirc;ts.</p><h3>Rep&egrave;res</h3><p>March&eacute; sur la <strong>Markt</strong> le mercredi et le samedi&nbsp;; la statue de Jheronimus y monte la garde. Devant la gare&nbsp;: la fontaine au <strong>dragon dor&eacute;</strong> &mdash; ton totem de retour le soir.</p><div class="merksatz"><p>Base parfaite&nbsp;: assez petite pour marcher, assez riche pour ne jamais s&rsquo;ennuyer, assez proche du parc pour y dormir malin.</p></div></div></section><section class="fiche par-impair" id="p9-1" data-par="9"><header class="fiche-tete"><div><span class="parno">&sect; 9</span><h2>Naar de Efteling</h2><span class="teil">Blad 1 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bus 300 vers Kaatsheuvel"><rect class="plein" x="12" y="30" width="72" height="36" rx="5"/><rect class="jaune" x="18" y="36" width="16" height="12"/><rect class="jaune" x="40" y="36" width="16" height="12"/><rect class="oranj" x="62" y="36" width="16" height="12"/><g class="pk9-w1"><circle class="trait" cx="28" cy="70" r="8" fill="none"/><line class="trait" x1="28" y1="63" x2="28" y2="77"/></g><g class="pk9-w2"><circle class="trait" cx="68" cy="70" r="8" fill="none"/><line class="trait" x1="68" y1="63" x2="68" y2="77"/></g><rect class="trait" x="36" y="20" width="24" height="10" fill="#1C2530"/></svg></header><div class="corps-sec"><p><span class="lettrine lg">D</span>epuis la gare routi&egrave;re de &rsquo;s-Hertogenbosch Centraal&nbsp;: bus <strong>Bravo (Arriva) 300 ou 301</strong>, direction Tilburg. Descends &agrave; l&rsquo;arr&ecirc;t <strong>&laquo;&nbsp;Kaatsheuvel, Efteling&nbsp;&raquo;</strong>&nbsp;: l&rsquo;avenue d&rsquo;entr&eacute;e est devant toi.</p><p>Trajet&nbsp;: <strong>~45-50 minutes</strong>. En journ&eacute;e, les deux lignes combin&eacute;es passent environ toutes les 20 minutes.</p><div class="achtung"><p>Paiement&nbsp;: tape ta carte sans-contact <strong>en montant ET en descendant</strong> (OVpay) &mdash; le &sect;&nbsp;7 s&rsquo;applique aux bus aussi.</p></div></div></section><section class="fiche par-impair" id="p9-2" data-par="9"><header class="fiche-tete"><div><span class="parno">&sect; 9</span><h2>Naar de Efteling</h2><span class="teil">Blad 2 &middot; 2</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bus 300 vers Kaatsheuvel"><rect class="plein" x="12" y="30" width="72" height="36" rx="5"/><rect class="jaune" x="18" y="36" width="16" height="12"/><rect class="jaune" x="40" y="36" width="16" height="12"/><rect class="oranj" x="62" y="36" width="16" height="12"/><g class="pk9-w1"><circle class="trait" cx="28" cy="70" r="8" fill="none"/><line class="trait" x1="28" y1="63" x2="28" y2="77"/></g><g class="pk9-w2"><circle class="trait" cx="68" cy="70" r="8" fill="none"/><line class="trait" x1="68" y1="63" x2="68" y2="77"/></g><rect class="trait" x="36" y="20" width="24" height="10" fill="#1C2530"/></svg></header><div class="corps-sec"><h3>Le retour du soir</h3><p>Les bus roulent apr&egrave;s la fermeture, mais les fr&eacute;quences baissent&nbsp;: <strong>v&eacute;rifie le dernier d&eacute;part sur 9292</strong> pendant que tu es encore dans le parc, pas sur le quai d&eacute;sert.</p><h3>Plans B</h3><p>Taxi/Uber&nbsp;: ~20-25 min jusqu&rsquo;&agrave; Den Bosch. L&rsquo;arr&ecirc;t voisin <em>&laquo;&nbsp;Horst&nbsp;&raquo;</em> dessert le Efteling Hotel &mdash; ne t&rsquo;y trompe pas &agrave; l&rsquo;aller.</p><div class="merksatz"><p>Aller&nbsp;: 300 ou 301, arr&ecirc;t Efteling. Retour&nbsp;: 9292 avant la nuit. Entre les deux&nbsp;: le royaume des contes.</p></div></div></section><section class="fiche par-pair" id="p10-1" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Taalgids &mdash; la bouche n&eacute;erlandaise</h2><span class="teil">Blad 1 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><p><span class="lettrine ld">H</span>et Nederlands se prononce avec un atout que tu poss&egrave;des d&eacute;j&agrave;&nbsp;: le <strong>G racl&eacute;</strong> &mdash; le <em>ch</em> de Bach appris en Allemagne, mais servi &agrave; CHAQUE g&nbsp;: <em>goed, graag, gezellig</em>.</p><div class="merksatz"><p>Le bouton (&#9664;) fait parler la voix n&eacute;erlandaise de ton appareil. &Eacute;coute, r&eacute;p&egrave;te, tape TOETS JEZELF pour te tester.</p></div><div class="bloc-tablo"><table class="tablo-sprach"><caption>Les cinq sons qui changent tout</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">goed <button class="dire" type="button" data-de="goed" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">RHOUT (g racl&eacute;)</td><td class="fr">bon / bien</td></tr><tr><td class="de" lang="nl">ij &mdash; fijn <button class="dire" type="button" data-de="fijn" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">f&Egrave;ÏN</td><td class="fr">ij = &laquo;&nbsp;&egrave;&iuml;&nbsp;&raquo;</td></tr><tr><td class="de" lang="nl">ui &mdash; huis <button class="dire" type="button" data-de="huis" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">H&OElig;&Uuml;SS</td><td class="fr">ui = son unique &laquo;&nbsp;&oelig;&uuml;&nbsp;&raquo;</td></tr><tr><td class="de" lang="nl">oe &mdash; hoe <button class="dire" type="button" data-de="hoe" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">HOU</td><td class="fr">oe = &laquo;&nbsp;ou&nbsp;&raquo;</td></tr><tr><td class="de" lang="nl">&rsquo;s-Hertogenbosch <button class="dire" type="button" data-de="'s-Hertogenbosch" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">s&egrave;r-TO-rhen-BOSS</td><td class="fr">-sch final = &laquo;&nbsp;s&nbsp;&raquo;</td></tr></table></div></div></section><section class="fiche par-pair" id="p10-2" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Overleven &mdash; survie</h2><span class="teil">Blad 2 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Le n&eacute;cessaire absolu</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">Hallo / Doei! <button class="dire" type="button" data-de="Hallo. Doei!" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">HA-lo / DOU-i</td><td class="fr">bonjour / salut (d&eacute;part)</td></tr><tr><td class="de" lang="nl">Dank je wel <button class="dire" type="button" data-de="Dank je wel" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">dank ye VEL</td><td class="fr">merci (dank u wel = formel)</td></tr><tr><td class="de" lang="nl">Alsjeblieft <button class="dire" type="button" data-de="Alsjeblieft" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">al-sye-BLIFT</td><td class="fr">s&rsquo;il te pla&icirc;t ET &laquo;&nbsp;voici&nbsp;&raquo;</td></tr><tr><td class="de" lang="nl">Sorry / Pardon <button class="dire" type="button" data-de="Sorry / Pardon" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">SO-ri / par-DON</td><td class="fr">pardon</td></tr><tr><td class="de" lang="nl">Ja / Nee <button class="dire" type="button" data-de="Ja. Nee." aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">ya / n&eacute;</td><td class="fr">oui / non</td></tr><tr><td class="de" lang="nl">Spreekt u Engels? <button class="dire" type="button" data-de="Spreekt u Engels?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">spr&eacute;kt u ENG-els</td><td class="fr">parlez-vous anglais&nbsp;?</td></tr><tr><td class="de" lang="nl">Ik spreek geen Nederlands <button class="dire" type="button" data-de="Ik spreek geen Nederlands" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">ik spr&eacute;k rh&eacute;n N&Eacute;-der-lands</td><td class="fr">je ne parle pas n&eacute;erlandais</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div><div class="achtung"><p><strong>Alsjeblieft</strong> sert deux fois&nbsp;: pour demander, ET quand on te tend quelque chose (&laquo;&nbsp;voil&agrave;&nbsp;&raquo;). R&eacute;ponds simplement <em>dank je wel</em>.</p></div></div></section><section class="fiche par-pair" id="p10-3" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Caf&eacute; &amp; resto</h2><span class="teil">Blad 3 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Commander sans trembler</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">Een koffie, graag <button class="dire" type="button" data-de="Een koffie, graag" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&eacute;n KO-fi rhrarh</td><td class="fr">un caf&eacute;, volontiers</td></tr><tr><td class="de" lang="nl">De rekening, alstublieft <button class="dire" type="button" data-de="De rekening, alstublieft" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">de R&Eacute;-ke-ning</td><td class="fr">l&rsquo;addition, svp</td></tr><tr><td class="de" lang="nl">Lekker! <button class="dire" type="button" data-de="Lekker!" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">LE-ker</td><td class="fr">d&eacute;licieux / super</td></tr><tr><td class="de" lang="nl">Proost! <button class="dire" type="button" data-de="Proost!" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">PROST</td><td class="fr">sant&eacute;&nbsp;!</td></tr><tr><td class="de" lang="nl">Bitterballen <button class="dire" type="button" data-de="Bitterballen" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">BI-ter-ba-len</td><td class="fr">boules de rago&ucirc;t (lave int&eacute;rieure)</td></tr><tr><td class="de" lang="nl">Een tosti <button class="dire" type="button" data-de="Een tosti" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&eacute;n TOS-ti</td><td class="fr">croque-monsieur local</td></tr><tr><td class="de" lang="nl">Kraanwater, graag <button class="dire" type="button" data-de="Kraanwater, graag" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">KRAN-va-ter</td><td class="fr">eau du robinet &mdash; mieux accept&eacute;e qu&rsquo;en Allemagne</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div><div class="merksatz"><p><em>Graag</em> (volontiers) adoucit tout&nbsp;: colle-le en fin de commande comme tu collais <em>bitte</em>.</p></div></div></section><section class="fiche par-pair" id="p10-4" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Winkel &mdash; en magasin</h2><span class="teil">Blad 4 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>La caisse et ses rituels</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">Pinnen, ja graag <button class="dire" type="button" data-de="Pinnen, ja graag" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">PI-nen ya rhrarh</td><td class="fr">par carte, oui volontiers</td></tr><tr><td class="de" lang="nl">Heeft u een bonuskaart? <button class="dire" type="button" data-de="Heeft u een bonuskaart?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">h&eacute;ft u &eacute;n B&Ocirc;-nus-kart</td><td class="fr">avez-vous la carte Bonus&nbsp;? (caisse AH)</td></tr><tr><td class="de" lang="nl">Een tasje erbij? <button class="dire" type="button" data-de="Een tasje erbij?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&eacute;n TA-sye er-B&Egrave;Ï</td><td class="fr">un sac avec&nbsp;? (payant)</td></tr><tr><td class="de" lang="nl">Statiegeld <button class="dire" type="button" data-de="Statiegeld" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">STA-tsi-rhelt</td><td class="fr">consigne (canettes, bouteilles)</td></tr><tr><td class="de" lang="nl">Korting <button class="dire" type="button" data-de="Korting" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">KOR-ting</td><td class="fr">rabais</td></tr><tr><td class="de" lang="nl">Open / Gesloten <button class="dire" type="button" data-de="Open / Gesloten" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">O-pen / rhe-SLO-ten</td><td class="fr">ouvert / ferm&eacute;</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div><div class="achtung"><p>On te demandera <em>&laquo;&nbsp;bonnetje erbij?&nbsp;&raquo;</em> &mdash; le re&ccedil;u avec&nbsp;? <em>Nee, hoeft niet</em> (non, pas besoin) est la r&eacute;ponse locale.</p></div></div></section><section class="fiche par-pair" id="p10-5" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>OV &mdash; transports</h2><span class="teil">Blad 5 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Gares, quais, bips</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">Inchecken / Uitchecken <button class="dire" type="button" data-de="Inchecken / Uitchecken" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">IN-tch&egrave;-ken / &OElig;ÜT-tch&egrave;-ken</td><td class="fr">biper &agrave; l&rsquo;entr&eacute;e / &agrave; la sortie</td></tr><tr><td class="de" lang="nl">Spoor 3 <button class="dire" type="button" data-de="Spoor drie" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">spor DRI</td><td class="fr">voie 3</td></tr><tr><td class="de" lang="nl">Vertraging <button class="dire" type="button" data-de="Vertraging" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">ver-TRA-rhing</td><td class="fr">retard</td></tr><tr><td class="de" lang="nl">Enkele reis / Retour <button class="dire" type="button" data-de="Enkele reis / Retour" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">EN-ke-le r&egrave;ïs</td><td class="fr">aller simple / aller-retour</td></tr><tr><td class="de" lang="nl">Waar is het station? <button class="dire" type="button" data-de="Waar is het station?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">var is het sta-TSION</td><td class="fr">o&ugrave; est la gare&nbsp;?</td></tr><tr><td class="de" lang="nl">De bushalte <button class="dire" type="button" data-de="De bushalte" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">de BUS-hal-te</td><td class="fr">l&rsquo;arr&ecirc;t de bus</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div><div class="merksatz"><p>Le quai s&rsquo;appelle <em>spoor</em> (la voie) &mdash; les panneaux comptent les voies, pas les quais.</p></div></div></section><section class="fiche par-pair" id="p10-6" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Pretpark &mdash; au parc</h2><span class="teil">Blad 6 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Le lexique du royaume des files</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">De achtbaan <button class="dire" type="button" data-de="De achtbaan" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">de ARHT-ban</td><td class="fr">les montagnes russes (litt. &laquo;&nbsp;piste en 8&nbsp;&raquo;)</td></tr><tr><td class="de" lang="nl">De wachtrij <button class="dire" type="button" data-de="De wachtrij" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">de VARHT-r&egrave;ï</td><td class="fr">la file d&rsquo;attente</td></tr><tr><td class="de" lang="nl">De wachttijd <button class="dire" type="button" data-de="De wachttijd" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">de VARHT-t&egrave;ït</td><td class="fr">le temps d&rsquo;attente</td></tr><tr><td class="de" lang="nl">Ingang / Uitgang <button class="dire" type="button" data-de="Ingang / Uitgang" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">IN-rhang / &OElig;ÜT-rhang</td><td class="fr">entr&eacute;e / sortie</td></tr><tr><td class="de" lang="nl">Hoe lang is het wachten? <button class="dire" type="button" data-de="Hoe lang is het wachten?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">hou lang is het VARH-ten</td><td class="fr">c&rsquo;est long, l&rsquo;attente&nbsp;?</td></tr><tr><td class="de" lang="nl">Wat een mooie attractie! <button class="dire" type="button" data-de="Wat een mooie attractie!" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">vat &eacute;n MO-ye a-trak-SI</td><td class="fr">quelle belle attraction&nbsp;!</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div><div class="merksatz"><p><em>Achtbaan</em> &mdash; &laquo;&nbsp;piste en huit&nbsp;&raquo; &mdash; est peut-&ecirc;tre le plus beau mot du voyage. &Agrave; d&eacute;gainer &agrave; Kaatsheuvel.</p></div></div></section><section class="fiche par-pair" id="p10-7" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Getallen &mdash; chiffres &amp; pi&egrave;ges</h2><span class="teil">Blad 7 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Compter comme un marchand de fromage</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">1&ndash;5 : een, twee, drie, vier, vijf <button class="dire" type="button" data-de="een, twee, drie, vier, vijf" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&eacute;n, tv&eacute;, dri, vir, v&egrave;ïf</td><td class="fr">&mdash;</td></tr><tr><td class="de" lang="nl">6&ndash;10 : zes, zeven, acht, negen, tien <button class="dire" type="button" data-de="zes, zeven, acht, negen, tien" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">z&egrave;s, Z&Eacute;-ven, arht, N&Eacute;-rhen, tin</td><td class="fr">&mdash;</td></tr><tr><td class="de" lang="nl">21 = eenentwintig <button class="dire" type="button" data-de="21 = eenentwintig" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&Eacute;N-en-TVIN-terh</td><td class="fr">un-et-vingt &mdash; invers&eacute;, comme en allemand</td></tr><tr><td class="de" lang="nl">Half tien = 9h30 <button class="dire" type="button" data-de="Half tien = 9h30" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">half TIN</td><td class="fr">la demie AVANT dix &mdash; le pi&egrave;ge continue&nbsp;!</td></tr><tr><td class="de" lang="nl">Kwart over negen <button class="dire" type="button" data-de="Kwart over negen" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">kvart O-ver N&Eacute;-rhen</td><td class="fr">9h15 (quart apr&egrave;s neuf)</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div><div class="achtung"><p>Ton <em>halb zehn</em> allemand te sauve&nbsp;: <strong>half tien = 9h30</strong>, jamais 10h30. Deux pays, un m&ecirc;me pi&egrave;ge, z&eacute;ro excuse d&eacute;sormais.</p></div></div></section><section class="fiche par-pair" id="p10-8" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Valse vrienden DE&harr;NL</h2><span class="teil">Blad 8 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><p>Tu jongles maintenant avec deux langues cousines &mdash; voici o&ugrave; elles se trahissent&nbsp;:</p><div class="bloc-tablo"><table class="tablo-sprach"><caption>Les faux amis de la fronti&egrave;re</caption><tr><th>NL</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de" lang="nl">zee / meer <button class="dire" type="button" data-de="zee, meer" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">z&eacute; / m&eacute;r</td><td class="fr"><strong>INVERS&Eacute;S&nbsp;!</strong> NL&nbsp;: zee=mer, meer=lac (DE&nbsp;: See=lac, Meer=mer)</td></tr><tr><td class="de" lang="nl">bellen <button class="dire" type="button" data-de="bellen" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">BE-len</td><td class="fr">NL&nbsp;: t&eacute;l&eacute;phoner &mdash; DE&nbsp;: aboyer</td></tr><tr><td class="de" lang="nl">winkel <button class="dire" type="button" data-de="winkel" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">VIN-kel</td><td class="fr">NL&nbsp;: magasin &mdash; DE&nbsp;: angle, coin</td></tr><tr><td class="de" lang="nl">te huur <button class="dire" type="button" data-de="te huur" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">te H&Uuml;R</td><td class="fr">NL&nbsp;: &agrave; louer (panneau partout) &mdash; rien de scandaleux</td></tr><tr><td class="de" lang="nl">slim <button class="dire" type="button" data-de="slim" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">slim</td><td class="fr">NL&nbsp;: intelligent &mdash; DE schlimm&nbsp;: grave</td></tr><tr><td class="de" lang="nl">eng <button class="dire" type="button" data-de="eng" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;ng</td><td class="fr">NL&nbsp;: effrayant &mdash; DE&nbsp;: &eacute;troit</td></tr><tr><td class="de" lang="nl">durven <button class="dire" type="button" data-de="durven" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">D&Uuml;R-ven</td><td class="fr">NL&nbsp;: oser &mdash; DE d&uuml;rfen&nbsp;: avoir le droit</td></tr></table><button class="pruefen-toggle" type="button">TOETS JEZELF &mdash; cache les sens</button></div></div></section><section class="fiche par-pair" id="p10-9" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Zinnenbouwdoos &mdash; fabrique &agrave; phrases</h2><span class="teil">Blad 9 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole au G raclé"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="47" text-anchor="middle" font-family="Grenze Gotisch,serif" font-size="26" fill="#F2EFE4">G</text><g class="pk10-golf"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><p>Assemble&nbsp;: une amorce, une brique. La machine &eacute;crit, puis parle.</p><div id="baukasten"><div class="bk-rang"><button type="button" class="bk-a" data-g="waar" data-de="Waar is" data-fr="O&ugrave; est">Waar is&hellip;</button><button type="button" class="bk-a" data-g="wil" data-de="Ik wil graag" data-fr="Je voudrais">Ik wil graag&hellip;</button><button type="button" class="bk-a" data-g="heeft" data-de="Heeft u" data-fr="Avez-vous">Heeft u&hellip;</button><button type="button" class="bk-a" data-g="mag" data-de="Mag ik" data-fr="Puis-je">Mag ik&hellip;</button></div><div class="bk-rang"><button type="button" class="bk-f" data-g="waar" data-de="het station?" data-fr="la gare&nbsp;?">het station?</button><button type="button" class="bk-f" data-g="waar" data-de="de wc?" data-fr="les toilettes&nbsp;?">de wc?</button><button type="button" class="bk-f" data-g="waar" data-de="de bushalte?" data-fr="l&rsquo;arr&ecirc;t de bus&nbsp;?">de bushalte?</button><button type="button" class="bk-f" data-g="waar" data-de="de Efteling?" data-fr="l&rsquo;Efteling&nbsp;?">de Efteling?</button><button type="button" class="bk-f" data-g="wil" data-de="een koffie." data-fr="un caf&eacute;.">een koffie.</button><button type="button" class="bk-f" data-g="wil" data-de="pinnen." data-fr="payer par carte.">pinnen.</button><button type="button" class="bk-f" data-g="wil" data-de="een Bossche Bol." data-fr="un Bossche Bol.">een Bossche Bol.</button><button type="button" class="bk-f" data-g="wil" data-de="twee kaartjes." data-fr="deux billets.">twee kaartjes.</button><button type="button" class="bk-f" data-g="heeft" data-de="een tasje?" data-fr="un sac&nbsp;?">een tasje?</button><button type="button" class="bk-f" data-g="heeft" data-de="de rekening?" data-fr="l&rsquo;addition&nbsp;?">de rekening?</button><button type="button" class="bk-f" data-g="heeft" data-de="wifi?" data-fr="le wifi&nbsp;?">wifi?</button><button type="button" class="bk-f" data-g="heeft" data-de="een plattegrond?" data-fr="un plan&nbsp;?">een plattegrond?</button><button type="button" class="bk-f" data-g="mag" data-de="hier zitten?" data-fr="m&rsquo;asseoir ici&nbsp;?">hier zitten?</button><button type="button" class="bk-f" data-g="mag" data-de="een foto maken?" data-fr="prendre une photo&nbsp;?">een foto maken?</button><button type="button" class="bk-f" data-g="mag" data-de="bestellen?" data-fr="commander&nbsp;?">bestellen?</button><button type="button" class="bk-f" data-g="mag" data-de="betalen?" data-fr="payer&nbsp;?">betalen?</button></div><div class="bk-sortie"><p id="bk-de" lang="nl">&nbsp;</p><p id="bk-fr">&nbsp;</p></div><button type="button" class="bk-sprechen">SPREKEN &mdash; faire parler</button></div></div></section><section class="fiche par-impair" id="p11-1" data-par="11"><header class="fiche-tete"><div><span class="parno">&sect; 11</span><h2>Slotwoord &mdash; le d&eacute;barquement</h2><span class="teil">Blad 1 &middot; 1</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tulipe qui éclot"><line class="trait" x1="48" y1="82" x2="48" y2="48"/><path class="plein" d="M40 74 q-14 -2 -16 -16 q14 2 16 16z"/><g class="pk11-bloem"><path class="oranj" d="M34 48 q0 -22 14 -26 q14 4 14 26 q-7 8 -14 8 q-7 0 -14 -8z"/><path class="trait" d="M41 44 v-14 M55 44 v-14" fill="none"/></g><g class="pk11-zon"><circle class="jaune" cx="76" cy="22" r="8"/></g></svg></header><div class="corps-sec"><p><span class="lettrine ld">L</span>e capitaine consigne au registre&nbsp;: tu sais d&eacute;sormais c&eacute;der le fietspad, pinner sans trembler, attendre que la bitterbal refroidisse et biper ta sortie de gare.</p><p>Il ne reste qu&rsquo;une formalit&eacute;&nbsp;: <strong>de Toets</strong>. Douze questions, pes&eacute;es par le moulin du waterschap. Chaque bonne r&eacute;ponse remplit un sac de grain&nbsp;; chaque erreur fait grincer le frein.</p><div class="merksatz"><p>&laquo;&nbsp;Doe normaal&nbsp;&raquo;, disent-ils. Mais r&eacute;ussir douze sur douze, ce serait quand m&ecirc;me un peu <em>gek</em> &mdash; et parfaitement lekker.</p></div><p class="vers-toets"><a class="btn-toets" href="#toets">OUVRIR DE TOETS &rarr;</a></p></div></section><section class="fiche" id="toets" data-par="11"><div class="corps-sec toets-corps"><div class="toets-tete"><span class="parno">DE TOETS</span><span id="quiz-prog" class="quiz-prog">VRAAG 1/12</span><button type="button" class="mute">SFX : AN</button></div><div class="molen-cadre"><svg class="molen" viewBox="0 0 300 340" role="img" aria-label="Moulin correcteur du waterschap"><line x1="10" y1="318" x2="290" y2="318" stroke="#1C2530" stroke-width="4"/><path d="M112 318 L128 128 L172 128 L188 318 Z" fill="#22578F" stroke="#1C2530" stroke-width="4"/><path d="M118 318 L131 150 h10 L128 318 Z" fill="#1A3F6B"/><rect x="104" y="196" width="92" height="10" fill="#8A5A2B" stroke="#1C2530" stroke-width="3"/><path d="M124 128 L150 96 L176 128 Z" fill="#B0501A" stroke="#1C2530" stroke-width="4"/><g id="lantaarn"><rect x="143" y="104" width="14" height="14" fill="#E8A020" stroke="#1C2530" stroke-width="3"/></g><rect x="138" y="258" width="24" height="60" fill="#1A3F6B" stroke="#1C2530" stroke-width="3"/><path d="M138 258 a12 12 0 0 1 24 0" fill="#E8A020" stroke="#1C2530" stroke-width="3"/><rect x="120" y="216" width="16" height="12" fill="#F2EFE4" stroke="#1C2530" stroke-width="2.5"/><rect x="164" y="216" width="16" height="12" fill="#F2EFE4" stroke="#1C2530" stroke-width="2.5"/><g id="vang"><path d="M116 118 A48 48 0 0 1 184 118" fill="none" stroke="#B02418" stroke-width="7" stroke-linecap="round" opacity="0"/></g><g id="molen-wieken" style="transform-origin:150px 118px"><g id="wiek-1" class="wiek"><rect x="144" y="18" width="12" height="94" fill="#8A5A2B" stroke="#1C2530" stroke-width="3"/><rect x="156" y="24" width="20" height="80" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><path d="M156 34 h20 M156 48 h20 M156 62 h20 M156 76 h20 M156 90 h20" stroke="#1C2530" stroke-width="2"/></g><g id="wiek-2" class="wiek"><rect x="156" y="112" width="94" height="12" fill="#8A5A2B" stroke="#1C2530" stroke-width="3"/><rect x="162" y="124" width="80" height="20" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><path d="M172 124 v20 M186 124 v20 M200 124 v20 M214 124 v20 M228 124 v20" stroke="#1C2530" stroke-width="2"/></g><g id="wiek-3" class="wiek"><rect x="144" y="124" width="12" height="94" fill="#8A5A2B" stroke="#1C2530" stroke-width="3"/><rect x="124" y="132" width="20" height="80" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><path d="M124 142 h20 M124 156 h20 M124 170 h20 M124 184 h20 M124 198 h20" stroke="#1C2530" stroke-width="2"/></g><g id="wiek-4" class="wiek"><rect x="50" y="112" width="94" height="12" fill="#8A5A2B" stroke="#1C2530" stroke-width="3"/><rect x="58" y="92" width="80" height="20" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><path d="M68 92 v20 M82 92 v20 M96 92 v20 M110 92 v20 M124 92 v20" stroke="#1C2530" stroke-width="2"/></g><circle cx="150" cy="118" r="9" fill="#E8590C" stroke="#1C2530" stroke-width="3"/></g><g class="zak" id="zak-1"><path d="M216 318 v-30 q0 -8 12 -8 q12 0 12 8 v30 Z" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><clipPath id="zc1"><path d="M218 316 v-28 q0 -6 10 -6 q10 0 10 6 v28 Z"/></clipPath><rect id="zak-1-vul" x="218" y="282" width="20" height="34" fill="#E8A020" clip-path="url(#zc1)" style="transform-origin:228px 316px;transform:scaleY(0)"/><path d="M222 284 h12" stroke="#1C2530" stroke-width="2.5"/></g><g class="zak" id="zak-2"><path d="M248 318 v-30 q0 -8 12 -8 q12 0 12 8 v30 Z" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><clipPath id="zc2"><path d="M250 316 v-28 q0 -6 10 -6 q10 0 10 6 v28 Z"/></clipPath><rect id="zak-2-vul" x="250" y="282" width="20" height="34" fill="#E8A020" clip-path="url(#zc2)" style="transform-origin:260px 316px;transform:scaleY(0)"/><path d="M254 284 h12" stroke="#1C2530" stroke-width="2.5"/></g><g class="zak" id="zak-3"><path d="M280 318 v-30 q0 -8 12 -8 q12 0 12 8 v30 Z" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><clipPath id="zc3"><path d="M282 316 v-28 q0 -6 10 -6 q10 0 10 6 v28 Z"/></clipPath><rect id="zak-3-vul" x="282" y="282" width="20" height="34" fill="#E8A020" clip-path="url(#zc3)" style="transform-origin:292px 316px;transform:scaleY(0)"/><path d="M286 284 h12" stroke="#1C2530" stroke-width="2.5"/></g><g id="toets-rotors" font-family="IBM Plex Mono,monospace" font-size="15" font-weight="700"><rect x="18" y="140" width="42" height="26" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><text id="rota-t" x="39" y="159" text-anchor="middle" fill="#1C2530">01</text><rect x="18" y="176" width="42" height="26" fill="#F2EFE4" stroke="#1C2530" stroke-width="3"/><text id="rotb-t" x="39" y="195" text-anchor="middle" fill="#22578F">00</text><text x="39" y="132" text-anchor="middle" font-size="9" fill="#F2EFE4">VRAAG</text><text x="39" y="216" text-anchor="middle" font-size="9" fill="#F2EFE4">ZAKKEN</text></g></svg></div><div id="quiz-zone" class="quiz-zone"></div></div></section><section class="fiche" id="colofon"><div class="corps-sec colofon-corps"><h2>Colofon</h2><p>Het Logboek &mdash; guide de terrain n&eacute;erlandais. Vibe&nbsp;: <em>faïence de Delft &amp; journal de bord du Hollandais Volant</em>. Fiches pes&eacute;es &agrave; la Waag, s&eacute;ch&eacute;es au vent du moulin.</p><p>Forg&eacute; &agrave; quatre mains par Etienne &amp; Claudi-brimbor, juillet 2026, quelque part entre Br&uuml;hl et &rsquo;s-Hertogenbosch.</p><p class="colofon-tech">Delft &middot; Oranje &middot; Gouda &mdash; SpeechSynthesis nl-NL &mdash; moulin correcteur &agrave; trois sacs &mdash; z&eacute;ro d&eacute;pendance.</p><p><a href="/">&larr; Retour au Classeur</a></p></div></section><section class="fiche fiche-spook" id="spook"><div class="corps-sec spook-corps"><span class="spook-stempel">BUITEN REGISTER &mdash; hors registre</span><h2>De Vliegende Hollander</h2><p>On raconte qu&rsquo;au XVII<sup>e</sup> si&egrave;cle, le capitaine <strong>Van der Decken</strong>, pris dans la temp&ecirc;te au cap de Bonne-Esp&eacute;rance, jura de passer &mdash; &laquo;&nbsp;m&ecirc;me si je dois naviguer jusqu&rsquo;au Jugement dernier&nbsp;&raquo;.</p><p>Le ciel l&rsquo;a pris au mot. Depuis, son vaisseau fant&ocirc;me remonte les mers, voiles rouge-sang, coque luisante d&rsquo;une lueur qui n&rsquo;est pas de ce monde. Croiser sa route porte malheur&nbsp;&mdash; lui &eacute;crire, para&icirc;t-il, aussi.</p><p class="spook-signalement"><strong>Signalement r&eacute;cent&nbsp;:</strong> des veilleurs jurent que le Hollandais accoste d&eacute;sormais &agrave; <em>Kaatsheuvel</em>, les soirs de brume. Ouvre l&rsquo;&oelig;il pr&egrave;s de l&rsquo;eau.</p><button type="button" id="spook-retour" class="spook-retour">&larr; regagner le bord</button></div></section>
+</main>
+<nav class="navbar cache" id="navbar" aria-label="Navigation du logboek"><button class="fleche" id="nav-prev" type="button" aria-label="Fiche pr&eacute;c&eacute;dente">&lsaquo;</button><button class="centre" id="nav-hub" type="button" aria-label="Accueil"><svg class="molen-nav" viewBox="0 0 48 48" aria-hidden="true"><path d="M19 26 L29 26 L27 44 L21 44 Z" fill="#22578F"/><rect x="21.5" y="30" width="5" height="7" fill="#E8A020"/><g id="wieken-nav" style="transform-origin:24px 22px"><g stroke="#1C2530" stroke-width="2" fill="#F2EFE4"><path d="M24 22 L24 4 L29 6 L29 20 Z"/><path d="M24 22 L42 22 L40 27 L26 27 Z"/><path d="M24 22 L24 40 L19 38 L19 24 Z"/><path d="M24 22 L6 22 L8 17 L22 17 Z"/></g><circle cx="24" cy="22" r="2.6" fill="#E8590C"/></g></svg><span>ONTHAAL</span><span class="rotors" aria-hidden="true"><span class="rotor"><span class="colonne" id="col-d"></span></span><span class="rotor"><span class="colonne" id="col-u"></span></span><span class="rtotal" id="rtotal"></span></span></button><button class="fleche" id="nav-next" type="button" aria-label="Fiche suivante">&rsaquo;</button></nav>
+</div>
+<script>
+/* ============ Moteur sonore ENIGMA — synthèse pure ============ */
+const Molen=(function(){
+  let ctx=null,muted=false;
+  function ensure(){
+    if(!ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;ctx=new AC();}
+    if(ctx.state==='suspended')ctx.resume();
+    return ctx;
+  }
+  function bruit(c,dur){
+    const buf=c.createBuffer(1,Math.max(1,c.sampleRate*dur),c.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++){d[i]=(Math.random()*2-1)*(1-i/d.length);}
+    const s=c.createBufferSource();s.buffer=buf;return s;
+  }
+  /* frappe de plume/touche : tap mat sur bois */
+  function frappe(temps,force){
+    const c=ensure();if(!c||muted)return;const t=temps||c.currentTime;const f=force||1;
+    const src=bruit(c,0.012);
+    const bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1500;bp.Q.value=5;
+    const g=c.createGain();g.gain.setValueAtTime(0.10*f,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.012);
+    src.connect(bp).connect(g).connect(c.destination);src.start(t);
+    const o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(118,t);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.09*f,t);g2.gain.exponentialRampToValueAtTime(0.001,t+0.04);
+    o.connect(g2).connect(c.destination);o.start(t);o.stop(t+0.05);
+  }
+  function tape(){if(Math.random()<0.85)frappe(0,0.55+Math.random()*0.4);}
+  /* klik d'engrenage de bois : deux dents qui passent */
+  function rotor(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    [0,0.07].forEach((dt,k)=>{
+      const o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(92-8*k,t+dt);
+      const g=c.createGain();g.gain.setValueAtTime(0.14,t+dt);g.gain.exponentialRampToValueAtTime(0.001,t+dt+0.055);
+      o.connect(g).connect(c.destination);o.start(t+dt);o.stop(t+dt+0.06);
+      const s=bruit(c,0.02);
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=750;
+      const gb=c.createGain();gb.gain.setValueAtTime(0.06,t+dt);gb.gain.exponentialRampToValueAtTime(0.001,t+dt+0.02);
+      s.connect(lp).connect(gb).connect(c.destination);s.start(t+dt);
+    });
+  }
+  function tick(){rotor();}
+  /* le grain coule dans le sac : chuintement descendant + thump */
+  function lampe(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    const s=bruit(c,0.34);
+    const bp=c.createBiquadFilter();bp.type='bandpass';bp.Q.value=1.4;
+    bp.frequency.setValueAtTime(950,t);bp.frequency.exponentialRampToValueAtTime(300,t+0.32);
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.16,t+0.05);g.gain.exponentialRampToValueAtTime(0.001,t+0.34);
+    s.connect(bp).connect(g).connect(c.destination);s.start(t);
+    const o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(70,t+0.3);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.0001,t+0.3);
+    g2.gain.exponentialRampToValueAtTime(0.18,t+0.33);g2.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+    o.connect(g2).connect(c.destination);o.start(t+0.3);o.stop(t+0.52);
+  }
+  /* le vang grince : frein de bois sur la meule */
+  function kurzschluss(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    const o=c.createOscillator();o.type='sawtooth';
+    o.frequency.setValueAtTime(64,t);o.frequency.exponentialRampToValueAtTime(37,t+0.5);
+    const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=420;lp.Q.value=6;
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.15,t+0.04);
+    const trem=c.createOscillator();trem.type='square';trem.frequency.value=13;
+    const tg=c.createGain();tg.gain.value=0.07;
+    trem.connect(tg).connect(g.gain);
+    g.gain.setTargetAtTime(0.001,t+0.42,0.05);
+    o.connect(lp).connect(g).connect(c.destination);
+    o.start(t);o.stop(t+0.58);trem.start(t);trem.stop(t+0.58);
+  }
+  /* cloche de port, fin de fiche */
+  function ding(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    const o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(659.25,t);
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.12,t+0.012);g.gain.exponentialRampToValueAtTime(0.001,t+1.05);
+    o.connect(g).connect(c.destination);o.start(t);o.stop(t+1.1);
+    const o2=c.createOscillator();o2.type='sine';o2.frequency.setValueAtTime(1318.5,t);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.0001,t);
+    g2.gain.exponentialRampToValueAtTime(0.05,t+0.01);g2.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+    o2.connect(g2).connect(c.destination);o2.start(t);o2.stop(t+0.55);
+  }
+  function toggle(){muted=!muted;return muted;}
+  return {frappe,tape,rotor,tick,lampe,kurzschluss,ding,toggle};
+})();
+const Enigma=Molen;
+const Stimme=(function(){
+  let voix=null;
+  function charger(){
+    try{
+      const vs=speechSynthesis.getVoices();
+      voix=vs.find(v=>v.lang==='nl-NL')||vs.find(v=>v.lang&&v.lang.indexOf('de')===0)||null;
+    }catch(e){voix=null;}
+    document.documentElement.classList.toggle('sans-voix',!voix);
+  }
+  if('speechSynthesis' in window){
+    charger();
+    if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=charger;
+  }else{document.documentElement.classList.add('sans-voix');}
+  function dire(txt,btn){
+    if(!voix||!txt)return;
+    try{
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(txt);
+      u.voice=voix;u.lang=voix.lang;u.rate=0.86;
+      if(btn){btn.classList.add('parle');u.onend=u.onerror=()=>btn.classList.remove('parle');}
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  return{dire};
+})();
+
+/* ============ SPRACHFÜHRER — délégations : écoute, PRÜFEN, Baukasten ============ */
+(function(){try{
+  document.addEventListener('click',e=>{
+    const dire=e.target.closest('button.dire');
+    if(dire){Stimme.dire(dire.dataset.de,dire);return;}
+    const pt=e.target.closest('button.pruefen-toggle');
+    if(pt){
+      const table=pt.parentElement.querySelector('table');
+      if(table){
+        const on=table.classList.toggle('cache-sens');
+        table.querySelectorAll('tr.revele').forEach(r=>r.classList.remove('revele'));
+        pt.textContent=on?'TOON ALLES \u2014 montre tout':'TOETS JEZELF \u2014 cache les sens';
+        Enigma.tick();
+      }return;
+    }
+    const tr=e.target.closest('table.cache-sens tr');
+    if(tr&&!tr.querySelector('th')){tr.classList.add('revele');Enigma.tape();return;}
+  });
+  /* Satzbaukasten */
+  const bk=document.getElementById('baukasten');
+  if(bk){
+    const de=document.getElementById('bk-de'),fr=document.getElementById('bk-fr');
+    let amorce=null,fin=null,timer=0;
+    function ecrire(txt){
+      clearInterval(timer);let i=0;de.textContent='';
+      timer=setInterval(()=>{
+        i+=2;de.textContent=txt.slice(0,i);Enigma.tape();
+        if(i>=txt.length){clearInterval(timer);de.textContent=txt;Enigma.ding();}
+      },34);
+    }
+    function maj(){
+      if(amorce&&fin){
+        const phrase=amorce.dataset.de+' '+fin.dataset.de;
+        ecrire(phrase);fr.textContent=amorce.dataset.fr+' '+fin.dataset.fr;
+      }else if(amorce){de.textContent=amorce.dataset.de+' \u2026';fr.textContent='';}
+    }
+    bk.addEventListener('click',e=>{
+      const a=e.target.closest('.bk-a');
+      if(a){
+        amorce=a;fin=null;
+        bk.querySelectorAll('.bk-a').forEach(b=>b.classList.toggle('choisi',b===a));
+        bk.querySelectorAll('.bk-f').forEach(b=>{
+          b.classList.toggle('dispo',b.dataset.g===a.dataset.g);
+          b.classList.remove('choisi');
+        });
+        maj();return;
+      }
+      const f=e.target.closest('.bk-f.dispo');
+      if(f){
+        fin=f;
+        bk.querySelectorAll('.bk-f').forEach(b=>b.classList.toggle('choisi',b===f));
+        maj();return;
+      }
+      if(e.target.closest('#bk-sprechen')&&amorce&&fin){
+        Stimme.dire(amorce.dataset.de+' '+fin.dataset.de);
+      }
+    });
+  }
+}catch(e){console.error('[sprach]',e);}})();
+
+(function(){try{
+  const st=document.querySelector('.stempel-header');
+  let taps=[];
+  if(st)st.addEventListener('click',()=>{
+    const t=Date.now();
+    taps=taps.filter(x=>t-x<1600);taps.push(t);
+    Molen.frappe();
+    if(taps.length>=3){taps=[];Molen.ding();location.hash='#spook';}
+  });
+  /* tempête : les quatre ailes tapées dans l'ordre */
+  let suite=[],st2=0;
+  document.addEventListener('click',e=>{
+    const w=e.target.closest('.wiek');if(!w)return;
+    const n=parseInt((w.id||'').replace('wiek-',''),10);
+    const t=Date.now();
+    if(t-st2>4000)suite=[];
+    st2=t;suite.push(n);
+    Molen.tick();
+    const attendu=[1,2,3,4].slice(0,suite.length);
+    if(suite.join()!==attendu.join()){suite=(n===1)?[1]:[];return;}
+    if(suite.length===4){
+      suite=[];
+      const mol=w.closest('.molen');if(!mol)return;
+      mol.classList.add('storm');
+      Molen.ding();
+      [0,180,360,540,720].forEach(dt=>setTimeout(()=>Molen.rotor(),dt));
+      const cadre=mol.closest('.molen-cadre');
+      if(cadre&&!cadre.querySelector('.stempel-storm')){
+        const s=document.createElement('span');
+        s.className='grand-stempel ok anime stempel-storm';
+        s.style.cssText='position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-6deg);z-index:5;background:rgba(242,239,228,.92)';
+        s.textContent='OP HOL GESLAGEN!';
+        cadre.style.position='relative';cadre.appendChild(s);
+        setTimeout(()=>s.remove(),2400);
+      }
+      setTimeout(()=>mol.classList.remove('storm'),2500);
+    }
+  });
+}catch(e){console.error('[spoken]',e);}})();
+
+/* ============ FRAPPE — la machine dactylographie chaque fiche ============ */
+const Frappe=(function(){
+  const REDUIT=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PROFILS=[
+    {cps:330,virgule:60,point:120},
+    {cps:420,virgule:90,point:180},
+    {cps:500,virgule:40,point:90}
+  ];
+  let enCours=null; /* {actes,raf,curseur,fiche} */
+
+  function collecter(el,actes){
+    for(const n of Array.from(el.childNodes)){
+      if(n.nodeType===3){
+        if(n.textContent.trim())actes.push({t:'txt',n,full:n.textContent});
+      }else if(n.nodeType===1){
+        if(n.matches('svg'))continue;
+        if(n.matches('.achtung,.merksatz,.quiz-cadre,.stempel-inline')){
+          actes.push({t:'bloc',n,clac:n.matches('.achtung,.quiz-cadre')});
+        }else if(n.matches('table')){
+          const cap=n.querySelector('caption');
+          if(cap)collecter(cap,actes);
+          n.querySelectorAll('tr').forEach(tr=>actes.push({t:'bloc',n:tr}));
+        }else collecter(n,actes);
+      }
+    }
+  }
+  function toutReveler(e){
+    if(!e)return;
+    e.actes.forEach(a=>{
+      if(a.t==='txt')a.n.textContent=a.full;
+      else a.n.classList.remove('cache-frappe');
+    });
+    if(e.curseur)e.curseur.remove();
+    if(e.raf)cancelAnimationFrame(e.raf);
+    e.fiche.removeEventListener('pointerdown',e.skip);
+  }
+  function stop(){toutReveler(enCours);enCours=null;}
+
+  function demarrer(fiche,seed){
+    stop();
+    const corps=fiche.querySelector('.corps-sec');
+    if(!corps)return;
+    const actes=[];collecter(corps,actes);
+    if(!actes.length)return;
+    if(REDUIT)return; /* tout reste visible */
+    /* préparer : vider les textes, cacher les blocs */
+    actes.forEach(a=>{
+      if(a.t==='txt')a.n.textContent='';
+      else a.n.classList.add('cache-frappe');
+    });
+    const curseur=document.createElement('span');curseur.className='curseur';
+    const p=PROFILS[Math.abs(seed)%PROFILS.length];
+    const e={actes,curseur,fiche,raf:0,skip:null};
+    let i=0,pos=0,last=0,lastSon=0,budget=0;
+    function pas(now){
+      if(!last)last=now;
+      budget+=Math.min(60,now-last)/1000*p.cps;last=now;
+      while(budget>=1&&i<actes.length){
+        const a=actes[i];
+        if(a.t==='txt'){
+          const take=Math.min(a.full.length-pos,Math.floor(budget));
+          if(take>0){
+            pos+=take;budget-=take;
+            const ch=a.full[pos-1];
+            if(ch==='.'||ch==='!'||ch==='?')budget-=p.point/1000*p.cps;
+            else if(ch===','||ch===';'||ch===':')budget-=p.virgule/1000*p.cps;
+            a.n.textContent=a.full.slice(0,pos);
+            if(a.n.parentNode)a.n.parentNode.insertBefore(curseur,a.n.nextSibling);
+          }
+          if(pos>=a.full.length){i++;pos=0;}
+        }else{
+          a.n.classList.remove('cache-frappe');
+          if(a.clac)Enigma.tick();
+          budget-=10;i++;
+        }
+      }
+      if(now-lastSon>85&&i<actes.length){Enigma.tape();lastSon=now;}
+      if(i<actes.length){e.raf=requestAnimationFrame(pas);}
+      else{curseur.remove();fiche.removeEventListener('pointerdown',e.skip);enCours=null;Enigma.ding();}
+    }
+    e.skip=function(){toutReveler(e);enCours=null;};
+    fiche.addEventListener('pointerdown',e.skip,{once:true});
+    enCours=e;
+    e.raf=requestAnimationFrame(pas);
+  }
+  return{demarrer,stop};
+})();
+
+/* ============ ROUTEUR v3 — le deck de Karteikarten ============ */
+(function(){try{
+  const scene=document.getElementById('scene');
+  const FICHES=Array.from(document.querySelectorAll('.fiche'));
+  const IDS=FICHES.map(f=>f.id);
+  const CONTENU=FICHES.filter(f=>f.dataset.par);
+  const navbar=document.getElementById('navbar');
+  const bPrev=navbar.querySelector('#nav-prev');
+  const bHub=navbar.querySelector('#nav-hub');
+  const bNext=navbar.querySelector('#nav-next');
+  const colD=navbar.querySelector('#col-d');
+  const colU=navbar.querySelector('#col-u');
+  navbar.querySelector('#rtotal').textContent='\u2044'+CONTENU.length;
+
+  /* colonnes des rotors : 0-9 + cran neutre */
+  [colD,colU].forEach(col=>{
+    col.innerHTML='';
+    '0123456789\u00B7'.split('').forEach(ch=>{
+      const s=document.createElement('span');
+      s.textContent=ch;s.style.cssText='display:block;height:1.5em;line-height:1.5em;text-align:center';
+      col.appendChild(s);
+    });
+  });
+  function setRotor(col,n){col.style.transform='translateY(calc(-'+n+' * 1.5em))';}
+
+  let courantId=null,pendingDir=null,demarre=false,wnAngle=0;
+  const NAVIG=IDS.filter(x=>x!=='spook');
+  const idx=id=>IDS.indexOf(id);
+  function cible(){
+    const h=location.hash.slice(1);
+    if(!h)return 'logboek';
+    return IDS.includes(h)?h:'inhoud';
+  }
+  function afficher(id,dir){
+    const el=document.getElementById(id);if(!el)return;
+    scene.dataset.dir=dir||'avant';
+    Frappe.stop();
+    FICHES.forEach(f=>f.classList.remove('actif'));
+    el.classList.add('actif');el.scrollTop=0;
+    navbar.classList.toggle('cache',id==='logboek');
+    const ci=CONTENU.indexOf(el);
+    if(ci>-1){const n=ci+1;setRotor(colD,Math.floor(n/10));setRotor(colU,n%10);}
+    else{setRotor(colD,10);setRotor(colU,10);}
+    const i=NAVIG.indexOf(courantId==='spook'?'onthaal':id);
+    bPrev.disabled=(i<=0);
+    bNext.disabled=(i>=NAVIG.length-1);
+    if(demarre&&courantId!==id){Enigma.tick();wnAngle+=90;const wn=document.getElementById('wieken-nav');if(wn)wn.style.transform='rotate('+wnAngle+'deg)';}
+    Frappe.demarrer(el,Math.max(0,ci));
+    courantId=id;demarre=true;
+  }
+  function aller(id){
+    if(id===courantId)return;
+    pendingDir=(idx(id)>=idx(courantId))?'avant':'arriere';
+    if(id==='logboek'){
+      history.pushState('','',location.pathname+location.search);
+      afficher(id,pendingDir);pendingDir=null;
+    }else{
+      location.hash='#'+id;
+    }
+  }
+  function next(){const i=NAVIG.indexOf(courantId);if(i>-1&&i<NAVIG.length-1)aller(NAVIG[i+1]);}
+  function prev(){const i=NAVIG.indexOf(courantId);if(i>0)aller(NAVIG[i-1]);}
+
+  bPrev.addEventListener('click',prev);
+  bNext.addEventListener('click',next);
+  bHub.addEventListener('click',()=>aller('onthaal'));
+  const be=document.getElementById('btn-aanmonsteren');
+  if(be)be.addEventListener('click',()=>{Enigma.frappe();aller('onthaal');});
+  const gr=document.getElementById('spook-retour');
+  if(gr)gr.addEventListener('click',()=>aller('onthaal'));
+
+  /* balayage tactile */
+  let tx=0,ty=0;
+  scene.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  scene.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>60&&Math.abs(dy)<40){(dx<0)?next():prev();}
+  },{passive:true});
+
+  /* mute synchronisé (hub + quiz) */
+  document.querySelectorAll('button.mute').forEach(b=>b.addEventListener('click',()=>{
+    const m=Enigma.toggle();
+    document.querySelectorAll('button.mute').forEach(x=>{
+      x.textContent=m?'SFX : AUS':'SFX : AN';
+      x.setAttribute('aria-pressed',String(m));
+    });
+    if(!m)Enigma.frappe();
+  }));
+
+  window.addEventListener('hashchange',()=>{
+    const c=cible();
+    const d=pendingDir||((idx(c)>=idx(courantId))?'avant':'arriere');
+    pendingDir=null;afficher(c,d);
+  });
+  afficher(cible(),'avant');
+}catch(e){document.documentElement.classList.add('nojs');console.error('[routeur]',e);}
+})();
+
+/* ============ PRÜFUNG — moteur branché sur la machine ============ */
+const FRAGEN=[
+{sit:"Trottoir, bande rouge-ros\u00e9e \u00e0 c\u00f4t\u00e9, tu veux v\u00e9rifier ton t\u00e9l\u00e9phone.",
+q:"O\u00f9 t'arr\u00eates-tu ?",c:["Sur la bande rouge, elle est libre","Sur le trottoir, jamais sur le fietspad","Au milieu, pour voir venir"],b:1,
+ex:"<p>La bande rouge est le fietspad \u2014 territoire des v\u00e9los. S'y arr\u00eater d\u00e9clenche sonnette, embard\u00e9e et juron (\u00a7\u00a01).</p>"},
+{sit:"Un tring-tring retentit derri\u00e8re toi.",
+q:"\u00c7a signifie\u2026",c:["\u00ab Je passe \u00bb \u2014 fais un pas de c\u00f4t\u00e9","Une insulte personnelle","Un salut amical, retourne-toi"],b:0,
+ex:"<p>La sonnette annonce un passage, sans hostilit\u00e9. R\u00e9ponse correcte : lib\u00e9rer la trajectoire, sans drame (\u00a7\u00a01).</p>"},
+{sit:"Caf\u00e9 \u00e0 2\u00a0\u20ac, \u00e9criteau \u00ab alleen pinnen \u00bb.",
+q:"Tu paies comment ?",c:["Cash, c'est un petit montant","Par carte \u2014 le cash est refus\u00e9 ici","Tu n\u00e9gocies"],b:1,
+ex:"<p>\u00ab Alleen pinnen \u00bb = carte seulement. L'inverse exact du r\u00e9flexe allemand \u2014 ici le sans-contact r\u00e8gne (\u00a7\u00a02).</p>"},
+{sit:"Chez AH, l'\u00e9tiquette dit \u00ab Bonus 1+1 gratis \u00bb.",
+q:"Ce prix s'applique\u2026",c:["\u00c0 tout le monde","Seulement avec la Bonuskaart ou l'app","Seulement le dimanche"],b:1,
+ex:"<p>Les prix \u00ab Bonus \u00bb exigent la Bonuskaart \u2014 gratuite en caisse. Sans elle : plein tarif, en silence (\u00a7\u00a03).</p>"},
+{sit:"Ta canette est vide.",
+q:"Tu en fais quoi ?",c:["Poubelle \u2014 c'est une canette","Machine de consigne : 15\u00a0c rembours\u00e9s","Tu la gardes en souvenir"],b:1,
+ex:"<p>Statiegeld : 15\u00a0c par canette et petite bouteille, 25\u00a0c les grandes. Les machines sont \u00e0 l'entr\u00e9e des supermarch\u00e9s (\u00a7\u00a03).</p>"},
+{sit:"Le plateau de bitterballen arrive, fumant.",
+q:"Premier geste ?",c:["Croquer imm\u00e9diatement","Attendre \u2014 l'int\u00e9rieur est de la lave","Les tremper dans la bi\u00e8re"],b:1,
+ex:"<p>L'int\u00e9rieur sort de la friteuse \u00e0 l'\u00e9tat de magma. Patience 60 secondes, puis moutarde (\u00a7\u00a04).</p>"},
+{sit:"Un coll\u00e8gue n\u00e9erlandais te dit : \u00ab ton plan ne marchera pas \u00bb.",
+q:"C'est\u2026",c:["Une attaque \u2014 v\u00e8xe-toi","De l'honn\u00eatet\u00e9 efficace \u2014 remercie-le","De l'humour \u2014 ris fort"],b:1,
+ex:"<p>La directheid est une marque d'estime : on te dit la v\u00e9rit\u00e9 pour te faire gagner du temps (\u00a7\u00a05).</p>"},
+{sit:"Tu veux d\u00eener au restaurant samedi soir.",
+q:"Tu t'y prends comment ?",c:["Tu arrives \u00e0 20h30, \u00e7a ira","Tu r\u00e9serves \u2014 et t\u00f4t : on mange \u00e0 18h ici","Tu attends 22h, heure creuse"],b:1,
+ex:"<p>Le pays d\u00eene \u00e0 18h-18h30 et les cuisines ferment vers 21h. R\u00e9server est la norme (\u00a7\u00a06).</p>"},
+{sit:"Tu descends du train \u00e0 Den Bosch, press\u00e9.",
+q:"Avant de sortir ?",c:["Rien \u2014 tu as bip\u00e9 \u00e0 l'entr\u00e9e","Biper \u00e0 la sortie, sinon ~20\u00a0\u20ac d\u00e9bit\u00e9s","Montrer ton billet au chef de gare"],b:1,
+ex:"<p>Le check-out oubli\u00e9 co\u00fbte le tarif maximal. Inchecken ET uitchecken, toujours (\u00a7\u00a07).</p>"},
+{sit:"Direction Efteling depuis Den Bosch Centraal.",
+q:"Ton bus ?",c:["Bravo 300 ou 301, arr\u00eat \u00ab Kaatsheuvel, Efteling \u00bb","Le tramway 5","Un train direct jusqu'au parc"],b:0,
+ex:"<p>Lignes 300/301 direction Tilburg, ~45-50 min, arr\u00eat Efteling devant l'avenue d'entr\u00e9e. Carte sans-contact \u00e0 la mont\u00e9e et \u00e0 la descente (\u00a7\u00a09).</p>"},
+{sit:"On te donne rendez-vous \u00e0 \u00ab half tien \u00bb.",
+q:"Tu arrives \u00e0\u2026",c:["10h30","9h30 \u2014 half tien = la demie AVANT dix","10h pile"],b:1,
+ex:"<p>M\u00eame pi\u00e8ge qu'en allemand : half tien = 9h30. Ton halb zehn tout frais te sauve (\u00a7\u00a010).</p>"},
+{sit:"Panneau \u00ab meer \u00bb sur une carte n\u00e9erlandaise.",
+q:"Tu regardes\u2026",c:["La mer \u2014 comme Meer en allemand","Un lac \u2014 zee/meer sont INVERS\u00c9S par rapport \u00e0 l'allemand","Une prairie"],b:1,
+ex:"<p>NL : zee = mer, meer = lac. DE : See = lac, Meer = mer. Le faux ami le plus retors de la fronti\u00e8re (\u00a7\u00a010).</p>"}
+];
+
+(function(){try{
+  const zone=document.getElementById('quiz-zone');
+  const prog=document.getElementById('quiz-prog');
+  if(!zone||!prog)return;
+  const rotAt=document.getElementById('rota-t');
+  const rotBt=document.getElementById('rotb-t');
+  const mol=document.querySelector('#toets .molen');
+  let idx=0,score=0,repondu=false,wAngle=0;
+
+  function retrig(el,cls){
+    if(!el)return;
+    el.classList.remove(cls);void el.getBoundingClientRect();el.classList.add(cls);
+  }
+  function setRotA(){if(rotAt)rotAt.textContent=String(idx+1).padStart(2,'0');}
+  function setRotB(){if(rotBt)rotBt.textContent=String(score).padStart(2,'0');}
+  function tourner(){
+    wAngle+=90;
+    const w=document.getElementById('molen-wieken');
+    if(w)w.style.transform='rotate('+wAngle+'deg)';
+  }
+  function setZakken(){
+    for(let k=1;k<=3;k++){
+      const part=Math.max(0,Math.min(1,(score-(k-1)*4)/4));
+      const v=document.getElementById('zak-'+k+'-vul');
+      if(v)v.style.transform='scaleY('+part+')';
+    }
+  }
+  function grincer(){
+    if(!mol)return;
+    mol.classList.add('vang-on');
+    setTimeout(()=>mol.classList.remove('vang-on'),560);
+  }
+
+  function rendre(){
+    repondu=false;
+    const f=FRAGEN[idx];
+    prog.textContent='VRAAG '+(idx+1)+'/12';
+    setRotA();
+    zone.innerHTML='';
+    const sit=document.createElement('p');sit.className='quiz-situation';sit.textContent='Situatie \u2014 '+f.sit;
+    const q=document.createElement('p');q.className='quiz-q';q.textContent=f.q;
+    const box=document.createElement('div');box.className='quiz-choix';
+    f.c.forEach((txt,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='choix';b.textContent=txt;
+      b.addEventListener('click',()=>repondre(i,b,box,f,sit,q));
+      box.appendChild(b);
+    });
+    zone.append(sit,q,box);
+  }
+
+  function repondre(i,btn,box,f,sit,q){
+    if(repondu)return;repondu=true;
+    if(sit)sit.remove();if(q)q.remove();
+    const bonne=(i===f.b);
+    if(bonne)score++;
+    box.querySelectorAll('button').forEach((b,j)=>{
+      b.disabled=true;
+      if(j===f.b)b.dataset.etat='bonne';
+      else if(j===i)b.dataset.etat='mauvaise';
+    });
+    if(bonne){Molen.lampe();tourner();setRotB();setZakken();}
+    else{Molen.kurzschluss();grincer();}
+    const rappel=(!bonne)?'<p class="quiz-bonne">\u2192 '+f.c[f.b]+'</p>':'';
+    box.remove();
+    const verd=document.createElement('div');verd.className='quiz-verdict';
+    const st=document.createElement('span');
+    st.className='grand-stempel anime '+(bonne?'ok':'non');
+    st.textContent=bonne?'GOEDGEKEURD':'AFGEWEZEN';
+    verd.appendChild(st);
+    const ex=document.createElement('div');ex.className='quiz-explication';
+    ex.innerHTML='<span class="amtston">Motivation du waterschap</span>'+rappel+f.ex;
+    const w=document.createElement('button');w.type='button';w.className='weiter';
+    w.textContent=(idx<FRAGEN.length-1)?'VOLGENDE \u2192':'EINDOORDEEL \u2192';
+    w.addEventListener('click',()=>{Molen.rotor();idx++;(idx<FRAGEN.length)?rendre():bilan();});
+    zone.append(verd,ex,w);
+  }
+
+  function bilan(){
+    prog.textContent='DOSSIER GESLOTEN';
+    let classe,tampon,texte;
+    if(score===12){classe='ok';tampon='MET LOF';
+      texte="Douze sacs de grain \u2014 le meunier n'avait plus vu \u00e7a depuis le si\u00e8ge de 1629. Le Hollandais Volant lui-m\u00eame te laisserait barrer.";}
+    else if(score>=9){classe='ok';tampon='GESLAAGD';
+      texte="Brevet de voyageur des polders d\u00e9livr\u00e9. Tu peux c\u00e9der le fietspad, pinner, biper ta sortie et attendre la bitterbal \u2014 le royaume t'attend.";}
+    else if(score>=6){classe='ok';tampon='NET GESLAAGD';
+      texte="Admis de justesse. Le waterschap recommande une relecture des \u00a7 signal\u00e9s avant de t'approcher d'un fietspad aux heures de pointe.";}
+    else{classe='non';tampon='NIET GESLAAGD';
+      texte="Le moulin a plus grinc\u00e9 que tourn\u00e9. Le dossier reste ouvert \u2014 relis le logboek, le vang ne juge pas, il freine.";}
+    zone.innerHTML='<div class="bilan">'
+      +'<span class="score">'+score+'/12</span>'
+      +'<span class="grand-stempel '+classe+'" style="position:static;animation:claquer 170ms steps(4,end) both">'+tampon+'</span>'
+      +'<p class="verdict-texte">'+texte+'</p>'
+      +'</div>';
+    const w=document.createElement('button');w.type='button';w.className='weiter';w.textContent='NIEUWE POGING (recommencer)';
+    w.addEventListener('click',()=>{Molen.rotor();idx=0;score=0;wAngle=0;
+      const wk=document.getElementById('molen-wieken');if(wk)wk.style.transform='rotate(0deg)';
+      setRotB();setZakken();rendre();});
+    zone.querySelector('.bilan').appendChild(w);
+    if(score>=9){
+      Molen.ding();
+      if(mol&&score===12){retrig(mol,'storm');setTimeout(()=>mol.classList.remove('storm'),2500);}
+      [0,200,400].forEach((dt,k)=>setTimeout(()=>Molen.lampe(),dt));
+    }else if(score>=6){Molen.ding();}
+    else{Molen.kurzschluss();grincer();}
+  }
+
+  rendre();
+}catch(e){console.error('[toets]',e);}
+})();
+</script>
 </body>
 </html>
