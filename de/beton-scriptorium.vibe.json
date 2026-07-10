@@ -135,7 +135,8 @@
     "v2.1": "correctif spécificité CSS des reveals + routeur sous try/catch",
     "v3": "Conseil du 7 juillet 2026 — deck plein écran sans défilement principal, redécoupage h3 (~30 fiches), 11 pictogrammes Plakatstil animés, Enigma omniprésente (rotors navbar + machine complète au quiz), enluminures 4 pigments avec Patinagrün, tick sonore de navigation",
     "v4": "7 juillet 2026 — cartes bristol (papier ligné, marge rouge, liseré, pictos à l'encre), zéro défilement (35 fiches ≤1250c, §11 scindé, verdict remplaçant les choix), dactylographie machine à écrire (3 profils, curseur, skip au tap, ding), animations accélérées ~40%, pièce §4 refondue (chute dans la fente BAR)",
-    "v5": "8 juillet 2026 — EMPFANG à tuiles avant l'Inhalt, Sprachführer professionnel (TTS de-DE, PRÜFEN, Satzbaukasten, 6 lexiques dont Bahn et Freizeitpark, faux amis enrichis), deux easter eggs (Annexe 7, QWERTZ), quiz compacté (verdict remplace tout, machine 280px)"
+    "v5": "8 juillet 2026 — EMPFANG à tuiles avant l'Inhalt, Sprachführer professionnel (TTS de-DE, PRÜFEN, Satzbaukasten, 6 lexiques dont Bahn et Freizeitpark, faux amis enrichis), deux easter eggs (Annexe 7, QWERTZ), quiz compacté (verdict remplace tout, machine 280px)",
+    "v5.1": "10 juillet 2026 — polissage Visual Excellence : survols crantés sous @media (hover:hover) and (pointer:fine) — tuiles, choix, WEITER, flèches de navbar, boutons d'écoute —, bouton SPRECHEN cloué au bas de la fiche Satzbaukasten (la boîte s'étire en colonne flex), favicon-tampon §, lien Retour au Classeur à l'Impressum, correctif d'accolade parasite (pk4pouf)"
   },
   "components": {
     "sprachfuehrer": "11 fiches : prononciation en 2 volets (avantage francophone assumé), 6 lexiques thématiques à boutons d'écoute et mode PRÜFEN (colonne des sens voilée, tap par rangée), Satzbaukasten (4 amorces × 4 briques calibrées, phrase dactylographiée puis prononcée), faux amis",

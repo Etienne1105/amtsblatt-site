@@ -22,6 +22,15 @@ Site statique pur : Netlify (Drop ou import Git), GitHub Pages, ou n'importe que
 
 ## Journal des itérations
 
+### v5.1 — 2026-07-10 · Visual Excellence
+Passe de polissage sur les trois surfaces (hub, `/de/`, `/nl/`), fidèle aux vibes cataloguées :
+- **Survols crantés** : le site n'avait aucun état `:hover`. Ajout sous `@media (hover:hover) and (pointer:fine)` — les cartes lèvent d'un cran (ombre dure qui grandit), les boutons virent au jaune Autobahn (DE) ou au Delft/Gouda (NL), rien ne glisse.
+- **SPRECHEN / SPREKEN tout en bas** : la fiche Satzbaukasten (§ 10 DE) passe en colonne flex — la boîte s'étire et le grand bouton est cloué au bas de la carte, pleine largeur ; même ancrage pour la Zinnenbouwdoos NL.
+- **Favicons de dossier** : tampon § incliné (DE), carreau de Delft à cœur oranje (NL), chemise jaune du Classeur (hub).
+- **Filets** : `focus-visible` oranje en NL (absent), `prefers-reduced-motion` + méta description/og sur le hub, og en NL, lien « Retour au Classeur » à l'Impressum DE (parité avec NL), Impressum recalé sur l'itération 5.
+- **Correctif** : accolade parasite fermant `@keyframes pk4pouf` (DE).
+- Vibes → `beton-scriptorium` changelog `v5.1`, `delft-logboek` changelog `v1.1`.
+
 ### v5 — 2026-07-08 · Der Sprachführer
 - **EMPFANG** : page d'accueil à 11 tuiles bristol (pictos animés en chœur), tuile Sprachführer pleine largeur, avant l'Inhaltsverzeichnis conservé.
 - **Sprachführer professionnel (§ 10, 11 fiches)** : voix allemande native (SpeechSynthesis de-DE) sur chaque entrée, prononciation en deux volets avec l'avantage francophone assumé, six lexiques thématiques (survie, Brauhaus, ville-santé, Bahn, Freizeitpark, chiffres-temps), mode **PRÜFEN** par table (sens voilés, tap pour révéler), **Satzbaukasten** — 16 phrases calibrées, dactylographiées puis prononcées —, faux amis enrichis.

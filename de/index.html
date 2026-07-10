@@ -8,6 +8,7 @@
 <meta property="og:description" content="11 paragraphes réglementaires + Prüfung de 12 mises en situation. GENEHMIGT ou ABGELEHNT ?">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#3A3833">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23D8D4C6'/%3E%3Cg transform='rotate(-6 32 32)'%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%231D4E89' stroke-width='4'/%3E%3Crect x='14' y='14' width='36' height='36' fill='none' stroke='%231D4E89' stroke-width='2'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='28' font-weight='700' text-anchor='middle' fill='%231D4E89'%3E%C2%A7%3C/text%3E%3C/g%3E%3C/svg%3E">
 <title>AMTSBLATT — Guide des usages allemands · Édition voyageur</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');
@@ -417,7 +418,7 @@ button.weiter:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--encre)}
 .actif .pk4-piece{animation:pk4chute 560ms steps(4,end) both}
 @keyframes pk4chute{0%{transform:translateY(-26px)}62%{transform:translateY(9px)}78%,100%{transform:translateY(13px);opacity:0}}
 .actif .pk4-caisse{animation:pk4pouf 560ms steps(2,end) both}
-@keyframes pk4pouf{0%,70%{transform:none}80%{transform:translateY(2px)}100%{transform:none}}}
+@keyframes pk4pouf{0%,70%{transform:none}80%{transform:translateY(2px)}100%{transform:none}}
 
 /* §5 — la flèche Pfand tourne */
 .actif .pk5-fleche{transform-origin:48px 44px;animation:pk5r 550ms steps(4,end) both}
@@ -544,8 +545,30 @@ table.cache-sens tr.revele td:last-child{background:#F3EDC9}
 .bk-f{opacity:.32;pointer-events:none}
 .bk-f.dispo{opacity:1;pointer-events:auto}
 .bk-f.choisi{background:var(--patina);color:var(--papier)}
-button.bk-sprechen{margin-top:.1rem;padding:.55rem 1rem}
+button.bk-sprechen{margin-top:.55rem;padding:.85rem 1rem}
 html.sans-voix .bk-sprechen{display:none}
+/* le grand bouton SPRECHEN est cloué au bas de la fiche : la boîte s'étire, lui reste en bas */
+@media (min-height:641px){
+  #p10-10.actif{display:flex;flex-direction:column}
+  #p10-10 .corps-sec{flex:1;display:flex;flex-direction:column;min-height:0}
+  #p10-10 .baukasten{flex:1;display:flex;flex-direction:column;min-height:0}
+  #p10-10 .bk-sprechen{margin-top:auto}
+}
+
+/* ============ v5.1 — survols crantés (pointeur fin uniquement) ============ */
+@media (hover:hover) and (pointer:fine){
+  button.eintreten:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 rgba(0,0,0,.55)}
+  nav.inhalt a:hover{background:var(--autobahn)}
+  .hub-pied a:hover{color:var(--tampon)}
+  .tuile:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--encre)}
+  button.choix:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--encre)}
+  button.weiter:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--encre)}
+  .navbar .fleche:hover:not([disabled]){background:var(--autobahn)}
+  button.mute:hover,button.pruefen-toggle:hover{background:var(--autobahn);color:var(--encre)}
+  button.dire:hover{background:var(--autobahn);color:var(--encre)}
+  .bk-rang button:not(.choisi):hover{background:var(--autobahn)}
+  a.dossier-retour:hover{background:var(--autobahn)}
+}
 
 /* ============ v5 — ANNEXE GEHEIM ============ */
 .fiche.geheim{border-left-color:var(--oxyde)}
@@ -1120,10 +1143,11 @@ html.sans-voix .bk-sprechen{display:none}
 <section class="fiche colophon" id="impressum">
 <footer class="impressum">
   <p><b>IMPRESSUM</b> — Édité par le Bureau des Usages &amp; Convenances, division Voyageurs.<br>
-  Forge : <b>BETON-SCRIPTORIUM</b> · itération 3 · Conseils des 6 &amp; 7 juillet 2026 · Claudi-brimbor, scribe.<br>
+  Forge : <b>BETON-SCRIPTORIUM</b> · itération 5 · Conseils des 6–8 juillet 2026 · Claudi-brimbor, scribe.<br>
   Béton : coffrage apparent. Encre : quatre pigments — bleu tampon, rouge de rubrication, or Autobahn, Patinagrün. Machine : Enigma, trois rotors, désormais visible — bon état.<br>
   Indications fournies <i lang="de">ohne Gewähr</i> (sans garantie) — les usages évoluent, la politesse demeure.<br>
   Az. 2026/07-EM · GÜLTIG AB SOFORT · <span style="color:var(--tampon);font-weight:700">GEPRÜFT ✓</span></p>
+  <p style="margin-top:.9rem"><a class="dossier-retour" href="/">← Retour au Classeur</a></p>
 </footer>
 </section>
 

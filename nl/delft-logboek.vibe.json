@@ -13,5 +13,8 @@
   "sons_molen": {"frappe":"tap mat bois 1500Hz","tick":"double dent d'engrenage 92Hz","lampe":"grain qui coule (chuintement descendant + thump 70Hz)","kurzschluss":"kraak du vang (sawtooth 64→37Hz tremblé)","ding":"cloche de port 659Hz"},
   "oeufs": ["3 frappes sur GOEDGEKEURD → #spook (Vliegende Hollander)","ailes 1-2-3-4 du Toets → OP HOL GESLAGEN"],
   "voix": "SpeechSynthesis nl-NL rate 0.86",
-  "herite_de": "beton-scriptorium v5 (moteur deck/Frappe/routeur transplanté, API sonore conservée)"
+  "herite_de": "beton-scriptorium v5 (moteur deck/Frappe/routeur transplanté, API sonore conservée)",
+  "changelog": {
+    "v1.1": "2026-07-10 — polissage Visual Excellence : survols pointeur fin (tuiles qui lèvent, boutons Gouda qui décollent d'un cran), focus-visible oranje, bouton SPREKEN cloué au bas de la Zinnenbouwdoos, favicon carreau de Delft à cœur oranje, méta og"
+  }
 }

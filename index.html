@@ -4,7 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Le Classeur — Guides de terrain</title>
+<meta name="description" content="Guides culturels de voyage en fiches bristol — Allemagne (Amtsblatt) et Pays-Bas (Het Logboek). Choisis un dossier-pays.">
+<meta property="og:title" content="Le Classeur — Guides de terrain">
+<meta property="og:description" content="Deux dossiers-pays au rôle : Allemagne (Amtsblatt) et Pays-Bas (Het Logboek). Chaque guide est un deck de fiches bristol.">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#3A3833">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%233A3833'/%3E%3Cpath d='M10 16 h17 l5 7 h22 v25 H10 z' fill='%23E6E2D3' stroke='%231C1B16' stroke-width='3'/%3E%3Crect x='10' y='30' width='44' height='20' fill='%23F7C600' stroke='%231C1B16' stroke-width='3'/%3E%3C/svg%3E">
 <script>
 /* les anciens liens profonds du guide allemand suivent leur dossier */
 (function(){var h=location.hash.slice(1);
@@ -30,6 +35,16 @@ a.dossier{display:block;text-decoration:none;color:var(--encre);position:relativ
 background:var(--papier);border:3px solid var(--encre);box-shadow:6px 6px 0 var(--encre);
 padding:1.1rem 1.1rem 1rem;transition:transform 60ms steps(2,end),box-shadow 60ms steps(2,end)}
 a.dossier:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--encre)}
+a.dossier:focus-visible{outline:3px solid var(--autobahn);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){
+  a.dossier:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--encre)}
+}
+@keyframes poser{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+a.dossier{animation:poser 200ms steps(3,end) backwards}
+a.dossier.nl{animation-delay:110ms}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}
+}
 .onglet{position:absolute;top:-1.05rem;left:.9rem;background:var(--bandeau);color:var(--papier);
 font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.62rem;letter-spacing:.24em;
 padding:.3em .7em;border:2.5px solid var(--encre)}
