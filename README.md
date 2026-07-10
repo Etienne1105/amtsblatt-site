@@ -64,3 +64,6 @@ Première coulée. Guide complet §1–§11 en page unique, vibe **BETON-SCRIPTO
 
 ## NL v1 — « Het Logboek » (2026-07-09)
 Guide néerlandais complet dans /nl/ : vibe DELFT-LOGBOEK (faïence, Hollandais Volant), 29 fiches (§1-9 + Taalgids 9 fiches TTS nl-NL + Toets 12 vragen sur moulin à sacs de grain), moteur v5 transplanté (Frappe/routeur), sons refondus bois/moulin, 2 œufs (spook, tempête). Épreuve jsdom 27/27.
+
+## NL v2 + DE v5.1 (2026-07-10)
+NL : section KRONIEK — 8 fiches d'histoire de Den Bosch (fondation 1185, siège 1629, Bosch, Sint-Jan/ange, Binnendieze, Oeteldonk, table, agenda juillet 2026, prix vérifiés), tuile large gouda sous le Taalgids, lien retour Classeur. Épreuve jsdom 31/31. DE : tuile jaune Sprachführer déplacée en fin de grille, lien retour Classeur.
