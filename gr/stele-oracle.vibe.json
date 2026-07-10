@@ -1,0 +1,82 @@
+{
+  "id": "stele_oracle",
+  "name": "STÈLE-ORACLE — marbre égéen, huile du pressoir, foudre de Zeus",
+  "created": "2026-07-10",
+  "parent_id": null,
+  "iteration": 1,
+  "identity": {
+    "era": "Grèce des sanctuaires vue par l'atelier du lapicide — stèles attiques, céramique à figures, Delphes — filtrée en carnet de terrain 2026",
+    "mood": ["solaire", "lapidaire", "olympien", "oraculaire", "méditerranéen"],
+    "references": [
+      "stèles votives attiques (marbre gravé, frise au méandre)",
+      "soleil de Vergina à 16 rais (tombes royales de Philippe II)",
+      "trapetum — le pressoir à huile romano-grec (meule verticale, amphores)",
+      "l'adyton de Delphes (crypte de la Pythie, vapeurs, « Connais-toi toi-même »)",
+      "drapeau grec bleu-blanc + or des icônes byzantines",
+      "chouette d'Athéna des tétradrachmes",
+      "Anabase de Xénophon (le bouton d'entrée s'appelle ΑΝΑΒΑΣΙΣ)"
+    ],
+    "one_liner": "Une stèle votive dans la cour du pressoir : le marbre note, l'huile coule, la lyre pince, l'oracle tranche — et Zeus tonne si l'on pince ses quatre cordes."
+  },
+  "mood_board": "Brief d'Etienne : mythologie grecque, Zeus, Olympe ; bleu, blanc et jaune ; Athènes ; pressoir à huile. Guide dédié à Jeanne (Ιωάννα).",
+  "source_project": { "file": "gr/index.html", "path": "/home/claude/repo-amtsblatt/gr/index.html" },
+  "visual": {
+    "palette": {
+      "egee": "#1E5FA8", "nuit": "#0C2340", "adyton": "#0B1220",
+      "soleil": "#E3A20F", "olive": "#6E7F3C", "terre": "#C0532B",
+      "marbre": "#F4EFE2", "fond": "#CDCCC0", "encre": "#1B2430",
+      "sourd": "#5D6470", "refus": "#9E2B25"
+    },
+    "palette_rationale": "Bleu Égée + marbre = drapeau/mer/pierre (brief). Or #E3A20F = soleil de Vergina et fonds d'icônes. Olive = le pressoir demandé. Terracotta = céramique attique (le chaud méditerranéen, à la place de l'oranje hollandais du dossier NL). Refus = rouge de céramique sombre. Zéro indigo, zéro dégradé hérité : chaque teinte vient d'un objet réel.",
+    "typography": {
+      "heading": "Caudex 700 — fonte dessinée pour les manuscrits anciens, glyphes grecs natifs (titres bilingues ΧΡΟΝΙΚΟ, ΑΓΩΝ…)",
+      "body": "IBM Plex Sans — liant commun à tout le Classeur (DE/NL/hub)",
+      "mono": "IBM Plex Mono — cartouches, cachets, compteurs",
+      "greek_lexicon": "Caudex 400 pour les mots grecs des tables (lisible, gravé, authentique)",
+      "google_font_import": "family=Caudex:wght@400;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700"
+    },
+    "effects": [
+      "fond : cannelures doriques (repeating-linear-gradient vertical doux sur pierre chaude)",
+      "fiche = stèle : marbre veiné (feTurbulence gris froid, multiply), frises MÉANDRE haut/bas (data-URI SVG clé grecque, encre égéenne)",
+      "cartouches parno gravés (rotation −2.5°, ombre portée dure)",
+      "grand-stempel : tampon administratif hellénisé ΑΞΙΟΝ / ΑΠΕΡΡΙΦΘΗ",
+      "adyton : fiche nuit, vapeurs vertes de la Pythie (#7FE0C3 hérité du spook NL — continuité des mondes secrets du Classeur)"
+    ],
+    "background_effects": ["grain feTurbulence global 4.5 % (signature Classeur)"]
+  },
+  "audio": {
+    "engine": "WebAudio pur, zéro dépendance — module const Lyra (alias Enigma pour le moteur v5)",
+    "key": "D", "scale": "dorien (le mode grec, littéralement)",
+    "tempo_range": "SFX only — pas de musique",
+    "instruments": ["lyre pincée (triangle + décroissance exponentielle + détune léger, pentacorde ré-fa-la-ré')"],
+    "sfx_mapping": {
+      "frappe (dactylo)": "ciseau du lapicide : bruit passe-bande 2 kHz très court + ping sec — la pierre s'écrit",
+      "tick/rotor (nav)": "pincement grave de lyre (D3 146,83 Hz), sourdine rapide",
+      "lampe (bonne réponse)": "arpège dorien ré-fa-la (3 pincements serrés) + goutte d'huile (sinus descendant) — l'amphore se remplit",
+      "kurzschluss (erreur)": "corde étouffée dissonante (ré contre mi bémol, battement) + frottement grave — la meule grince",
+      "ding (fin de fiche)": "accord ouvert ré-la-ré' laissé résonner ~1 s",
+      "pluck(f) (egg lyre)": "note pincée à fréquence libre — les 4 cordes jouent le pentacorde",
+      "tonnerre (egg Zeus)": "grondement brownien filtré descendant + claquement — ΚΕΡΑΥΝΟΣ"
+    },
+    "synthesis_style": "cordes pincées mates, pierre et bois d'olivier — jamais de reverb stock"
+  },
+  "sfx": { "hover": "aucun (mobile-first)", "click": "Lyra.rotor (pincement grave)" },
+  "antislop_checklist": {
+    "palette_intentionnelle": "OUI — chaque hex tracé à un objet réel (drapeau, Vergina, amphore, olive, céramique) ; aucun violet/indigo hérité",
+    "typo_choisie": "OUI — Caudex (manuscrits anciens, grec natif) remplace le gothique Grenze inadapté à la Grèce ; Plex conservé comme liant Classeur : rupture ET continuité motivées",
+    "layout_non_generique": "OUI — deck de stèles hérité du système Classeur (pas de héro/CTA) ; incarnations propres : pressoir correcteur, couronne à 14 feuilles, lyre à 4 cordes",
+    "animation_communicative": "OUI — chaque mouvement code un sens : meule = progression, feuille = point gagné, frein rouge = erreur, éclair = egg ; pas de fade-in décoratif",
+    "audio_non_slop": "OUI — mode dorien assumé (pas de I-V-vi-IV, pas de 120 BPM), timbres physiques (corde, pierre, huile), API contrainte par le moteur v5",
+    "imagerie": "OUI — SVG trait main levée style tétradrachme/céramique, aucun glossy"
+  },
+  "specificity_anchors": [
+    "le bouton d'entrée s'appelle ΑΝΑΒΑΣΙΣ (Xénophon)",
+    "le point d'interrogation grec est « ; » — enseigné dans le Frasoulodóchos",
+    "le tampon ΑΞΙΟΝ fait écho à l'hymne Axion Estin",
+    "SFX : ΝΑΙ / ΟΧΙ — le bouton mute enseigne le piège oui/non",
+    "verdict d'échec ΜΕΤΕΞΕΤΑΣΤΕΑ accordé au féminin — le guide est gravé pour Jeanne",
+    "numération du Chronikó en lettres grecques Α΄–Η΄",
+    "16 rais du soleil de Vergina sur la navbar, quart de tour par fiche"
+  ],
+  "refs": { "ve_saved_theme": null, "sl_culture": null, "sonic_codex_pilot": null }
+}
