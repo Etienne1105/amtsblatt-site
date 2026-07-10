@@ -67,3 +67,6 @@ Guide néerlandais complet dans /nl/ : vibe DELFT-LOGBOEK (faïence, Hollandais 
 
 ## NL v2 + DE v5.1 (2026-07-10)
 NL : section KRONIEK — 8 fiches d'histoire de Den Bosch (fondation 1185, siège 1629, Bosch, Sint-Jan/ange, Binnendieze, Oeteldonk, table, agenda juillet 2026, prix vérifiés), tuile large gouda sous le Taalgids, lien retour Classeur. Épreuve jsdom 31/31. DE : tuile jaune Sprachführer déplacée en fin de grille, lien retour Classeur.
+
+## NL v3 — Taaltoets (examen linguistique) (2026-07-10)
+Nouveau moteur d'examen AGNOSTIQUE réutilisable pour tout futur pays : récolte automatique de toutes les paires langue↔français des tableaux du Taalgids (44 paires NL), examen mixte QCM + réponse courte alternés (14 questions), incarnation propre = registre à cachets (distinct du moulin du Toets culturel), écran dédié #examen accessible depuis la fin du §10. Le cache-le-sens (révision passive) est conservé. Garde data-nofrappe : les écrans à moteur (Toets, Examen) sont exclus de la dactylo. Épreuve jsdom 41/41. Pièces : examen.py (extracteur), examen_ecran.py (écran + moteur JS).
