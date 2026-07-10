@@ -1,0 +1,110 @@
+{
+ "id": "socarrat_llibret",
+ "name": "SOCARRAT-LLIBRET — terracotta de Paterna, safran de paella, feu maîtrisé",
+ "created": "2026-07-10",
+ "parent_id": null,
+ "iteration": 1,
+ "identity": {
+  "era": "Valence de la huerta et du feu — socarrats de Paterna (carreaux rouge & noir, XIVe s.), llibrets de Fallas, retablos céramiques des coins de rue, Albufera au couchant",
+  "mood": [
+   "incandescent",
+   "céramique",
+   "satirique",
+   "gourmand",
+   "maîtrisé"
+  ],
+  "references": [
+   "socarrat de Paterna (carreau de terre cuite peint en oxyde rouge et noir de fumée)",
+   "llibret de falla (livret satirique imprimé, typographie d'affiche)",
+   "retablo cerámico de Manises aux coins des rues",
+   "le socarrat de la paella — la croûte d'or du fond, le trésor",
+   "la cremà du 19 mars — tout brûle, un seul ninot est sauvé",
+   "la noria de la huerta — l'eau des Arabes qui tourne encore",
+   "le patio de los naranjos de la Lonja"
+  ],
+  "one_liner": "Un llibret carrelé de socarrats dans le patio aux orangers : la noria tourne, la guitare pince, la mascletà tonne — et à la fin, tout brûle sauf toi."
+ },
+ "mood_board": "Brief d'Etienne : Espagne/Valence pour Stéphanie, même famille que le guide grec mais nettement distinct du Delft bleu néerlandais — direction chaude validée : orange de la huerta, terre cuite, safran, feu des Fallas. Fusion des symboles : socarrat (double sens céramique + paella), llibret, azahar, Albufera.",
+ "source_project": {
+  "file": "es/index.html",
+  "path": "/home/claude/eswerk/es_index.html"
+ },
+ "visual": {
+  "palette": {
+   "terracotta": "#9C4722",
+   "oxyde": "#7E2D1E",
+   "crema": "#F2E3C6",
+   "safran": "#D98E04",
+   "fumee": "#2B1E16",
+   "naranja": "#C75B12",
+   "huerta": "#5C7345",
+   "fond": "#E6D7B8",
+   "almagra": "#A6301C",
+   "adyton": "#1C0E06",
+   "sourd": "#8A6F5C"
+  },
+  "palette_rationale": "Terracotta #9C4722 et oxyde #7E2D1E = les deux rouges du socarrat de Paterna (terre cuite + oxyde de fer). Crème #F2E3C6 = le riz Bomba. Safran #D98E04 = l'épice canonique de la paella (jamais de colorante fluo). Naranja #C75B12 = l'orange de la huerta au couchant. Huerta #5C7345 = rizières de l'Albufera. Fumée #2B1E16 = le noir de fumée des socarrats et de la cremà. Fond #E6D7B8 = papier vergé du llibret. Adyton #1C0E06 = braise de l'écran caché. Aucun bleu : le Delft appartient au guide NL.",
+  "typography": {
+   "heading": "Abril Fatface 400 — didone d'affiche (TypeTogether), la voix des llibrets et des cartels de feria",
+   "body": "Alegreya 400/700 — humaniste littéraire de Huerta Tipográfica (Buenos Aires), dessinée pour la lecture longue en espagnol",
+   "mono": "IBM Plex Mono — cartouches, tampons, compteurs (liant commun du Classeur)",
+   "google_font_import": "family=Abril+Fatface&family=Alegreya:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;600;700&display=swap"
+  },
+  "effects": [
+   "fond : papier vergé de llibret (repeating-linear-gradient vertical doux re-sémantisé des cannelures grecques)",
+   "sanefa de dents de scie socarrat (ex-méandre grec) en frise des cartouches",
+   "carreaux/retablos : cadres céramique à double filet oxyde",
+   "socarrat du quiz : trois zones scaleY qui dorent depuis le fond de la paella",
+   "keravnos re-sémantisé : l'embrasement de la cremà (flamme + tampon)"
+  ],
+  "background_effects": [
+   "grain feTurbulence global 4.5 % (signature Classeur)"
+  ]
+ },
+ "audio": {
+  "engine": "WebAudio pur, zéro dépendance — module const Dolcaina (alias Lyra & Enigma pour le moteur v5)",
+  "key": "E",
+  "scale": "phrygien dominant (cadence andalouse assumée)",
+  "tempo_range": "SFX only — pas de musique",
+  "instruments": [
+   "guitare nylon pincée (triangle + sinus 2f + décroissance 0,8 s, cordes à vide E2/A2/D3/G3 = 82,41/110/146,83/196 Hz)"
+  ],
+  "sfx_mapping": {
+   "frappe (dactylo)": "castagnette : bruit passe-bande ~3,2 kHz très court + clic bois — le llibret s'imprime",
+   "tick/rotor (nav)": "pouce sur corde grave E2 (82,41 Hz), sourdine rapide",
+   "lampe (bonne réponse)": "rasgueado phrygien E–G#–B (3 pincements serrés) — le socarrat dore",
+   "kurzschluss (erreur)": "corde étouffée dissonante (fa contre mi) + grincement de noria",
+   "ding (fin de fiche)": "cloche du Miguelete : partiels inharmoniques (hum/prime/tierce/quinte/nominale) ~2 s",
+   "pluck(f) (egg guitare)": "corde nommée — les 4 cordes graves de la guitare contre l'oranger",
+   "tonnerre (egg cremà)": "MASCLETÀ : 6 détonations crépitantes en cascade + terremoto grave final"
+  },
+  "synthesis_style": "cordes nylon mates, bois, bronze de cloche et poudre noire — jamais de reverb stock"
+ },
+ "sfx": {
+  "hover": "aucun (mobile-first)",
+  "click": "Dolcaina.rotor (pouce sur corde grave)"
+ },
+ "antislop_checklist": {
+  "palette_intentionnelle": "OUI — chaque hex tracé à un objet réel (socarrat de Paterna, riz Bomba, safran, orange de la huerta, Albufera, noir de fumée) ; zéro bleu (réservé au NL), zéro violet",
+  "typo_choisie": "OUI — Abril Fatface (affiche/didone, TypeTogether) + Alegreya (Huerta Tipográfica, hispanique natif) remplacent Caudex inadapté ; Plex Mono conservé comme liant Classeur",
+  "layout_non_generique": "OUI — deck de retablos hérité du système Classeur (pas de héro/CTA) ; incarnations propres : noria correctrice, paella en coupe au socarrat montant, couronne d'azahar à 14 fleurs, patio aux orangers, guitare à 4 cordes",
+  "animation_communicative": "OUI — chaque mouvement code un sens : noria = progression (90°/question), socarrat scaleY = points gagnés, fleur d'azahar = point d'examen, keravnos = la cremà, grincement = erreur",
+  "audio_non_slop": "OUI — phrygien dominant assumé (pas de I–V–vi–IV, pas de 120 BPM), timbres physiques (nylon, bois, bronze, poudre) ; la mascletà est une SÉQUENCE de 6 détonations + terremoto, pas un boom générique",
+  "imagerie": "OUI — SVG trait main levée style socarrat/céramique populaire, aucun glossy, aucune photo stock"
+ },
+ "specificity_anchors": [
+  "le bouton d'entrée s'appelle LA ENTRADA — on pousse la porte du patio",
+  "le tampon de couverture est le SELLO ; les verdicts tamponnent ¡FET! (valencien) ou QUEMADO",
+  "le rotor du quiz s'étiquette PREG. / CROSTA — la croûte qui monte",
+  "le ninot indultat de l'écran caché, c'est Stéphanie — sauvée du feu par vote des artistes falleros",
+  "les 4 cordes de la guitare sonnent les cordes à vide réelles E2/A2/D3/G3",
+  "l'échelle finale note en espagnol : MATRÍCULA DE HONOR / NOTABLE / BIEN / SUSPENSO",
+  "le fond est le papier vergé d'un llibret ; la frise est une sanefa de dents socarrat",
+  "l'egg des cordes tamponne ¡A LA CREMÀ! et embrase la guitare"
+ ],
+ "refs": {
+  "ve_saved_theme": null,
+  "sl_culture": null,
+  "sonic_codex_pilot": null
+ }
+}
