@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Llibret &mdash; guide espagnol</title>
+<meta name="theme-color" content="#7E2D1E">
+<meta name="description" content="Guide de terrain pour Val&egrave;ncia &mdash; retablos de c&eacute;ramique, Glosario parlant, La Prueba &agrave; la noria, couronne d&rsquo;azahar.">
+<style>
+/* EL LLIBRET — vibe socarrat-llibret : terracotta de Paterna, safran, crème de riz, feu maîtrisé */
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+:root{
+  --egee:#9C4722; --nuit:#7E2D1E; --adyton:#1C0E06;
+  --soleil:#D98E04; --olive:#5C7345; --terre:#C75B12;
+  --marbre:#F2E3C6; --fond:#E6D7B8; --encre:#2B1E16; --sourd:#8A6F5C;
+  --refus:#A6301C;
+  --mono:'IBM Plex Mono',monospace; --corps:'Alegreya',serif; --titre:'Abril Fatface',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:var(--corps);color:var(--encre);background:var(--fond);
+  /* cannelures verticales du fût de colonne */
+  background-image:
+    repeating-linear-gradient(90deg,rgba(27,36,48,.09) 0 2px,transparent 2px 13px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 1px,transparent 1px 13px);
+  overflow:hidden;
+}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:60;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23g)'/%3E%3C/svg%3E")}
+
+/* ---------- deck mécanique ---------- */
+#app{display:grid;grid-template-rows:1fr auto;height:100dvh}
+#scene{position:relative;overflow:hidden;padding:.85rem .85rem .5rem}
+.fiche{display:none;position:absolute;inset:.85rem .85rem .5rem;overflow:hidden}
+.fiche.actif{display:block;animation:fiche-in 240ms cubic-bezier(.2,.75,.3,1) both}
+#scene[data-dir="arriere"] .fiche.actif{animation-name:fiche-in-r}
+@keyframes fiche-in{from{transform:translateX(46px) rotate(.5deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes fiche-in-r{from{transform:translateX(-46px) rotate(-.5deg);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- la plaque de marbre ---------- */
+.fiche{
+  background:var(--marbre);
+  border:3px solid var(--egee);
+  box-shadow:inset 0 0 0 3px var(--marbre),inset 0 0 0 5px var(--egee),
+    0 5px 0 rgba(12,35,64,.5);
+  border-radius:2px;
+  padding:1rem 1.05rem .9rem;
+}
+/* veines du marbre (turbulence froide) */
+.fiche::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:2px;
+  background:
+    linear-gradient(158deg,rgba(255,255,255,.30) 0 9%,transparent 30%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.008 0.02' numOctaves='4' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.37 0 0 0 0 0.66 0 0 0 0.5 -0.28'/%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23v)'/%3E%3C/svg%3E");
+  opacity:.14;mix-blend-mode:multiply}
+/* frise méandre (grecque) en haut et en bas du carreau */
+.fiche::before{content:'';position:absolute;left:9px;right:9px;top:9px;height:12px;pointer-events:none;opacity:.72;
+  background:repeating-linear-gradient(135deg,var(--egee) 0 5px,transparent 5px 10px),repeating-linear-gradient(45deg,var(--terre) 0 5px,transparent 5px 10px);background-size:14px 12px;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 10h6V4h6v6h6V0' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") 0 0/24px 12px repeat-x;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 10h6V4h6v6h6V0' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") 0 0/24px 12px repeat-x}
+
+/* ---------- tête de fiche ---------- */
+.fiche-tete{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;
+  border-bottom:3px double var(--egee);padding-bottom:.45rem;margin:.55rem 0 .55rem}
+.parno{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.14em;
+  color:var(--marbre);background:var(--egee);padding:.18em .5em;transform:rotate(-2.5deg);
+  box-shadow:2px 2px 0 var(--nuit)}
+.par-pair .parno{background:var(--terre);box-shadow:2px 2px 0 #7E3218}
+.fiche-tete h2{font-family:var(--titre);font-weight:700;font-size:clamp(1.15rem,4.4vw,1.6rem);line-height:1.05;
+  color:var(--nuit);margin:.22rem 0 .1rem}
+.teil{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;color:var(--sourd)}
+.picto{width:64px;height:64px;flex:none}
+.picto .plein{fill:var(--egee)} .picto .jaune{fill:var(--soleil)} .picto .oranj{fill:var(--terre)}
+.picto .trait{stroke:var(--encre);stroke-width:3;fill:none;stroke-linecap:round}
+
+/* ---------- corps ---------- */
+.corps-sec{font-size:.92rem;line-height:1.5;position:relative;z-index:2;height:calc(100% - 92px);overflow:hidden}
+.corps-sec p{margin:.4rem 0}
+.corps-sec h3{font-family:var(--titre);font-weight:700;font-size:1.06rem;color:var(--egee);margin:.55rem 0 .1rem}
+.corps-sec h3::before{content:'\25C8';color:var(--terre);margin-right:.4em;font-size:.8em;vertical-align:.06em}
+.lettrine{float:left;font-family:var(--titre);font-weight:700;font-size:2.9em;line-height:.82;margin:.04em .12em 0 0}
+.le{color:var(--egee)} .lo{color:var(--terre)} .ls{color:var(--soleil);text-shadow:1px 1px 0 var(--encre)}
+strong{color:var(--nuit)} em{font-style:italic}
+[lang="el"]{font-family:var(--titre)}
+a{color:var(--terre);font-weight:600}
+
+.achtung{border:2.5px solid var(--terre);background:rgba(192,83,43,.08);padding:.55rem .6rem .45rem;margin:.55rem 0;position:relative}
+.achtung::before{content:'\03A0\03A1\039F\03A3\039F\03A7\0397';position:absolute;top:-.75em;left:.6rem;background:var(--terre);
+  color:var(--marbre);font-family:var(--mono);font-weight:700;font-size:.56rem;letter-spacing:.16em;padding:.15em .5em}
+.achtung p{margin:.1rem 0;font-size:.86rem}
+.merksatz{border-left:8px solid var(--egee);background:rgba(30,95,168,.08);padding:.5rem .6rem;margin:.55rem 0;position:relative}
+.merksatz::before{content:'\0398\03A5\039C\0397\03A3\039F\03A5';position:absolute;top:-.72em;left:.6rem;background:var(--egee);
+  color:var(--marbre);font-family:var(--mono);font-weight:700;font-size:.56rem;letter-spacing:.16em;padding:.15em .5em}
+.merksatz p{margin:.1rem 0;font-size:.88rem;font-style:italic}
+
+/* ---------- frappe ---------- */
+.cache-frappe{visibility:hidden}
+table .cache-frappe{visibility:collapse}
+.curseur{display:inline-block;width:.52em;height:1.05em;background:var(--egee);vertical-align:-.14em;
+  animation:knip 640ms steps(2,end) infinite}
+@keyframes knip{50%{opacity:0}}
+
+/* ---------- tables (Glossári) ---------- */
+table{border-collapse:collapse;width:100%;font-size:.8rem;margin:.4rem 0}
+caption{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--sourd);text-align:left;padding-bottom:.25rem}
+th{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-align:left;color:var(--marbre);
+  background:var(--nuit);padding:.28rem .45rem}
+td{padding:.3rem .45rem;border-bottom:1.5px solid rgba(30,95,168,.28);vertical-align:top}
+.tablo-sprach .de{font-weight:600}
+.tablo-sprach .de [lang="el"]{white-space:nowrap}
+.tablo-sprach .tl{font-family:var(--mono);font-size:.68rem;color:var(--sourd)}
+.tablo-sprach .pron{font-family:var(--mono);font-size:.72rem;color:var(--egee)}
+button.dire{border:none;background:var(--egee);color:var(--marbre);width:1.55rem;height:1.35rem;
+  vertical-align:middle;cursor:pointer;border-radius:2px;padding:.08rem 0}
+button.dire.parle{background:var(--terre)}
+html.sans-voix button.dire{display:none}
+table.cache-sens td.fr{color:transparent;background:repeating-linear-gradient(45deg,rgba(30,95,168,.22) 0 6px,rgba(30,95,168,.08) 6px 12px);cursor:pointer;border-radius:2px}
+table.cache-sens tr.revele td.fr{color:var(--encre);background:none}
+button.pruefen-toggle{font-family:var(--mono);font-weight:700;font-size:.58rem;letter-spacing:.12em;
+  background:var(--marbre);border:2px solid var(--egee);color:var(--egee);padding:.35em .7em;cursor:pointer;margin-top:.2rem}
+
+/* ---------- alphabet (grille hors-test) ---------- */
+.alfa-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;margin:.5rem 0}
+.al{display:flex;flex-direction:column;align-items:center;text-align:center;border:1.5px solid rgba(30,95,168,.4);
+  background:rgba(244,239,226,.6);padding:.3rem .15rem;border-radius:2px}
+.al b{font-family:var(--titre);font-weight:700;font-size:1rem;color:var(--nuit);line-height:1}
+.al i{font-family:var(--mono);font-size:.56rem;font-style:normal;color:var(--terre);margin-top:.15rem}
+
+/* ---------- Satzbaukasten / Fraséologio ---------- */
+.bk-rang{display:flex;flex-wrap:wrap;gap:.32rem;margin:.4rem 0}
+.bk-rang button{font-family:var(--corps);font-size:.76rem;font-weight:600;background:var(--marbre);
+  border:2px solid var(--egee);padding:.3em .5em;cursor:pointer;color:var(--encre)}
+.bk-a.choisi{background:var(--egee);color:var(--marbre)}
+.bk-f{opacity:.3;pointer-events:none}
+.bk-f.dispo{opacity:1;pointer-events:auto}
+.bk-f.choisi{background:var(--terre);border-color:var(--terre);color:var(--marbre)}
+.bk-sortie{border:2.5px solid var(--nuit);background:#fff;min-height:3.4rem;padding:.45rem .6rem;margin:.35rem 0}
+#bk-de{font-family:var(--titre);font-weight:700;font-size:1.05rem;color:var(--nuit)}
+#bk-fr{font-size:.74rem;color:var(--sourd);font-style:italic}
+button.bk-sprechen{font-family:var(--mono);font-weight:700;font-size:.64rem;letter-spacing:.14em;
+  background:var(--soleil);border:2.5px solid var(--encre);box-shadow:3px 3px 0 var(--encre);
+  padding:.55rem 1rem;cursor:pointer}
+button.bk-sprechen:active{transform:translate(3px,3px);box-shadow:none}
+
+/* ---------- navbar au soleil de Vergina ---------- */
+.navbar{display:flex;align-items:stretch;gap:.5rem;background:var(--nuit);
+  border-top:3px solid var(--encre);padding:.4rem .6rem calc(.4rem + env(safe-area-inset-bottom))}
+.navbar.cache{display:none}
+.navbar button{font-family:var(--mono);font-weight:700;color:var(--marbre);background:none;
+  border:2.5px solid var(--marbre);cursor:pointer}
+.navbar button:disabled{opacity:.28}
+.fleche{font-size:1.35rem;line-height:1;padding:.1rem .8rem}
+.centre{flex:1;display:flex;align-items:center;justify-content:center;gap:.55rem;
+  font-size:.6rem;letter-spacing:.2em;padding:.3rem .4rem}
+.ilios-nav{width:34px;height:34px;flex:none}
+#ilios-nav-g{transition:transform .5s cubic-bezier(.25,.7,.3,1.15)}
+.ilios-nav .rayon{fill:var(--soleil)} .ilios-nav .coeur{fill:var(--soleil);stroke:var(--nuit);stroke-width:1.5}
+.rotors{display:inline-flex;align-items:center;gap:.18rem}
+.rotor{display:inline-block;height:1.5em;overflow:hidden;background:var(--marbre);color:var(--encre);
+  border:1.5px solid var(--encre);width:1.15em;font-size:.84rem}
+.colonne{display:block;transition:transform .42s cubic-bezier(.3,.8,.3,1)}
+.rtotal{font-size:.78rem;opacity:.85}
+
+/* ---------- stèle (couverture) ---------- */
+#stele{display:grid;place-content:center;text-align:center}
+.stele-cadre{max-width:26rem;position:relative;padding:1rem}
+#stele .kicker{font-family:var(--mono);font-size:.58rem;letter-spacing:.32em;color:var(--sourd)}
+#stele h1{font-family:var(--titre);font-weight:700;font-size:clamp(2.8rem,12vw,4.2rem);color:var(--nuit);line-height:.94;margin:.35rem 0 .1rem}
+.translit-h1{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;color:var(--terre);margin-bottom:.3rem}
+.soustitre{font-size:.92rem;line-height:1.55;margin:.4rem 0}
+.edition{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--egee);margin:.5rem 0}
+.stempel-header{position:absolute;top:-.4rem;right:-.3rem;transform:rotate(7deg);cursor:pointer;user-select:none;
+  font-family:var(--mono);font-weight:700;font-size:.64rem;letter-spacing:.18em;color:var(--terre);
+  border:2.5px solid var(--terre);outline:1.5px solid var(--terre);outline-offset:2.5px;
+  padding:.3em .6em;mix-blend-mode:multiply;background:rgba(244,239,226,.5)}
+.aanmonsteren{display:inline-block;margin:.7rem 0 .4rem;font-family:var(--mono);font-weight:700;
+  font-size:.76rem;letter-spacing:.16em;color:var(--marbre);background:var(--terre);
+  border:3px solid var(--encre);box-shadow:4px 4px 0 var(--encre);padding:.75rem 1.3rem;cursor:pointer}
+.aanmonsteren:active{transform:translate(4px,4px);box-shadow:none}
+.mention-bas{font-size:.7rem;color:var(--sourd)}
+
+/* ---------- agora & pinakas ---------- */
+#agora .corps-sec,#pinakas .corps-sec{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.agora-intro{font-size:.88rem;margin-bottom:.5rem}
+.tuiles{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.tuile{display:flex;flex-direction:column;align-items:center;gap:.15rem;text-decoration:none;color:var(--encre);
+  background:var(--marbre);border:2.5px solid var(--egee);box-shadow:inset 0 0 0 2px var(--marbre),inset 0 0 0 3.5px var(--egee),0 3px 0 rgba(12,35,64,.42);
+  padding:.55rem .3rem .45rem;text-align:center}
+.tuile:active{transform:translateY(3px);box-shadow:inset 0 0 0 2px var(--marbre),inset 0 0 0 3.5px var(--egee)}
+.tuile .picto{width:46px;height:46px}
+.tno{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;color:var(--sourd)}
+.tnom{font-weight:600;font-size:.74rem;line-height:1.15;display:flex;flex-direction:column;gap:.05rem}
+.tnom [lang="el"]{font-size:.82rem;color:var(--nuit)}
+.tnom i{font-family:var(--corps);font-style:normal;font-weight:400;font-size:.62rem;color:var(--sourd)}
+.tuile-taal{grid-column:1 / -1;flex-direction:row;justify-content:center;gap:.7rem;
+  background:var(--terre);border-color:var(--encre);color:var(--marbre)}
+.tuile-taal .tno,.tuile-taal .tnom i{color:rgba(244,239,226,.82)}
+.tuile-taal .tnom [lang="el"]{color:var(--marbre)}
+.tuile-taal .picto .plein{fill:var(--marbre)}
+.tuile-taal .picto .trait{stroke:var(--encre)}
+.agora-pied{margin-top:.55rem;text-align:center;font-size:.8rem}
+.inhoud-corps .inhoud-titre{font-family:var(--titre);font-weight:700;color:var(--nuit);font-size:1.45rem;margin-bottom:.5rem}
+.inhoud-liste{list-style:none}
+.inhoud-liste li{border-bottom:1.5px solid rgba(30,95,168,.3);padding:.42rem 0}
+.inhoud-liste a{color:var(--encre);text-decoration:none;font-size:.86rem}
+.inhoud-liste a:active{color:var(--terre)}
+
+/* ---------- lyre dans l'agora (easter egg) ---------- */
+.agora-lyra{margin:.7rem 0 .3rem;text-align:center}
+.lyra-hint{font-size:.76rem;color:var(--sourd);margin-bottom:.3rem}
+.lyra-murmure{display:block;font-style:italic;opacity:.72;font-size:.72rem}
+.lyra{display:inline-block;width:min(46vw,168px)}
+.lyra svg{width:100%;height:auto}
+.chorde{cursor:pointer;stroke:var(--soleil);stroke-width:1.6;transition:stroke .18s}
+.chorde.pincee{animation:corde-vibre 260ms ease-out}
+@keyframes corde-vibre{0%,100%{transform:translateX(0)}25%{transform:translateX(1.4px)}75%{transform:translateX(-1.4px)}}
+#lyra-keravnos{opacity:0}
+.lyra.keravnos #lyra-keravnos{opacity:1;animation:eclair-flash 620ms steps(3,end)}
+@keyframes eclair-flash{0%,100%{opacity:.15}30%,60%{opacity:1}}
+.keravnos-tampon{display:inline-block;margin-top:.4rem;font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.2em;
+  color:var(--soleil);border:3px solid var(--soleil);outline:2px solid var(--soleil);outline-offset:3px;
+  padding:.3em .6em;transform:rotate(-4deg);animation:claquer 200ms steps(4,end) both}
+
+/* ---------- Manteion (Toets culturel : le pressoir) ---------- */
+.quiz-corps{height:100%;display:flex;flex-direction:column;overflow:hidden}
+.quiz-tete{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.3rem}
+.quiz-prog{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;color:var(--egee)}
+button.mute{font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.1em;
+  border:2px solid var(--egee);background:none;color:var(--egee);padding:.3em .5em;cursor:pointer}
+.presse-cadre{flex:none;display:flex;justify-content:center}
+.presse{width:min(64vw,238px);height:auto}
+.presse .plein{fill:var(--olive)} .presse .bois{fill:var(--terre)} .presse .pierre{fill:#9C8870}
+.presse .trait{stroke:var(--encre);stroke-width:3;fill:none;stroke-linecap:round} .presse .jaune{fill:var(--soleil)}
+#meule{transform-origin:center;transition:transform .7s cubic-bezier(.3,.65,.35,1.05)}
+.presse.storm #meule{animation:storm 2.4s cubic-bezier(.5,0,.5,1) both}
+@keyframes storm{to{transform:rotate(1440deg)}}
+#frein{opacity:0;transition:opacity .18s}
+.presse.frein-on #frein{opacity:1;animation:frein-grince 480ms steps(3,end)}
+@keyframes frein-grince{33%{transform:translateX(1.6px)}66%{transform:translateX(-1.6px)}}
+.amfora [id$="-vul"]{transform-origin:bottom;transition:transform .55s cubic-bezier(.3,.9,.4,1.1)}
+.presse.storm #filet{opacity:1}
+.quiz-zone{flex:1;overflow:hidden;padding-top:.25rem}
+.quiz-situation{font-size:.8rem;font-style:italic;color:var(--sourd);margin:.15rem 0}
+.quiz-q{font-weight:700;font-size:.92rem;color:var(--nuit);margin:.2rem 0 .4rem}
+.quiz-choix{display:grid;gap:.4rem}
+button.choix{text-align:left;font-family:var(--corps);font-size:.84rem;font-weight:600;
+  background:var(--marbre);border:2.5px solid var(--egee);padding:.5rem .6rem;cursor:pointer;color:var(--encre)}
+button.choix[data-etat="bonne"]{background:var(--egee);color:var(--marbre)}
+button.choix[data-etat="mauvaise"]{background:var(--refus);color:var(--marbre);border-color:var(--refus)}
+.quiz-verdict{margin:.2rem 0}
+.grand-stempel{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.92rem;letter-spacing:.2em;
+  padding:.35em .7em;border:3px solid currentColor;outline:2px solid currentColor;outline-offset:3px;
+  transform:rotate(-4deg);mix-blend-mode:multiply}
+.grand-stempel.ok{color:var(--olive)} .grand-stempel.non{color:var(--refus)}
+.grand-stempel.anime{animation:claquer 170ms steps(4,end) both}
+@keyframes claquer{from{transform:rotate(-4deg) scale(2.1);opacity:0}to{transform:rotate(-4deg) scale(1);opacity:1}}
+.quiz-explication{font-size:.8rem;margin:.4rem 0}
+.quiz-bonne{font-weight:700;color:var(--olive)}
+button.weiter{font-family:var(--mono);font-weight:700;font-size:.68rem;letter-spacing:.14em;
+  background:var(--soleil);border:2.5px solid var(--encre);box-shadow:3px 3px 0 var(--encre);
+  padding:.55rem .95rem;cursor:pointer;margin-top:.25rem}
+button.weiter:active{transform:translate(3px,3px);box-shadow:none}
+.bilan{text-align:center}
+.bilan .score{display:block;font-family:var(--titre);font-weight:700;font-size:2.6rem;color:var(--nuit)}
+.verdict-texte{font-size:.86rem;margin:.5rem 0}
+.vers-manteion,.vers-examen{text-align:center;margin-top:.6rem}
+
+/* ---------- Kolophon ---------- */
+.kolophon-corps{display:grid;place-content:center;text-align:center;gap:.5rem;height:100%}
+.kolophon-titre{font-family:var(--titre);font-weight:700;color:var(--nuit);font-size:1.6rem}
+.kolophon-corps p{font-size:.86rem;max-width:24rem;line-height:1.55}
+.kolophon-l2{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--sourd)}
+
+/* ---------- retour classeur (chroniko + kolophon) ---------- */
+.retour-classeur{display:block;width:max-content;margin:.6rem auto 0;font-family:var(--mono);font-weight:700;font-size:.6rem;letter-spacing:.16em;color:var(--egee);background:var(--marbre);border:2.5px solid var(--egee);padding:.5em .95em;text-decoration:none}
+
+/* ---------- adyton (nuit de l'oracle) ---------- */
+.fiche-adyton,#geheim{background:var(--adyton);border-color:#8A3A1E;
+  box-shadow:inset 0 0 0 3px var(--adyton),inset 0 0 0 5px #8A3A1E,0 5px 0 rgba(0,0,0,.5)}
+#geheim::before{opacity:.4;filter:invert(.85)}
+#geheim::after{opacity:.2}
+.adyton-corps{color:#EBD9BC;height:100%;overflow-y:auto}
+.adyton-corps h2{font-family:var(--titre);font-weight:700;font-size:1.7rem;color:#F2C24B;text-shadow:0 0 14px rgba(127,224,195,.55);margin:.4rem 0}
+.adyton-corps p{font-size:.88rem;line-height:1.55;margin:.4rem 0}
+.adyton-corps strong{color:var(--marbre)}
+.adyton-stemp{position:static;display:inline-block;color:#F2C24B;border-color:#F2C24B;outline-color:#F2C24B;transform:rotate(-3deg);margin-bottom:.3rem;background:none}
+.adyton-dedicace{border-left-color:var(--soleil);background:rgba(227,162,15,.1)}
+.adyton-dedicace p{color:#EFE2C4;font-style:italic}
+.adyton-retour{display:inline-block;font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.14em;
+  background:none;border:2.5px solid #EBD9BC;color:#EBD9BC;padding:.55rem .9rem;text-decoration:none;margin-top:.5rem}
+
+/* ---------- couronne de laurier (examen) ---------- */
+.examen-corps{height:100%;display:flex;flex-direction:column;overflow:hidden}
+.examen-tete{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.3rem}
+.stefani-cadre{flex:none;display:flex;justify-content:center;margin:.1rem 0 .3rem}
+.stefani{width:min(78vw,300px);height:auto}
+.cachet{opacity:0;transform-box:fill-box;transform-origin:center}
+.cachet.appose{animation:feuille-pousse 260ms cubic-bezier(.3,.7,.4,1.3) both}
+@keyframes feuille-pousse{0%{opacity:0;transform:scale(.1) rotate(-24deg)}60%{opacity:1}100%{opacity:.95;transform:scale(1)}}
+.examen-zone{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-top:.2rem}
+.ex-mode{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;color:var(--sourd);text-transform:uppercase}
+.ex-mot{font-family:var(--titre);font-weight:700;font-size:clamp(1.6rem,6.6vw,2.3rem);color:var(--nuit);line-height:1.05;margin:.1rem 0 .5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.ex-mot span[lang="el"]{border-bottom:3px solid var(--soleil)}
+button.ex-dire{border:none;background:var(--egee);color:var(--marbre);width:1.9rem;height:1.6rem;cursor:pointer;border-radius:2px;font-size:.8rem;line-height:1;flex:none}
+button.ex-dire.parle{background:var(--terre)}
+html.sans-voix button.ex-dire{display:none}
+.ex-choix{display:grid;gap:.4rem}
+.ex-court{display:flex;gap:.4rem;flex-wrap:wrap}
+.ex-input{flex:1;min-width:11rem;font-family:var(--corps);font-size:1rem;padding:.55rem .6rem;border:2.5px solid var(--egee);background:#fff;color:var(--encre)}
+.ex-input:focus{outline:none;border-color:var(--terre);box-shadow:0 0 0 3px rgba(192,83,43,.18)}
+.ex-input.bon{border-color:var(--olive);background:rgba(110,127,60,.12)}
+.ex-input.faux{border-color:var(--refus);background:rgba(158,43,37,.09)}
+button.ex-valider{font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.12em;background:var(--soleil);border:2.5px solid var(--encre);box-shadow:3px 3px 0 var(--encre);padding:.55rem .95rem;cursor:pointer}
+button.ex-valider:active{transform:translate(3px,3px);box-shadow:none}
+button.ex-valider:disabled{opacity:.4;box-shadow:none;transform:none}
+.ex-verdict{margin:.45rem 0 .2rem}
+.btn-examen{display:inline-flex;flex-direction:column;align-items:center;gap:.15rem;font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.1em;color:var(--marbre);background:var(--egee);border:3px solid var(--encre);box-shadow:4px 4px 0 var(--encre);padding:.7rem 1.15rem;text-decoration:none}
+.btn-examen:active{transform:translate(4px,4px);box-shadow:none}
+.be-sub{font-family:var(--corps);font-weight:600;font-size:.62rem;letter-spacing:.02em;color:var(--soleil);text-transform:none}
+
+/* ---------- chroniko ---------- */
+.par-chroniko .parno{background:var(--soleil);color:var(--encre);box-shadow:2px 2px 0 #A66903}
+.tuile-chroniko{grid-column:1 / -1;flex-direction:row;justify-content:center;gap:.7rem;background:var(--soleil);border-color:var(--encre);color:var(--encre)}
+.tuile-chroniko .tno{color:rgba(27,36,48,.6)}
+.tuile-chroniko .picto{width:52px;height:52px}
+.tuile-chroniko .picto .trait{stroke:var(--encre)}
+
+/* ---------- pictos animés (hooks gr-*) ---------- */
+.actif .gr-tourne{transform-origin:center;animation:roue 1.6s steps(8) infinite}
+@keyframes roue{to{transform:rotate(360deg)}}
+.actif .gr-cligne{animation:knip 2.2s steps(2,end) infinite}
+.actif .gr-onde{opacity:0;animation:golf 1.8s steps(2,end) infinite}
+@keyframes golf{72%,92%{opacity:1}}
+.actif .gr-glisse{animation:pijl 1.6s steps(4,end) infinite}
+@keyframes pijl{0%{transform:translateX(-14px);opacity:0}45%,100%{transform:none;opacity:1}}
+.actif .gr-tangue{transform-origin:center bottom;animation:tangue 2.4s ease-in-out infinite}
+@keyframes tangue{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.actif .gr-vapeur{animation:damp 1.6s steps(3) infinite}
+@keyframes damp{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-8px);opacity:0}}
+.actif .gr-flamme{transform-origin:center bottom;animation:flamme 1.3s ease-in-out infinite}
+@keyframes flamme{0%,100%{transform:scaleY(1) skewX(0)}50%{transform:scaleY(1.12) skewX(-4deg)}}
+.actif .gr-pousse{transform-origin:center bottom;animation:pousse 2.6s steps(6,end) both}
+@keyframes pousse{from{transform:scale(.15);opacity:0}55%,100%{transform:none;opacity:1}}
+.actif .gr-bulle{animation:val 1.7s steps(3,end) infinite}
+@keyframes val{0%{transform:translateY(-24px);opacity:0}30%,100%{transform:none;opacity:1}}
+.actif .gr-leve{transform-origin:center bottom;animation:leve 2.2s ease-out infinite}
+@keyframes leve{0%{transform:translateY(6px);opacity:.4}45%,100%{transform:none;opacity:1}}
+.actif .gr-tampe{animation:knip 1.9s steps(2,end) infinite}
+
+/* ---------- replis ---------- */
+html.nojs .fiche{display:block;position:static;height:auto;margin-bottom:1rem;overflow:visible}
+html.nojs .corps-sec{height:auto;overflow:visible}
+html.nojs body{overflow:auto}
+html.nojs .cache-frappe{visibility:visible}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
+}
+@media (min-height:760px){.corps-sec{font-size:.98rem}}
+
+</style>
+</head>
+<body>
+<div id="app">
+<main id="scene">
+<section class="fiche" id="stele"><div class="stele-cadre"><span class="stempel-header">SELLO</span><p class="kicker">VAL&Egrave;NCIA &middot; GU&Iacute;A DE CAMPO &middot; ANNO 2026</p><h1>El Llibret</h1><p class="translit-h1">El Llibret &mdash; le livret des Fallas&nbsp;: satirique, br&ucirc;lable, indispensable</p><p class="soustitre">Pour <strong>St&eacute;phanie</strong>, qui part vers Valence&nbsp;: un guide cuit au feu doux du socarrat, carrel&eacute; comme un retablo de Manises, &agrave; l&rsquo;orange de la huerta &mdash; scell&eacute; au safran.</p><p class="edition">Guide de terrain &middot; Valence &amp; ses environs &middot; table, feu &amp; langue</p><button type="button" id="btn-anavasi" class="aanmonsteren">LA ENTRADA &mdash; pousser la porte du patio</button><p class="mention-bas">Neuf &sect; de c&eacute;ramique &middot; un Glosario parlant &middot; une Prueba &agrave; la noria</p></div></section><section class="fiche" id="agora"><div class="corps-sec agora-corps"><p class="agora-intro">&iexcl;Hola, <strong>St&eacute;phanie</strong>&nbsp;! Bienvenue dans le patio aux orangers. Neuf &sect; de c&eacute;ramique pour traverser Valence sans faux pas, un Glosario &agrave; voix haute, et une Prueba qui te met &agrave; l&rsquo;&eacute;preuve. Touche un carreau&nbsp;:</p><div class="tuiles"><a class="tuile" href="#p1-1"><span class="tno">&sect; 1</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Orange de Valence &agrave; la fleur d&rsquo;azahar"><circle class="oranj" cx="48" cy="54" r="26"/><path class="trait" d="M34 44 q6 -6 14 -4" fill="none"/><path class="plein" d="M48 28 q2 -10 12 -12 q0 10 -12 12 z"/><g class="gr-pousse"><path class="trait" d="M52 26 q4 -10 14 -12" fill="none"/><circle class="jaune" cx="68" cy="12" r="4"/><circle fill="#F2E3C6" cx="64" cy="16" r="2.6"/><circle fill="#F2E3C6" cx="72" cy="15" r="2.6"/></g><line class="trait" x1="20" y1="86" x2="76" y2="86"/></svg><span class="tnom"><span lang="es">El alma</span><i>L&rsquo;&acirc;me valencienne</i></span></a><a class="tuile" href="#p2-1"><span class="tno">&sect; 2</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Falla dress&eacute;e et flamme de la crem&agrave;"><path class="plein" d="M34 82 l14 -46 l14 46 z"/><circle class="jaune" cx="48" cy="30" r="7"/><path class="trait" d="M28 82 h40" fill="none"/><g class="gr-flamme"><path class="oranj" d="M70 60 q6 -12 0 -20 q-6 8 0 20 z"/><path class="jaune" d="M70 56 q3 -7 0 -11 q-3 4 0 11 z"/></g><line class="trait" x1="16" y1="86" x2="80" y2="86"/></svg><span class="tnom"><span lang="es">Las Fallas</span><i>Le feu sacr&eacute; de mars</i></span></a><a class="tuile" href="#p3-1"><span class="tno">&sect; 3</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Deux bulles de dialogue &mdash; valencien et castillan"><path class="plein" d="M12 20 h44 v26 h-24 l-10 10 v-10 h-10 z"/><path class="oranj" d="M42 48 h42 v24 h-10 v10 l-10 -10 h-22 z"/><circle fill="#F2E3C6" cx="26" cy="33" r="3"/><circle fill="#F2E3C6" cx="36" cy="33" r="3"/><circle fill="#F2E3C6" cx="46" cy="33" r="3"/><g class="gr-cligne"><circle class="jaune" cx="63" cy="60" r="4"/></g><line class="trait" x1="14" y1="86" x2="82" y2="86"/></svg><span class="tnom"><span lang="es">Los c&oacute;digos</span><i>Les codes &amp; le tact</i></span></a><a class="tuile" href="#p4-1"><span class="tno">&sect; 4</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Paella aux deux anses, riz au safran"><circle class="plein" cx="48" cy="50" r="26"/><circle class="jaune" cx="48" cy="50" r="19"/><path class="trait" d="M22 46 q-8 -2 -12 4 M74 46 q8 -2 12 4" fill="none" stroke-width="4"/><circle class="oranj" cx="41" cy="45" r="3"/><circle class="oranj" cx="56" cy="52" r="3"/><path class="trait" d="M44 56 q4 3 8 0" fill="none"/><g class="gr-onde"><path class="trait" d="M40 22 q2 -6 0 -10 M52 22 q2 -6 0 -10" fill="none"/></g><line class="trait" x1="18" y1="86" x2="78" y2="86"/></svg><span class="tnom"><span lang="es">La mesa</span><i>La paella &amp; la table</i></span></a><a class="tuile" href="#p5-1"><span class="tno">&sect; 5</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Verre d&rsquo;horchata au farton"><path class="plein" d="M30 30 l6 50 h24 l6 -50 z"/><path d="M34 40 l3 34 h22 l3 -34 z" fill="#F2E3C6"/><path class="jaune" d="M58 12 q16 4 12 22 l-8 14 q-3 -2 -2 -6 l6 -10 q2 -12 -8 -14 z"/><g class="gr-onde"><path class="trait" d="M40 24 q2 -6 0 -10" fill="none"/></g><line class="trait" x1="22" y1="86" x2="74" y2="86"/></svg><span class="tnom"><span lang="es">Para beber</span><i>Horchata &amp; agua de Valencia</i></span></a><a class="tuile" href="#p6-1"><span class="tno">&sect; 6</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Le Miguelete et l&rsquo;&oelig;il de Calatrava"><path class="plein" d="M28 82 v-48 l10 -8 v-6 h4 v6 l4 -3 v57 z"/><rect class="jaune" x="34" y="58" width="7" height="12"/><path class="trait" d="M26 34 h24" fill="none"/><path class="oranj" d="M54 66 q14 -14 34 0 q-20 12 -34 0 z"/><g class="gr-cligne"><circle class="plein" cx="71" cy="65" r="5"/></g><line class="trait" x1="16" y1="86" x2="84" y2="86"/></svg><span class="tnom"><span lang="es">La ciudad</span><i>Valence, pierre &amp; futur</i></span></a><a class="tuile" href="#p7-1"><span class="tno">&sect; 7</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Barraca de l&rsquo;Albufera aux roseaux"><path class="plein" d="M24 52 l24 -22 l24 22 z"/><path d="M30 52 h36 v22 h-36 z" fill="#F2E3C6"/><path class="trait" d="M30 52 h36 M45 74 v-12 h6 v12" fill="none"/><path class="trait" d="M48 30 v-8 M48 22 l6 3" fill="none"/><g class="gr-pousse"><path class="plein" d="M16 74 q-2 -14 4 -20 q4 8 -1 20 z" style="fill:#5C7345"/><path class="plein" d="M80 74 q2 -14 -4 -20 q-4 8 1 20 z" style="fill:#5C7345"/></g><path class="trait" d="M12 82 q10 5 20 0 q10 -5 20 0 q10 5 20 0 q6 -3 12 0" fill="none"/></svg><span class="tnom"><span lang="es">La Albufera</span><i>La lagune &amp; la huerta</i></span></a><a class="tuile" href="#p8-1"><span class="tno">&sect; 8</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ch&acirc;teau perch&eacute; de X&agrave;tiva"><path class="plein" d="M14 84 q34 -34 68 0 z"/><path class="oranj" d="M38 50 v-14 h5 v4 h5 v-4 h5 v4 h5 v-4 h5 v14 z"/><rect class="jaune" x="52" y="42" width="5" height="8"/><path class="trait" d="M30 82 q10 -8 6 -16 q10 2 14 -8" fill="none" stroke-dasharray="4 4"/><line class="trait" x1="12" y1="86" x2="84" y2="86"/></svg><span class="tnom"><span lang="es">Las escapadas</span><i>Ch&acirc;teaux &amp; thermes</i></span></a><a class="tuile" href="#p9-1"><span class="tno">&sect; 9</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="V&eacute;lo dans la ville plate"><circle class="trait" cx="28" cy="64" r="14" fill="none" stroke-width="4"/><circle class="trait" cx="70" cy="64" r="14" fill="none" stroke-width="4"/><path class="trait" d="M28 64 l14 -24 h16 l12 24 M42 40 l8 24 h-22" fill="none"/><path class="oranj" d="M40 36 h12 v5 h-12 z"/><g class="gr-onde"><path class="trait" d="M12 42 q-6 2 -8 6 M14 52 q-5 2 -7 5" fill="none"/></g><line class="trait" x1="10" y1="86" x2="88" y2="86"/></svg><span class="tnom"><span lang="es">En camino</span><i>Bouger, payer, d&eacute;jouer</i></span></a><a class="tuile tuile-examen" href="#examen"><span class="tno">EXAMEN</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Couronne d&rsquo;azahar de l&rsquo;examen"><path class="trait" d="M18 66 Q48 46 78 66" fill="none" stroke-width="3" style="stroke:#5C7345"/><g class="gr-cligne"><circle fill="#F2E3C6" cx="34" cy="57" r="5"/><circle class="jaune" cx="34" cy="57" r="2"/></g><circle fill="#F2E3C6" cx="48" cy="53" r="5"/><circle class="jaune" cx="48" cy="53" r="2"/><circle fill="#F2E3C6" cx="62" cy="57" r="5"/><circle class="jaune" cx="62" cy="57" r="2"/><line class="trait" x1="20" y1="84" x2="76" y2="84"/></svg><span class="tnom"><span lang="es">El examen</span><i>14 questions &mdash; gagne ta couronne</i></span></a><a class="tuile tuile-oracle" href="#manteion"><span class="tno">PRUEBA</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Noria de la Prueba"><g class="gr-tourne" style="transform-origin:48px 46px"><circle class="trait" cx="48" cy="46" r="22" fill="none" stroke-width="4"/><line class="trait" x1="48" y1="24" x2="48" y2="68"/><line class="trait" x1="26" y1="46" x2="70" y2="46"/><rect class="jaune" x="44" y="20" width="8" height="8"/></g><circle class="oranj" cx="48" cy="46" r="5"/><path class="trait" d="M16 82 q10 5 20 0 q10 -5 20 0 q10 5 24 0" fill="none"/></svg><span class="tnom"><span lang="es">La Prueba</span><i>12 situations &mdash; dore ton socarrat</i></span></a><a class="tuile tuile-taal" href="#p10-1"><span class="tno">&sect; 10</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg><span class="tnom"><span lang="es">El Glosario</span><i>L&rsquo;espagnol qui parle</i></span></a><a class="tuile tuile-chroniko" href="#x-1"><span class="tno">CR&Oacute;NICA</span><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Noria du temps en marche"><g class="gr-tourne" style="transform-origin:48px 48px"><circle class="trait" cx="48" cy="48" r="26" fill="none" stroke-width="4"/><line class="trait" x1="48" y1="22" x2="48" y2="74"/><line class="trait" x1="22" y1="48" x2="74" y2="48"/><line class="trait" x1="30" y1="30" x2="66" y2="66"/><line class="trait" x1="66" y1="30" x2="30" y2="66"/><rect class="jaune" x="44" y="18" width="8" height="8"/><rect class="jaune" x="44" y="70" width="8" height="8"/></g><circle class="oranj" cx="48" cy="48" r="6"/><path class="trait" d="M12 84 q10 5 20 0 q10 -5 20 0 q10 5 20 0 q6 -3 12 0" fill="none"/></svg><span class="tnom">Histoire &mdash; de Valentia &agrave; aujourd&rsquo;hui, 2&nbsp;164 ans</span></a></div><div class="agora-lyra"><p class="lyra-hint">Une guitare dort contre l&rsquo;oranger&hellip; <span class="lyra-murmure">pince ses quatre cordes, de la plus grave &agrave; la plus aigu&euml;.</span></p><div class="lyra"><svg class="lyra" viewBox="0 0 120 110" role="img" aria-label="Guitare espagnole &agrave; quatre cordes &mdash; pince-les dans l&rsquo;ordre"><path d="M14 96 v-34 q-10 -4 -8 -16 q2 -12 16 -12 q4 -10 16 -8 q10 2 10 14 q10 4 6 16 q-3 9 -14 8 v32 z" fill="#5C7345" stroke="#2B1E16" stroke-width="3"/><circle cx="22" cy="46" r="5" fill="#C75B12" stroke="#2B1E16" stroke-width="2"/><circle cx="40" cy="38" r="5" fill="#C75B12" stroke="#2B1E16" stroke-width="2"/><circle cx="33" cy="56" r="5" fill="#C75B12" stroke="#2B1E16" stroke-width="2"/><g id="lyra-keravnos" opacity="0"><path d="M72 8 q10 14 2 26 q12 -2 10 12 q-2 12 -14 10 q4 10 -6 14 q-10 -4 -8 -14 q-12 4 -14 -8 q-2 -12 10 -14 q-8 -12 4 -22 q6 6 16 -4 z" fill="#C75B12" stroke="#7E2D1E" stroke-width="2"/><path d="M70 34 q6 10 0 18 q-8 -2 -6 -12 q2 -6 6 -6 z" fill="#D98E04"/></g><path d="M62 96 q-16 0 -18 -16 q-2 -12 8 -16 q-8 -6 -4 -16 q4 -10 16 -10 q12 0 16 10 q4 10 -4 16 q10 4 8 16 q-2 16 -22 16 z" fill="#9C4722" stroke="#2B1E16" stroke-width="3"/><circle cx="62" cy="66" r="7" fill="#2B1E16"/><circle cx="62" cy="66" r="7" fill="none" stroke="#D98E04" stroke-width="1.6"/><rect x="58" y="10" width="8" height="30" fill="#7E2D1E" stroke="#2B1E16" stroke-width="2.4"/><rect x="54" y="2" width="16" height="10" fill="#2B1E16"/><circle cx="52" cy="5" r="2.2" fill="#D98E04"/><circle cx="52" cy="10" r="2.2" fill="#D98E04"/><circle cx="72" cy="5" r="2.2" fill="#D98E04"/><circle cx="72" cy="10" r="2.2" fill="#D98E04"/><rect x="52" y="84" width="20" height="4" fill="#2B1E16"/><g stroke="#F2E3C6" stroke-width="2.5"><line id="chorde-1" class="chorde" x1="56" y1="12" x2="55" y2="86"/><line id="chorde-2" class="chorde" x1="60" y1="12" x2="60" y2="86"/><line id="chorde-3" class="chorde" x1="64" y1="12" x2="65" y2="86"/><line id="chorde-4" class="chorde" x1="68" y1="12" x2="70" y2="86"/></g><line x1="10" y1="98" x2="112" y2="98" stroke="#2B1E16" stroke-width="3"/></svg></div></div><p class="agora-pied"><a href="#pinakas">&Iacute;ndice &mdash; table des mati&egrave;res compl&egrave;te &rarr;</a></p><a class="retour-classeur" href="/">&larr; EL ARCHIVADOR &mdash; retour au classeur</a></div></section><section class="fiche" id="pinakas"><div class="corps-sec inhoud-corps"><h2 class="inhoud-titre">&Iacute;ndice &mdash; table des mati&egrave;res</h2><ol class="inhoud-liste"><li><a href="#p1-1">&sect;&nbsp;1 &mdash; L&rsquo;&acirc;me&nbsp;: sobremesa, fiesta, Lo Rat Penat</a></li><li><a href="#p2-1">&sect;&nbsp;2 &mdash; Las Fallas&nbsp;: mascletà, ninots, la crem&agrave;</a></li><li><a href="#p3-1">&sect;&nbsp;3 &mdash; Les codes&nbsp;: deux langues, bises, tact &amp; DANA</a></li><li><a href="#p4-1">&sect;&nbsp;4 &mdash; La mesa&nbsp;: la vraie paella, o&ugrave;, quand, comment</a></li><li><a href="#p5-1">&sect;&nbsp;5 &mdash; Boire&nbsp;: horchata, Agua de Valencia, cremaet</a></li><li><a href="#p6-1">&sect;&nbsp;6 &mdash; La ville&nbsp;: Ciutat Vella, Calatrava, quartiers</a></li><li><a href="#p7-1">&sect;&nbsp;7 &mdash; Huerta &amp; Albufera&nbsp;: barques, rizi&egrave;res, El Palmar</a></li><li><a href="#p8-1">&sect;&nbsp;8 &mdash; Escapades&nbsp;: Sagunt, X&agrave;tiva, Pe&ntilde;&iacute;scola</a></li><li><a href="#p9-1">&sect;&nbsp;9 &mdash; En camino&nbsp;: m&eacute;tro, Valenbisi, argent, s&eacute;curit&eacute;</a></li><li><a href="#p10-1">&sect;&nbsp;10 &mdash; Glosario&nbsp;: l&rsquo;espagnol qui parle</a></li><li><a href="#manteion">La Prueba &mdash; 12 situations, la noria juge</a></li><li><a href="#examen">El Examen &mdash; 14 questions, la couronne d&rsquo;azahar</a></li><li><a href="#x-1">Cr&oacute;nica &mdash; de Valentia &agrave; 2026</a></li></ol><a class="retour-classeur" href="#agora">&larr; EL PATIO &mdash; retour &agrave; la cour</a></div></section><section class="fiche par-pair" id="p1-1" data-par="1"><header class="fiche-tete"><div><span class="parno">&sect; 1</span><h2>El alma &mdash; la rue comme salon</h2><span class="teil">Retablo 1 &middot; 2 &mdash; la fiesta</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Orange de Valence &agrave; la fleur d&rsquo;azahar"><circle class="oranj" cx="48" cy="54" r="26"/><path class="trait" d="M34 44 q6 -6 14 -4" fill="none"/><path class="plein" d="M48 28 q2 -10 12 -12 q0 10 -12 12 z"/><g class="gr-pousse"><path class="trait" d="M52 26 q4 -10 14 -12" fill="none"/><circle class="jaune" cx="68" cy="12" r="4"/><circle fill="#F2E3C6" cx="64" cy="16" r="2.6"/><circle fill="#F2E3C6" cx="72" cy="15" r="2.6"/></g><line class="trait" x1="20" y1="86" x2="76" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">V</span>alence vit dehors, tard, et fort. Le vrai culte local, c&rsquo;est la <strong>fiesta</strong>&nbsp;: p&eacute;tards en toute saison, d&icirc;ners de rue improvis&eacute;s (la <em lang="es">cena de sobaquillo</em>), terrasses pleines &agrave; minuit. L&rsquo;embl&egrave;me de la ville est une chauve-souris, <em>Lo Rat Penat</em>, pos&eacute;e sur les armoiries depuis Jaume&nbsp;I.</p><p>Deux institutions du quotidien&nbsp;: l&rsquo;<strong lang="es">esmorzaret</strong> de 10h30 &mdash; gros sandwich, olives, bi&egrave;re ou <em>cremaet</em>, un rite sacr&eacute; &mdash; et la <strong lang="es">sobremesa</strong>&nbsp;: on reste &agrave; table longtemps apr&egrave;s le dessert, &agrave; parler. Personne ne t&rsquo;apportera l&rsquo;addition sans qu&rsquo;on la demande&nbsp;: ce n&rsquo;est pas de la n&eacute;gligence, c&rsquo;est de la politesse.</p><div class="merksatz"><p>Le mot le plus dit d&rsquo;Espagne&nbsp;: <em lang="es">vale</em> (&laquo;&nbsp;d&rsquo;accord&nbsp;&raquo;). Tu l&rsquo;auras adopt&eacute; avant le deuxi&egrave;me jour.</p></div></div></section><section class="fiche par-pair" id="p1-2" data-par="1"><header class="fiche-tete"><div><span class="parno">&sect; 1</span><h2>El alma &mdash; l&rsquo;horloge espagnole</h2><span class="teil">Retablo 2 &middot; 2 &mdash; les heures</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Orange de Valence &agrave; la fleur d&rsquo;azahar"><circle class="oranj" cx="48" cy="54" r="26"/><path class="trait" d="M34 44 q6 -6 14 -4" fill="none"/><path class="plein" d="M48 28 q2 -10 12 -12 q0 10 -12 12 z"/><g class="gr-pousse"><path class="trait" d="M52 26 q4 -10 14 -12" fill="none"/><circle class="jaune" cx="68" cy="12" r="4"/><circle fill="#F2E3C6" cx="64" cy="16" r="2.6"/><circle fill="#F2E3C6" cx="72" cy="15" r="2.6"/></g><line class="trait" x1="20" y1="86" x2="76" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>&rsquo;horloge locale d&eacute;cale tout de deux heures&nbsp;: d&eacute;jeuner vers <strong>14h</strong> (le vrai repas du jour), d&icirc;ner &agrave; <strong>21h&ndash;22h</strong>. Arriver dans un restaurant &agrave; 19h, c&rsquo;est d&icirc;ner seule avec le personnel. La sieste g&eacute;n&eacute;ralis&eacute;e est un mythe en ville &mdash; mais les petits commerces ferment souvent en milieu de journ&eacute;e.</p><p>On se salue de <strong>deux bises</strong> entre femmes et entre homme et femme&nbsp;; poign&eacute;e de main entre hommes en contexte formel. Les Valenciens sont chaleureux, directs, bruyants avec tendresse&nbsp;: parler fort n&rsquo;est pas se f&acirc;cher.</p><div class="achtung"><p>Le <em lang="es">men&uacute; del d&iacute;a</em> (midi, ~12&ndash;15&nbsp;&euro;, trois services + boisson) est le meilleur rapport qualit&eacute;-prix du pays. Le soir, le m&ecirc;me restaurant co&ucirc;te le double.</p></div></div></section><section class="fiche par-pair" id="p2-1" data-par="2"><header class="fiche-tete"><div><span class="parno">&sect; 2</span><h2>Las Fallas &mdash; l&rsquo;art qui na&icirc;t pour br&ucirc;ler</h2><span class="teil">Retablo 1 &middot; 2 &mdash; 15&ndash;19 mars</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Falla dress&eacute;e et flamme de la crem&agrave;"><path class="plein" d="M34 82 l14 -46 l14 46 z"/><circle class="jaune" cx="48" cy="30" r="7"/><path class="trait" d="M28 82 h40" fill="none"/><g class="gr-flamme"><path class="oranj" d="M70 60 q6 -12 0 -20 q-6 8 0 20 z"/><path class="jaune" d="M70 56 q3 -7 0 -11 q-3 4 0 11 z"/></g><line class="trait" x1="16" y1="86" x2="80" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">C</span>haque mois de mars, Valence dresse pr&egrave;s de 750 monuments de carton-p&acirc;te et de polystyr&egrave;ne &mdash; les <strong lang="es">fallas</strong>, jusqu&rsquo;&agrave; cinq &eacute;tages, peupl&eacute;s de <em lang="es">ninots</em> satiriques qui caricaturent politiciens et c&eacute;l&eacute;brit&eacute;s. Patrimoine immat&eacute;riel de l&rsquo;<strong>UNESCO</strong> depuis 2016, port&eacute; par ~200&nbsp;000 membres de commissions de quartier.</p><p>Les jours saints&nbsp;: la <em>plant&agrave;</em> (installation, 15 mars), l&rsquo;<em>Ofrena de Flors</em> (17&ndash;18 mars) o&ugrave; la Vierge des D&eacute;sempar&eacute;s re&ccedil;oit une cape de fleurs haute comme un immeuble, la <em>Nit del Foc</em> (grand feu d&rsquo;artifice, 18 mars) &mdash; puis le feu.</p><div class="merksatz"><p>La nuit du <strong>19 mars</strong>, tout br&ucirc;le&nbsp;: c&rsquo;est la <em lang="es">Crem&agrave;</em>. Un seul <em>ninot</em> est graci&eacute; chaque ann&eacute;e par le vote populaire &mdash; l&rsquo;<em>indultat</em> &mdash; et rejoint le Museo Fallero.</p></div></div></section><section class="fiche par-pair" id="p2-2" data-par="2"><header class="fiche-tete"><div><span class="parno">&sect; 2</span><h2>Las Fallas &mdash; la mascletà, bouche entrouverte</h2><span class="teil">Retablo 2 &middot; 2 &mdash; survivre au bruit</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Falla dress&eacute;e et flamme de la crem&agrave;"><path class="plein" d="M34 82 l14 -46 l14 46 z"/><circle class="jaune" cx="48" cy="30" r="7"/><path class="trait" d="M28 82 h40" fill="none"/><g class="gr-flamme"><path class="oranj" d="M70 60 q6 -12 0 -20 q-6 8 0 20 z"/><path class="jaune" d="M70 56 q3 -7 0 -11 q-3 4 0 11 z"/></g><line class="trait" x1="16" y1="86" x2="80" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">D</span>u 1<sup>er</sup> au 19 mars, chaque jour &agrave; <strong>14h</strong> pile, la Plaza del Ayuntamiento explose&nbsp;: la <strong lang="es">masclet&agrave;</strong>, concert pyrotechnique <em>diurne</em> o&ugrave; ce qui compte n&rsquo;est pas la lumi&egrave;re mais le <strong>rythme</strong> &mdash; un crescendo sismique jusqu&rsquo;au <em>terremoto</em> final, autour de 120 d&eacute;cibels.</p><p>Les locaux la vivent bouche entrouverte pour &eacute;quilibrer la pression, et jugent l&rsquo;artificier comme on juge un chef d&rsquo;orchestre. Si tu y es en mars&nbsp;: bouchons d&rsquo;oreilles dans la poche, h&ocirc;tel r&eacute;serv&eacute; des mois d&rsquo;avance, et gare aux pickpockets dans la foule.</p><div class="achtung"><p>Hors saison, va voir la <strong>Ciutat Fallera</strong> (les ateliers des artistes falleros) ou le Museo Fallero (~2&nbsp;&euro;)&nbsp;: les ninots graci&eacute;s depuis 1934 y racontent un si&egrave;cle de satire.</p></div></div></section><section class="fiche par-pair" id="p3-1" data-par="3"><header class="fiche-tete"><div><span class="parno">&sect; 3</span><h2>Los c&oacute;digos &mdash; deux langues, une politesse</h2><span class="teil">Retablo 1 &middot; 2 &mdash; valenci&agrave; &amp; castellano</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Deux bulles de dialogue &mdash; valencien et castillan"><path class="plein" d="M12 20 h44 v26 h-24 l-10 10 v-10 h-10 z"/><path class="oranj" d="M42 48 h42 v24 h-10 v10 l-10 -10 h-22 z"/><circle fill="#F2E3C6" cx="26" cy="33" r="3"/><circle fill="#F2E3C6" cx="36" cy="33" r="3"/><circle fill="#F2E3C6" cx="46" cy="33" r="3"/><g class="gr-cligne"><circle class="jaune" cx="63" cy="60" r="4"/></g><line class="trait" x1="14" y1="86" x2="82" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">D</span>eux langues co-officielles vivent ici&nbsp;: le <strong>castillan</strong>, dominant &agrave; l&rsquo;oral en ville, et le <strong>valencien</strong> (<em lang="es">valenci&agrave;</em>, variante du catalan), tr&egrave;s pr&eacute;sent &agrave; l&rsquo;&eacute;crit, dans les familles et les villages. Ne dis <em>jamais</em> que le valencien est un &laquo;&nbsp;dialecte&nbsp;&raquo; &mdash; c&rsquo;est le seul vrai faux pas linguistique possible.</p><p>Cons&eacute;quence pratique&nbsp;: presque tout a <strong>deux noms</strong>. <em>X&agrave;tiva</em> = <em>J&aacute;tiva</em>, <em>Russafa</em> = <em>Ruzafa</em>, <em>Pla&ccedil;a de l&rsquo;Ajuntament</em> = <em>Plaza del Ayuntamiento</em>. Les panneaux, stations et cartes m&eacute;langent les deux&nbsp;: ce n&rsquo;est pas une erreur, c&rsquo;est la ville.</p><div class="merksatz"><p>Ouvrir avec <em lang="es">Bon dia</em> puis continuer en castillan (ou en anglais) d&eacute;clenche des sourires&nbsp;: tu as montr&eacute; que tu sais o&ugrave; tu es.</p></div></div></section><section class="fiche par-pair" id="p3-2" data-par="3"><header class="fiche-tete"><div><span class="parno">&sect; 3</span><h2>Los c&oacute;digos &mdash; le pourboire &amp; le tact</h2><span class="teil">Retablo 2 &middot; 2 &mdash; la DANA</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Deux bulles de dialogue &mdash; valencien et castillan"><path class="plein" d="M12 20 h44 v26 h-24 l-10 10 v-10 h-10 z"/><path class="oranj" d="M42 48 h42 v24 h-10 v10 l-10 -10 h-22 z"/><circle fill="#F2E3C6" cx="26" cy="33" r="3"/><circle fill="#F2E3C6" cx="36" cy="33" r="3"/><circle fill="#F2E3C6" cx="46" cy="33" r="3"/><g class="gr-cligne"><circle class="jaune" cx="63" cy="60" r="4"/></g><line class="trait" x1="14" y1="86" x2="82" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>e service est inclus&nbsp;: le pourboire est <strong>optionnel et modeste</strong> &mdash; arrondir au bar ou au taxi, 5&ndash;10&nbsp;% au restaurant si le service fut vraiment bon. Personne ne court apr&egrave;s toi pour un pourboire oubli&eacute;. Pour les &eacute;glises (cath&eacute;drale, San Nicol&aacute;s)&nbsp;: &eacute;paules et genoux couverts&nbsp;; hors plage, on ne circule pas en maillot.</p><p>Un sujet demande du tact&nbsp;: la <strong>DANA d&rsquo;octobre 2024</strong>, ces pluies torrentielles qui ont fait 229 morts dans la province. Le centre touristique a &eacute;t&eacute; &eacute;pargn&eacute; &mdash; mais les communes du sud (Paiporta, Catarroja&hellip;) se reconstruisent encore, dans le deuil et la col&egrave;re politique. On en reparle dans la Cr&oacute;nica.</p><div class="achtung"><p>Ces communes ne sont <strong>pas des attractions</strong>&nbsp;: pas de &laquo;&nbsp;tourisme de catastrophe&nbsp;&raquo;, pas de photos des d&eacute;g&acirc;ts. Si le sujet vient, &eacute;coute &mdash; ta visite du centre, elle, aide concr&egrave;tement la relance.</p></div></div></section><section class="fiche par-pair" id="p4-1" data-par="4"><header class="fiche-tete"><div><span class="parno">&sect; 4</span><h2>La mesa &mdash; la paella, dix ingr&eacute;dients, z&eacute;ro chorizo</h2><span class="teil">Retablo 1 &middot; 2 &mdash; le canon</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Paella aux deux anses, riz au safran"><circle class="plein" cx="48" cy="50" r="26"/><circle class="jaune" cx="48" cy="50" r="19"/><path class="trait" d="M22 46 q-8 -2 -12 4 M74 46 q8 -2 12 4" fill="none" stroke-width="4"/><circle class="oranj" cx="41" cy="45" r="3"/><circle class="oranj" cx="56" cy="52" r="3"/><path class="trait" d="M44 56 q4 3 8 0" fill="none"/><g class="gr-onde"><path class="trait" d="M40 22 q2 -6 0 -10 M52 22 q2 -6 0 -10" fill="none"/></g><line class="trait" x1="18" y1="86" x2="78" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>a <strong>paella valenciana</strong> est n&eacute;e dans les rizi&egrave;res de l&rsquo;Albufera, plat d&rsquo;ouvriers agricoles devenu totem. Le canon a m&ecirc;me &eacute;t&eacute; publi&eacute; dans une revue scientifique (&eacute;tude de l&rsquo;anthropologue Pablo Vidal, UCV)&nbsp;: riz, poulet, <strong>lapin</strong>, haricot plat vert, <em lang="es">garrof&oacute;</em>, tomate, paprika, <strong>safran</strong>, huile d&rsquo;olive, eau. C&rsquo;est tout. <strong>Jamais</strong> de fruits de mer, jamais de chorizo &mdash; sacril&egrave;ge document&eacute;.</p><p>Les r&egrave;gles&nbsp;: elle se mange le <strong>midi</strong> (jamais le soir), se <strong>partage</strong> (minimum deux), cuit <strong>40&ndash;45 minutes</strong> &agrave; la commande &mdash; d&rsquo;o&ugrave; r&eacute;servation et pr&eacute;-commande. Le tr&eacute;sor est au fond&nbsp;: le <strong lang="es">socarrat</strong>, cro&ucirc;te de riz caram&eacute;lis&eacute; qu&rsquo;on gratte &agrave; la cuill&egrave;re, directement dans la po&ecirc;le.</p><div class="merksatz"><p>Riz jaune fluo, photos criardes en vitrine, paella servie en 15 minutes ou &laquo;&nbsp;individuelle&nbsp;&raquo;&nbsp;: quatre drapeaux rouges du pi&egrave;ge &agrave; touristes.</p></div></div></section><section class="fiche par-pair" id="p4-2" data-par="4"><header class="fiche-tete"><div><span class="parno">&sect; 4</span><h2>La mesa &mdash; o&ugrave; la manger, vraiment</h2><span class="teil">Retablo 2 &middot; 2 &mdash; les adresses</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Paella aux deux anses, riz au safran"><circle class="plein" cx="48" cy="50" r="26"/><circle class="jaune" cx="48" cy="50" r="19"/><path class="trait" d="M22 46 q-8 -2 -12 4 M74 46 q8 -2 12 4" fill="none" stroke-width="4"/><circle class="oranj" cx="41" cy="45" r="3"/><circle class="oranj" cx="56" cy="52" r="3"/><path class="trait" d="M44 56 q4 3 8 0" fill="none"/><g class="gr-onde"><path class="trait" d="M40 22 q2 -6 0 -10 M52 22 q2 -6 0 -10" fill="none"/></g><line class="trait" x1="18" y1="86" x2="78" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">D</span>eux p&egrave;lerinages s&ucirc;rs. En bord de mer&nbsp;: <strong>Casa Carmela</strong> (Malvarrosa, depuis 1922), cuisson au feu de bois d&rsquo;oranger &mdash; r&eacute;server des semaines d&rsquo;avance et pr&eacute;-commander la paella <em>a le&ntilde;a</em>. Au village d&rsquo;<strong>El Palmar</strong>, dans l&rsquo;Albufera&nbsp;: <strong>Bon Aire</strong> (titre de &laquo;&nbsp;meilleure paella valenciana du monde&nbsp;&raquo;, concours de Sueca 2018) ou <strong>Casa Salvador</strong> (1947), au bord de la lagune.</p><p>La c&eacute;l&egrave;bre <em>La Pepica</em> (1898, Hemingway en terrasse)&nbsp;? Institution historique pour les guides, &laquo;&nbsp;pi&egrave;ge&nbsp;&raquo; pour beaucoup de locaux&nbsp;: vas-y pour l&rsquo;ambiance face &agrave; la mer, pas pour le riz. Explore aussi les cousins&nbsp;: <em>arr&ograve;s a banda</em>, <em>del senyoret</em> (fruits de mer d&eacute;cortiqu&eacute;s), <em>negre</em> (encre de seiche), <em>al forn</em> (au four, l&rsquo;hiver) et la <strong>fideu&agrave;</strong> de Gandia, aux vermicelles.</p><div class="achtung"><p>Devant un Valencien, on ne met <strong>rien</strong> sur une paella&nbsp;: ni ketchup, ni Tabasco, ni citron non demand&eacute;. On complimente le socarrat, et on est adopt&eacute;e.</p></div></div></section><section class="fiche par-pair" id="p5-1" data-par="5"><header class="fiche-tete"><div><span class="parno">&sect; 5</span><h2>Para beber &mdash; l&rsquo;horchata, blanche et sacr&eacute;e</h2><span class="teil">Retablo 1 &middot; 2 &mdash; &amp; fartons</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Verre d&rsquo;horchata au farton"><path class="plein" d="M30 30 l6 50 h24 l6 -50 z"/><path d="M34 40 l3 34 h22 l3 -34 z" fill="#F2E3C6"/><path class="jaune" d="M58 12 q16 4 12 22 l-8 14 q-3 -2 -2 -6 l6 -10 q2 -12 -8 -14 z"/><g class="gr-onde"><path class="trait" d="M40 24 q2 -6 0 -10" fill="none"/></g><line class="trait" x1="22" y1="86" x2="74" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>&rsquo;<strong lang="es">horchata de chufa</strong> est le lait v&eacute;g&eacute;tal du souchet, cultiv&eacute; dans seize villages de l&rsquo;Horta Nord sous appellation d&rsquo;origine (capitale&nbsp;: <strong>Alboraya</strong>). La vraie est blanc cass&eacute;, go&ucirc;t de noisette, <strong>jamais de gla&ccedil;ons</strong> &mdash; ils la noient. On y trempe des <strong lang="es">fartons</strong>, brioches longues glac&eacute;es au sucre, et c&rsquo;est le go&ucirc;ter valencien absolu.</p><p>Les temples&nbsp;: <strong>Horchater&iacute;a Daniel</strong> (Alboraya&nbsp;; comptoirs au Mercado de Col&oacute;n et Plaza de la Reina) et <strong>Santa Catalina</strong>, deux si&egrave;cles d&rsquo;azulejos pr&egrave;s de la cath&eacute;drale. Cousin d&rsquo;hiver&nbsp;: le <em lang="es">cremaet</em> &mdash; liqueur flamb&eacute;e, caf&eacute;, mousse, servi en couches &mdash; et le <em>caf&eacute; del temps</em>, expresso avec verre de gla&ccedil;ons &agrave; c&ocirc;t&eacute;.</p><div class="merksatz"><p>Horchata jaun&acirc;tre ou granuleuse = industrielle. La bonne se boit le jour m&ecirc;me, du comptoir, debout si possible.</p></div></div></section><section class="fiche par-pair" id="p5-2" data-par="5"><header class="fiche-tete"><div><span class="parno">&sect; 5</span><h2>Para beber &mdash; l&rsquo;agua de Valencia, la tra&icirc;tresse</h2><span class="teil">Retablo 2 &middot; 2 &mdash; &amp; les vins</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Verre d&rsquo;horchata au farton"><path class="plein" d="M30 30 l6 50 h24 l6 -50 z"/><path d="M34 40 l3 34 h22 l3 -34 z" fill="#F2E3C6"/><path class="jaune" d="M58 12 q16 4 12 22 l-8 14 q-3 -2 -2 -6 l6 -10 q2 -12 -8 -14 z"/><g class="gr-onde"><path class="trait" d="M40 24 q2 -6 0 -10" fill="none"/></g><line class="trait" x1="22" y1="86" x2="74" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">I</span>nvent&eacute;e en 1959 au Caf&eacute; Madrid par Constante Gil, l&rsquo;<strong lang="es">Agua de Valencia</strong> marie jus d&rsquo;orange local, cava, gin et vodka &mdash; servie en <strong>pichet partag&eacute;</strong> (~15&ndash;20&nbsp;&euro;), fra&icirc;che, sucr&eacute;e, et beaucoup plus forte qu&rsquo;elle n&rsquo;en a l&rsquo;air (~15&deg;). &Agrave; go&ucirc;ter au <strong>Caf&eacute; de las Horas</strong> (d&eacute;cor baroque fou) ou au Caf&eacute; Madrid lui-m&ecirc;me.</p><p>C&ocirc;t&eacute; bi&egrave;res artisanales&nbsp;: <strong>Tyris</strong> (taproom pr&egrave;s de la Lonja), Zeta, et l&rsquo;espi&egrave;gle <em>La Socarrada</em>. C&ocirc;t&eacute; vins&nbsp;: <strong>DO Val&egrave;ncia</strong> pour les blancs (Merseguera, Moscatel) et <strong>DO Utiel-Requena</strong> pour les rouges du c&eacute;page <strong>Bobal</strong> &mdash; et ses cavas, qui font justement p&eacute;tiller l&rsquo;agua de Valencia.</p><div class="achtung"><p>Un pichet d&rsquo;agua de Valencia &agrave; deux, tr&egrave;s bien. Un pichet chacune, et le Miguelete se met &agrave; tanguer.</p></div></div></section><section class="fiche par-pair" id="p6-1" data-par="6"><header class="fiche-tete"><div><span class="parno">&sect; 6</span><h2>La ciudad &mdash; la vieille pierre</h2><span class="teil">Retablo 1 &middot; 2 &mdash; Ciutat Vella</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Le Miguelete et l&rsquo;&oelig;il de Calatrava"><path class="plein" d="M28 82 v-48 l10 -8 v-6 h4 v6 l4 -3 v57 z"/><rect class="jaune" x="34" y="58" width="7" height="12"/><path class="trait" d="M26 34 h24" fill="none"/><path class="oranj" d="M54 66 q14 -14 34 0 q-20 12 -34 0 z"/><g class="gr-cligne"><circle class="plein" cx="71" cy="65" r="5"/></g><line class="trait" x1="16" y1="86" x2="84" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">T</span>out le centre se marche. La <strong>cath&eacute;drale</strong> abrite le <strong>Santo C&aacute;liz</strong> &mdash; la coupe que la tradition identifie au <em>Graal</em> &mdash; et son clocher octogonal, le <strong>Miguelete</strong>, offre la ville enti&egrave;re pour 207 marches. &Agrave; c&ocirc;t&eacute;&nbsp;: <strong>San Nicol&aacute;s</strong>, &laquo;&nbsp;Sixtine valencienne&nbsp;&raquo; aux fresques baroques renversantes.</p><p>La <strong>Lonja de la Seda</strong> (1482&ndash;1533), bourse de la soie au gothique civil class&eacute;e UNESCO, co&ucirc;te 2&nbsp;&euro; &mdash; <strong>gratuite le dimanche</strong>, comme les tours m&eacute;di&eacute;vales de <strong>Serranos</strong> et <strong>Quart</strong>. En face, le <strong>Mercado Central</strong> (1928), cath&eacute;drale moderniste de la mangeaille&nbsp;: prends-y un <em>bocadillo de calamares</em> au comptoir.</p><div class="merksatz"><p>Le jeudi &agrave; midi, devant la porte des Ap&ocirc;tres&nbsp;: le <strong>Tribunal de las Aguas</strong> juge les litiges d&rsquo;irrigation, &agrave; l&rsquo;oral, comme depuis mille ans. La plus vieille cour de justice d&rsquo;Europe, en plein air, gratuite.</p></div></div></section><section class="fiche par-pair" id="p6-2" data-par="6"><header class="fiche-tete"><div><span class="parno">&sect; 6</span><h2>La ciudad &mdash; le futur blanc de Calatrava</h2><span class="teil">Retablo 2 &middot; 2 &mdash; &amp; les quartiers</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Le Miguelete et l&rsquo;&oelig;il de Calatrava"><path class="plein" d="M28 82 v-48 l10 -8 v-6 h4 v6 l4 -3 v57 z"/><rect class="jaune" x="34" y="58" width="7" height="12"/><path class="trait" d="M26 34 h24" fill="none"/><path class="oranj" d="M54 66 q14 -14 34 0 q-20 12 -34 0 z"/><g class="gr-cligne"><circle class="plein" cx="71" cy="65" r="5"/></g><line class="trait" x1="16" y1="86" x2="84" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">D</span>ans l&rsquo;ancien lit du fleuve, la <strong>Cit&eacute; des Arts et des Sciences</strong> du Valencien Santiago Calatrava&nbsp;: l&rsquo;<strong>Oceanogr&agrave;fic</strong> (plus grand aquarium d&rsquo;Europe, ~4h de visite), l&rsquo;&oelig;il g&eacute;ant de l&rsquo;<strong>Hemisf&egrave;ric</strong>, le mus&eacute;e des Sciences. Le combo trois sites (~47,75&nbsp;&euro;, valable 1&ndash;3 jours) bat les billets s&eacute;par&eacute;s&nbsp;; r&eacute;serve en ligne.</p><p>Le tout se rejoint par les <strong>Jardins du Turia</strong>&nbsp;: 9&nbsp;km de parc dans le lit d&eacute;tourn&eacute; du fleuve &mdash; le plus beau boulevard cyclable d&rsquo;Espagne. C&ocirc;t&eacute; quartiers&nbsp;: loge &agrave; <strong>Ruzafa</strong> (le &laquo;&nbsp;Soho&nbsp;&raquo; gourmand, s&ucirc;r, vivant) ou en Ciutat Vella&nbsp;; flâne au <strong>Cabanyal</strong>, ancien village de p&ecirc;cheurs aux fa&ccedil;ades d&rsquo;azulejos, &agrave; deux pas de la Malvarrosa.</p><div class="achtung"><p>Les locations touristiques sont d&eacute;sormais r&eacute;glement&eacute;es&nbsp;: v&eacute;rifie que l&rsquo;appartement affiche un <strong>num&eacute;ro de licence</strong> avant de r&eacute;server.</p></div></div></section><section class="fiche par-pair" id="p7-1" data-par="7"><header class="fiche-tete"><div><span class="parno">&sect; 7</span><h2>La Albufera &mdash; la lagune m&egrave;re</h2><span class="teil">Retablo 1 &middot; 2 &mdash; El Palmar</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Barraca de l&rsquo;Albufera aux roseaux"><path class="plein" d="M24 52 l24 -22 l24 22 z"/><path d="M30 52 h36 v22 h-36 z" fill="#F2E3C6"/><path class="trait" d="M30 52 h36 M45 74 v-12 h6 v12" fill="none"/><path class="trait" d="M48 30 v-8 M48 22 l6 3" fill="none"/><g class="gr-pousse"><path class="plein" d="M16 74 q-2 -14 4 -20 q4 8 -1 20 z" style="fill:#5C7345"/><path class="plein" d="M80 74 q2 -14 -4 -20 q-4 8 1 20 z" style="fill:#5C7345"/></g><path class="trait" d="M12 82 q10 5 20 0 q10 -5 20 0 q10 5 20 0 q6 -3 12 0" fill="none"/></svg></header><div class="corps-sec"><p><span class="lettrine le">&Agrave;</span> vingt minutes au sud, le plus grand lac d&rsquo;eau douce d&rsquo;Espagne&nbsp;: l&rsquo;<strong>Albufera</strong>, s&eacute;par&eacute;e de la mer par une pin&egrave;de de dunes, cern&eacute;e de rizi&egrave;res &mdash; le berceau exact de la paella. On y va en bus (lignes 24/25, ~1,50&nbsp;&euro;) jusqu&rsquo;au village de p&ecirc;cheurs d&rsquo;<strong>El Palmar</strong>, on y mange, puis on embarque.</p><p>La <strong>balade en barque traditionnelle</strong> au coucher du soleil est le moment le plus photog&eacute;nique du voyage&nbsp;: eau plate, h&eacute;rons, ciel orange sur les roseaux. Sp&eacute;cialit&eacute; du cru &agrave; oser&nbsp;: l&rsquo;<em lang="es">all i pebre</em>, rago&ucirc;t d&rsquo;anguille de la lagune &agrave; l&rsquo;ail et au paprika &mdash; bien meilleur que sa description.</p><div class="merksatz"><p>Plages sauvages&nbsp;: <strong>El Saler</strong> et <strong>La Devesa</strong>, dans le parc naturel &mdash; dunes et pins, sans b&eacute;ton. L&rsquo;anti-Benidorm.</p></div></div></section><section class="fiche par-pair" id="p7-2" data-par="7"><header class="fiche-tete"><div><span class="parno">&sect; 7</span><h2>La huerta &mdash; le jardin mill&eacute;naire</h2><span class="teil">Retablo 2 &middot; 2 &mdash; l&rsquo;eau des Maures</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Barraca de l&rsquo;Albufera aux roseaux"><path class="plein" d="M24 52 l24 -22 l24 22 z"/><path d="M30 52 h36 v22 h-36 z" fill="#F2E3C6"/><path class="trait" d="M30 52 h36 M45 74 v-12 h6 v12" fill="none"/><path class="trait" d="M48 30 v-8 M48 22 l6 3" fill="none"/><g class="gr-pousse"><path class="plein" d="M16 74 q-2 -14 4 -20 q4 8 -1 20 z" style="fill:#5C7345"/><path class="plein" d="M80 74 q2 -14 -4 -20 q-4 8 1 20 z" style="fill:#5C7345"/></g><path class="trait" d="M12 82 q10 5 20 0 q10 -5 20 0 q10 5 20 0 q6 -3 12 0" fill="none"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>a <strong>huerta</strong> est la ceinture mara&icirc;ch&egrave;re qui nourrit Valence depuis les <strong>Maures</strong>&nbsp;: leur r&eacute;seau d&rsquo;irrigation &mdash; canaux, norias, tours de partage de l&rsquo;eau &mdash; fonctionne toujours, mille ans plus tard. C&rsquo;est lui que juge le Tribunal de las Aguas chaque jeudi. C&rsquo;est ici aussi que pousse la <strong>chufa</strong> d&rsquo;Alboraya, celle de ton horchata.</p><p>Les <strong>oranges de Valence</strong> ont fait la fortune et l&rsquo;image de la r&eacute;gion&nbsp;: en saison (novembre&ndash;avril), le parfum d&rsquo;<em lang="es">azahar</em> &mdash; la fleur d&rsquo;oranger &mdash; flotte sur la huerta. Le jus press&eacute; du march&eacute; n&rsquo;a rien &agrave; voir avec celui de l&rsquo;&eacute;picerie&nbsp;: profites-en chaque matin.</p><div class="achtung"><p>&Agrave; v&eacute;lo, la huerta d&rsquo;Alboraya se traverse en une heure douce depuis le centre&nbsp;: pistes plates, horchater&iacute;a au bout. La plus belle demi-journ&eacute;e gratuite du voyage.</p></div></div></section><section class="fiche par-pair" id="p8-1" data-par="8"><header class="fiche-tete"><div><span class="parno">&sect; 8</span><h2>Las escapadas &mdash; en train, une heure</h2><span class="teil">Retablo 1 &middot; 2 &mdash; Sagunto &amp; X&agrave;tiva</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ch&acirc;teau perch&eacute; de X&agrave;tiva"><path class="plein" d="M14 84 q34 -34 68 0 z"/><path class="oranj" d="M38 50 v-14 h5 v4 h5 v-4 h5 v4 h5 v-4 h5 v14 z"/><rect class="jaune" x="52" y="42" width="5" height="8"/><path class="trait" d="M30 82 q10 -8 6 -16 q10 2 14 -8" fill="none" stroke-dasharray="4 4"/><line class="trait" x1="12" y1="86" x2="84" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">D</span>eux ch&acirc;teaux &agrave; port&eacute;e de Cercan&iacute;as. <strong>Sagunto</strong> (30&ndash;40 min, ~6,80&nbsp;&euro; A/R)&nbsp;: th&eacute;&acirc;tre romain, quartier juif, et une forteresse-cr&ecirc;te <strong>gratuite</strong> qui d&eacute;roule la M&eacute;diterran&eacute;e. La demi-journ&eacute;e la plus facile.</p><p><strong>X&agrave;tiva</strong> (50&ndash;60 min, ~8&nbsp;&euro; A/R)&nbsp;: ville natale des papes <strong>Borgia</strong>, ruelles anciennes, et un ch&acirc;teau double (~6&nbsp;&euro;) accroch&eacute; &agrave; sa cr&ecirc;te comme un dragon endormi. Pour le vin&nbsp;: <strong>Requena</strong> et ses caves creus&eacute;es, capitale du c&eacute;page Bobal.</p><div class="merksatz"><p>Gares&nbsp;: <strong>Estaci&oacute; del Nord</strong> (moderniste, centre) pour les r&eacute;gionaux&nbsp;; <strong>Joaqu&iacute;n Sorolla</strong> pour l&rsquo;AVE (Madrid en 1h50). Elles sont &agrave; dix minutes &agrave; pied l&rsquo;une de l&rsquo;autre.</p></div></div></section><section class="fiche par-pair" id="p8-2" data-par="8"><header class="fiche-tete"><div><span class="parno">&sect; 8</span><h2>Las escapadas &mdash; plus loin, plus &eacute;trange</h2><span class="teil">Retablo 2 &middot; 2 &mdash; P&eacute;&ntilde;iscola &amp; cie</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Ch&acirc;teau perch&eacute; de X&agrave;tiva"><path class="plein" d="M14 84 q34 -34 68 0 z"/><path class="oranj" d="M38 50 v-14 h5 v4 h5 v-4 h5 v4 h5 v-4 h5 v14 z"/><rect class="jaune" x="52" y="42" width="5" height="8"/><path class="trait" d="M30 82 q10 -8 6 -16 q10 2 14 -8" fill="none" stroke-dasharray="4 4"/><line class="trait" x1="12" y1="86" x2="84" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">P</span>our une journ&eacute;e pleine&nbsp;: <strong>Pe&ntilde;&iacute;scola</strong>, &laquo;&nbsp;ville dans la mer&nbsp;&raquo; du pape Luna &mdash; et Meereen dans <em>Game of Thrones</em> (~1h20&ndash;2h, plus simple en bus ou tour). Les <strong>grottes de San Jos&eacute;</strong> (Vall d&rsquo;Uix&oacute;) cachent la plus longue rivi&egrave;re souterraine <strong>navigable</strong> d&rsquo;Europe&nbsp;: on la visite en barque, sous la roche.</p><p><strong>Montanejos</strong>&nbsp;: sources thermales &agrave; 25&nbsp;&deg;C dans un canyon. <strong>Chulilla</strong>&nbsp;: ponts suspendus au-dessus des gorges du Turia (rando ~4h, voiture ou tour conseill&eacute;s). <strong>Gandia</strong>&nbsp;: palais des Borgia, grande plage, et la patrie de la fideu&agrave;.</p><div class="achtung"><p>Le dernier mercredi d&rsquo;ao&ucirc;t, Bu&ntilde;ol (~40 min) devient la plus grande bataille de tomates du monde&nbsp;: <strong>La Tomatina</strong>. Billet obligatoire, v&ecirc;tements sacrifiables.</p></div></div></section><section class="fiche par-pair" id="p9-1" data-par="9"><header class="fiche-tete"><div><span class="parno">&sect; 9</span><h2>En camino &mdash; bouger sans Uber</h2><span class="teil">Retablo 1 &middot; 2 &mdash; m&eacute;tro, v&eacute;lo, Cabify</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="V&eacute;lo dans la ville plate"><circle class="trait" cx="28" cy="64" r="14" fill="none" stroke-width="4"/><circle class="trait" cx="70" cy="64" r="14" fill="none" stroke-width="4"/><path class="trait" d="M28 64 l14 -24 h16 l12 24 M42 40 l8 24 h-22" fill="none"/><path class="oranj" d="M40 36 h12 v5 h-12 z"/><g class="gr-onde"><path class="trait" d="M12 42 q-6 2 -8 6 M14 52 q-5 2 -7 5" fill="none"/></g><line class="trait" x1="10" y1="86" x2="88" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">D</span>epuis l&rsquo;a&eacute;roport&nbsp;: m&eacute;tro lignes <strong>3/5</strong> (~4,80&nbsp;&euro;, 20&ndash;25 min) ou taxi &agrave; tarif encadr&eacute; (~20&ndash;25&nbsp;&euro;). Astuce de wagon l&eacute;ger&nbsp;: la station <em>Roses</em> est &agrave; 11 minutes &agrave; pied du terminal et rel&egrave;ve du tarif ville normal (1,50&nbsp;&euro;).</p><p>En ville&nbsp;: la carte <strong>SUMA 10</strong> (~8&nbsp;&euro;, dix trajets m&eacute;tro-tram-bus) est imbattable. <strong>Uber n&rsquo;op&egrave;re pas &agrave; Valence</strong>&nbsp;: installe <strong>Cabify</strong> (le choix local), Bolt ou FreeNow. Et Valence est <em>plate</em>&nbsp;: <strong>Valenbisi</strong> ou un loueur, puis les 9&nbsp;km du Turia &agrave; deux roues.</p><div class="achtung"><p>Valide <strong>toujours</strong> ta carte au portique, m&ecirc;me s&rsquo;il ne bipe pas&nbsp;: le contr&ocirc;le tombe &agrave; ~50&nbsp;&euro;, et l&rsquo;innocence ne se plaide pas.</p></div></div></section><section class="fiche par-pair" id="p9-2" data-par="9"><header class="fiche-tete"><div><span class="parno">&sect; 9</span><h2>En camino &mdash; l&rsquo;argent &amp; les mains baladeuses</h2><span class="teil">Retablo 2 &middot; 2 &mdash; d&eacute;jouer</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="V&eacute;lo dans la ville plate"><circle class="trait" cx="28" cy="64" r="14" fill="none" stroke-width="4"/><circle class="trait" cx="70" cy="64" r="14" fill="none" stroke-width="4"/><path class="trait" d="M28 64 l14 -24 h16 l12 24 M42 40 l8 24 h-22" fill="none"/><path class="oranj" d="M40 36 h12 v5 h-12 z"/><g class="gr-onde"><path class="trait" d="M12 42 q-6 2 -8 6 M14 52 q-5 2 -7 5" fill="none"/></g><line class="trait" x1="10" y1="86" x2="88" y2="86"/></svg></header><div class="corps-sec"><p><span class="lettrine le">S</span>ans contact partout, un peu d&rsquo;esp&egrave;ces pour les march&eacute;s. Deux r&eacute;flexes bancaires&nbsp;: &eacute;viter les distributeurs <strong>Euronet</strong> (frais gonfl&eacute;s), et <strong>toujours refuser la conversion dynamique</strong> &mdash; payer en <strong>EUR</strong>, jamais en dollars canadiens propos&eacute;s par la machine. Hors-UE, garde tes factures&nbsp;: le <em>tax free</em> se fait viser &agrave; l&rsquo;a&eacute;roport avant l&rsquo;enregistrement.</p><p>Valence est l&rsquo;une des grandes villes les plus s&ucirc;res d&rsquo;Espagne&nbsp;: le seul vrai risque est le <strong>pickpocket</strong> &mdash; Mercado Central, m&eacute;tro bond&eacute;, plages (rien sans surveillance pendant la baignade), foules des Fallas. Classiques &agrave; d&eacute;jouer&nbsp;: la tache &laquo;&nbsp;accidentelle&nbsp;&raquo; qu&rsquo;on t&rsquo;essuie, le bracelet de romarin forc&eacute;, la p&eacute;tition &agrave; planchette, le bonneteau.</p><div class="merksatz"><p>Urgences&nbsp;: <strong>112</strong>, en anglais. Prises type C/F 230&nbsp;V (adaptateur depuis le Canada), indicatif <strong>+34</strong>, six heures de plus qu&rsquo;au Qu&eacute;bec. Meilleures fen&ecirc;tres&nbsp;: mai&ndash;juin et septembre&ndash;octobre.</p></div></div></section><section class="fiche par-pair" id="p10-1" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Glosario &mdash; la bouche espagnole</h2><span class="teil">Carreau 1 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><p><span class="lettrine le">T</span>out se lit comme &ccedil;a s&rsquo;&eacute;crit &mdash; une fois d&eacute;samorc&eacute;s les douze pi&egrave;ges ci-dessous. L&rsquo;accent aigu (&#180;) marque LA syllabe qu&rsquo;on frappe&nbsp;: <em lang="es">Val&egrave;ncia</em> = ba-L&Egrave;N-ssia.</p><div class="alfa-grille"><span class="al"><b lang="es">J / ge, gi</b><i>RRR (Bach)</i></span><span class="al"><b lang="es">LL</b><i>y (paeya)</i></span><span class="al"><b lang="es">&Ntilde; &ntilde;</b><i>gn (Espagne)</i></span><span class="al"><b lang="es">V v</b><i>= B&nbsp;!</i></span><span class="al"><b lang="es">Z / ce, ci</b><i>th (zozote)</i></span><span class="al"><b lang="es">H h</b><i>muette</i></span><span class="al"><b lang="es">RR rr</b><i>r bien roul&eacute;</i></span><span class="al"><b lang="es">QU qu</b><i>k (le u se tait)</i></span><span class="al"><b lang="es">GU+e/i</b><i>gu&egrave; (u muet)</i></span><span class="al"><b lang="es">&iexcl; &iquest;</b><i>&agrave; l&rsquo;envers, d&rsquo;abord</i></span><span class="al"><b lang="es">D final</b><i>tr&egrave;s doux</i></span><span class="al"><b lang="es">accent &#180;</b><i>LA syllabe frapp&eacute;e</i></span></div><div class="achtung"><p>Tra&icirc;tres&nbsp;: <b>V</b> se prononce <strong>B</strong> (Valencia = Balencia), <b>J</b> racle la gorge, <b>Z</b> et <b>ce/ci</b> zozotent (le fameux <em>ceceo</em> castillan), <b>H</b> ne se dit jamais.</p></div><div class="merksatz"><p>Le bouton (&#9664;) fait parler la voix espagnole de ton appareil. &Eacute;coute, r&eacute;p&egrave;te, tape A PRUEBA pour te tester.</p></div></div></section><section class="fiche par-pair" id="p10-2" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Saludos &mdash; saluer &amp; remercier</h2><span class="teil">Carreau 2 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Le n&eacute;cessaire absolu</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">Hola</span> <button class="dire" type="button" data-de="Hola" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">O-la (H muet)</td><td class="fr">salut / bonjour passe-partout</td></tr><tr><td class="de"><span lang="es">Buenos d&iacute;as</span> <span class="tl">&middot; Bon dia</span> <button class="dire" type="button" data-de="Buenos d&iacute;as" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">BOU&Eacute;-noss DI-ass</td><td class="fr">bonjour (le matin)</td></tr><tr><td class="de"><span lang="es">Buenas tardes</span> <button class="dire" type="button" data-de="Buenas tardes" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">BOU&Eacute;-nass TAR-dess</td><td class="fr">bonjour / bonsoir (apr&egrave;s ~14h)</td></tr><tr><td class="de"><span lang="es">Buenas noches</span> <button class="dire" type="button" data-de="Buenas noches" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">BOU&Eacute;-nass NO-tchess</td><td class="fr">bonsoir / bonne nuit</td></tr><tr><td class="de"><span lang="es">Adi&oacute;s</span> <button class="dire" type="button" data-de="Adi&oacute;s" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">a-DIOSS</td><td class="fr">au revoir</td></tr><tr><td class="de"><span lang="es">Hasta luego</span> <button class="dire" type="button" data-de="Hasta luego" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">AS-ta LOU&Eacute;-go</td><td class="fr">&agrave; plus tard</td></tr><tr><td class="de"><span lang="es">Gracias</span> <span class="tl">&middot; Gr&agrave;cies</span> <button class="dire" type="button" data-de="Gracias" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">GRA-ssiass</td><td class="fr">merci</td></tr><tr><td class="de"><span lang="es">Por favor</span> <button class="dire" type="button" data-de="Por favor" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">por fa-BOR</td><td class="fr">s&rsquo;il vous pla&icirc;t</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div><div class="merksatz"><p>Ouvrir avec un <em>Bon dia</em> valencien fait sourire &mdash; puis tout le monde bascule en castillan sans fa&ccedil;ons.</p></div></div></section><section class="fiche par-pair" id="p10-3" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>S&iacute;, no &amp; les faux amis</h2><span class="teil">Carreau 3 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Quatre mots qui d&eacute;cident de tout &mdash; et deux mines</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">S&iacute;</span> <button class="dire" type="button" data-de="S&iacute;" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">SI</td><td class="fr">oui</td></tr><tr><td class="de"><span lang="es">No</span> <button class="dire" type="button" data-de="No" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">NO</td><td class="fr">non</td></tr><tr><td class="de"><span lang="es">Vale</span> <button class="dire" type="button" data-de="Vale" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">BA-l&eacute;</td><td class="fr">d&rsquo;accord / OK (le mot le plus dit d&rsquo;Espagne)</td></tr><tr><td class="de"><span lang="es">Perd&oacute;n</span> <button class="dire" type="button" data-de="Perd&oacute;n" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">p&egrave;r-DONN</td><td class="fr">pardon / excusez-moi</td></tr><tr><td class="de"><span lang="es">No entiendo</span> <button class="dire" type="button" data-de="No entiendo" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">no &egrave;n-TI&Egrave;N-do</td><td class="fr">je ne comprends pas</td></tr><tr><td class="de"><span lang="es">Estoy constipada</span> <button class="dire" type="button" data-de="Estoy constipada" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;s-TO&Iuml; conss-ti-PA-da</td><td class="fr">je suis enrhum&eacute;e &mdash; pi&egrave;ge&nbsp;: PAS constip&eacute;e&nbsp;!</td></tr><tr><td class="de"><span lang="es">Embarazada</span> <button class="dire" type="button" data-de="Embarazada" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;m-ba-ra-SSA-da</td><td class="fr">enceinte &mdash; pi&egrave;ge&nbsp;: PAS embarrass&eacute;e&nbsp;!</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div><div class="achtung"><p>Les deux derniers sont les faux amis les plus c&eacute;l&egrave;bres de la langue&nbsp;: dire <em>estoy embarazada</em> pour &laquo;&nbsp;je suis g&ecirc;n&eacute;e&nbsp;&raquo; annonce&hellip; une grossesse.</p></div></div></section><section class="fiche par-pair" id="p10-4" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>En el restaurante &mdash; commander</h2><span class="teil">Carreau 4 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>De la table &agrave; l&rsquo;addition</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">Una mesa para dos</span> <button class="dire" type="button" data-de="Una mesa para dos" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">OU-na M&Eacute;-ssa PA-ra DOSS</td><td class="fr">une table pour deux</td></tr><tr><td class="de"><span lang="es">La carta, por favor</span> <button class="dire" type="button" data-de="La carta, por favor" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">la KAR-ta</td><td class="fr">la carte, s&rsquo;il vous pla&icirc;t</td></tr><tr><td class="de"><span lang="es">&iquest;Qu&eacute; me recomienda?</span> <button class="dire" type="button" data-de="&iquest;Qu&eacute; me recomienda?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">k&eacute; m&eacute; r&eacute;-ko-MI&Egrave;N-da</td><td class="fr">que me recommandez-vous&nbsp;?</td></tr><tr><td class="de"><span lang="es">Para beber&hellip;</span> <button class="dire" type="button" data-de="Para beber&hellip;" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">PA-ra b&eacute;-B&Egrave;R</td><td class="fr">comme boisson&hellip;</td></tr><tr><td class="de"><span lang="es">&iexcl;Buen&iacute;simo!</span> <button class="dire" type="button" data-de="&iexcl;Buen&iacute;simo!" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">boué-NI-ssi-mo</td><td class="fr">d&eacute;licieux&nbsp;!</td></tr><tr><td class="de"><span lang="es">La cuenta, por favor</span> <button class="dire" type="button" data-de="La cuenta, por favor" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">la KOU&Egrave;N-ta</td><td class="fr">l&rsquo;addition (elle ne vient jamais seule)</td></tr><tr><td class="de"><span lang="es">&iquest;Se puede pagar con tarjeta?</span> <button class="dire" type="button" data-de="&iquest;Se puede pagar con tarjeta?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">s&eacute; POU&Eacute;-d&eacute; pa-GAR con tar-RH&Eacute;-ta</td><td class="fr">on peut payer par carte&nbsp;?</td></tr><tr><td class="de"><span lang="es">El men&uacute; del d&iacute;a</span> <button class="dire" type="button" data-de="El men&uacute; del d&iacute;a" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;l m&eacute;-NOU d&egrave;l DI-a</td><td class="fr">le menu du jour (midi, ~12&ndash;15&nbsp;&euro;)</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div></div></section><section class="fiche par-pair" id="p10-5" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>La mesa valenciana &mdash; les mots sacr&eacute;s</h2><span class="teil">Carreau 5 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Ce qui se mange ici, et nulle part ailleurs</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">La paella</span> <button class="dire" type="button" data-de="La paella" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">pa-&Eacute;-ya (jamais pa-&eacute;-LA)</td><td class="fr">LE plat &mdash; poulet &amp; lapin, midi seulement</td></tr><tr><td class="de"><span lang="es">El socarrat</span> <span class="tl">&middot; val.</span> <button class="dire" type="button" data-de="El socarrat" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">sso-ka-RRATT</td><td class="fr">la cro&ucirc;te d&rsquo;or du fond &mdash; le tr&eacute;sor</td></tr><tr><td class="de"><span lang="es">Horchata y fartons</span> <span class="tl">&middot; Orxata i fartons</span> <button class="dire" type="button" data-de="Horchata y fartons" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">or-TCHA-ta i far-TONSS</td><td class="fr">lait de souchet glac&eacute; + brioches &agrave; tremper</td></tr><tr><td class="de"><span lang="es">El esgarraet</span> <span class="tl">&middot; val.</span> <button class="dire" type="button" data-de="El esgarraet" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;s-ga-rra-&Egrave;TT</td><td class="fr">poivrons r&ocirc;tis + morue &mdash; l&rsquo;entr&eacute;e reine</td></tr><tr><td class="de"><span lang="es">All i pebre</span> <span class="tl">&middot; val.</span> <button class="dire" type="button" data-de="All i pebre" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">A&Iuml; i P&Egrave;-br&eacute;</td><td class="fr">rago&ucirc;t d&rsquo;anguille de l&rsquo;Albufera</td></tr><tr><td class="de"><span lang="es">Las cl&oacute;chinas</span> <span class="tl">&middot; val.</span> <button class="dire" type="button" data-de="Las cl&oacute;chinas" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">KLO-tchi-nass</td><td class="fr">petites moules locales &mdash; mai &agrave; ao&ucirc;t seulement</td></tr><tr><td class="de"><span lang="es">El esmorzaret</span> <span class="tl">&middot; val.</span> <button class="dire" type="button" data-de="El esmorzaret" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;s-mor-ssa-R&Egrave;TT</td><td class="fr">le casse-cro&ucirc;te sacr&eacute; de 10h30</td></tr><tr><td class="de"><span lang="es">Agua de Valencia</span> <button class="dire" type="button" data-de="Agua de Valencia" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">A-goua d&eacute; ba-L&Egrave;N-ssia</td><td class="fr">cocktail orange-cava-gin-vodka &mdash; tra&icirc;tre</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div><div class="merksatz"><p>Les mots marqu&eacute;s <em>val.</em> sont du valencien &mdash; les prononcer, c&rsquo;est d&eacute;j&agrave; go&ucirc;ter.</p></div></div></section><section class="fiche par-pair" id="p10-6" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Moverse &mdash; se d&eacute;placer</h2><span class="teil">Carreau 6 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>La rue, l&rsquo;arr&ecirc;t, le billet</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">&iquest;D&oacute;nde est&aacute;&hellip;?</span> <button class="dire" type="button" data-de="&iquest;D&oacute;nde est&aacute;&hellip;?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">DONN-d&eacute; &egrave;s-TA</td><td class="fr">o&ugrave; est&hellip;&nbsp;?</td></tr><tr><td class="de"><span lang="es">La parada</span> <button class="dire" type="button" data-de="La parada" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">la pa-RA-da</td><td class="fr">l&rsquo;arr&ecirc;t (bus, tram)</td></tr><tr><td class="de"><span lang="es">Un billete</span> <button class="dire" type="button" data-de="Un billete" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">oun bi-YÉ-t&eacute;</td><td class="fr">un billet</td></tr><tr><td class="de"><span lang="es">La estaci&oacute;n</span> <button class="dire" type="button" data-de="La estaci&oacute;n" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">la &egrave;s-ta-SSIONN</td><td class="fr">la gare / la station</td></tr><tr><td class="de"><span lang="es">A la derecha</span> <button class="dire" type="button" data-de="A la derecha" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">a la d&eacute;-R&Eacute;-tcha</td><td class="fr">&agrave; droite</td></tr><tr><td class="de"><span lang="es">A la izquierda</span> <button class="dire" type="button" data-de="A la izquierda" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">a la iss-KI&Egrave;R-da</td><td class="fr">&agrave; gauche</td></tr><tr><td class="de"><span lang="es">Todo recto</span> <button class="dire" type="button" data-de="Todo recto" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">TO-do R&Egrave;K-to</td><td class="fr">tout droit</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div></div></section><section class="fiche par-pair" id="p10-7" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>N&uacute;meros y horas &mdash; compter</h2><span class="teil">Carreau 7 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Assez pour payer et prendre rendez-vous</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">Uno, dos, tres</span> <button class="dire" type="button" data-de="Uno, dos, tres" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">OU-no, DOSS, TR&Egrave;SS</td><td class="fr">un, deux, trois</td></tr><tr><td class="de"><span lang="es">Cuatro, cinco, seis</span> <button class="dire" type="button" data-de="Cuatro, cinco, seis" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">KOUA-tro, SSIN-ko, S&Egrave;&Iuml;SS</td><td class="fr">quatre, cinq, six</td></tr><tr><td class="de"><span lang="es">Siete, ocho, nueve</span> <button class="dire" type="button" data-de="Siete, ocho, nueve" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">SI&Egrave;-t&eacute;, O-tcho, NOU&Egrave;-b&eacute;</td><td class="fr">sept, huit, neuf</td></tr><tr><td class="de"><span lang="es">Diez, veinte, cien</span> <button class="dire" type="button" data-de="Diez, veinte, cien" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">DI&Egrave;SS, B&Eacute;&Iuml;N-t&eacute;, SSI&Egrave;NN</td><td class="fr">dix, vingt, cent</td></tr><tr><td class="de"><span lang="es">&iquest;A qu&eacute; hora?</span> <button class="dire" type="button" data-de="&iquest;A qu&eacute; hora?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">a k&eacute; O-ra</td><td class="fr">&agrave; quelle heure&nbsp;?</td></tr><tr><td class="de"><span lang="es">Son las dos y media</span> <button class="dire" type="button" data-de="Son las dos y media" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">sonn lass DOSS i M&Eacute;-dia</td><td class="fr">il est deux heures et demie</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div></div></section><section class="fiche par-pair" id="p10-8" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>Urgencias &mdash; sant&eacute; &amp; secours</h2><span class="teil">Carreau 8 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><div class="bloc-tablo"><table class="tablo-sprach"><caption>Les mots qu&rsquo;on esp&egrave;re ne jamais dire</caption><tr><th>ES</th><th>&agrave; la qu&eacute;b&eacute;coise</th><th>sens</th></tr><tr><td class="de"><span lang="es">&iexcl;Socorro!</span> <button class="dire" type="button" data-de="&iexcl;Socorro!" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">sso-KO-rro</td><td class="fr">au secours&nbsp;!</td></tr><tr><td class="de"><span lang="es">La farmacia</span> <button class="dire" type="button" data-de="La farmacia" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">la far-MA-ssia</td><td class="fr">la pharmacie (croix verte)</td></tr><tr><td class="de"><span lang="es">El m&eacute;dico</span> <button class="dire" type="button" data-de="El m&eacute;dico" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;l M&Eacute;-di-ko</td><td class="fr">le m&eacute;decin</td></tr><tr><td class="de"><span lang="es">El hospital</span> <button class="dire" type="button" data-de="El hospital" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">&egrave;l oss-pi-TAL</td><td class="fr">l&rsquo;h&ocirc;pital</td></tr><tr><td class="de"><span lang="es">La polic&iacute;a</span> <button class="dire" type="button" data-de="La polic&iacute;a" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">la po-li-SSI-a</td><td class="fr">la police</td></tr><tr><td class="de"><span lang="es">Me duele aqu&iacute;</span> <button class="dire" type="button" data-de="Me duele aqu&iacute;" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">m&eacute; DOU&Egrave;-l&eacute; a-KI</td><td class="fr">j&rsquo;ai mal ici</td></tr><tr><td class="de"><span lang="es">&iquest;Habla ingl&eacute;s?</span> <button class="dire" type="button" data-de="&iquest;Habla ingl&eacute;s?" aria-label="&Eacute;couter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 9 h4 l5 -5 v16 l-5 -5 H4 z" fill="currentColor"/><path d="M16 9 q3 3 0 6 M18.5 6.5 q5 5.5 0 11" stroke="currentColor" stroke-width="2" fill="none"/></svg></button></td><td class="pron">A-bla inn-GL&Egrave;SS</td><td class="fr">parlez-vous anglais&nbsp;?</td></tr></table><button class="pruefen-toggle" type="button">A PRUEBA &mdash; cache les sens</button></div><div class="achtung"><p>Le <strong>112</strong> fonctionne partout, en anglais. Les pharmaciens espagnols conseillent volontiers &mdash; premier r&eacute;flexe pour les petits bobos.</p></div></div></section><section class="fiche par-pair" id="p10-9" data-par="10"><header class="fiche-tete"><div><span class="parno">&sect; 10</span><h2>El Constructor &mdash; fabrique &agrave; phrases</h2><span class="teil">Carreau 9 &middot; 9</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Bulle de parole &agrave; l&rsquo;e&ntilde;e"><path class="plein" d="M16 20 h52 v36 h-30 l-12 12 v-12 h-10 z"/><text x="42" y="50" text-anchor="middle" font-family="Abril Fatface,serif" font-size="30" fill="#F2E3C6">&Ntilde;</text><g class="gr-onde"><path class="trait" d="M72 30 q5 8 0 16 M79 26 q8 12 0 24" fill="none"/></g><circle class="oranj" cx="76" cy="72" r="6"/></svg></header><div class="corps-sec"><p>Assemble&nbsp;: une amorce, une brique. Le carreau imprime, puis parle. (Rappel&nbsp;: le &iquest; ouvre la question, &agrave; l&rsquo;envers, d&egrave;s le d&eacute;but.)</p><div id="baukasten"><div class="bk-rang"><button type="button" class="bk-a" data-g="donde" data-de="&iquest;D&oacute;nde est&aacute;" data-fr="O&ugrave; est">&iquest;D&oacute;nde est&aacute;&hellip;</button><button type="button" class="bk-a" data-g="quisiera" data-de="Quisiera" data-fr="Je voudrais">Quisiera&hellip;</button><button type="button" class="bk-a" data-g="tiene" data-de="&iquest;Tiene" data-fr="Avez-vous">&iquest;Tiene&hellip;</button><button type="button" class="bk-a" data-g="puedo" data-de="&iquest;Puedo" data-fr="Puis-je">&iquest;Puedo&hellip;</button></div><div class="bk-rang"><button type="button" class="bk-f" data-g="donde" data-de="el ba&ntilde;o?" data-fr="les toilettes&nbsp;?">el ba&ntilde;o?</button><button type="button" class="bk-f" data-g="donde" data-de="el Mercado Central?" data-fr="le Mercado Central&nbsp;?">el Mercado Central?</button><button type="button" class="bk-f" data-g="donde" data-de="la parada del metro?" data-fr="l&rsquo;arr&ecirc;t de m&eacute;tro&nbsp;?">la parada del metro?</button><button type="button" class="bk-f" data-g="donde" data-de="la Lonja?" data-fr="la Lonja&nbsp;?">la Lonja?</button><button type="button" class="bk-f" data-g="quisiera" data-de="una horchata." data-fr="une horchata.">una horchata.</button><button type="button" class="bk-f" data-g="quisiera" data-de="una paella para dos." data-fr="une paella pour deux.">una paella para dos.</button><button type="button" class="bk-f" data-g="quisiera" data-de="la cuenta." data-fr="l&rsquo;addition.">la cuenta.</button><button type="button" class="bk-f" data-g="quisiera" data-de="dos billetes." data-fr="deux billets.">dos billetes.</button><button type="button" class="bk-f" data-g="tiene" data-de="agua?" data-fr="de l&rsquo;eau&nbsp;?">agua?</button><button type="button" class="bk-f" data-g="tiene" data-de="mesa para dos?" data-fr="une table pour deux&nbsp;?">mesa para dos?</button><button type="button" class="bk-f" data-g="tiene" data-de="un plano?" data-fr="un plan&nbsp;?">un plano?</button><button type="button" class="bk-f" data-g="tiene" data-de="fartons?" data-fr="des fartons&nbsp;?">fartons?</button><button type="button" class="bk-f" data-g="puedo" data-de="sentarme aqu&iacute;?" data-fr="m&rsquo;asseoir ici&nbsp;?">sentarme aqu&iacute;?</button><button type="button" class="bk-f" data-g="puedo" data-de="hacer una foto?" data-fr="prendre une photo&nbsp;?">hacer una foto?</button><button type="button" class="bk-f" data-g="puedo" data-de="pedir?" data-fr="commander&nbsp;?">pedir?</button><button type="button" class="bk-f" data-g="puedo" data-de="pagar con tarjeta?" data-fr="payer par carte&nbsp;?">pagar con tarjeta?</button></div><div class="bk-sortie"><p id="bk-de" lang="es">&nbsp;</p><p id="bk-fr">&nbsp;</p></div><button type="button" class="bk-sprechen">HABLA &mdash; faire parler</button></div></div></section><section class="fiche par-chroniko" id="x-1" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; I</span><h2>Une prime de retraite romaine</h2><span class="teil">VALENTIA &middot; &minus;138</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Une prime de retraite romaine"><path class="plein" d="M20 78 v-30 h8 v30 z M44 78 v-30 h8 v30 z M68 78 v-30 h8 v30 z"/><path class="jaune" d="M14 44 h68 v-8 h-68 z"/><path class="trait" d="M12 36 l36 -18 l36 18" fill="none"/><g class="gr-cligne"><circle class="oranj" cx="48" cy="26" r="4"/></g><line class="trait" x1="12" y1="82" x2="84" y2="82"/></svg></header><div class="corps-sec"><p><span class="lettrine le">V</span>alence est n&eacute;e fonctionnaire&nbsp;: en <strong>138 av. J.-C.</strong>, le consul Junius Brutus installe ~2&nbsp;000 v&eacute;t&eacute;rans des guerres lusitaniennes sur une &icirc;le du Turia. <em>Valentia</em> &mdash; &laquo;&nbsp;la vaillance&nbsp;&raquo; &mdash; comme solde de d&eacute;part. C&rsquo;est l&rsquo;une des plus vieilles villes d&rsquo;Espagne.</p><p>Fid&egrave;le au mauvais camp dans la guerre civile, elle est ras&eacute;e par <strong>Pomp&eacute;e</strong> en &minus;75, renaît, prosp&egrave;re &mdash; forum, cirque, voies. Ses fondations dorment sous la place de la Vierge&nbsp;: le mus&eacute;e de l&rsquo;<strong>Almoina</strong> les montre, sous une dalle de verre.</p><div class="merksatz"><p>Le nom n&rsquo;a jamais chang&eacute;&nbsp;: Valentia &rarr; Balansiya &rarr; Val&egrave;ncia. 2&nbsp;164 ans de continuit&eacute; &mdash; et toujours entre deux bras d&rsquo;un m&ecirc;me fleuve.</p></div></div></section><section class="fiche par-chroniko" id="x-2" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; II</span><h2>L&rsquo;eau des Maures, mille ans d&rsquo;avance</h2><span class="teil">BALANSIYA &middot; 714&ndash;1238</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="L&rsquo;eau des Maures, mille ans d&rsquo;avance"><g class="gr-tourne" style="transform-origin:48px 44px"><circle class="trait" cx="48" cy="44" r="24" fill="none" stroke-width="4"/><line class="trait" x1="48" y1="20" x2="48" y2="68"/><line class="trait" x1="24" y1="44" x2="72" y2="44"/><line class="trait" x1="31" y1="27" x2="65" y2="61"/><line class="trait" x1="65" y1="27" x2="31" y2="61"/><rect class="jaune" x="44" y="16" width="8" height="8"/></g><circle class="oranj" cx="48" cy="44" r="5"/><path class="trait" d="M12 82 q10 5 20 0 q10 -5 20 0 q10 5 24 0" fill="none"/></svg></header><div class="corps-sec"><p><span class="lettrine le">E</span>n <strong>714</strong>, la ville se rend sans combat aux Berb&egrave;res et Arabes&nbsp;: <em>Balansiya</em> devient un jardin. Les Maures tracent le r&eacute;seau d&rsquo;irrigation de la huerta &mdash; canaux, norias, tours de partage &mdash; <strong>encore en service aujourd&rsquo;hui</strong>, et fondent le <strong>Tribunal de las Aguas</strong> qui si&egrave;ge toujours le jeudi.</p><p>Interm&egrave;de de l&eacute;gende&nbsp;: <strong>El Cid</strong> prend la ville en 1094 et y r&egrave;gne en prince mercenaire&nbsp;; &agrave; sa mort, sa veuve Chim&egrave;ne tient le si&egrave;ge trois ans. Puis Almoravides et Almohades reprennent la main, jusqu&rsquo;au si&egrave;cle suivant.</p><div class="achtung"><p>Quand tu bois ton horchata&nbsp;: la <em>chufa</em> est arriv&eacute;e avec eux. Ton verre a mille ans d&rsquo;histoire agricole dedans.</p></div></div></section><section class="fiche par-chroniko" id="x-3" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; III</span><h2>Le roi, la chauve-souris, le royaume</h2><span class="teil">JAUME I &middot; 1238</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Le roi, la chauve-souris, le royaume"><path class="plein" d="M28 40 h40 l-6 34 h-28 z"/><path class="jaune" d="M24 40 v-10 h6 v6 h8 v-8 h6 v8 h8 v-8 h6 v8 h8 v-6 h6 v10 z"/><g class="gr-cligne"><path class="trait" d="M32 22 q8 -12 16 -4 q8 -8 16 4 q-8 -2 -10 4 q-6 -6 -6 -6 q0 0 -6 6 q-2 -6 -10 -4 z" fill="#2B1E16"/></g><line class="trait" x1="20" y1="82" x2="76" y2="82"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>e <strong>9 octobre 1238</strong>, Jaume&nbsp;I d&rsquo;Aragon entre dans Balansiya et fonde le <strong>Royaume de Valence</strong>, avec ses propres lois &mdash; les <em>furs</em> &mdash; et sa langue, le valencien. Le 9 octobre est rest&eacute; LA f&ecirc;te r&eacute;gionale&nbsp;: on y offre des massepains en forme de&hellip; fruits et l&eacute;gumes de la huerta.</p><p>La l&eacute;gende de l&rsquo;embl&egrave;me date du si&egrave;ge&nbsp;: une <strong>chauve-souris</strong> se serait pos&eacute;e sur le heaume du roi &mdash; bon augure. <em>Lo Rat Penat</em> couronne depuis les armoiries de la ville, les maillots du Valencia CF, et les plaques d&rsquo;&eacute;gout que tu photographieras sans t&rsquo;en rendre compte.</p><div class="merksatz"><p>Cherche-la partout&nbsp;: lampadaires, fontaines, blasons. C&rsquo;est le Pok&eacute;mon officiel du voyage.</p></div></div></section><section class="fiche par-chroniko" id="x-4" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; IV</span><h2>La soie, la banque &amp; deux papes</h2><span class="teil">SIGLO DE ORO &middot; XV&#7497;</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="La soie, la banque &amp; deux papes"><path class="plein" d="M22 78 v-36 q0 -8 8 -8 h36 q8 0 8 8 v36 z"/><path class="trait" d="M32 78 v-30 q8 -10 16 0 v30 M48 78 v-30 q8 -10 16 0 v30" fill="none"/><path class="jaune" d="M40 22 q8 -14 16 0 q-8 6 -16 0 z"/><g class="gr-onde"><path class="trait" d="M76 30 q6 6 0 14" fill="none"/></g><line class="trait" x1="16" y1="82" x2="80" y2="82"/></svg></header><div class="corps-sec"><p><span class="lettrine le">A</span>u XV&#7497; si&egrave;cle, Valence est la ville la plus peupl&eacute;e de la Couronne d&rsquo;Aragon, riche du commerce de la <strong>soie</strong>. Elle invente une banque municipale (la <em>Taula de canvi</em>) &mdash; dont les banquiers pr&ecirc;teront &agrave; Isabelle la Catholique pour financer&hellip; le voyage de <strong>Colomb</strong>, 1492.</p><p>Le monument de l&rsquo;&eacute;poque est ta visite &agrave; 2&nbsp;&euro;&nbsp;: la <strong>Lonja de la Seda</strong> (1482&ndash;1533), for&ecirc;t de colonnes torsad&eacute;es class&eacute;e UNESCO. Et la ville donne deux papes &agrave; Rome, les <strong>Borgia</strong> de X&agrave;tiva &mdash; Calixte&nbsp;III et Alexandre&nbsp;VI, le p&egrave;re de Lucr&egrave;ce.</p><div class="achtung"><p>Dans la salle des colonnes de la Lonja, l&egrave;ve les yeux&nbsp;: les gargouilles ext&eacute;rieures sont d&rsquo;une paillardise assum&eacute;e. Le gothique avait de l&rsquo;humour.</p></div></div></section><section class="fiche par-chroniko" id="x-5" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; V</span><h2>L&rsquo;expulsion &amp; les fueros perdus</h2><span class="teil">LA CA&Iacute;DA &middot; 1609&ndash;1707</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="L&rsquo;expulsion &amp; les fueros perdus"><path class="plein" d="M48 16 q22 8 22 34 q0 20 -22 28 q-22 -8 -22 -28 q0 -26 22 -34 z"/><path class="trait" d="M48 16 v62 M30 40 h36" fill="none"/><path class="oranj" d="M62 60 l14 14 l-5 5 l-14 -14 z"/><line class="trait" x1="20" y1="84" x2="76" y2="84"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>e d&eacute;clin vient par d&eacute;crets. En <strong>1609</strong>, l&rsquo;expulsion des <strong>morisques</strong> &mdash; les descendants des musulmans convertis &mdash; vide un tiers du royaume et saigne la huerta de ses meilleurs bras. La piraterie barbaresque ronge la c&ocirc;te, le commerce bascule vers l&rsquo;Atlantique&nbsp;: la M&eacute;diterran&eacute;e n&rsquo;est plus le centre du monde.</p><p>Le coup de gr&acirc;ce est politique&nbsp;: apr&egrave;s la guerre de Succession, le d&eacute;cret de <strong>1707</strong> abolit les <em>furs</em> &mdash; les lois propres du royaume. Trois si&egrave;cles plus tard, la m&eacute;moire de cette perte nourrit encore l&rsquo;attachement f&eacute;roce des Valenciens &agrave; leur langue et &agrave; leurs institutions &mdash; Tribunal des Eaux en t&ecirc;te.</p><div class="merksatz"><p>Retiens la m&eacute;canique&nbsp;: ce que Valence a perdu par d&eacute;cret, elle l&rsquo;a reconstruit par la f&ecirc;te, la table et la langue. Les Fallas sont aussi &ccedil;a&nbsp;: une revanche annuelle.</p></div></div></section><section class="fiche par-chroniko" id="x-6" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; VI</span><h2>Le fleuve puni, le parc gagn&eacute;</h2><span class="teil">LA RIADA &middot; 1957</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Le fleuve puni, le parc gagn&eacute;"><path class="trait" d="M12 34 q12 -10 24 0 q12 10 24 0 q12 -10 24 0" fill="none" stroke-width="4"/><path class="trait" d="M12 46 q12 -10 24 0 q12 10 24 0 q12 -10 24 0" fill="none" stroke-width="4" style="stroke:#9C4722"/><path class="plein" d="M20 82 v-18 q28 -14 56 0 v18 z" style="fill:#5C7345"/><g class="gr-pousse"><circle class="oranj" cx="38" cy="60" r="4"/><circle class="jaune" cx="58" cy="58" r="4"/></g><line class="trait" x1="14" y1="84" x2="82" y2="84"/></svg></header><div class="corps-sec"><p><span class="lettrine le">E</span>n octobre <strong>1957</strong>, le Turia noie sa ville&nbsp;: des dizaines de morts, le centre sous les eaux. La r&eacute;ponse est radicale &mdash; la &laquo;&nbsp;Solution Sud&nbsp;&raquo;&nbsp;: on <strong>d&eacute;place le fleuve</strong> entier dans un canal de 12&nbsp;km contournant la ville par le sud.</p><p>Restait un lit vide de 9&nbsp;km en plein centre. Les ing&eacute;nieurs y voyaient une autoroute&nbsp;; les Valenciens ont exig&eacute; &mdash; et obtenu &mdash; un <strong>parc</strong>. Les <strong>Jardins du Turia</strong> sont n&eacute;s de cette bataille citoyenne&nbsp;: aujourd&rsquo;hui tu y p&eacute;dales entre les ponts anciens qui enjambent&hellip; des orangers.</p><div class="achtung"><p>Garde cette date en t&ecirc;te&nbsp;: c&rsquo;est ce d&eacute;tournement de 1957 qui, en octobre 2024, a sauv&eacute; le centre-ville. La suite &agrave; la derni&egrave;re fiche.</p></div></div></section><section class="fiche par-chroniko" id="x-7" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; VII</span><h2>Calatrava &amp; le si&egrave;cle blanc</h2><span class="teil">EL FUTURO BLANCO &middot; 1982&ndash;2007</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Calatrava &amp; le si&egrave;cle blanc"><path class="oranj" d="M14 66 q34 -30 68 0 q-34 14 -68 0 z"/><g class="gr-cligne"><ellipse class="plein" cx="48" cy="62" rx="10" ry="7"/></g><path class="trait" d="M20 40 q28 -22 56 0" fill="none" stroke-width="4"/><path class="trait" d="M26 40 v8 M36 34 v12 M48 31 v14 M60 34 v12 M70 40 v8" fill="none"/><line class="trait" x1="12" y1="84" x2="84" y2="84"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>&rsquo;autonomie revient en <strong>1982</strong> (Communaut&eacute; valencienne, statut, Generalitat), et la ville se r&ecirc;ve un futur. Elle le confie &agrave; un enfant du pays&nbsp;: <strong>Santiago Calatrava</strong>, qui plante dans le lit du Turia une <strong>Cit&eacute; des Arts et des Sciences</strong> blanche comme un squelette de baleine &mdash; Hemisf&egrave;ric (1998), mus&eacute;e des Sciences, Oceanogr&agrave;fic de F&eacute;lix Candela.</p><p>En <strong>2007</strong>, l&rsquo;America&rsquo;s Cup am&egrave;ne le monde dans la marina&nbsp;; la F1 suivra quelques ann&eacute;es en circuit urbain. Co&ucirc;teux, discut&eacute;, photog&eacute;nique&nbsp;: le &laquo;&nbsp;si&egrave;cle blanc&nbsp;&raquo; divise les Valenciens &mdash; et remplit tes cartes m&eacute;moire.</p><div class="merksatz"><p>Meilleure heure &agrave; la Cit&eacute;&nbsp;: la dor&eacute;e, quand le blanc de Calatrava vire &agrave; l&rsquo;orange et se double dans les bassins.</p></div></div></section><section class="fiche par-chroniko" id="x-8" data-par="12"><header class="fiche-tete"><div><span class="parno">CR&Oacute;NICA &middot; VIII</span><h2>La goutte froide &amp; la reconstruction</h2><span class="teil">LA DANA &middot; 2024&ndash;2026</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="La goutte froide &amp; la reconstruction"><path class="plein" d="M48 14 q20 26 20 42 q0 16 -20 24 q-20 -8 -20 -24 q0 -16 20 -42 z" style="fill:#7E2D1E"/><path class="jaune" d="M42 52 l6 6 l12 -14 l-4 -4 l-8 10 l-2 -2 z"/><g class="gr-pousse"><path class="trait" d="M76 74 q2 -12 8 -16" fill="none" style="stroke:#5C7345"/><circle cx="84" cy="56" r="3.4" fill="#5C7345"/></g><line class="trait" x1="16" y1="84" x2="80" y2="84"/></svg></header><div class="corps-sec"><p><span class="lettrine le">L</span>e <strong>29 octobre 2024</strong>, une DANA &mdash; la &laquo;&nbsp;goutte froide&nbsp;&raquo; m&eacute;diterran&eacute;enne &mdash; d&eacute;verse plus de 770&nbsp;L/m&sup2; en amont&nbsp;: <strong>229 morts</strong> dans la province, des communes enti&egrave;res du sud (Paiporta, Catarroja&hellip;) d&eacute;vast&eacute;es. Le centre de Valence, lui, est &eacute;pargn&eacute; &mdash; prot&eacute;g&eacute; par le canal de <strong>1957</strong>. L&rsquo;histoire s&rsquo;est referm&eacute;e comme une parenth&egrave;se.</p><p>Depuis&nbsp;: col&egrave;re politique (d&eacute;mission du pr&eacute;sident r&eacute;gional fin 2025, enqu&ecirc;te judiciaire en cours), et une reconstruction lente mais r&eacute;elle &mdash; m&eacute;tro du sud enti&egrave;rement rouvert en juin 2025, chantiers massifs en 2026. Les communes touch&eacute;es restent des lieux de deuil&nbsp;: on n&rsquo;y va pas en visite.</p><div class="achtung"><p>Visit Val&egrave;ncia le dit sans d&eacute;tour&nbsp;: le tourisme du centre <strong>finance la relance</strong>. Voyager ici en 2026, c&rsquo;est aider &mdash; avec le tact de la fiche &sect;&nbsp;3.</p></div></div></section><section class="fiche" id="examen" data-par="10" data-nofrappe><div class="corps-sec examen-corps"><div class="examen-tete"><span class="parno">EL EXAMEN</span><span id="ex-prog" class="quiz-prog">PREGUNTA 1/14</span><button type="button" class="mute" id="ex-mute">SFX : S&Iacute;</button></div><div class="stefani-cadre"><svg class="stefani" viewBox="0 0 300 150" role="img" aria-label="Couronne de fleurs d&rsquo;oranger de l&rsquo;examen de langue"><rect x="8" y="8" width="284" height="26" fill="#9C4722"/><text x="150" y="27" text-anchor="middle" font-family="Abril Fatface,serif" font-size="15" fill="#F2E3C6">LA CORONA D&rsquo;AZAHAR</text><path d="M40 130 Q150 96 260 130" fill="none" stroke="#5C7345" stroke-width="3.5"/><path d="M60 124 q6 -8 13 -5 q-4 8 -13 5z M228 121 q7 -6 13 -2 q-5 8 -13 2z" fill="#5C7345"/><g id="cachets"><g class="cachet" id="cachet-0" transform="translate(54.5,126.1) rotate(-15.4)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-1" transform="translate(69.2,122.4) rotate(-13.1)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-2" transform="translate(83.9,119.3) rotate(-10.8)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-3" transform="translate(98.6,116.8) rotate(-8.4)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-4" transform="translate(113.3,114.9) rotate(-6.0)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-5" transform="translate(128.0,113.7) rotate(-3.6)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-6" transform="translate(142.7,113.1) rotate(-1.2)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-7" transform="translate(157.3,113.1) rotate(1.2)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-8" transform="translate(172.0,113.7) rotate(3.6)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-9" transform="translate(186.7,114.9) rotate(6.0)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-10" transform="translate(201.4,116.8) rotate(8.4)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-11" transform="translate(216.1,119.3) rotate(10.8)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-12" transform="translate(230.8,122.4) rotate(13.1)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g><g class="cachet" id="cachet-13" transform="translate(245.5,126.1) rotate(15.4)"><circle cx="5.6" cy="0.0" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="-4.5" cy="-3.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="1.7" cy="-5.3" r="3.4" fill="#F2E3C6" stroke="#8A6F5C" stroke-width="0.7"/><circle cx="0" cy="0" r="2.4" fill="#D98E04"/></g></g><circle cx="150" cy="112" r="5" fill="none" stroke="#D98E04" stroke-width="2"/></svg></div><div class="examen-zone" id="ex-zone"></div></div></section><section class="fiche par-pair" id="p11-1" data-par="11"><header class="fiche-tete"><div><span class="parno">&sect; 11</span><h2>La despedida &mdash; le llibret qu&rsquo;on ne br&ucirc;le pas</h2><span class="teil">Retablo 1 &middot; 1</span></div><svg class="picto" viewBox="0 0 96 96" role="img" aria-label="Tampon socarrat du dernier mot"><circle class="plein" cx="48" cy="48" r="28"/><circle class="trait" cx="48" cy="48" r="21" fill="none" stroke-dasharray="3 4"/><path class="jaune" d="M36 48 l8 8 l16 -18 l-4 -4 l-12 14 l-4 -4 z"/><g class="gr-cligne"><circle class="oranj" cx="72" cy="24" r="5"/></g></svg></header><div class="corps-sec"><p><span class="lettrine le">U</span>n <em>llibret</em> finit toujours pareil&nbsp;: au feu de la Crem&agrave;, avec le monument qu&rsquo;il racontait. Des mois de travail, vingt minutes de flammes, et les Valenciens applaudissent &mdash; parce que ce qui compte a d&eacute;j&agrave; eu lieu.</p><p>Celui-ci fait exception&nbsp;: garde-le. Reviens-y au comptoir d&rsquo;une horchater&iacute;a, dans le bus d&rsquo;El Palmar, ou la veille de commander ta premi&egrave;re paella. Et si tu ne retiens que trois choses&nbsp;: la paella se mange le <strong>midi</strong>, l&rsquo;horchata se boit <strong>sans gla&ccedil;ons</strong>, et <em lang="es">vale</em> r&eacute;pond &agrave; tout.</p><div class="merksatz"><p><em lang="es">Que aproveche, Stef.</em> Le socarrat t&rsquo;attend au fond de la po&ecirc;le.</p></div></div></section><section class="fiche" id="manteion" data-par="11" data-nofrappe><div class="corps-sec quiz-corps"><div class="quiz-tete"><span class="parno">LA PRUEBA</span><span id="quiz-prog" class="quiz-prog">PREGUNTA 1/12</span><button type="button" class="mute" id="quiz-mute">SFX : S&Iacute;</button></div><div class="presse-cadre"><svg class="presse" viewBox="0 0 300 340" role="img" aria-label="Noria correctrice et paella au socarrat"><line x1="10" y1="318" x2="290" y2="318" stroke="#2B1E16" stroke-width="4"/><g id="rameau"><path d="M96 44 q54 -26 108 0" fill="none" stroke="#5C7345" stroke-width="4"/><g fill="#5C7345"><path d="M112 36 q8 -10 16 -6 q-4 10 -16 6z"/><path d="M136 28 q9 -9 17 -4 q-5 10 -17 4z"/><path d="M164 26 q9 -7 16 -1 q-6 9 -16 1z"/><path d="M188 34 q10 -6 16 1 q-7 8 -16 -1z"/></g><circle cx="128" cy="40" r="5" fill="#C75B12"/><circle cx="176" cy="36" r="5" fill="#C75B12"/></g><rect x="196" y="120" width="88" height="12" fill="#8A5A2B" stroke="#2B1E16" stroke-width="3"/><rect x="206" y="132" width="10" height="118" fill="#8A5A2B" stroke="#2B1E16" stroke-width="3"/><rect x="264" y="132" width="10" height="118" fill="#8A5A2B" stroke="#2B1E16" stroke-width="3"/><g id="meule" style="transform-origin:240px 196px"><circle cx="240" cy="196" r="52" fill="#F2E3C6" stroke="#2B1E16" stroke-width="5"/><circle cx="240" cy="196" r="52" fill="none" stroke="#8A6F5C" stroke-width="2" stroke-dasharray="4 7"/><line x1="240" y1="150" x2="240" y2="242" stroke="#2B1E16" stroke-width="4"/><line x1="194" y1="196" x2="286" y2="196" stroke="#2B1E16" stroke-width="4"/><line x1="208" y1="164" x2="272" y2="228" stroke="#2B1E16" stroke-width="3"/><line x1="272" y1="164" x2="208" y2="228" stroke="#2B1E16" stroke-width="3"/><rect x="234" y="142" width="12" height="10" fill="#9C4722" stroke="#2B1E16" stroke-width="2.5"/><rect x="234" y="244" width="12" height="10" fill="#9C4722" stroke="#2B1E16" stroke-width="2.5"/><rect x="186" y="190" width="10" height="12" fill="#9C4722" stroke="#2B1E16" stroke-width="2.5"/><rect x="284" y="190" width="10" height="12" fill="#9C4722" stroke="#2B1E16" stroke-width="2.5"/><circle cx="240" cy="196" r="9" fill="#C75B12" stroke="#2B1E16" stroke-width="3"/></g><g id="frein"><path d="M286 156 L298 138 L306 152 L292 168 Z" transform="translate(-14,4)" fill="#A6301C" stroke="#2B1E16" stroke-width="3" opacity="0"/></g><path d="M196 244 q-24 2 -32 16 l10 5 q8 -12 22 -11 z" fill="#9C4722" stroke="#2B1E16" stroke-width="3"/><g id="filet"><rect x="160" y="264" width="5" height="30" fill="#D98E04" opacity="0"/></g><g id="amfora-1"><clipPath id="ac1"><rect x="34" y="292" width="40" height="22" rx="3"/></clipPath><rect id="amfora-1-vul" x="34" y="292" width="40" height="22" fill="#D98E04" clip-path="url(#ac1)" style="transform-origin:54px 314px;transform:scaleY(0)"/></g><g id="amfora-2"><clipPath id="ac2"><rect x="76" y="292" width="40" height="22" rx="3"/></clipPath><rect id="amfora-2-vul" x="76" y="292" width="40" height="22" fill="#D98E04" clip-path="url(#ac2)" style="transform-origin:96px 314px;transform:scaleY(0)"/></g><g id="amfora-3"><clipPath id="ac3"><rect x="118" y="292" width="40" height="22" rx="3"/></clipPath><rect id="amfora-3-vul" x="118" y="292" width="40" height="22" fill="#D98E04" clip-path="url(#ac3)" style="transform-origin:138px 314px;transform:scaleY(0)"/></g><path d="M28 290 h136 l-8 26 h-120 z" fill="none" stroke="#2B1E16" stroke-width="4"/><path d="M28 292 q-10 0 -14 6 M164 292 q10 0 14 6" fill="none" stroke="#2B1E16" stroke-width="4"/><text x="96" y="284" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#2B1E16">EL SOCARRAT SUBE&hellip;</text><g id="manteion-rotors" font-family="IBM Plex Mono,monospace" font-size="15" font-weight="700"><rect x="238" y="256" width="42" height="26" fill="#F2E3C6" stroke="#2B1E16" stroke-width="3"/><text id="rota-t" x="259" y="275" text-anchor="middle" fill="#2B1E16">01</text><rect x="238" y="292" width="42" height="26" fill="#F2E3C6" stroke="#2B1E16" stroke-width="3"/><text id="rotb-t" x="259" y="311" text-anchor="middle" fill="#9C4722">00</text><text x="259" y="248" text-anchor="middle" font-size="9" fill="#2B1E16">PREG.</text><text x="259" y="332" text-anchor="middle" font-size="9" fill="#2B1E16">CROSTA</text></g></svg></div><div class="quiz-zone" id="quiz-zone"></div></div></section><section class="fiche" id="kolophon"><div class="corps-sec kolophon-corps"><h2 class="kolophon-titre">Colof&oacute;n</h2><p class="kolophon-l1">Ce guide a &eacute;t&eacute; cuit dans la vibe <strong>socarrat-llibret</strong>&nbsp;: terracotta de Paterna, safran, cr&egrave;me de riz et vert de huerta. La guitare pince, la noria tourne, la masclet&agrave; tonne.</p><p class="kolophon-l2">Forg&eacute; par <strong>&Eacute;tienne</strong> &amp; <strong>Claudi-brimbor</strong>, pour <strong>St&eacute;phanie</strong>, en partance pour Valence &mdash; ANNO 2026. <em lang="es">&iexcl;Buen viaje!</em> <em>Bon viatge!</em></p><a class="retour-classeur" href="/">&larr; EL ARCHIVADOR &mdash; retour au classeur</a></div></section><section class="fiche" id="geheim"><div class="corps-sec adyton-corps"><span class="stempel-header adyton-stemp">LA CREM&Agrave;</span><h2 class="adyton-titre">Le taller de l&rsquo;artiste fallero</h2><p><span class="lettrine le">T</span>u as pouss&eacute; la porte du <strong lang="es">taller</strong> &mdash; l&rsquo;atelier o&ugrave; naissent les g&eacute;ants de mars. Toute l&rsquo;ann&eacute;e, des sculpteurs y mod(&egrave;)lent des visages de trois m&egrave;tres en sachant une seule chose de leur &oelig;uvre&nbsp;: la nuit du 19, elle br&ucirc;lera. C&rsquo;est le pacte de la <strong>Crem&agrave;</strong> &mdash; l&rsquo;art valencien ne se conserve pas, il culmine.</p><p>Une seule figurine &eacute;chappe au feu chaque ann&eacute;e&nbsp;: le <strong lang="es">ninot indultat</strong>, graci&eacute; par le vote du peuple, qui entre au Museo Fallero pour l&rsquo;&eacute;ternit&eacute;.</p><div class="merksatz adyton-dedicace"><p>Pour toi, St&eacute;phanie&nbsp;: les artistes falleros ont d&eacute;pouill&eacute; le scrutin &mdash; cette ann&eacute;e, le <em>ninot indultat</em>, c&rsquo;est toi. Que Valence te grâcie de tout, et que le voyage te garde du feu&nbsp;juste la chaleur.</p></div><a class="retour-classeur" href="#agora" id="geheim-retour">&larr; Refermer la porte du taller</a></div></section>
+</main>
+<nav class="navbar cache" id="navbar" aria-label="Navigation de la st&egrave;le"><button class="fleche" id="nav-prev" type="button" aria-label="Plaque pr&eacute;c&eacute;dente">&lsaquo;</button><button class="centre" id="nav-hub" type="button" aria-label="Agora"><svg class="ilios-nav" viewBox="0 0 48 48" aria-hidden="true"><g id="ilios-nav-g" style="transform-origin:24px 24px"><circle cx="24" cy="24" r="17" fill="#C75B12" stroke="#2B1E16" stroke-width="1.6"/><circle cx="24" cy="24" r="12.5" fill="#F2C24B" stroke="#2B1E16" stroke-width="1.1"/><g stroke="#C75B12" stroke-width="1.6"><line x1="24" y1="12.5" x2="24" y2="35.5"/><line x1="12.5" y1="24" x2="35.5" y2="24"/><line x1="16" y1="16" x2="32" y2="32"/><line x1="32" y1="16" x2="16" y2="32"/></g><circle cx="24" cy="24" r="2.6" fill="#C75B12"/><path d="M27 8 q7 -6 12 -2 q-5 6 -12 2 z" fill="#5C7345" stroke="#2B1E16" stroke-width="1.1"/></g></svg><span>EL PATIO</span><span class="rotors" aria-hidden="true"><span class="rotor"><span class="colonne" id="col-d"></span></span><span class="rotor"><span class="colonne" id="col-u"></span></span><span class="rtotal" id="rtotal"></span></span></button><button class="fleche" id="nav-next" type="button" aria-label="Plaque suivante">&rsaquo;</button></nav>
+</div>
+<script>
+/* ============ Moteur sonore DOLCAINA — synthèse pure, timbres valenciens ============ */
+const Dolcaina=(function(){
+  let ctx=null,muted=false;
+  function ensure(){
+    if(!ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;ctx=new AC();}
+    if(ctx.state==='suspended')ctx.resume();
+    return ctx;
+  }
+  function bruit(c,dur){
+    const buf=c.createBuffer(1,Math.max(1,c.sampleRate*dur),c.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++){d[i]=(Math.random()*2-1)*(1-i/d.length);}
+    const s=c.createBufferSource();s.buffer=buf;return s;
+  }
+  /* frappe : castagnette — claquement de bois sec, très bref */
+  function frappe(temps,force){
+    const c=ensure();if(!c||muted)return;const t=temps||c.currentTime;const f=force||1;
+    const src=bruit(c,0.008);
+    const bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=3200;bp.Q.value=7;
+    const g=c.createGain();g.gain.setValueAtTime(0.10*f,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.008);
+    src.connect(bp).connect(g).connect(c.destination);src.start(t);
+    const o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(1976,t);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.045*f,t);g2.gain.exponentialRampToValueAtTime(0.001,t+0.025);
+    o.connect(g2).connect(c.destination);o.start(t);o.stop(t+0.03);
+  }
+  function tape(){if(Math.random()<0.85)frappe(0,0.55+Math.random()*0.4);}
+  /* corde de guitare nylon : fondamentale ronde + octave, détune léger, décroissance longue */
+  function corde(freq,t,gain){
+    const c=ensure();if(!c)return;
+    const o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(freq,t);o.detune.setValueAtTime(-4,t);
+    const o2=c.createOscillator();o2.type='sine';o2.frequency.setValueAtTime(freq*2,t);o2.detune.setValueAtTime(5,t);
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(gain,t+0.006);g.gain.exponentialRampToValueAtTime(0.001,t+0.82);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.0001,t);
+    g2.gain.exponentialRampToValueAtTime(gain*0.35,t+0.006);g2.gain.exponentialRampToValueAtTime(0.001,t+0.42);
+    o.connect(g).connect(c.destination);o2.connect(g2).connect(c.destination);
+    o.start(t);o.stop(t+0.9);o2.start(t);o2.stop(t+0.5);
+  }
+  /* rotor/tick : pouce sur la corde grave — Mi 2 (82,41 Hz) */
+  function rotor(){const c=ensure();if(!c||muted)return;corde(82.41,c.currentTime,0.13);}
+  function tick(){rotor();}
+  /* lampe (bonne réponse) : rasgueado phrygien-dominant mi–sol#–si, serré */
+  function lampe(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    [[164.81,0],[207.65,0.07],[246.94,0.14]].forEach(function(p){corde(p[0],t+p[1],0.12);});
+  }
+  /* pluck(freq) : corde nommée — l'easter egg de la guitare au patio */
+  function pluck(freq){const c=ensure();if(!c||muted)return;corde(freq||110,c.currentTime,0.16);}
+  /* kurzschluss (erreur) : corde étouffée fa-contre-mi (battement) + noria qui grince */
+  function kurzschluss(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    corde(174.61,t,0.06);corde(164.81,t,0.06);
+    const o=c.createOscillator();o.type='sawtooth';
+    o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(88,t+0.5);
+    const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=480;lp.Q.value=5;
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.11,t+0.04);
+    const trem=c.createOscillator();trem.type='square';trem.frequency.value=9;
+    const tg=c.createGain();tg.gain.value=0.05;
+    trem.connect(tg).connect(g.gain);
+    g.gain.setTargetAtTime(0.001,t+0.42,0.05);
+    o.connect(lp).connect(g).connect(c.destination);
+    o.start(t);o.stop(t+0.58);trem.start(t);trem.stop(t+0.58);
+  }
+  /* ding : la cloche du Miguelete — partiels inharmoniques, longue résonance */
+  function ding(){
+    const c=ensure();if(!c||muted)return;const t=c.currentTime;
+    [[165,0.10,2.2],[330,0.12,1.6],[396,0.07,1.1],[495,0.05,0.9],[660,0.04,0.7]].forEach(function(p){
+      const o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(p[0],t);
+      const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(p[1],t+0.012);g.gain.exponentialRampToValueAtTime(0.001,t+p[2]);
+      o.connect(g).connect(c.destination);o.start(t);o.stop(t+p[2]+0.05);
+    });
+  }
+  /* tonnerre : LA MASCLETÀ — détonations en accéléré puis terremoto final */
+  function tonnerre(){
+    const c=ensure();if(!c||muted)return;const t0=c.currentTime;
+    let t=t0,pas=0.17;
+    for(let i=0;i<6;i++){
+      const s=bruit(c,0.09);
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=900-90*i;
+      const g=c.createGain();g.gain.setValueAtTime(0.16+0.02*i,t);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.09);
+      s.connect(lp).connect(g).connect(c.destination);s.start(t);
+      t+=pas;pas*=0.82;
+    }
+    const s=bruit(c,1.25);
+    const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.setValueAtTime(180,t);
+    lp.frequency.exponentialRampToValueAtTime(48,t+1.15);
+    const g=c.createGain();g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.32,t+0.06);g.gain.exponentialRampToValueAtTime(0.001,t+1.25);
+    s.connect(lp).connect(g).connect(c.destination);s.start(t);
+    const o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(44,t);
+    const g2=c.createGain();g2.gain.setValueAtTime(0.0001,t);
+    g2.gain.exponentialRampToValueAtTime(0.22,t+0.08);g2.gain.exponentialRampToValueAtTime(0.001,t+1.1);
+    o.connect(g2).connect(c.destination);o.start(t);o.stop(t+1.15);
+  }
+  function toggle(){muted=!muted;return muted;}
+  return {frappe,tape,rotor,tick,lampe,pluck,kurzschluss,ding,tonnerre,toggle};
+})();
+const Lyra=Dolcaina;
+const Enigma=Dolcaina;
+const Stimme=(function(){
+  let voix=null;
+  function charger(){
+    try{
+      const vs=speechSynthesis.getVoices();
+      voix=vs.find(v=>v.lang==='es-ES')||vs.find(v=>v.lang&&v.lang.indexOf('es')===0)||null;
+    }catch(e){voix=null;}
+    document.documentElement.classList.toggle('sans-voix',!voix);
+  }
+  if('speechSynthesis' in window){
+    charger();
+    if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=charger;
+  }else{document.documentElement.classList.add('sans-voix');}
+  function dire(txt,btn){
+    if(!voix||!txt)return;
+    try{
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(txt);
+      u.voice=voix;u.lang=voix.lang;u.rate=0.86;
+      if(btn){btn.classList.add('parle');u.onend=u.onerror=()=>btn.classList.remove('parle');}
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  return{dire};
+})();
+
+/* ============ SPRACHFÜHRER — délégations : écoute, PRÜFEN, Baukasten ============ */
+(function(){try{
+  document.addEventListener('click',e=>{
+    const dire=e.target.closest('button.dire');
+    if(dire){Stimme.dire(dire.dataset.de,dire);return;}
+    const pt=e.target.closest('button.pruefen-toggle');
+    if(pt){
+      const table=pt.parentElement.querySelector('table');
+      if(table){
+        const on=table.classList.toggle('cache-sens');
+        table.querySelectorAll('tr.revele').forEach(r=>r.classList.remove('revele'));
+        pt.textContent=on?'REVELA \u2014 montre tout':'A PRUEBA \u2014 cache les sens';
+        Enigma.tick();
+      }return;
+    }
+    const tr=e.target.closest('table.cache-sens tr');
+    if(tr&&!tr.querySelector('th')){tr.classList.add('revele');Enigma.tape();return;}
+  });
+  /* Satzbaukasten */
+  const bk=document.getElementById('baukasten');
+  if(bk){
+    const de=document.getElementById('bk-de'),fr=document.getElementById('bk-fr');
+    let amorce=null,fin=null,timer=0;
+    function ecrire(txt){
+      clearInterval(timer);let i=0;de.textContent='';
+      timer=setInterval(()=>{
+        i+=2;de.textContent=txt.slice(0,i);Enigma.tape();
+        if(i>=txt.length){clearInterval(timer);de.textContent=txt;Enigma.ding();}
+      },34);
+    }
+    function maj(){
+      if(amorce&&fin){
+        const phrase=amorce.dataset.de+' '+fin.dataset.de;
+        ecrire(phrase);fr.textContent=amorce.dataset.fr+' '+fin.dataset.fr;
+      }else if(amorce){de.textContent=amorce.dataset.de+' \u2026';fr.textContent='';}
+    }
+    bk.addEventListener('click',e=>{
+      const a=e.target.closest('.bk-a');
+      if(a){
+        amorce=a;fin=null;
+        bk.querySelectorAll('.bk-a').forEach(b=>b.classList.toggle('choisi',b===a));
+        bk.querySelectorAll('.bk-f').forEach(b=>{
+          b.classList.toggle('dispo',b.dataset.g===a.dataset.g);
+          b.classList.remove('choisi');
+        });
+        maj();return;
+      }
+      const f=e.target.closest('.bk-f.dispo');
+      if(f){
+        fin=f;
+        bk.querySelectorAll('.bk-f').forEach(b=>b.classList.toggle('choisi',b===f));
+        maj();return;
+      }
+      if(e.target.closest('#bk-sprechen')&&amorce&&fin){
+        Stimme.dire(amorce.dataset.de+' '+fin.dataset.de);
+      }
+    });
+  }
+}catch(e){console.error('[sprach]',e);}})();
+
+(function(){try{
+  const st=document.querySelector('.stempel-header');
+  let taps=[];
+  if(st)st.addEventListener('click',function(){
+    const t=Date.now();
+    taps=taps.filter(function(x){return t-x<1600;});taps.push(t);
+    Lyra.frappe();
+    if(taps.length>=3){taps=[];Lyra.ding();location.hash='#geheim';}
+  });
+  /* la lyre : quatre cordes pincées 1->4 déclenchent le foudre */
+  const FREQ={1:82.41,2:110.00,3:146.83,4:196.00};
+  let suite=[],st2=0;
+  document.addEventListener('click',function(e){
+    const ch=e.target.closest('.chorde');if(!ch)return;
+    const n=parseInt((ch.id||'').replace('chorde-',''),10);
+    Lyra.pluck(FREQ[n]||220);
+    ch.classList.remove('pincee');void ch.getBoundingClientRect();ch.classList.add('pincee');
+    const t=Date.now();
+    if(t-st2>4000)suite=[];
+    st2=t;suite.push(n);
+    const attendu=[1,2,3,4].slice(0,suite.length);
+    if(suite.join()!==attendu.join()){suite=(n===1)?[1]:[];return;}
+    if(suite.length===4){
+      suite=[];
+      const lyra=ch.closest('.lyra');if(!lyra)return;
+      lyra.classList.add('keravnos');
+      Lyra.tonnerre();
+      if(!lyra.parentNode.querySelector('.keravnos-tampon')){
+        const s=document.createElement('span');
+        s.className='keravnos-tampon';
+        s.textContent='\u00a1A LA CREM\u00c0!';
+        lyra.parentNode.appendChild(s);
+        setTimeout(function(){s.remove();},2400);
+      }
+      setTimeout(function(){lyra.classList.remove('keravnos');},2500);
+    }
+  });
+}catch(e){console.error('[mystika]',e);}})();
+
+/* ============ FRAPPE — la machine dactylographie chaque fiche ============ */
+const Frappe=(function(){
+  const REDUIT=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PROFILS=[
+    {cps:330,virgule:60,point:120},
+    {cps:420,virgule:90,point:180},
+    {cps:500,virgule:40,point:90}
+  ];
+  let enCours=null; /* {actes,raf,curseur,fiche} */
+
+  function collecter(el,actes){
+    for(const n of Array.from(el.childNodes)){
+      if(n.nodeType===3){
+        if(n.textContent.trim())actes.push({t:'txt',n,full:n.textContent});
+      }else if(n.nodeType===1){
+        if(n.matches('svg'))continue;
+        if(n.matches('.achtung,.merksatz,.quiz-cadre,.stempel-inline')){
+          actes.push({t:'bloc',n,clac:n.matches('.achtung,.quiz-cadre')});
+        }else if(n.matches('table')){
+          const cap=n.querySelector('caption');
+          if(cap)collecter(cap,actes);
+          n.querySelectorAll('tr').forEach(tr=>actes.push({t:'bloc',n:tr}));
+        }else collecter(n,actes);
+      }
+    }
+  }
+  function toutReveler(e){
+    if(!e)return;
+    e.actes.forEach(a=>{
+      if(a.t==='txt')a.n.textContent=a.full;
+      else a.n.classList.remove('cache-frappe');
+    });
+    if(e.curseur)e.curseur.remove();
+    if(e.raf)cancelAnimationFrame(e.raf);
+    e.fiche.removeEventListener('pointerdown',e.skip);
+  }
+  function stop(){toutReveler(enCours);enCours=null;}
+
+  function demarrer(fiche,seed){
+    stop();
+    const corps=fiche.querySelector('.corps-sec');
+    if(!corps)return;
+    const actes=[];collecter(corps,actes);
+    if(!actes.length)return;
+    if(REDUIT)return; /* tout reste visible */
+    /* préparer : vider les textes, cacher les blocs */
+    actes.forEach(a=>{
+      if(a.t==='txt')a.n.textContent='';
+      else a.n.classList.add('cache-frappe');
+    });
+    const curseur=document.createElement('span');curseur.className='curseur';
+    const p=PROFILS[Math.abs(seed)%PROFILS.length];
+    const e={actes,curseur,fiche,raf:0,skip:null};
+    let i=0,pos=0,last=0,lastSon=0,budget=0;
+    function pas(now){
+      if(!last)last=now;
+      budget+=Math.min(60,now-last)/1000*p.cps;last=now;
+      while(budget>=1&&i<actes.length){
+        const a=actes[i];
+        if(a.t==='txt'){
+          const take=Math.min(a.full.length-pos,Math.floor(budget));
+          if(take>0){
+            pos+=take;budget-=take;
+            const ch=a.full[pos-1];
+            if(ch==='.'||ch==='!'||ch==='?')budget-=p.point/1000*p.cps;
+            else if(ch===','||ch===';'||ch===':')budget-=p.virgule/1000*p.cps;
+            a.n.textContent=a.full.slice(0,pos);
+            if(a.n.parentNode)a.n.parentNode.insertBefore(curseur,a.n.nextSibling);
+          }
+          if(pos>=a.full.length){i++;pos=0;}
+        }else{
+          a.n.classList.remove('cache-frappe');
+          if(a.clac)Enigma.tick();
+          budget-=10;i++;
+        }
+      }
+      if(now-lastSon>85&&i<actes.length){Enigma.tape();lastSon=now;}
+      if(i<actes.length){e.raf=requestAnimationFrame(pas);}
+      else{curseur.remove();fiche.removeEventListener('pointerdown',e.skip);enCours=null;Enigma.ding();}
+    }
+    e.skip=function(){toutReveler(e);enCours=null;};
+    fiche.addEventListener('pointerdown',e.skip,{once:true});
+    enCours=e;
+    e.raf=requestAnimationFrame(pas);
+  }
+  return{demarrer,stop};
+})();
+
+/* ============ ROUTEUR v3 — le deck de Karteikarten ============ */
+(function(){try{
+  const scene=document.getElementById('scene');
+  const FICHES=Array.from(document.querySelectorAll('.fiche'));
+  const IDS=FICHES.map(f=>f.id);
+  const CONTENU=FICHES.filter(f=>f.dataset.par);
+  const navbar=document.getElementById('navbar');
+  const bPrev=navbar.querySelector('#nav-prev');
+  const bHub=navbar.querySelector('#nav-hub');
+  const bNext=navbar.querySelector('#nav-next');
+  const colD=navbar.querySelector('#col-d');
+  const colU=navbar.querySelector('#col-u');
+  navbar.querySelector('#rtotal').textContent='\u2044'+CONTENU.length;
+
+  /* colonnes des rotors : 0-9 + cran neutre */
+  [colD,colU].forEach(col=>{
+    col.innerHTML='';
+    '0123456789\u00B7'.split('').forEach(ch=>{
+      const s=document.createElement('span');
+      s.textContent=ch;s.style.cssText='display:block;height:1.5em;line-height:1.5em;text-align:center';
+      col.appendChild(s);
+    });
+  });
+  function setRotor(col,n){col.style.transform='translateY(calc(-'+n+' * 1.5em))';}
+
+  let courantId=null,pendingDir=null,demarre=false,wnAngle=0;
+  const NAVIG=IDS.filter(x=>x!=='geheim');
+  const idx=id=>IDS.indexOf(id);
+  function cible(){
+    const h=location.hash.slice(1);
+    if(!h)return 'stele';
+    return IDS.includes(h)?h:'pinakas';
+  }
+  function afficher(id,dir){
+    const el=document.getElementById(id);if(!el)return;
+    scene.dataset.dir=dir||'avant';
+    Frappe.stop();
+    FICHES.forEach(f=>f.classList.remove('actif'));
+    el.classList.add('actif');el.scrollTop=0;
+    navbar.classList.toggle('cache',id==='stele');
+    const ci=CONTENU.indexOf(el);
+    if(ci>-1){const n=ci+1;setRotor(colD,Math.floor(n/10));setRotor(colU,n%10);}
+    else{setRotor(colD,10);setRotor(colU,10);}
+    const i=NAVIG.indexOf(courantId==='geheim'?'agora':id);
+    bPrev.disabled=(i<=0);
+    bNext.disabled=(i>=NAVIG.length-1);
+    if(demarre&&courantId!==id){Enigma.tick();wnAngle+=90;const wn=document.getElementById('ilios-nav-g');if(wn)wn.style.transform='rotate('+wnAngle+'deg)';}
+    if(el.hasAttribute('data-nofrappe')){Frappe.stop();}else{Frappe.demarrer(el,Math.max(0,ci));}
+    courantId=id;demarre=true;
+  }
+  function aller(id){
+    if(id===courantId)return;
+    pendingDir=(idx(id)>=idx(courantId))?'avant':'arriere';
+    if(id==='stele'){
+      history.pushState('','',location.pathname+location.search);
+      afficher(id,pendingDir);pendingDir=null;
+    }else{
+      location.hash='#'+id;
+    }
+  }
+  function next(){const i=NAVIG.indexOf(courantId);if(i>-1&&i<NAVIG.length-1)aller(NAVIG[i+1]);}
+  function prev(){const i=NAVIG.indexOf(courantId);if(i>0)aller(NAVIG[i-1]);}
+
+  bPrev.addEventListener('click',prev);
+  bNext.addEventListener('click',next);
+  bHub.addEventListener('click',()=>aller('agora'));
+  const be=document.getElementById('btn-anavasi');
+  if(be)be.addEventListener('click',()=>{Enigma.frappe();aller('agora');});
+  const gr=document.getElementById('geheim-retour');
+  if(gr)gr.addEventListener('click',()=>aller('agora'));
+
+  /* balayage tactile */
+  let tx=0,ty=0;
+  scene.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  scene.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>60&&Math.abs(dy)<40){(dx<0)?next():prev();}
+  },{passive:true});
+
+  /* mute synchronisé (hub + quiz) */
+  document.querySelectorAll('button.mute').forEach(b=>b.addEventListener('click',()=>{
+    const m=Enigma.toggle();
+    document.querySelectorAll('button.mute').forEach(x=>{
+      x.textContent=m?'SFX : AUS':'SFX : AN';
+      x.setAttribute('aria-pressed',String(m));
+    });
+    if(!m)Enigma.frappe();
+  }));
+
+  window.addEventListener('hashchange',()=>{
+    const c=cible();
+    const d=pendingDir||((idx(c)>=idx(courantId))?'avant':'arriere');
+    pendingDir=null;afficher(c,d);
+  });
+  afficher(cible(),'avant');
+}catch(e){document.documentElement.classList.add('nojs');console.error('[routeur]',e);}
+})();
+
+/* ============ PRÜFUNG — moteur branché sur la machine ============ */
+
+const FRAGEN=[{"sit": "Il est 20h, vous avez faim, et le petit restaurant du coin affiche une belle « paella valenciana ».", "q": "Tu commandes ?", "c": ["Oui, parfait pour souper", "Non — la paella, c'est le midi", "Oui, mais sans riz"], "b": 1, "ex": "Plat du midi, toujours. Un restaurant qui pousse la paella le soir cuisine pour les touristes — et souvent au micro-ondes."}, {"sit": "Le serveur pose la paella. Ta voisine québécoise cherche le chorizo des yeux.", "q": "Dans une paella valenciana, le chorizo…", "c": ["Est indispensable", "Se demande à part", "Est un sacrilège documenté"], "b": 2, "ex": "Le canon tient en dix ingrédients : poulet, lapin, haricots, garrofó, tomate, paprika, safran, huile, riz, eau. Ni chorizo, ni fruits de mer."}, {"sit": "Au fond de la poêle, une croûte de riz doré accroche à la cuillère.", "q": "Tu fais quoi ?", "c": ["Tu la grattes : c'est le trésor", "Tu la laisses : c'est brûlé", "Tu demandes une réduction"], "b": 0, "ex": "C'est le socarrat — la partie la plus convoitée. On la gratte directement dans la poêle, et on complimente la maison."}, {"sit": "Sur le panneau : « Xàtiva ». Sur ton billet de train : « Játiva ».", "q": "Il se passe quoi ?", "c": ["Deux villes différentes", "La même ville, deux langues officielles", "Une faute d'impression"], "b": 1, "ex": "Valencien et castillan coexistent partout : Russafa/Ruzafa, València/Valencia. Ce n'est pas une erreur, c'est la ville."}, {"sit": "Janvier. Une carte affiche des « clòchinas » (moules locales) en vedette.", "q": "Tu en penses quoi ?", "c": ["Méfiance : leur saison, c'est mai-août", "Chouette, c'est la saison", "Les clòchinas n'existent pas"], "b": 0, "ex": "Les vraies clòchinas se pêchent de mai à août. Hors saison, ce sont des moules d'ailleurs déguisées en fierté locale."}, {"sit": "1er mars, 13h55, Plaza del Ayuntamiento. La foule se masse, des locaux entrouvrent la bouche.", "q": "Pourquoi la bouche entrouverte ?", "c": ["Pour crier plus fort", "C'est une prière fallera", "Pour équilibrer la pression des explosions"], "b": 2, "ex": "La mascletà approche : ~120 dB de rythme pyrotechnique. Bouche entrouverte = tympans protégés. Et bouchons d'oreilles dans la poche."}, {"sit": "Addition : 42 €. Le service était impeccable. Ta voisine sort sa calculette à 15 %.", "q": "Le pourboire espagnol…", "c": ["15 % obligatoire, comme au Québec", "Optionnel : on arrondit, 5-10 % si excellent", "Interdit par la loi"], "b": 1, "ex": "Le service est inclus. Arrondir suffit ; 5-10 % récompense un vrai bon moment. Personne ne courra après toi."}, {"sit": "Tu renverses ton verre sur un inconnu. Confuse, tu lances : « ¡Estoy embarazada! »", "q": "Tu viens de dire…", "c": ["« Je suis enceinte »", "« Je suis embarrassée »", "« Je suis désolée »"], "b": 0, "ex": "Le faux ami le plus célèbre de la langue. Pour la gêne : « ¡Qué vergüenza! » — et pour un rhume, evita « constipada »… qui veut dire enrhumée, justement."}, {"sit": "Un chauffeur te propose un « tour photo » des communes touchées par la DANA de 2024.", "q": "Ta réponse ?", "c": ["Pourquoi pas, c'est historique", "Oui, si c'est gratuit", "Non — lieux de deuil, pas d'attraction"], "b": 2, "ex": "Paiporta et ses voisines se reconstruisent dans le deuil. Le vrai geste utile : dépenser dans le centre, dont le tourisme finance la relance."}, {"sit": "Fin du repas depuis 20 minutes. L'addition ne vient toujours pas. Personne ne s'agite.", "q": "Le restaurant…", "c": ["T'a oubliée", "Te laisse la sobremesa : demande-la quand TU veux", "Offre le repas"], "b": 1, "ex": "Apporter l'addition sans qu'on la demande serait pousser dehors. « La cuenta, por favor » — avec le geste de signer dans l'air, ça marche aussi."}, {"sit": "Ton vol atterrit. Tu ouvres Uber : aucun véhicule disponible, nulle part.", "q": "Que se passe-t-il ?", "c": ["Grève surprise", "Ton téléphone est cassé", "Uber n'opère pas à Valence : Cabify/Bolt/métro"], "b": 2, "ex": "Pas d'Uber ici. Cabify est le réflexe local, le métro (lignes 3/5) fait le trajet en ~20 min, et le taxi est à tarif encadré."}, {"sit": "Grosse chaleur. Tu commandes une horchata et réclames « beaucoup de glaçons, por favor ».", "q": "L'horchatero te regarde…", "c": ["Avec une douleur polie : les glaçons la noient", "Avec gratitude", "Sans réaction"], "b": 0, "ex": "L'horchata se sert déjà glacée, souvent mi-granizada. Les glaçons diluent le lait de chufa — demande-la « bien fría », et trempe un farton."}];
+
+
+(function(){try{
+  const zone=document.getElementById('quiz-zone');
+  const prog=document.getElementById('quiz-prog');
+  if(!zone||!prog)return;
+  const rotAt=document.getElementById('rota-t');
+  const rotBt=document.getElementById('rotb-t');
+  const presse=document.querySelector('#manteion .presse');
+  let idx=0,score=0,repondu=false,wAngle=0;
+
+  function setRotA(){if(rotAt)rotAt.textContent=String(idx+1).padStart(2,'0');}
+  function setRotB(){if(rotBt)rotBt.textContent=String(score).padStart(2,'0');}
+  function tourner(){
+    wAngle+=90;
+    const w=document.getElementById('meule');
+    if(w)w.style.transform='rotate('+wAngle+'deg)';
+  }
+  function setAmfores(){
+    for(let k=1;k<=3;k++){
+      const part=Math.max(0,Math.min(1,(score-(k-1)*4)/4));
+      const v=document.getElementById('amfora-'+k+'-vul');
+      if(v)v.style.transform='scaleY('+part+')';
+    }
+  }
+  function grincer(){
+    if(!presse)return;
+    presse.classList.add('frein-on');
+    setTimeout(function(){presse.classList.remove('frein-on');},560);
+  }
+
+  function rendre(){
+    repondu=false;
+    const f=FRAGEN[idx];
+    prog.textContent='PREGUNTA '+(idx+1)+'/12';
+    setRotA();
+    zone.innerHTML='';
+    const sit=document.createElement('p');sit.className='quiz-situation';sit.textContent='Situaci\u00f3n \u2014 '+f.sit;
+    const q=document.createElement('p');q.className='quiz-q';q.textContent=f.q;
+    const box=document.createElement('div');box.className='quiz-choix';
+    f.c.forEach(function(txt,i){
+      const b=document.createElement('button');b.type='button';b.className='choix';b.textContent=txt;
+      b.addEventListener('click',function(){repondre(i,b,box,f,sit,q);});
+      box.appendChild(b);
+    });
+    zone.append(sit,q,box);
+  }
+
+  function repondre(i,btn,box,f,sit,q){
+    if(repondu)return;repondu=true;
+    if(sit)sit.remove();if(q)q.remove();
+    const bonne=(i===f.b);
+    if(bonne)score++;
+    box.querySelectorAll('button').forEach(function(b,j){
+      b.disabled=true;
+      if(j===f.b)b.dataset.etat='bonne';
+      else if(j===i)b.dataset.etat='mauvaise';
+    });
+    if(bonne){Lyra.lampe();tourner();setRotB();setAmfores();}
+    else{Lyra.kurzschluss();grincer();}
+    const rappel=(!bonne)?'<p class="quiz-bonne">\u2192 '+f.c[f.b]+'</p>':'';
+    box.remove();
+    const verd=document.createElement('div');verd.className='quiz-verdict';
+    const st=document.createElement('span');
+    st.className='grand-stempel anime '+(bonne?'ok':'non');
+    st.textContent=bonne?'\u00a1FET!':'QUEMADO';
+    verd.appendChild(st);
+    const ex=document.createElement('div');ex.className='quiz-explication';
+    ex.innerHTML='<span class="amtston">El veredicto de la noria</span>'+rappel+f.ex;
+    const w=document.createElement('button');w.type='button';w.className='weiter';
+    w.textContent=(idx<FRAGEN.length-1)?'SIGUIENTE \u2192':'VEREDICTO \u2192';
+    w.addEventListener('click',function(){Lyra.rotor();idx++;(idx<FRAGEN.length)?rendre():bilan();});
+    zone.append(verd,ex,w);
+  }
+
+  function bilan(){
+    prog.textContent='LA PAELLA EST\u00c1 SERVIDA';
+    let classe,tampon,texte;
+    if(score===12){classe='ok';tampon='MATR\u00cdCULA DE HONOR';
+      texte="Douze olives press\u00e9es, douze filets d'huile d'or \u2014 la Pythie elle-m\u00eame te c\u00e8derait son tr\u00e9pied. Jeanne, tu lis la Gr\u00e8ce comme un oracle.";}
+    else if(score>=9){classe='ok';tampon='NOTABLE';
+      texte="Le pressoir a bien coul\u00e9. Tu d\u00e9joues la mo\u00fatza, tu dis \u00ab\u00a0ne\u00a0\u00bb pour oui, tu gardes une journ\u00e9e tampon avant ton vol \u2014 kal\u00f3 tax\u00eddi.";}
+    else if(score>=6){classe='ok';tampon='BIEN';
+      texte="Admise. Le Manteion conseille une relecture des \u00a7 avant d'affronter un ferry sous melt\u00e9mi.";}
+    else{classe='non';tampon='SUSPENSO';
+      texte="La meule a plus grinc\u00e9 qu'elle n'a press\u00e9. L'oracle reste muet \u2014 relis la St\u00e8le, puis reviens presser l'olive.";}
+    zone.innerHTML='<div class="bilan">'
+      +'<span class="score">'+score+'/12</span>'
+      +'<span class="grand-stempel '+classe+'" style="position:static;animation:claquer 170ms steps(4,end) both">'+tampon+'</span>'
+      +'<p class="verdict-texte">'+texte+'</p>'
+      +'</div>';
+    const w=document.createElement('button');w.type='button';w.className='weiter';w.textContent='OTRA VEZ (recommencer)';
+    w.addEventListener('click',function(){Lyra.rotor();idx=0;score=0;wAngle=0;
+      const wk=document.getElementById('meule');if(wk)wk.style.transform='rotate(0deg)';
+      setRotB();setAmfores();rendre();});
+    zone.querySelector('.bilan').appendChild(w);
+    if(score>=9){
+      Lyra.ding();
+      if(presse&&score===12){presse.classList.remove('storm');void presse.getBoundingClientRect();presse.classList.add('storm');setTimeout(function(){presse.classList.remove('storm');},2500);}
+      [0,200,400].forEach(function(dt){setTimeout(function(){Lyra.lampe();},dt);});
+    }else if(score>=6){Lyra.ding();}
+    else{Lyra.kurzschluss();grincer();}
+  }
+
+  rendre();
+}catch(e){console.error('[manteion]',e);}
+})();
+
+const LEXICON=[{"nl": "Hola", "tts": "Hola", "fr": "salut / bonjour passe-partout", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Buenos días", "tts": "Buenos días", "fr": "bonjour (le matin)", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Buenas tardes", "tts": "Buenas tardes", "fr": "bonjour / bonsoir (après ~14h)", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Buenas noches", "tts": "Buenas noches", "fr": "bonsoir / bonne nuit", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Adiós", "tts": "Adiós", "fr": "au revoir", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Hasta luego", "tts": "Hasta luego", "fr": "à plus tard", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Gracias", "tts": "Gracias", "fr": "merci", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Por favor", "tts": "Por favor", "fr": "s’il vous plaît", "cat": "Le nécessaire absolu", "piege": false}, {"nl": "Sí", "tts": "Sí", "fr": "oui", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": false}, {"nl": "No", "tts": "No", "fr": "non", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": false}, {"nl": "Vale", "tts": "Vale", "fr": "d’accord / OK (le mot le plus dit d’Espagne)", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": false}, {"nl": "Perdón", "tts": "Perdón", "fr": "pardon / excusez-moi", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": false}, {"nl": "No entiendo", "tts": "No entiendo", "fr": "je ne comprends pas", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": false}, {"nl": "Estoy constipada", "tts": "Estoy constipada", "fr": "je suis enrhumée — piège : PAS constipée !", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": true}, {"nl": "Embarazada", "tts": "Embarazada", "fr": "enceinte — piège : PAS embarrassée !", "cat": "Quatre mots qui décident de tout — et deux mines", "piege": true}, {"nl": "Una mesa para dos", "tts": "Una mesa para dos", "fr": "une table pour deux", "cat": "De la table à l’addition", "piege": false}, {"nl": "La carta, por favor", "tts": "La carta, por favor", "fr": "la carte, s’il vous plaît", "cat": "De la table à l’addition", "piege": false}, {"nl": "¿Qué me recomienda?", "tts": "¿Qué me recomienda?", "fr": "que me recommandez-vous ?", "cat": "De la table à l’addition", "piege": false}, {"nl": "Para beber…", "tts": "Para beber…", "fr": "comme boisson…", "cat": "De la table à l’addition", "piege": false}, {"nl": "¡Buenísimo!", "tts": "¡Buenísimo!", "fr": "délicieux !", "cat": "De la table à l’addition", "piege": false}, {"nl": "La cuenta, por favor", "tts": "La cuenta, por favor", "fr": "l’addition (elle ne vient jamais seule)", "cat": "De la table à l’addition", "piege": false}, {"nl": "¿Se puede pagar con tarjeta?", "tts": "¿Se puede pagar con tarjeta?", "fr": "on peut payer par carte ?", "cat": "De la table à l’addition", "piege": false}, {"nl": "El menú del día", "tts": "El menú del día", "fr": "le menu du jour (midi, ~12–15 €)", "cat": "De la table à l’addition", "piege": false}, {"nl": "La paella", "tts": "La paella", "fr": "LE plat — poulet & lapin, midi seulement", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "El socarrat", "tts": "El socarrat", "fr": "la croûte d’or du fond — le trésor", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "Horchata y fartons", "tts": "Horchata y fartons", "fr": "lait de souchet glacé + brioches à tremper", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "El esgarraet", "tts": "El esgarraet", "fr": "poivrons rôtis + morue — l’entrée reine", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "All i pebre", "tts": "All i pebre", "fr": "ragoût d’anguille de l’Albufera", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "Las clóchinas", "tts": "Las clóchinas", "fr": "petites moules locales — mai à août seulement", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "El esmorzaret", "tts": "El esmorzaret", "fr": "le casse-croûte sacré de 10h30", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "Agua de Valencia", "tts": "Agua de Valencia", "fr": "cocktail orange-cava-gin-vodka — traître", "cat": "Ce qui se mange ici, et nulle part ailleurs", "piege": false}, {"nl": "¿Dónde está…?", "tts": "¿Dónde está…?", "fr": "où est… ?", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "La parada", "tts": "La parada", "fr": "l’arrêt (bus, tram)", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "Un billete", "tts": "Un billete", "fr": "un billet", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "La estación", "tts": "La estación", "fr": "la gare / la station", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "A la derecha", "tts": "A la derecha", "fr": "à droite", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "A la izquierda", "tts": "A la izquierda", "fr": "à gauche", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "Todo recto", "tts": "Todo recto", "fr": "tout droit", "cat": "La rue, l’arrêt, le billet", "piege": false}, {"nl": "Uno, dos, tres", "tts": "Uno, dos, tres", "fr": "un, deux, trois", "cat": "Assez pour payer et prendre rendez-vous", "piege": false}, {"nl": "Cuatro, cinco, seis", "tts": "Cuatro, cinco, seis", "fr": "quatre, cinq, six", "cat": "Assez pour payer et prendre rendez-vous", "piege": false}, {"nl": "Siete, ocho, nueve", "tts": "Siete, ocho, nueve", "fr": "sept, huit, neuf", "cat": "Assez pour payer et prendre rendez-vous", "piege": false}, {"nl": "Diez, veinte, cien", "tts": "Diez, veinte, cien", "fr": "dix, vingt, cent", "cat": "Assez pour payer et prendre rendez-vous", "piege": false}, {"nl": "¿A qué hora?", "tts": "¿A qué hora?", "fr": "à quelle heure ?", "cat": "Assez pour payer et prendre rendez-vous", "piege": false}, {"nl": "Son las dos y media", "tts": "Son las dos y media", "fr": "il est deux heures et demie", "cat": "Assez pour payer et prendre rendez-vous", "piege": false}, {"nl": "¡Socorro!", "tts": "¡Socorro!", "fr": "au secours !", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}, {"nl": "La farmacia", "tts": "La farmacia", "fr": "la pharmacie (croix verte)", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}, {"nl": "El médico", "tts": "El médico", "fr": "le médecin", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}, {"nl": "El hospital", "tts": "El hospital", "fr": "l’hôpital", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}, {"nl": "La policía", "tts": "La policía", "fr": "la police", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}, {"nl": "Me duele aquí", "tts": "Me duele aquí", "fr": "j’ai mal ici", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}, {"nl": "¿Habla inglés?", "tts": "¿Habla inglés?", "fr": "parlez-vous anglais ?", "cat": "Les mots qu’on espère ne jamais dire", "piege": false}];
+
+(function(){try{
+  if(typeof LEXICON==='undefined'||!LEXICON.length)return;
+  var zone=document.getElementById('ex-zone');
+  var prog=document.getElementById('ex-prog');
+  if(!zone||!prog)return;
+  var muteBtn=document.getElementById('ex-mute');
+  var NB=14;
+  var idx=0,score=0,repondu=false,tirage=[];
+
+  function norm(s){
+    s=(s||'').toLowerCase();
+    s=s.replace(/[\u00e0\u00e2\u00e4]/g,'a').replace(/[\u00e9\u00e8\u00ea\u00eb]/g,'e')
+       .replace(/[\u00ef\u00ee]/g,'i').replace(/[\u00f4\u00f6]/g,'o').replace(/[\u00f9\u00fb\u00fc]/g,'u').replace(/\u00e7/g,'c');
+    s=s.replace(/[.!?;,'\u2019\u2018\"]/g,' ');
+    s=s.replace(/\s+/g,' ').trim();
+    return s;
+  }
+  // variantes acceptables d'un sens : coupe sur / « ou » « et » virgule ; retire parenthèses et glose après tiret cadratin
+  function variantes(fr){
+    var base=fr.replace(/\([^)]*\)/g,' ');
+    base=base.split(/\u2014/)[0];
+    var parts=base.split(/\s*\/\s*|\bou\b|\bet\b|,/);
+    var out=[];
+    parts.forEach(function(p){var n=norm(p);if(n&&n.length>1)out.push(n);});
+    return out.length?out:[norm(base)];
+  }
+
+  function melange(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function bati(){
+    var pool=melange(LEXICON.slice());
+    var choisis=pool.slice(0,Math.min(NB,pool.length));
+    tirage=choisis.map(function(item,i){
+      var court=!item.piege && variantes(item.fr).some(function(v){return v.split(' ').length<=2;});
+      var mode=(i%2===1 && court)?'court':'qcm';
+      return {item:item,mode:mode};
+    });
+  }
+
+  // audio : réutilise Lyra si présent, silencieux sinon
+  function bip(ok){try{if(window.Lyra){ok?Lyra.lampe():Lyra.kurzschluss();}}catch(e){}}
+  function clic(){try{if(window.Lyra)Lyra.rotor();}catch(e){}}
+  function sceau(){try{if(window.Lyra)Lyra.frappe();}catch(e){}}
+
+  function poserCachet(n){
+    var c=document.getElementById('cachet-'+n);
+    if(c)c.classList.add('appose');
+  }
+
+  function rendre(){
+    repondu=false;
+    var t=tirage[idx],it=t.item;
+    prog.textContent='PREGUNTA '+(idx+1)+'/'+tirage.length;
+    zone.innerHTML='';
+    var tag=document.createElement('p');tag.className='ex-mode';
+    tag.textContent=(t.mode==='court')?'Escribe el sentido':'Elige el sentido';
+    var q=document.createElement('p');q.className='ex-mot';
+    q.innerHTML='<span lang="el">'+it.nl+'</span>';
+    var say=document.createElement('button');say.type='button';say.className='ex-dire';
+    say.setAttribute('data-de',it.tts||it.nl);say.setAttribute('aria-label','Escucha');
+    say.innerHTML='\u25c4';
+    q.appendChild(say);
+    zone.append(tag,q);
+
+    if(t.mode==='qcm'){
+      var opts=[it.fr];
+      var autres=melange(LEXICON.filter(function(x){return x.fr!==it.fr;}));
+      for(var k=0;k<autres.length&&opts.length<4;k++){opts.push(autres[k].fr);}
+      opts=melange(opts);
+      var box=document.createElement('div');box.className='ex-choix';
+      opts.forEach(function(txt){
+        var b=document.createElement('button');b.type='button';b.className='choix';
+        b.textContent=txt;
+        b.addEventListener('click',function(){jugerQcm(txt===it.fr,it.fr,box,b);});
+        box.appendChild(b);
+      });
+      zone.appendChild(box);
+    }else{
+      var wrap=document.createElement('div');wrap.className='ex-court';
+      var inp=document.createElement('input');inp.type='text';inp.className='ex-input';
+      inp.setAttribute('autocomplete','off');inp.setAttribute('autocapitalize','off');
+      inp.setAttribute('spellcheck','false');inp.setAttribute('placeholder','tape le sens en fran\u00e7ais\u2026');
+      inp.setAttribute('lang','fr');
+      var val=document.createElement('button');val.type='button';val.className='ex-valider';val.textContent='COMPROBAR';
+      function go(){jugerCourt(inp.value,it,wrap,inp);}
+      val.addEventListener('click',go);
+      inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+      wrap.append(inp,val);zone.appendChild(wrap);
+      setTimeout(function(){inp.focus();},60);
+    }
+    parler(say);
+  }
+
+  function verdictNoeud(ok){
+    var v=document.createElement('span');
+    v.className='grand-stempel anime '+(ok?'ok':'non');
+    v.textContent=ok?'\u00a1FET!':'QUEMADO';
+    return v;
+  }
+  function suiteBouton(){
+    var w=document.createElement('button');w.type='button';w.className='weiter';
+    w.textContent=(idx<tirage.length-1)?'SIGUIENTE \u2192':'VEREDICTO \u2192';
+    w.addEventListener('click',function(){clic();idx++;(idx<tirage.length)?rendre():bilan();});
+    return w;
+  }
+
+  function jugerQcm(ok,bonne,box,btn){
+    if(repondu)return;repondu=true;
+    box.querySelectorAll('button').forEach(function(b){
+      b.disabled=true;
+      if(b.textContent===bonne)b.dataset.etat='bonne';
+      else if(b===btn&&!ok)b.dataset.etat='mauvaise';
+    });
+    finir(ok,bonne);
+  }
+  function jugerCourt(saisie,it,wrap,inp){
+    if(repondu)return;repondu=true;
+    var v=variantes(it.fr),n=norm(saisie);
+    var ok=v.some(function(x){return x===n||(n.length>2&&(x.indexOf(n)===0||n.indexOf(x)===0));});
+    inp.disabled=true;inp.classList.add(ok?'bon':'faux');
+    wrap.querySelector('.ex-valider').disabled=true;
+    finir(ok,it.fr);
+  }
+  function finir(ok,bonne){
+    if(ok){score++;bip(true);sceau();poserCachet(score-1);}
+    else{bip(false);}
+    var wrapV=document.createElement('div');wrapV.className='ex-verdict';
+    wrapV.appendChild(verdictNoeud(ok));
+    if(!ok){
+      var r=document.createElement('p');r.className='quiz-bonne';
+      r.innerHTML='\u2192 '+bonne;wrapV.appendChild(r);
+    }
+    zone.appendChild(wrapV);
+    zone.appendChild(suiteBouton());
+  }
+
+  function bilan(){
+    prog.textContent='EXAMEN TERMINADO';
+    var classe,tampon,texte;
+    var p=Math.round(score/tirage.length*100);
+    if(score===tirage.length){classe='ok';tampon='MATR\u00cdCULA DE HONOR';
+      texte='Couronne compl\u00e8te, pas une feuille manquante. Jeanne, tu portes le laurier \u2014 tu parles le pays.';}
+    else if(p>=75){classe='ok';tampon='NOTABLE';
+      texte='Laurier accord\u00e9. Tu salues, tu remercies, tu d\u00e9joues le pi\u00e8ge du \u00ab ne \u00bb \u2014 \u00f3la kal\u00e1.';}
+    else if(p>=50){classe='ok';tampon='BIEN';
+      texte='Admise. Repasse le Gloss\u00e1ri une fois et les mots manquants se logeront vite.';}
+    else{classe='non';tampon='SUSPENSO';
+      texte='La couronne reste clairsem\u00e9e. Relis le Gloss\u00e1ri \u2014 \u00e9coute chaque \u25c4, puis reviens tresser tes feuilles.';}
+    zone.innerHTML='<div class="bilan">'
+      +'<span class="score">'+score+'/'+tirage.length+'</span>'
+      +'<span class="grand-stempel '+classe+'" style="position:static;animation:claquer 170ms steps(4,end) both">'+tampon+'</span>'
+      +'<p class="verdict-texte">'+texte+'</p></div>';
+    var again=document.createElement('button');again.type='button';again.className='weiter';
+    again.textContent='OTRA VEZ (recommencer)';
+    again.addEventListener('click',function(){clic();reset();});
+    zone.querySelector('.bilan').appendChild(again);
+    if(p>=50){try{if(window.Lyra)Lyra.ding();}catch(e){}}
+    else{bip(false);}
+  }
+
+  function reset(){
+    idx=0;score=0;
+    for(var i=0;i<NB;i++){var c=document.getElementById('cachet-'+i);if(c)c.classList.remove('appose');}
+    bati();rendre();
+  }
+
+  function parler(btn){
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      try{
+        if(!('speechSynthesis'in window))return;
+        var u=new SpeechSynthesisUtterance(btn.getAttribute('data-de'));
+        u.lang='el-GR';u.rate=0.86;
+        speechSynthesis.cancel();speechSynthesis.speak(u);
+        btn.classList.add('parle');setTimeout(function(){btn.classList.remove('parle');},700);
+      }catch(e){}
+    });
+  }
+  if(muteBtn){muteBtn.addEventListener('click',function(){
+    try{var m=window.Lyra&&Lyra.toggle?Lyra.toggle():false;
+      muteBtn.textContent='SFX : '+(m?'NO':'S\u00cd');muteBtn.setAttribute('aria-pressed',m?'true':'false');}catch(e){}
+  });}
+
+  reset();
+}catch(e){console.error('[glossikos-agon]',e);}
+})();
+
+</script>
+</body>
+</html>
